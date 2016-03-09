@@ -1,23 +1,42 @@
 {{set . "title" "Home"}}
 {{template "header.html" .}}
 
-<header class="hero-unit" style="background-color:#A9F16C">
-  <div class="container">
-    <div class="row">
-      <div class="hero-text">
-        <h1>It works!</h1>
-        <p></p>
-      </div>
-    </div>
-  </div>
-</header>
-
-<div class="container">
-  <div class="row">
-    <div class="span6">
-      {{template "flash.html" .}}
-    </div>
-  </div>
+<div id="container">
 </div>
+<h1>Basic Example with JSX</h1>
+    <div id="container">
+      <p>
+        To install React, follow the instructions on
+        <a href="https://github.com/facebook/react/">GitHub</a>.
+      </p>
+      <p>
+        If you can see this, React is not working right.
+        If you checked out the source from GitHub make sure to run <code>grunt</code>.
+      </p>
+    </div>
+    <h4>Example Details</h4>
+    <p>This is written with JSX and transformed in the browser.</p>
+    <p>
+      Learn more about React at
+      <a href="https://facebook.github.io/react" target="_blank">facebook.github.io/react</a>.
+    </p>
+    <script type="text/babel">
+      var ExampleApplication = React.createClass({
+        render: function() {
+          var elapsed = Math.round(this.props.elapsed  / 100);
+          var seconds = elapsed / 10 + (elapsed % 10 ? '' : '.0' );
+          var message =
+            'React has been successfully running for ' + seconds + ' seconds.';
 
+          return <p>{message}</p>;
+        }
+      });
+      var start = new Date().getTime();
+      setInterval(function() {
+        ReactDOM.render(
+          <ExampleApplication elapsed={new Date().getTime() - start} />,
+          document.getElementById('container')
+        );
+      }, 50);
+    </script>
 {{template "footer.html" .}}
