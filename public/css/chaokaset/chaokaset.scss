@@ -1,15 +1,32 @@
-#chaokaset-nav{
-  background-color: white;
-  height: 75px;
-  font-weight: 500;
-  -webkit-font-smoothing: antialiased;
-  font-size: 16px;
-  .nav-content{
-    padding: 30px 15px;
+//--  Navigation --
+.nav-brand-chaokaset{
+  img{
+    height: 0px;
   }
-  .nav-content-word{
-    padding-top: 30px;
-    padding-bottom: 30px;
-    color: #999;
-  }
+}
+@media (min-width: 768px){
+    .nav-brand-chaokaset{
+      img{
+        height: 48px;
+      }
+    }
+    .chaokaset-nav{
+      background-color: white;
+      font-weight: 500;
+      -webkit-font-smoothing: antialiased;
+      font-size: 16px;
+      padding: 0px 45px;
+      .nav-content{
+        >li>a {
+          padding-top: 35px; //15
+          padding-bottom: 20px; //15
+        }
+      }
+      .nav-content-right{
+        >li>a {
+          padding-top: 35px; //15
+          padding-bottom: 20px; //15
+        }
+      }
+    }
 }
