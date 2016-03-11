@@ -178,3 +178,31 @@ h1,h2,h3{
       border: none;
     }
 }
+.chaokaset-slide-container{
+  width: 100%;
+  height: 100%;
+  padding: 50px 40px;
+  .slide-container-left{
+    width: 70%;
+    height: 100%;
+    float: left;
+    h1{
+      color: #444444;
+      float: left;
+    }
+  }
+  .slide-container-right{
+    width: 30%;
+    height: 100%;
+    float: left;
+    h1{
+      color: #444444;
+      float: left;
+    }
+  }
+}
+
+//----- Text -------
+.text-underline{
+  text-decoration: underline;
+}
