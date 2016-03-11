@@ -33,6 +33,9 @@ h1,h2,h3{
       -webkit-font-smoothing: antialiased;
       font-size: 18px;
       padding: 0px 45px;
+      -webkit-box-shadow: 0 4px 6px -6px #222;
+      -moz-box-shadow: 0 4px 6px -6px #222;
+      box-shadow: 0 4px 6px -6px #222;
       .nav-content{
         >li>a {
           padding-top: 29px; //15
@@ -98,7 +101,7 @@ h1,h2,h3{
           size: 200%;
       }
       transition: background 150ms ease-in-out, color 150ms ease-in-out;
-
+      -webkit-transition: 150ms ease-in-out, color 150ms ease-in-out;
       &:hover {
         color: #fff;
         background-position: 0 100%;
@@ -114,7 +117,7 @@ h1,h2,h3{
         size: 400%;
       }
       transition: background 300ms ease-in-out;
-
+      -webkit-transition: 300ms ease-in-out;
       &:hover {
         background-position: 0;
       }
@@ -141,8 +144,8 @@ h1,h2,h3{
       width: 50%;
       outline: none;
       border-radius: 10px;
-      border: 5px solid;
-      border-color: white;
+      border: 5px;
+      border-color: transparent;
       height: 100%;
       &:hover{
         outline: none;

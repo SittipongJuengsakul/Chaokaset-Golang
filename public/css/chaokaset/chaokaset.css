@@ -20,7 +20,10 @@ h1, h2, h3 {
     font-family: 'Kanit', sans-serif;
     -webkit-font-smoothing: antialiased;
     font-size: 18px;
-    padding: 0px 45px; }
+    padding: 0px 45px;
+    -webkit-box-shadow: 0 4px 6px -6px #222;
+    -moz-box-shadow: 0 4px 6px -6px #222;
+    box-shadow: 0 4px 6px -6px #222; }
     .chaokaset-nav .nav-content > li > a {
       padding-top: 29px;
       padding-bottom: 23px;
@@ -67,7 +70,8 @@ h1, h2, h3 {
     background-image: linear-gradient(to bottom, transparent 50%, #05B2D2 50%);
     background-position: 0 0;
     background-size: 200%;
-    transition: background 150ms ease-in-out, color 150ms ease-in-out; }
+    transition: background 150ms ease-in-out, color 150ms ease-in-out;
+    -webkit-transition: 150ms ease-in-out, color 150ms ease-in-out; }
     .btn-style-one:hover {
       color: #fff;
       background-position: 0 100%; }
@@ -78,7 +82,8 @@ h1, h2, h3 {
     background-image: linear-gradient(45deg, #2ecc71 50%, transparent 50%);
     background-position: 100%;
     background-size: 400%;
-    transition: background 300ms ease-in-out; }
+    transition: background 300ms ease-in-out;
+    -webkit-transition: 300ms ease-in-out; }
     .btn-style-two:hover {
       background-position: 0; } }
 .chaokaset-green-video {
@@ -99,8 +104,8 @@ h1, h2, h3 {
     width: 50%;
     outline: none;
     border-radius: 10px;
-    border: 5px solid;
-    border-color: white;
+    border: 5px;
+    border-color: transparent;
     height: 100%; }
     .chaokaset-main-search .search-plant:hover {
       outline: none;
