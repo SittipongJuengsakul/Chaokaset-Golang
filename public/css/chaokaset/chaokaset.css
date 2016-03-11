@@ -23,4 +23,49 @@
   height: 100%;
   background-color: green; }
 
+.chaokaset-main-search {
+  margin-top: 20px;
+  width: 100%;
+  height: 50px; }
+  .chaokaset-main-search .search-plant {
+    padding-left: 15px;
+    font-size: 20px;
+    font-weight: 500;
+    border-color: #FFFFFF;
+    background-color: white;
+    width: 50%;
+    height: 100%; }
+
+.chaokaset-main-button-search {
+  margin-top: 10px;
+  width: 100%;
+  height: 50px; }
+  .chaokaset-main-button-search .button-search {
+    width: 200px;
+    height: 50px; }
+
+.btn {
+  box-sizing: border-box;
+  appearance: none;
+  background-color: transparent;
+  border: 2px solid #e74c3c;
+  border-radius: 0.6em;
+  color: #e74c3c;
+  cursor: pointer;
+  display: flex;
+  align-self: center;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1;
+  margin: 20px;
+  padding: 1.2em 2.8em;
+  text-decoration: none;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700; }
+  .btn:hover, .btn:focus {
+    color: #fff;
+    outline: 0; }
+
 /*# sourceMappingURL=chaokaset.css.map */
