@@ -29,15 +29,17 @@ h1, h2, h3 {
       padding-bottom: 23px;
       font-weight: 400; }
       .chaokaset-nav .nav-content > li > a:hover, .chaokaset-nav .nav-content > li > a:focus {
-        color: #2ecc71;
-        outline: 0; }
+        color: #2ecc71 !important;
+        outline: 0;
+        background-color: white !important; }
     .chaokaset-nav .nav-content-right > li > a {
       padding-top: 29px;
       padding-bottom: 23px;
       font-weight: 400; }
       .chaokaset-nav .nav-content-right > li > a:hover, .chaokaset-nav .nav-content-right > li > a:focus {
-        color: #2ecc71;
-        outline: 0; }
+        color: #2ecc71 !important;
+        outline: 0;
+        background-color: white !important; }
 
   .chaokaset-btn-border {
     margin-top: 13px;
