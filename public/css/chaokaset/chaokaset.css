@@ -1,5 +1,59 @@
-.nav-brand-chaokaset img {
-  height: 0px; }
+* {
+  font-family: 'Kanit', sans-serif; }
+
+h1, h2, h3 {
+  font-family: 'Kanit', sans-serif; }
+
+.nav-brand-chaokaset {
+  padding: 12px 15px; }
+  .nav-brand-chaokaset img {
+    height: 0px; }
+
+.chaokaset-btn-border {
+  margin-top: 13px;
+  box-sizing: border-box;
+  appearance: none;
+  background-color: transparent;
+  border: 2px solid #e74c3c;
+  border-radius: 0.6em;
+  color: #e74c3c;
+  cursor: pointer;
+  display: flex;
+  align-self: center;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1;
+  padding: 15px 25px;
+  text-decoration: none;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: 'Kanit', sans-serif;
+  font-weight: 700; }
+  .chaokaset-btn-border:hover, .chaokaset-btn-border:focus {
+    color: #fff;
+    outline: 0; }
+
+.btn-style-one {
+  border-radius: 3em;
+  border-color: #2ecc71;
+  color: #2ecc71;
+  background-image: linear-gradient(to bottom, transparent 50%, #2ecc71 50%);
+  background-position: 0 0;
+  background-size: 200%;
+  transition: background 150ms ease-in-out, color 150ms ease-in-out; }
+  .btn-style-one:hover {
+    color: #fff;
+    background-position: 0 100%; }
+
+.btn-style-two {
+  border-color: #2ecc71;
+  color: #2ecc71;
+  background-image: linear-gradient(45deg, #2ecc71 50%, transparent 50%);
+  background-position: 100%;
+  background-size: 400%;
+  transition: background 300ms ease-in-out; }
+  .btn-style-two:hover {
+    background-position: 0; }
 
 @media (min-width: 768px) {
   .nav-brand-chaokaset img {
@@ -9,15 +63,18 @@
     background-color: white;
     border-color: #FFFFFF;
     font-weight: 500;
+    font-family: 'Kanit', sans-serif;
     -webkit-font-smoothing: antialiased;
-    font-size: 16px;
+    font-size: 18px;
     padding: 0px 45px; }
     .chaokaset-nav .nav-content > li > a {
-      padding-top: 35px;
-      padding-bottom: 20px; }
+      padding-top: 29px;
+      padding-bottom: 20px;
+      font-weight: 400; }
     .chaokaset-nav .nav-content-right > li > a {
-      padding-top: 35px;
-      padding-bottom: 20px; } }
+      padding-top: 29px;
+      padding-bottom: 20px;
+      font-weight: 400; } }
 .chaokaset-green-video {
   width: 100%;
   height: 100%;
@@ -43,29 +100,5 @@
   .chaokaset-main-button-search .button-search {
     width: 200px;
     height: 50px; }
-
-.btn {
-  box-sizing: border-box;
-  appearance: none;
-  background-color: transparent;
-  border: 2px solid #e74c3c;
-  border-radius: 0.6em;
-  color: #e74c3c;
-  cursor: pointer;
-  display: flex;
-  align-self: center;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1;
-  margin: 20px;
-  padding: 1.2em 2.8em;
-  text-decoration: none;
-  text-align: center;
-  text-transform: uppercase;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 700; }
-  .btn:hover, .btn:focus {
-    color: #fff;
-    outline: 0; }
 
 /*# sourceMappingURL=chaokaset.css.map */

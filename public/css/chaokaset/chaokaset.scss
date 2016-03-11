@@ -5,13 +5,22 @@ $blue: #3498db;
 $yellow: #f1c40f;
 $purple: #8e44ad;
 $turquoise: #1abc9c;
+$font_def: 'font-family: \'Kanit\', sans-serif';
+* {
+  font-family: 'Kanit', sans-serif;
+}
+h1,h2,h3{
+  font-family: 'Kanit', sans-serif;
+}
 //--  Navigation --
 .nav-brand-chaokaset{
+  padding: 12px 15px;
   img{
     height: 0px;
   }
 }
 .chaokaset-btn-border {
+  margin-top: 13px;
   box-sizing: border-box;
   appearance: none;
   background-color: transparent;
@@ -21,14 +30,14 @@ $turquoise: #1abc9c;
   cursor: pointer;
   display: flex;
   align-self: center;
-  font-size: 1rem;
+  font-size: 18px;
   font-weight: 400;
   line-height: 1;
-  margin: 20px;
-  padding: 1.2em 2.8em;
+  padding: 15px 25px;
   text-decoration: none;
   text-align: center;
   text-transform: uppercase;
+  font-family: 'Kanit', sans-serif;
   font-weight: 700;
 
   &:hover,
@@ -37,6 +46,39 @@ $turquoise: #1abc9c;
     outline: 0;
   }
 }
+//style
+.btn-style-one {
+  border-radius: 3em;
+  border-color: $green;
+  color: $green;
+  background: {
+      image: linear-gradient(to bottom, transparent 50%, $green 50%);
+      position: 0 0;
+      size: 200%;
+  }
+  transition: background 150ms ease-in-out, color 150ms ease-in-out;
+
+  &:hover {
+    color: #fff;
+    background-position: 0 100%;
+  }
+}
+.btn-style-two {
+  // background: $yellow;
+  border-color: $green;
+  color: $green;
+  background: {
+    image: linear-gradient(45deg,$green 50%, transparent 50%);
+    position: 100%;
+    size: 400%;
+  }
+  transition: background 300ms ease-in-out;
+
+  &:hover {
+    background-position: 0;
+  }
+}
+
 @media (min-width: 768px){
     .nav-brand-chaokaset{
       img{
@@ -47,19 +89,22 @@ $turquoise: #1abc9c;
       background-color: white;
       border-color: #FFFFFF;
       font-weight: 500;
+      font-family: 'Kanit', sans-serif;
       -webkit-font-smoothing: antialiased;
-      font-size: 16px;
+      font-size: 18px;
       padding: 0px 45px;
       .nav-content{
         >li>a {
-          padding-top: 35px; //15
+          padding-top: 29px; //15
           padding-bottom: 20px; //15
+          font-weight: 400;
         }
       }
       .nav-content-right{
         >li>a {
-          padding-top: 35px; //15
+          padding-top: 29px; //15
           padding-bottom: 20px; //15
+          font-weight: 400;
         }
       }
     }
