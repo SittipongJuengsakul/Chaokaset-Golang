@@ -5,6 +5,7 @@ $blue: #05B2D2;
 $yellow: #f1c40f;
 $purple: #8e44ad;
 $turquoise: #1abc9c;
+$gray: #bbbbbb;
 * {
   font-family: 'Kanit', sans-serif;
 }
@@ -176,6 +177,12 @@ h1,h2,h3{
       font-size: 18px;
       font-weight: 500;
       border: none;
+      &:hover{
+        background-color: white;
+        color: $green;
+        border: 4px solid;
+        border-color: $green;
+      }
     }
 }
 .chaokaset-slide-container{

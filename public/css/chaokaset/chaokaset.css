@@ -133,6 +133,11 @@ h1, h2, h3 {
     font-size: 18px;
     font-weight: 500;
     border: none; }
+    .chaokaset-main-button-search .button-search:hover {
+      background-color: white;
+      color: #2ecc71;
+      border: 4px solid;
+      border-color: #2ecc71; }
 
 .chaokaset-slide-container {
   width: 100%;
