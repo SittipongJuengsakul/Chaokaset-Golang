@@ -87,82 +87,83 @@ h1, h2, h3 {
     transition: background 300ms ease-in-out;
     -webkit-transition: 300ms ease-in-out; }
     .btn-style-two:hover {
-      background-position: 0; } }
-.chaokaset-green-video {
-  width: 100%;
-  height: 100%;
-  background-color: green; }
+      background-position: 0; }
 
-.chaokaset-main-search {
-  margin-top: 20px;
-  width: 100%;
-  height: 60px; }
-  .chaokaset-main-search .search-plant {
-    padding-left: 15px;
-    font-size: 23px;
-    font-weight: 500;
-    border-radius: 10px;
-    color: #676767;
-    background-color: white;
-    width: 50%;
-    outline: none;
-    border-radius: 10px;
-    border: 5px;
-    border-color: transparent;
-    height: 100%; }
-    .chaokaset-main-search .search-plant:hover {
-      outline: none;
-      border-radius: 10px;
-      border: 5px solid;
-      border-color: grey; }
-    .chaokaset-main-search .search-plant:focus {
-      outline: none;
-      border-radius: 10px;
-      border: 5px solid;
-      border-color: #569FFF; }
+  .chaokaset-green-video {
+    width: 100%;
+    height: 100%;
+    background-color: green; }
 
-.chaokaset-main-button-search {
-  margin-top: 20px;
-  width: 100%;
-  height: 50px; }
-  .chaokaset-main-button-search .button-search {
-    width: 200px;
-    height: 50px;
-    border-radius: 10px;
-    background-color: white;
-    font-size: 18px;
-    font-weight: 500;
-    border: none; }
-    .chaokaset-main-button-search .button-search:hover {
+  .chaokaset-main-search {
+    margin-top: 20px;
+    width: 100%;
+    height: 60px; }
+    .chaokaset-main-search .search-plant {
+      padding-left: 15px;
+      font-size: 23px;
+      font-weight: 500;
+      border-radius: 10px;
+      color: #676767;
       background-color: white;
-      color: #2ecc71;
+      width: 50%;
       outline: none;
-      border: 4px solid;
-      border-color: #2ecc71; }
+      border-radius: 10px;
+      border: 5px;
+      border-color: transparent;
+      height: 100%; }
+      .chaokaset-main-search .search-plant:hover {
+        outline: none;
+        border-radius: 10px;
+        border: 5px solid;
+        border-color: grey; }
+      .chaokaset-main-search .search-plant:focus {
+        outline: none;
+        border-radius: 10px;
+        border: 5px solid;
+        border-color: #569FFF; }
 
-.chaokaset-slide-container {
-  width: 100%;
-  height: 100%;
-  padding: 50px 90px; }
-  .chaokaset-slide-container .slide-container-left {
-    width: 80%;
-    height: 100%;
-    float: left; }
-    .chaokaset-slide-container .slide-container-left h1 {
-      color: #444444;
-      float: left; }
-  .chaokaset-slide-container .slide-container-right {
-    width: 20%;
-    height: 100%;
-    float: left;
-    -webkit-box-shadow: 0px -4px 7px #e6e6e6;
-    -moz-box-shadow: 0px -4px 7px #e6e6e6;
-    box-shadow: 0px -4px 7px #e6e6e6; }
-    .chaokaset-slide-container .slide-container-right h1 {
-      color: #444444;
-      float: left; }
+  .chaokaset-main-button-search {
+    margin-top: 20px;
+    width: 100%;
+    height: 50px; }
+    .chaokaset-main-button-search .button-search {
+      width: 200px;
+      height: 50px;
+      border-radius: 10px;
+      background-color: white;
+      font-size: 18px;
+      font-weight: 500; }
+      .chaokaset-main-button-search .button-search:hover {
+        background-color: white;
+        color: #2ecc71;
+        outline: none;
+        border: 4px solid;
+        border-color: #2ecc71; }
 
-.text-underline {
-  text-decoration: underline; }
+  .chaokaset-slide-container {
+    width: 100%;
+    height: 100%;
+    padding: 50px 90px; }
+    .chaokaset-slide-container .slide-container-left {
+      width: 80%;
+      height: 100%;
+      clear: both; }
+      .chaokaset-slide-container .slide-container-left .preview-header h1 {
+        color: #444444;
+        float: left; }
+      .chaokaset-slide-container .slide-container-left .preview-body .preview-body-left img {
+        float: left;
+        margin-left: 30px;
+        width: 500px; }
+    .chaokaset-slide-container .slide-container-right {
+      width: 20%;
+      height: 100%;
+      float: right; }
+      .chaokaset-slide-container .slide-container-right h1 {
+        color: #444444;
+        float: left; }
+
+  .text-underline {
+    text-decoration: underline; } }
 
 /*# sourceMappingURL=chaokaset.css.map */

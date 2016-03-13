@@ -125,95 +125,107 @@ h1,h2,h3{
         background-position: 0;
       }
     }
-}
-
-//------ Main -----
-.chaokaset-green-video{
-  width: 100%;
-  height: 100%;
-  background-color: green;
-}
-
-.chaokaset-main-search{
-  margin-top: 20px;
-  width: 100%;
-  height: 60px;
-    .search-plant{
-      padding-left: 15px;
-      font-size: 23px;
-      font-weight: 500;
-      border-radius: 10px;
-      color: #676767;
-      background-color: white;
-      width: 50%;
-      outline: none;
-      border-radius: 10px;
-      border: 5px;
-      border-color: transparent;
+    //------ Main -----
+    .chaokaset-green-video{
+      width: 100%;
       height: 100%;
-      &:hover{
-        outline: none;
-        border-radius: 10px;
-        border: 5px solid;
-        border-color: grey;
-      }
-      &:focus {
-        outline: none;
-        border-radius: 10px;
-        border: 5px solid;
-        border-color: #569FFF;
-      }
+      background-color: green;
     }
-}
-.chaokaset-main-button-search{
-  margin-top: 20px;
-  width: 100%;
-  height: 50px;
-    .button-search{
-      width: 200px;
-      height: 50px;
-      border-radius: 10px;
-      background-color: white;
-      font-size: 18px;
-      font-weight: 500;
-      border: none;
-      &:hover{
-        background-color: white;
-        color: $green;
-        outline: none;
-        border: 4px solid;
-        border-color: $green;
-      }
-    }
-}
-.chaokaset-slide-container{
-  width: 100%;
-  height: 100%;
-  padding: 50px 90px;
-  .slide-container-left{
-    width: 80%;
-    height: 100%;
-    float: left;
-    h1{
-      color: #444444;
-      float: left;
-    }
-  }
-  .slide-container-right{
-    width: 20%;
-    height: 100%;
-    float: left;
-    -webkit-box-shadow: 0px -4px 7px #e6e6e6;
-    -moz-box-shadow: 0px -4px 7px #e6e6e6;
-    box-shadow: 0px -4px 7px #e6e6e6;
-    h1{
-      color: #444444;
-      float: left;
-    }
-  }
-}
 
-//----- Text -------
-.text-underline{
-  text-decoration: underline;
+    .chaokaset-main-search{
+      margin-top: 20px;
+      width: 100%;
+      height: 60px;
+        .search-plant{
+          padding-left: 15px;
+          font-size: 23px;
+          font-weight: 500;
+          border-radius: 10px;
+          color: #676767;
+          background-color: white;
+          width: 50%;
+          outline: none;
+          border-radius: 10px;
+          border: 5px;
+          border-color: transparent;
+          height: 100%;
+          &:hover{
+            outline: none;
+            border-radius: 10px;
+            border: 5px solid;
+            border-color: grey;
+          }
+          &:focus {
+            outline: none;
+            border-radius: 10px;
+            border: 5px solid;
+            border-color: #569FFF;
+          }
+        }
+    }
+    .chaokaset-main-button-search{
+      margin-top: 20px;
+      width: 100%;
+      height: 50px;
+        .button-search{
+          width: 200px;
+          height: 50px;
+          border-radius: 10px;
+          background-color: white;
+          font-size: 18px;
+          font-weight: 500;
+          &:hover{
+            background-color: white;
+            color: $green;
+            outline: none;
+            border: 4px solid;
+            border-color: $green;
+          }
+        }
+    }
+    .chaokaset-slide-container{
+      width: 100%;
+      height: 100%;
+      padding: 50px 90px;
+      .slide-container-left{
+        width: 80%;
+        height: 100%;
+        clear: both;
+        .preview-header{
+          h1{
+            color: #444444;
+            float: left;
+          }
+        }
+        .preview-body{
+          .preview-body-left{
+            img{
+              float: left;
+              margin-left: 30px;
+              width: 500px;
+            }
+          }
+          .preview-body-right{
+            h1.header{
+
+            }
+
+          }
+        }
+      }
+      .slide-container-right{
+        width: 20%;
+        height: 100%;
+        float: right;
+        h1{
+          color: #444444;
+          float: left;
+        }
+      }
+    }
+
+    //----- Text -------
+    .text-underline{
+      text-decoration: underline;
+    }
 }
