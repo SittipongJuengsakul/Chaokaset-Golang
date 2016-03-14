@@ -159,69 +159,131 @@ h1, h2, h3 {
       border-color: #2ecc71; }
 
 .chaokaset-slide-container {
-  width: 100%;
+  background-color: #fff;
   height: 100%;
-  padding: 50px 90px; }
-  .chaokaset-slide-container .slide-container-left {
-    width: 80%;
+  padding-top: 60px;
+  padding-left: 60px;
+  padding-right: 60px;
+  padding-bottom: 20px; }
+  .chaokaset-slide-container .preview-showname-rice h1 {
+    font-weight: 500;
+    font-size: 4em;
+    color: black;
+    text-align: left; }
+  .chaokaset-slide-container .preview-image {
+    padding: 40px;
+    height: 85%;
+    background-color: #fff; }
+    .chaokaset-slide-container .preview-image img {
+      width: 100%; }
+  .chaokaset-slide-container .preview-content {
     height: 100%;
-    clear: both; }
-    .chaokaset-slide-container .slide-container-left .preview-header h1 {
-      color: #444444;
-      float: left; }
-    .chaokaset-slide-container .slide-container-left .preview-body .preview-body-left img {
-      float: left;
-      margin-left: 30px;
-      width: 500px; }
-  .chaokaset-slide-container .slide-container-right {
-    width: 20%;
-    height: 100%;
-    float: right; }
-    .chaokaset-slide-container .slide-container-right h1 {
-      color: #444444;
-      float: left; }
+    background-color: #fff; }
+    .chaokaset-slide-container .preview-content .preview-content-contain {
+      padding: 15px 0px;
+      height: 40%;
+      overflow-y: hidden; }
+      .chaokaset-slide-container .preview-content .preview-content-contain h1 {
+        width: 100%;
+        color: black;
+        font-size: 2.5em;
+        font-weight: 500;
+        text-align: left; }
+      .chaokaset-slide-container .preview-content .preview-content-contain p {
+        color: black;
+        font-size: 1.5em;
+        font-weight: 00;
+        text-align: left; }
+  .chaokaset-slide-container .preview-button {
+    height: 14%;
+    background-color: black; }
 
-@media (max-width: 990px) {
-  .layer {
-    top: 35% !important; }
-
-  .chaokaset-main-search .search-plant {
-    margin-left: 0%;
-    width: 93%;
-    height: 70px;
-    padding-left: 20px;
-    font-size: 3em; } }
-@media (min-width: 990px) {
-  .chaokaset-main-search {
+/*@media (max-width: 990px){
+  .layer{
+    top: 35%!important;
+  }
+  .chaokaset-main-search{
+      .search-plant{
+        margin-left: 0%;
+        width: 93%;
+        height: 70px;
+        padding-left: 20px;
+        font-size: 3em;
+      }
+  }
+  .chaokaset-main-button-search{
     margin-top: 20px;
-    height: 60px; }
-    .chaokaset-main-search .search-plant {
-      padding-left: 15px;
-      font-size: 23px;
-      width: 50%;
-      height: 100%; }
-
-  .chaokaset-slide-container {
     width: 100%;
-    height: 100%;
-    padding: 50px 90px; }
-    .chaokaset-slide-container .slide-container-left {
-      width: 80%;
+    height: 50px;
+      .button-search{
+        font-size: 1.5em;
+      }
+  }
+  .chaokaset-slide-container{
+    padding: 30px 0px;
+    .slide-container-left{
+      width: 100%;
       height: 100%;
-      clear: both; }
-      .chaokaset-slide-container .slide-container-left .preview-header h1 {
-        color: #444444;
-        float: left; }
-      .chaokaset-slide-container .slide-container-left .preview-body .preview-body-left img {
-        float: left;
-        margin-left: 30px;
-        width: 500px; }
-    .chaokaset-slide-container .slide-container-right {
+      clear: both;
+      .preview-header{
+        width: 100%;
+        h1{
+          width: 100%;
+          text-align: center;
+          font-size: 3em;
+        }
+      }
+      .preview-body{
+        .preview-body-image{
+          img{
+            width: 80%;
+            margin-left: 10%;
+          }
+        }
+        .preview-body-content{
+          h1.header{
+
+          }
+
+        }
+      }
+    }
+    .slide-container-right{
       width: 20%;
       height: 100%;
-      float: right; }
-      .chaokaset-slide-container .slide-container-right h1 {
+      float: right;
+      h1{
         color: #444444;
-        float: left; } }
+        float: left;
+      }
+    }
+  }
+}
+@media (min-width: 990px){
+  .chaokaset-main-search{
+    margin-top: 20px;
+    height: 60px;
+      .search-plant{
+        padding-left: 15px;
+        font-size: 23px;
+        width: 50%;
+        height: 100%;
+      }
+  }
+  .chaokaset-slide-container{
+    padding: 50px 90px;
+    .slide-container-left{
+      width: 100%;
+      height: 100%;
+      .preview-header{
+        h1{
+          color: #444444;
+          float: left;
+        }
+      }
+    }
+  }
+}
+*/
 
 /*# sourceMappingURL=chaokaset.css.map */
