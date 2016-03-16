@@ -8,7 +8,7 @@ h1, h2, h3 {
   font-family: 'Kanit', sans-serif; }
 
 .nav-brand-chaokaset {
-  padding: 12px 15px; }
+  padding: 0px 15px; }
   .nav-brand-chaokaset img {
     height: 0px; }
 
@@ -16,13 +16,13 @@ h1, h2, h3 {
   .nav-brand-chaokaset {
     padding: 0px 5px; }
     .nav-brand-chaokaset img {
-      height: 48px; }
+      height: 84px; }
 
   .nav-content {
     margin: 0px -15px; } }
 @media (min-width: 992px) {
   .nav-brand-chaokaset img {
-    height: 48px; }
+    height: 84px; }
 
   .chaokaset-nav {
     background-color: white;
