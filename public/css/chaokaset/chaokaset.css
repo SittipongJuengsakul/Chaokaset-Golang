@@ -181,9 +181,8 @@ h1, h2, h3 {
     background-color: #fff; }
     .chaokaset-slide-container .preview-content .preview-content-contain {
       padding: 10px 0px;
-      height: 60%;
-      overflow-y: hidden;
-      border: 2px green solid; }
+      max-height: 60%;
+      overflow-y: hidden; }
       .chaokaset-slide-container .preview-content .preview-content-contain h1 {
         width: 100%;
         color: black;
@@ -191,15 +190,17 @@ h1, h2, h3 {
         font-weight: 500;
         text-align: left; }
       .chaokaset-slide-container .preview-content .preview-content-contain p {
+        margin-top: 7px;
         color: black;
         font-size: 1.5em;
         font-weight: 00;
         text-align: left; }
+        .chaokaset-slide-container .preview-content .preview-content-contain p a {
+          margin-left: 5px; }
   .chaokaset-slide-container .preview-button {
     height: 36%;
     padding: 10px 0px;
-    background-color: white;
-    border: 2px black solid; }
+    background-color: white; }
     .chaokaset-slide-container .preview-button h1 {
       width: 100%;
       color: black;
@@ -211,6 +212,14 @@ h1, h2, h3 {
       font-size: 1.5em;
       font-weight: 00;
       text-align: left; }
+    .chaokaset-slide-container .preview-button .info-button {
+      height: 150px;
+      margin-top: 3%; }
+      .chaokaset-slide-container .preview-button .info-button .image-box {
+        height: 110px;
+        width: 110px; }
+      .chaokaset-slide-container .preview-button .info-button .text {
+        height: 30%; }
 
 @media (max-width: 990px) {
   .layer {
