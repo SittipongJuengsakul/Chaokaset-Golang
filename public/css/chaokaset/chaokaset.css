@@ -7,6 +7,9 @@
 .bg-yellow {
   background-color: #FFB200; }
 
+.bg-pink {
+  background-color: #EA4C89; }
+
 .text-underline {
   text-decoration: underline; }
 
@@ -221,22 +224,34 @@ h1, h2, h3 {
       font-size: 1.5em;
       font-weight: 00;
       text-align: left; }
-    .chaokaset-slide-container .preview-button .info-button {
-      height: 150px;
-      margin-top: 3%; }
-      .chaokaset-slide-container .preview-button .info-button .image-box {
-        height: 110px;
-        width: 110px; }
-        .chaokaset-slide-container .preview-button .info-button .image-box h2.val-box {
-          padding-top: 20%;
-          color: white;
-          font-size: 2em;
-          font-weight: 600; }
-      .chaokaset-slide-container .preview-button .info-button h2.mg-box {
-        font-size: 1.5em;
-        margin-top: 10px; }
-      .chaokaset-slide-container .preview-button .info-button .text {
-        height: 30%; }
+  .chaokaset-slide-container .info-button {
+    height: 150px;
+    margin-top: 3%; }
+    .chaokaset-slide-container .info-button .image-box {
+      height: 110px;
+      width: 110px; }
+      .chaokaset-slide-container .info-button .image-box h2.val-box {
+        padding-top: 20%;
+        color: white;
+        font-size: 2em;
+        font-weight: 600; }
+        .chaokaset-slide-container .info-button .image-box h2.val-box:hover {
+          font-size: 3em; }
+    .chaokaset-slide-container .info-button h2.mg-box {
+      font-size: 1.5em;
+      margin-top: 10px; }
+    .chaokaset-slide-container .info-button .text {
+      height: 30%; }
+    .chaokaset-slide-container .info-button .font-box {
+      margin-left: 28%;
+      width: 50px;
+      height: 50px; }
+      .chaokaset-slide-container .info-button .font-box span.icon-box {
+        font-size: 25px;
+        color: white;
+        line-height: 50px; }
+        .chaokaset-slide-container .info-button .font-box span.icon-box:hover {
+          font-size: 35px; }
 
 @media (max-width: 990px) {
   .layer {

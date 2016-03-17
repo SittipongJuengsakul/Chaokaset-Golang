@@ -16,6 +16,9 @@ $gray: #bbbbbb;
 .bg-yellow{
   background-color: #FFB200;
 }
+.bg-pink{
+  background-color: #EA4C89;
+}
 //----- Text -------
 .text-underline{
   text-decoration: underline;
@@ -287,27 +290,44 @@ h1,h2,h3{
       font-weight:00;
       text-align: left;
     }
-    .info-button{
-      height: 150px;
-      margin-top: 3%;
-      .image-box{
-          height: 110px;
-          width: 110px;
-          h2.val-box{
-            padding-top: 20%;
-            color: white;
-            font-size: 2em;
-            font-weight: 600;
+  }
+  .info-button{
+    height: 150px;
+    margin-top: 3%;
+    .image-box{
+        height: 110px;
+        width: 110px;
+        h2.val-box{
+          padding-top: 20%;
+          color: white;
+          font-size: 2em;
+          font-weight: 600;
+          &:hover{
+            font-size: 3em;
           }
         }
-        h2.mg-box{
-          font-size: 1.5em;
-          margin-top: 10px;
-        }
-      .text{
-        height: 30%;
       }
+      h2.mg-box{
+        font-size: 1.5em;
+        margin-top: 10px;
+      }
+    .text{
+      height: 30%;
     }
+
+    .font-box{
+      margin-left: 28%;
+      width: 50px;
+      height: 50px;
+        span.icon-box{
+          font-size: 25px;
+          color: white;
+          line-height: 50px;
+          &:hover{
+            font-size: 35px;
+          }
+        }
+      }
   }
 }
 @media (max-width: 990px){
