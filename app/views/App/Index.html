@@ -5,7 +5,7 @@
 		$(document).ready(function() {
 			$('#fullpage').fullpage({
 				verticalCentered: true,
-				sectionsColor: ['#8DDA52', '#fff', '#66CC00','#fff'],
+				sectionsColor: ['#8DDA52', '#fff', '#2ecc71','#fff'],
 				afterRender: function(){
 					//playing the video
 					$('video').get(0).play();
@@ -53,20 +53,32 @@
 							<div class="col-md-8 col-md-offset-2">
 								<a href="">
 									<div class="col-md-4 info-button" style="height: 100%;margin-top: 3%;">
-										<img src="/public/img/pic/rice1.jpg" class="img-circle image-box">
-										<h2>พร้อมจำหน่าย</h2>
+										<div class="img-circle image-box bg-green">
+											<h2 class="col-md-12 val-box">1</h2>
+											<h2 class="val-box">แสน</h2>
+										</div>
+										<h2 class="mg-box">พร้อมจำหน่าย</h2>
+										<h2 class="mg-box">(กิโลกรัม)</h2>
 									</div>
 								</a>
 								<a href="">
 									<div class="col-md-4 info-button">
-										<img src="/public/img/pic/rice1.jpg" class="img-circle image-box">
-										<h2>จอง</h2>
+										<div class="img-circle image-box bg-yellow">
+											<h2 class="col-md-12 val-box">1.5</h2>
+											<h2 class="val-box">แสน</h2>
+										</div>
+										<h2 class="mg-box">จอง</h2>
+										<h2 class="mg-box">(กิโลกรัม)</h2>
 									</div>
 								</a>
 								<a href="">
 									<div class="col-md-4 info-button">
-										<img src="/public/img/pic/rice1.jpg" class="img-circle image-box">
-										<h2>เสนอซื้อ</h2>
+										<div class="img-circle image-box bg-blue">
+											<h2 class="col-md-12 val-box">1.5</h2>
+											<h2 class="val-box">แสน</h2>
+										</div>
+										<h2 class="mg-box">เสนอซื้อ</h2>
+										<h2 class="mg-box">(กิโลกรัม)</h2>
 									</div>
 								</a>
 							</div>
@@ -74,9 +86,60 @@
 					</div>
 			</div>
 		</div>
-		<div class="slide" id="slide2"><h1>แสดงพืชโช 2</h1></div>
+		<div class="slide" id="slide2">
+			<div class="col-md-12 chaokaset-slide-container">
+					<div class="col-md-12 preview-showname-rice">
+						<h1 class="text-underline">ข้าวหอมมะลิ กข.47</h1>
+					</div>
+					<div class="col-md-5 preview-image">
+							<img src="/public/img/pic/rice2.jpg" alt="">
+					</div>
+					<div class="col-md-7 preview-content">
+						<div class="col-md-12 preview-content-contain">
+							<h1>รายละเอียด</h1>
+							<p>และการจัดการประสิทธิภาพการเพาะปลูกของเกษตรกรและการจัดการประสิทธิภาพการเพาะปลูกของเกษตรกรและการจัดการประสิทธิภาพการเพาะปลูกของเกษตรกรและการจัดการประสิทธิภาพการเพาะปลูกของเกษตรกรและการจัดการประสิทธิภาพการเพาะปลูกของเกษตรกรและการจัดการประสิทธิภาพการเพาะปลูกของเกษตรกรและการจัดการประสิทธิภาพการเพาะปลูกของเกษตรกรและการจัดการประสิทธิภาพการเพาะปลูกของเกษตรกรและการจัดการประสิทธิภาพการเพาะปลูกของเกษตรกรและการจัดการประสิทธิภาพการเพาะปลูกของเกษตรกรและการจัดการประสิทธิภาพการเพาะปลูกของเกษตรกรและการจัดการประสิทธิภาพการเพาะปลูกของเกษตรกรและการจัดการประสิทธิภาพการเพาะปลูกของเกษตรกร<a href="#">ดูเพิ่มเติม</a></p>
+						</div>
+						<div class="col-md-12 preview-button">
+							<h1>ตัวเลือก</h1>
+							<div class="col-md-8 col-md-offset-2">
+								<a href="">
+									<div class="col-md-4 info-button" style="height: 100%;margin-top: 3%;">
+										<div class="img-circle image-box bg-green">
+												<h2 class="col-md-12 val-box">1.5</h2>
+												<h2 class="val-box">แสน</h2>
+										</div>
+										<h2 class="mg-box">พร้อมจำหน่าย</h2>
+									</div>
+								</a>
+								<a href="">
+									<div class="col-md-4 info-button">
+										<div class="img-circle image-box bg-yellow">
+											<h2 class="col-md-12 val-box">1.5</h2>
+											<h2 class="val-box">แสน</h2>
+										</div>
+										<h2 class="mg-box">จอง</h2>
+									</div>
+								</a>
+								<a href="">
+									<div class="col-md-4 info-button">
+										<div class="img-circle image-box bg-blue">
+											<h2 class="col-md-12 val-box">1.5</h2>
+											<h2 class="val-box">แสน</h2>
+										</div>
+										<h2 class="mg-box">เสนอซื้อ</h2>
+									</div>
+								</a>
+							</div>
+						</div>
+					</div>
+			</div>
+		</div>
 	</div>
-	<div class="section" id="section2"><h1>ข้อมูลการเพาะปลูก <br />และการจัดการประสิทธิภาพการเพาะปลูกของเกษตรกร</h1></div>
+	<div class="section" id="section2">
+		<div class="col-md-12 chaokaset-slide-container" style="background-color: #2ecc71;">
+
+		</div>
+	</div>
 	<div class="section" id="section3"><h1>เกี่ยวกับแอปพลิเคชันชาวเกษตร</h1></div>
 </div>
 

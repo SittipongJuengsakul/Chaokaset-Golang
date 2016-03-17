@@ -1,3 +1,12 @@
+.bg-green {
+  background-color: #2ecc71; }
+
+.bg-blue {
+  background-color: #19B5FE; }
+
+.bg-yellow {
+  background-color: #FFB200; }
+
 .text-underline {
   text-decoration: underline; }
 
@@ -218,6 +227,14 @@ h1, h2, h3 {
       .chaokaset-slide-container .preview-button .info-button .image-box {
         height: 110px;
         width: 110px; }
+        .chaokaset-slide-container .preview-button .info-button .image-box h2.val-box {
+          padding-top: 20%;
+          color: white;
+          font-size: 2em;
+          font-weight: 600; }
+      .chaokaset-slide-container .preview-button .info-button h2.mg-box {
+        font-size: 1.5em;
+        margin-top: 10px; }
       .chaokaset-slide-container .preview-button .info-button .text {
         height: 30%; }
 

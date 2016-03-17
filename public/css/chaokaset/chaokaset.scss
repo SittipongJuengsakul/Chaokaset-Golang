@@ -6,6 +6,16 @@ $yellow: #f1c40f;
 $purple: #8e44ad;
 $turquoise: #1abc9c;
 $gray: #bbbbbb;
+//----- Color Style---
+.bg-green{
+  background-color: $green;
+}
+.bg-blue{
+  background-color: #19B5FE;
+}
+.bg-yellow{
+  background-color: #FFB200;
+}
 //----- Text -------
 .text-underline{
   text-decoration: underline;
@@ -283,6 +293,16 @@ h1,h2,h3{
       .image-box{
           height: 110px;
           width: 110px;
+          h2.val-box{
+            padding-top: 20%;
+            color: white;
+            font-size: 2em;
+            font-weight: 600;
+          }
+        }
+        h2.mg-box{
+          font-size: 1.5em;
+          margin-top: 10px;
         }
       .text{
         height: 30%;
