@@ -7,7 +7,7 @@ module:testrunner
 GET     /                                       App.Index
 GET     /index                                  App.Index
 GET     /searchplant                            Search.SearchPlant
-
+GET     /template                               App.Templates
 # Ignore favicon requests
 GET     /favicon.ico                            404
 

@@ -17,6 +17,11 @@ func (c App) Index() revel.Result {
 	return c.Render()
 }
 
+//Templates for Example Template (localhost/template)
+func (c App) Templates() revel.Result {
+	return c.Render()
+}
+
 //SearchPlant for Create routing Page Index (localhost/searchplant)
 func (c Search) SearchPlant() revel.Result {
 	return c.Render()
