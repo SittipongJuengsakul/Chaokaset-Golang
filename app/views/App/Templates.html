@@ -1,6 +1,82 @@
 {{set . "title" "ตัวอย่าง Template"}}
 {{template "Templates/header.html" .}}
+<!-- <div class="chaokaset-container-verticle"> แสดงหน้าจอยาวจนกว่าจะหมดข้อความ-->
+<!-- <div class="chaokaset-container-fixed"> แสดงหน้าจอที่ต้องการฟิ้กแค่หน้าจอเดียว เลื่อนลงไม่ได้-->
 <div class="chaokaset-container-verticle">
-	
+<!--  ตัวอักษร -->
+	<h1 class="text-underline margin-example">ตัวอักษร</h1>
+	<div class="row example">
+		<div class="col-md-12">
+			<h1>h1. ขนาดตัวอักษร Font Heading 3em<small>ตัวอักษรรอง</small></h1>
+			<h2>h2. ขนาดตัวอักษร Font Heading 2.5em<small>ตัวอักษรรอง</small></h2>
+			<p>p. ขนาดตัวอักษร p 2em</p>
+			<p class="text-underline">เส้นไต้คำเพิ่ม .text-underline</p>
+			<p class="text-bold">ตัวหนาเพิ่ม .text-bold</p>
+			<p class="text-italic">ตัวเอียงเพิ่ม .text-italic</p>
+			<p class="color-green">ตัวอักษรสีเขียวเพิ่ม .color-green</p>
+			<p class="color-blue">ตัวอักษรสีน้ำเงินเพิ่ม .color-blue</p>
+			<p class="color-white">ตัวอักษรสีขาวเพิ่ม .color-white</p>
+		</div>
+	</div>
+	<!--
+	<h1 class="text-underline">ปุ่ม button</h1>
+	<div class="row example">
+		<div class="col-md-12">
+
+		</div>
+	</div>
+	-->
+<!--  ปุ่มกดต่างๆ -->
+	<h1 class="text-underline margin-example">ปุ่ม button</h1>
+	<div class="row example">
+		<div class="col-md-12">
+			<button type="button" class="btn bg-submit">ตกลง</button>
+			<button type="button" class="btn bg-cancle">ยกเลิก</button>
+			<button type="button" class="btn bg-edit">แก้ไข</button>
+			<button type="button" class="btn bg-link">ลิงค์</button>
+			<!-- หาเพิ่มเติม http://v4-alpha.getbootstrap.com/components/buttons/-->
+		</div>
+	</div>
+
+	<!--  ปุ่มกดต่างๆ -->
+		<h1 class="text-underline margin-example">ตาราง</h1>
+		<div class="row example">
+			<div class="col-md-12">
+				<table class="table table-striped" style="background-color: white;">
+					  <thead>
+					    <tr>
+					      <th>#</th>
+					      <th>First Name</th>
+					      <th>Last Name</th>
+					      <th>Username</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					    <tr>
+					      <th scope="row">1</th>
+					      <td>Mark</td>
+					      <td>Otto</td>
+					      <td>@mdo</td>
+					    </tr>
+					    <tr>
+					      <th scope="row">2</th>
+					      <td>Jacob</td>
+					      <td>Thornton</td>
+					      <td>@fat</td>
+					    </tr>
+					    <tr>
+					      <th scope="row">3</th>
+					      <td>Larry</td>
+					      <td>the Bird</td>
+					      <td>@twitter</td>
+					    </tr>
+					  </tbody>
+					</table>
+			</div>
+		</div>
+
+
 </div>
+
+
 {{template "Templates/footer.html" .}}
