@@ -6,6 +6,7 @@ module:testrunner
 
 GET     /                                       App.Index
 GET     /index                                  App.Index
+GET     /login                                  Auth.Login
 GET     /searchplant                            Search.SearchPlant
 GET     /template                               App.Templates
 # Ignore favicon requests

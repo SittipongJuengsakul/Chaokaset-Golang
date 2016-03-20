@@ -12,6 +12,11 @@ type Search struct {
 	*revel.Controller
 }
 
+//Auth for save Structure of Folder Authen (in views)
+type Auth struct {
+	*revel.Controller
+}
+
 //Index for Create routing Page Index (localhost/index)
 func (c App) Index() revel.Result {
 	return c.Render()
@@ -24,6 +29,11 @@ func (c App) Templates() revel.Result {
 
 //SearchPlant for Create routing Page Index (localhost/searchplant)
 func (c Search) SearchPlant() revel.Result {
+	return c.Render()
+}
+
+//Login for Create routing Page Login (localhost/login)
+func (c Auth) Login() revel.Result {
 	return c.Render()
 }
 
