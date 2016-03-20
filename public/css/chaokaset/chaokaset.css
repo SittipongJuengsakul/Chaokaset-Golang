@@ -22,6 +22,20 @@
 .margin-example {
   margin-top: 30px; }
 
+.padding-left-no {
+  padding-left: 0px; }
+
+.padding-right-no {
+  padding-right: 0px; }
+
+@media (max-width: 768px) {
+  .padding-left-no {
+    padding-left: 0px;
+    padding-right: 0px; }
+
+  .padding-right-no {
+    padding-left: 0px;
+    padding-right: 0px; } }
 h1, h2, h3, h4, p {
   color: black; }
 
