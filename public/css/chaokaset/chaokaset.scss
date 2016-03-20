@@ -410,6 +410,16 @@ h1,h2,h3{
   h2{
     font-size: 2.5em;
   }
+  form{
+    margin-top: 10px;
+  }
+  label,button,a{
+    font-size: 1.3em;
+  }
+  input{
+    height: 38px;
+    font-size: 1.2em;
+  }
 }
 
 // แสดงหน้าเดียว แบบ Fix หน้าจอ 100%

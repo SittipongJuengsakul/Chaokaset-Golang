@@ -318,6 +318,13 @@ h1, h2, h3 {
     font-size: 3em; }
   .chaokaset-container-verticle h2 {
     font-size: 2.5em; }
+  .chaokaset-container-verticle form {
+    margin-top: 10px; }
+  .chaokaset-container-verticle label, .chaokaset-container-verticle button, .chaokaset-container-verticle a {
+    font-size: 1.3em; }
+  .chaokaset-container-verticle input {
+    height: 38px;
+    font-size: 1.2em; }
 
 .chaokaset-container-fixed {
   padding: 80px 40px;

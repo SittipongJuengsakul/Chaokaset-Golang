@@ -38,6 +38,6 @@ func (c Auth) Login() revel.Result {
 }
 
 //Register for Create routing Page Register (localhost/register)
-func (c App) Register() revel.Result {
+func (c Auth) Register() revel.Result {
 	return c.Render()
 }
