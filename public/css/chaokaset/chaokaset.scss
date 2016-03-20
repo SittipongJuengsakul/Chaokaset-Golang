@@ -417,7 +417,18 @@ h1,h2,h3{
   padding: 80px 40px;
   height: 100%;
   width: 100%;
-  padding-top: 80px;
   overflow: hidden;
   position: fixed;
+  p{
+    font-size: 2em;
+  }
+  h1{
+    font-size: 3em;
+  }
+  h2{
+    font-size: 2.5em;
+  }
+  form{
+    margin-top: 10px;
+  }
 }
