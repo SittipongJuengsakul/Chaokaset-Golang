@@ -68,9 +68,9 @@ h1,h2,h3{
 }
 @media (max-width: 990px){
   .nav-brand-chaokaset{
-    padding: 0px 5px;
+    padding: 0px 20px;
     img{
-      height: 84px;
+      height: 64px;
     }
   }
   .nav-content{
@@ -430,5 +430,12 @@ h1,h2,h3{
   }
   form{
     margin-top: 10px;
+  }
+  label,button,a{
+    font-size: 1.3em;
+  }
+  input{
+    height: 38px;
+    font-size: 1.2em;
   }
 }
