@@ -2,6 +2,7 @@ package controllers
 
 import (
     "github.com/revel/revel"
+    "golang.org/x/crypto/bcrypt"
     //"github.com/gocql/gocql"
 		"chaokaset-go/app/models"
 )
@@ -49,8 +50,8 @@ func (c Auth) Register() revel.Result {
 
 func (c Auth) PostRegister(user models.User) revel.Result {
   user.HashedPassword, _ = bcrypt.GenerateFromPassword(
-	[]byte(user.Password), bcrypt.DefaultCost)
-  models.RegisterUserChaokaset(user.Username,user.Password,user.Prefix,user.Name,user.Lastname,user.Tel)
+		[]byte(user.Password), bcrypt.DefaultCost)
+  models.RegisterUserChaokaset(user.Username,user.HashedPassword,user.Prefix,user.Name,user.Lastname,user.Tel)
   //c.Session["user"] = user.Username
 	//c.Flash.Success("Welcome, " + user.Name)
   return c.Redirect("/index")
