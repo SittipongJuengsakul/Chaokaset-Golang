@@ -22,7 +22,7 @@ func NewUser() *User {
 	db[user.Uid] = user
 	return user
 }*/
-func RegisterUserChaokaset(name string,lastname string,tel string,password string) (err int) {
+func RegisterUserChaokaset(username string,password string,prefix string,name string,lastname string,tel string) (result int) {
   // connect to the cluster
 	 cluster := gocql.NewCluster("127.0.0.1")
 	 cluster.Keyspace = "demo"
@@ -30,8 +30,11 @@ func RegisterUserChaokaset(name string,lastname string,tel string,password strin
 	 session, _ := cluster.CreateSession()
 	 defer session.Close()
 
-    if err := session.Query("INSERT INTO users (lastname, age, city, email, firstname) VALUES ('aaaa', 38, 'Austin', 'bob@example.com', 'ddd')").Exec(); err != nil {
-      log.Fatal(err)
-     }
-    return err
+    if err := session.Query("INSERT INTO users (username, password, prefix, name, lastname,tel) VALUES (?, ?, ?, ?, ?,?)",
+       username, password, prefix, name, lastname,tel).Exec(); err != nil {
+       log.Fatal(err)
+    } else {
+ 		   log.Fatal(err)
+ 	  }
+    return result
 }

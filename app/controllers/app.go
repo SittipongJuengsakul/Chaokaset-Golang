@@ -39,12 +39,12 @@ func (c Search) SearchPlant() revel.Result {
 
 //Login for Create routing Page Login (localhost/login)
 func (c Auth) Login() revel.Result {
-	//models.RegisterUserChaokaset("sittipong","jungsakul","0839915593","123456")
-	models.RegisterUserChaokaset("dddddd","jungsakul","0839915593","123456")
+	//models.RegisterUserChaokaset("dddddd","jungsakul","0839915593","123456")
 	return c.Render()
 }
 
 //Register for Create routing Page Register (localhost/register)
 func (c Auth) Register() revel.Result {
+  
 	return c.Render()
 }
