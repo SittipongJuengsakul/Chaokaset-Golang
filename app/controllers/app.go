@@ -2,8 +2,9 @@ package controllers
 
 import (
     "github.com/revel/revel"
-		"log"
-    "github.com/gocql/gocql"
+    //"github.com/gocql/gocql"
+		"chaokaset-go/app/models"
+
 )
 
 //App for save Structure of Folder App (in views)
@@ -38,16 +39,8 @@ func (c Search) SearchPlant() revel.Result {
 
 //Login for Create routing Page Login (localhost/login)
 func (c Auth) Login() revel.Result {
-	// connect to the cluster
-	 cluster := gocql.NewCluster("127.0.0.1")
-	 cluster.Keyspace = "demo"
-	 cluster.Consistency = gocql.Quorum
-	 session, _ := cluster.CreateSession()
-	 defer session.Close()
-	 // ทดลองคิวรี่
-	 if err := session.Query("INSERT INTO users (lastname, age, city, email, firstname) VALUES ('Joneseee', 38, 'Austin', 'bob@example.com', 'Bob')").Exec(); err != nil {
-		 log.Fatal(err)
-	}
+	//models.RegisterUserChaokaset("sittipong","jungsakul","0839915593","123456")
+	models.RegisterUserChaokaset("dddddd","jungsakul","0839915593","123456")
 	return c.Render()
 }
 
