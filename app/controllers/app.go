@@ -4,7 +4,6 @@ import (
     "github.com/revel/revel"
     //"github.com/gocql/gocql"
 		"chaokaset-go/app/models"
-
 )
 
 //App for save Structure of Folder App (in views)
@@ -45,6 +44,7 @@ func (c Auth) Login() revel.Result {
 
 //Register for Create routing Page Register (localhost/register)
 func (c Auth) Register() revel.Result {
-  
+  res := models.RegisterUserChaokaset("username" ,"password" ,"prefix" ,"name" ,"lastname" ,"tel")
+  if
 	return c.Render()
 }

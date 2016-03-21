@@ -22,7 +22,7 @@ func NewUser() *User {
 	db[user.Uid] = user
 	return user
 }*/
-func RegisterUserChaokaset(username string,password string,prefix string,name string,lastname string,tel string) (result bool) {
+func RegisterUserChaokaset(username string,password string,prefix string,name string,lastname string,tel string) (result bool) { //result bool คือประกาศตัวแปรที่ใช้รีเทร์นค่่าเป็น boolean
   // connect to the cluster
 	 cluster := gocql.NewCluster("127.0.0.1")
 	 cluster.Keyspace = "chaokaset"
