@@ -5,11 +5,13 @@ import (
 )
 
 
-/*type User struct {
-	Uid         int
-	AccessToken string
+type User struct {
+	userid                      int
+	username,password           string
+  name,lastname,prefix,tel    string
+  HashedPassword              []byte
 }
-
+/*
 var db = make(map[int]*User)
 
 func GetUser(id int) *User {
