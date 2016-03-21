@@ -2,9 +2,10 @@ package controllers
 
 import (
     "github.com/revel/revel"
-    "golang.org/x/crypto/bcrypt"
+    "golang.org/x/crypto/bcrypt" //สำหรับ hashing password
+    "golang.org/x/oauth2" //สำหรับจัดการ Authen
     //"github.com/gocql/gocql"
-		"chaokaset-go/app/models"
+		"chaokaset-go/app/models" //เรียกไช้ model
 )
 
 //App for save Structure of Folder App (in views)
