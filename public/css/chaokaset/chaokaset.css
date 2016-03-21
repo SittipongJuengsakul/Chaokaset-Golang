@@ -272,8 +272,8 @@ h1, h2, h3 {
     height: 150px;
     margin-top: 3%; }
     .chaokaset-slide-container .info-button .image-box {
-      height: 3em;
-      width: 3em; }
+      height: 100px;
+      width: 100px; }
       .chaokaset-slide-container .info-button .image-box h2.val-box {
         padding-top: 20%;
         color: white;
