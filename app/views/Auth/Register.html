@@ -4,31 +4,43 @@
   <div class="row">
     <div class="col-md-6 col-md-offset-3 example">
       <h2>สมัครสมาชิก</h2>
-      <form>
+      <form method="post" action="{{url "Auth.PostRegister"}}">
+        {{with $field := field "user.Username" .}}
         <div class="form-group">
           <label for="exampleInputEmail1">ชื่อผู้ใช้งาน</label>
-          <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกชื่อผู้ใช้งาน">
+          <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกชื่อผู้ใช้งาน" name="{{$field.Name}}" value="{{$field.Flash}}">
         </div>
+        {{end}}
+        {{with $field := field "user.Name" .}}
         <div class="form-group col-md-6 padding-left-no">
           <label for="exampleInputEmail1">ชื่อ</label>
-          <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกชื่อ">
+          <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกชื่อ" name="{{$field.Name}}" value="{{$field.Flash}}">
         </div>
+        {{end}}
+        {{with $field := field "user.Lastname" .}}
         <div class="form-group col-md-6 padding-right-no">
           <label for="exampleInputEmail1">นามสกุล</label>
-          <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกนามสกุล">
+          <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกนามสกุล" name="{{$field.Name}}" value="{{$field.Flash}}">
         </div>
+        {{end}}
+        {{with $field := field "user.Password" .}}
         <div class="form-group">
           <label for="exampleInputPassword1">รหัสผ่าน</label>
-          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="กรอกรหัสผ่าน">
+          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="กรอกรหัสผ่าน" name="{{$field.Name}}" value="{{$field.Flash}}">
         </div>
+        {{end}}
+        {{with $field := field "user.Validpassword" .}}
         <div class="form-group">
           <label for="exampleInputPassword1">ยืนยันรหัสผ่าน</label>
-          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="กรอกรหัสผ่าน">
+          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="กรอกรหัสผ่าน" name="{{$field.Name}}" value="{{$field.Flash}}">
         </div>
+        {{end}}
+        {{with $field := field "user.Tel" .}}
         <div class="form-group">
           <label for="exampleInputEmail1">เบอร์โทรศัพท์</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" placeholder="กรอกเบอร์โทรศัพท์">
+          <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกเบอร์โทรศัพท์" name="{{$field.Name}}" value="{{$field.Flash}}">
         </div>
+        {{end}}
         <div class="col-xs-offset-2 col-sm-offset-4">
           <button type="submit" class="btn btn-default">สมัครสมาชิก</button>
           <button type="submit" class="btn btn-default">ยกเลิก</button>

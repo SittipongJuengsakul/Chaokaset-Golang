@@ -44,7 +44,14 @@ func (c Auth) Login() revel.Result {
 
 //Register for Create routing Page Register (localhost/register)
 func (c Auth) Register() revel.Result {
-  res := models.RegisterUserChaokaset("username" ,"password" ,"prefix" ,"name" ,"lastname" ,"tel")
-  if
 	return c.Render()
+}
+
+func (c Auth) PostRegister(user models.User) revel.Result {
+  user.HashedPassword, _ = bcrypt.GenerateFromPassword(
+	[]byte(user.Password), bcrypt.DefaultCost)
+  models.RegisterUserChaokaset(user.Username,user.Password,user.Prefix,user.Name,user.Lastname,user.Tel)
+  //c.Session["user"] = user.Username
+	//c.Flash.Success("Welcome, " + user.Name)
+  return c.Redirect("/index")
 }

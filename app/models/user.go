@@ -5,10 +5,10 @@ import (
 )
 
 
-type User struct {
-	userid                      int
-	username,password           string
-  name,lastname,prefix,tel    string
+type User struct { //สร้าง Struct
+	Userid                      int
+	Username,Password           string
+  Name,Lastname,Prefix,Tel    string
   HashedPassword              []byte
 }
 /*
