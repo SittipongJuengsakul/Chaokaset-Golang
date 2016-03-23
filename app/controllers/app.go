@@ -2,10 +2,8 @@ package controllers
 
 import (
     "github.com/revel/revel"
-    "golang.org/x/crypto/bcrypt" //สำหรับ hashing password
-    "golang.org/x/oauth2" //สำหรับจัดการ Authen
     //"github.com/gocql/gocql"
-		"chaokaset-go/app/models" //เรียกไช้ model
+		"chaokaset-go/app/models"
 )
 
 //App for save Structure of Folder App (in views)
@@ -46,14 +44,11 @@ func (c Auth) Login() revel.Result {
 
 //Register for Create routing Page Register (localhost/register)
 func (c Auth) Register() revel.Result {
+  //models.RegisterUserChaokaset("username" ,"password" ,"prefix" ,"name" ,"lastname" ,"tel")
 	return c.Render()
 }
 
-func (c Auth) PostRegister(user models.User) revel.Result {
-  user.HashedPassword, _ = bcrypt.GenerateFromPassword(
-		[]byte(user.Password), bcrypt.DefaultCost)
-  models.RegisterUserChaokaset(user.Username,user.HashedPassword,user.Prefix,user.Name,user.Lastname,user.Tel)
-  //c.Session["user"] = user.Username
-	//c.Flash.Success("Welcome, " + user.Name)
-  return c.Redirect("/index")
+func (c Auth) postRegister(user *User) revel.Result {
+  models.RegisterUserChaokaset("username" ,"password" ,"prefix" ,"name" ,"lastname" ,"tel")
+	return c.Render()
 }
