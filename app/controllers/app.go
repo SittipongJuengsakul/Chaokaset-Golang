@@ -42,7 +42,13 @@ func (c Auth) Login() revel.Result {
 	//models.RegisterUserChaokaset("dddddd","jungsakul","0839915593","123456")
 	return c.Render()
 }
-
+//Logout for Create routing Page Login (localhost/Logout)
+func (c Auth) Logout() revel.Result {
+	for k := range c.Session {
+		delete(c.Session, k)
+	}
+	return c.Redirect(App.Index)
+}
 //Register for Create routing Page Register (localhost/register)
 func (c Auth) Register() revel.Result {
   //models.RegisterUserChaokaset("username" ,"password" ,"prefix" ,"name" ,"lastname" ,"tel")
