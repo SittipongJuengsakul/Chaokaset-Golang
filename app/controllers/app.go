@@ -25,13 +25,14 @@ func init() {
 	revel.InterceptFunc(setuser, revel.BEFORE, &App{})
 }
 func (c App) connected() *models.User {
-	return c.RenderArgs["username"].(*models.User)
+	return c.RenderArgs["user"].(*models.User)
 }
 
 func setuser(c *revel.Controller) revel.Result {
 	var user *models.User
 	if _, ok := c.Session["username"]; ok {
 		user = models.GetUserData("sittipong")
+    c.RenderArgs["user"] = user
 	}
 	if user == nil {
     c.Flash.Error("กรุณาเข้าสู่ระบบ!!")
@@ -74,7 +75,7 @@ func (c Auth) PostLogin(user *models.User) revel.Result {
   result := models.CheckPasswordUser(user.Username,user.Password)
   if result {
     c.Session["username"] = user.Username
-    c.RenderArgs["user"] = user
+    c.RenderArgs["user"] = user.Username
     c.Flash.Success("เข้าสู่ระบบสำเร็จ")
     return c.Redirect(App.Index)
   } else {
