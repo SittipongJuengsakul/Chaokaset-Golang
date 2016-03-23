@@ -32,7 +32,7 @@ func RegisterUserChaokaset(username string,password string,prefix string,name st
 	 session, _ := cluster.CreateSession()
 	 defer session.Close()
 
-    if err := session.Query("INSERT INTO users (userid,username, password, prefix, name, lastname,tel) VALUES (uuid(), ?, ?, ?, ?,?,?)",
+    if err := session.Query("INSERT INTO users (userid,username, password, prefix, name, lastname,tel) VALUES (62c36092-82a1-3a00-93d1-46196ee77206,?, ?, ?, ?,?,?)",
         username, password, prefix, name, lastname,tel).Exec(); err != nil {
        log.Fatal(err)
        result = true;
