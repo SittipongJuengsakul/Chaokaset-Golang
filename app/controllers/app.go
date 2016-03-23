@@ -4,6 +4,7 @@ import (
     "github.com/revel/revel"
     //"github.com/gocql/gocql"
 		"chaokaset-go/app/models"
+    "golang.org/x/crypto/bcrypt"
 )
 
 //App for save Structure of Folder App (in views)
@@ -49,6 +50,8 @@ func (c Auth) Register() revel.Result {
 }
 
 func (c Auth) PostRegister(user *models.User) revel.Result {
-  models.RegisterUserChaokaset(user.Username ,user.Password ,user.Prefix ,user.Name ,user.Lastname ,user.Tel)
+  user.HashedPassword, _ = bcrypt.GenerateFromPassword(
+		[]byte(user.Password), bcrypt.DefaultCost)
+  models.RegisterUserChaokaset(user.Username ,user.HashedPassword,user.Prefix ,user.Name ,user.Lastname ,user.Tel)
 	return c.Redirect(App.Index)
 }
