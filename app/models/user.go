@@ -2,6 +2,7 @@ package models
 import (
     "log"
     "github.com/gocql/gocql"
+    "golang.org/x/crypto/bcrypt"
 )
 
 
@@ -40,4 +41,40 @@ func RegisterUserChaokaset(username string,password []byte,prefix string,name st
       result = true;
     }
     return result
+}
+/*
+func getUser(username string) *User {
+  // connect to the cluster
+  var userid string
+	 cluster := gocql.NewCluster("127.0.0.1")
+	 cluster.Keyspace = "chaokaset"
+	 cluster.Consistency = gocql.Quorum
+	 session, _ := cluster.CreateSession()
+	 defer session.Close()
+  if err := session.Query(`SELECT * FROM users_by_chaokaset WHERE username = '?' LIMIT 1 ALLOW FILTERING;`,
+        username).Consistency(gocql.One).Scan(&userid, &username); err != nil {
+        log.Fatal(err)
+  }
+	return *User
+}
+*/
+
+//GetPasswordUser สำหรับรับค่า รหัสผ่านของ User
+func CheckPasswordUser(Uusername string,Upassword string) (result bool){
+  cluster := gocql.NewCluster("127.0.0.1")
+  cluster.Keyspace = "chaokaset"
+  cluster.Consistency = gocql.Quorum
+  session, _ := cluster.CreateSession()
+  defer session.Close()
+  var username string
+  var password []byte
+  session.Query(`SELECT username,password FROM users_by_chaokaset WHERE username = ? LIMIT 1 ALLOW FILTERING`,
+        "sittipong").Scan(&username,&password);
+  //Upassword := "sittipongsssss"
+  err := bcrypt.CompareHashAndPassword(password, []byte(Upassword))
+   if err == nil{
+      return true;
+   } else {
+      return false;
+   }
 }
