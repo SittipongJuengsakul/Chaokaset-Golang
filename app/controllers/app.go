@@ -21,9 +21,37 @@ type Search struct {
 type Auth struct {
 	*revel.Controller
 }
+func init() {
+	revel.InterceptFunc(setuser, revel.BEFORE, &App{})
+}
+func (c App) connected() *models.User {
+	return c.RenderArgs["username"].(*models.User)
+}
+
+func setuser(c *revel.Controller) revel.Result {
+	var user *models.User
+	if _, ok := c.Session["username"]; ok {
+		user = models.GetUserData("sittipong")
+	}
+	if user == nil {
+    c.Flash.Error("กรุณาเข้าสู่ระบบ!!")
+    return c.Redirect(Auth.Login)
+	} else{
+    c.RenderArgs["user"] = user
+    return c.Redirect(Auth.Register)
+  }
+
+	return nil
+}
 
 //Index for Create routing Page Index (localhost/index)
-func (c App) Index() revel.Result {
+func (c App) Index(user *models.User) revel.Result {
+  /*if c.connected() != nil {
+    c.Flash.Error("logging")
+		return c.Render()
+	}
+	c.Flash.Error("ยังไม่ล็อคอิน!!")
+  */
 	return c.Render()
 }
 
@@ -39,11 +67,14 @@ func (c Search) SearchPlant() revel.Result {
 
 //Login for Create routing Page Login (localhost/login)
 func (c Auth) Login() revel.Result {
-	return c.Render()
+  aa := c.Session["username"]
+	return c.Render(aa)
 }
 func (c Auth) PostLogin(user *models.User) revel.Result {
-  err := models.CheckPasswordUser(user.Username,user.Password)
-  if err {
+  result := models.CheckPasswordUser(user.Username,user.Password)
+  if result {
+    c.Session["username"] = user.Username
+    c.RenderArgs["user"] = user
     c.Flash.Success("เข้าสู่ระบบสำเร็จ")
     return c.Redirect(App.Index)
   } else {

@@ -7,12 +7,21 @@ import (
 
 
 type User struct { //สร้าง Struct
-	Userid                                    int
+	Userid                                    gocql.UUID
 	Username,Password,Validpassword           string
   Name,Lastname,Prefix,Tel                  string
   HashedPassword                            []byte
 }
-
+var userdb = make(map[string]*User)
+/*
+func GetUser(id int) *User {
+	return userdb[id]
+}
+func NewUser() *User {
+	user := &User{Uid: rand.Intn(10000)}
+	db[user.Uid] = user
+	return user
+}*/
 //RegisterUserChaokaset สมัครสมาชิก
 func RegisterUserChaokaset(username string,password []byte,prefix string,name string,lastname string,tel string) (result bool) { //result bool คือประกาศตัวแปรที่ใช้รีเทร์นค่่าเป็น boolean
   // connect to the cluster
@@ -29,6 +38,44 @@ func RegisterUserChaokaset(username string,password []byte,prefix string,name st
       result = true;
     }
     return result
+}
+
+//GetUserData สำหรับเรียกข้อมูลผู้ใช้งาน
+func GetUserData(Uusername string) *User {
+
+  cluster := gocql.NewCluster("127.0.0.1")
+  cluster.Keyspace = "chaokaset"
+  cluster.Consistency = gocql.Quorum
+  session, _ := cluster.CreateSession()
+  defer session.Close()
+  var username,name,lname string
+  var userid gocql.UUID
+  //var password []byte
+  if err := session.Query(`SELECT username,userid,name,lname FROM users_by_chaokaset WHERE username = ? LIMIT 1 ALLOW FILTERING`,
+        Uusername).Scan(&username,&userid,&name,&lname); err != nil {
+        log.Fatal(err)
+  }
+  return userdb[username]
+}
+
+//CheckUserLogin สำหรับเรียกข้อมูลผู้ใช้งาน
+func CheckUserLogin(Uusername string) *User{
+
+  cluster := gocql.NewCluster("127.0.0.1")
+  cluster.Keyspace = "chaokaset"
+  cluster.Consistency = gocql.Quorum
+  session, _ := cluster.CreateSession()
+  defer session.Close()
+
+  var username string
+  if err := session.Query(`SELECT username FROM users_by_chaokaset WHERE username = ? LIMIT 1 ALLOW FILTERING`,
+        Uusername).Scan(&username); err != nil {
+        return nil;
+  } else {
+    user := &User{Username: username}
+  	userdb[user.Username] = user
+  	return user
+  }
 }
 
 //GetPasswordUser สำหรับรับค่า รหัสผ่านของ User
