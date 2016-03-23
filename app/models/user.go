@@ -12,19 +12,8 @@ type User struct { //สร้าง Struct
   Name,Lastname,Prefix,Tel                  string
   HashedPassword                            []byte
 }
-/*
-var db = make(map[int]*User)
 
-func GetUser(id int) *User {
-	return db[id]
-}
-
-
-func NewUser() *User {
-	user := &User{Uid: rand.Intn(10000)}
-	db[user.Uid] = user
-	return user
-}*/
+//RegisterUserChaokaset สมัครสมาชิก
 func RegisterUserChaokaset(username string,password []byte,prefix string,name string,lastname string,tel string) (result bool) { //result bool คือประกาศตัวแปรที่ใช้รีเทร์นค่่าเป็น boolean
   // connect to the cluster
 	 cluster := gocql.NewCluster("127.0.0.1")
@@ -52,9 +41,9 @@ func CheckPasswordUser(Uusername string,Upassword string) (result bool){
   var username string
   var password []byte
   session.Query(`SELECT username,password FROM users_by_chaokaset WHERE username = ? LIMIT 1 ALLOW FILTERING`,
-        "sittipong").Scan(&username,&password);
-  //Upassword := "sittipongsssss"
-  err := bcrypt.CompareHashAndPassword(password, []byte(Upassword))
+        Uusername).Scan(&username,&password);
+  //Upassword = "sittipongsssss"
+  err := bcrypt.CompareHashAndPassword(password, []byte(Upassword))//ตรวจสอบรหัสผ่าน
    if err == nil{
       return true;
    } else {
