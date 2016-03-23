@@ -35,9 +35,9 @@ func RegisterUserChaokaset(username string,password []byte,prefix string,name st
     if err := session.Query("INSERT INTO users_by_chaokaset (userid,username, password, prefix, name, lname,tel) VALUES (uuid(),?, ?, ?, ?,?,?)",
         username, password, prefix, name, lastname,tel).Exec(); err != nil {
        log.Fatal(err)
-       result = true;
+       result = false;
     } else{
-      result = false;
+      result = true;
     }
     return result
 }

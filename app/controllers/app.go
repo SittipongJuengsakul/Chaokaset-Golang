@@ -52,6 +52,12 @@ func (c Auth) Register() revel.Result {
 func (c Auth) PostRegister(user *models.User) revel.Result {
   user.HashedPassword, _ = bcrypt.GenerateFromPassword(
 		[]byte(user.Password), bcrypt.DefaultCost)
-  models.RegisterUserChaokaset(user.Username ,user.HashedPassword,user.Prefix ,user.Name ,user.Lastname ,user.Tel)
-	return c.Redirect(App.Index)
+  err := models.RegisterUserChaokaset(user.Username ,user.HashedPassword,user.Prefix ,user.Name ,user.Lastname ,user.Tel);
+  if err {
+    c.Flash.Success("เข้าสู่ระบบสำเร็จ")
+    return c.Redirect(App.Index)
+  } else {
+    c.Flash.Error("เกิดข้อผิดพลาด 1A001 ไม่สามารถสมัครสมาชิกได้ กรุณาสมัครไหม่!!")
+    return c.Redirect(Auth.Register)
+  }
 }
