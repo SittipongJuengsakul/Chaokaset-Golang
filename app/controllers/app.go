@@ -65,14 +65,12 @@ func (c Auth) Register() revel.Result {
 }
 //PostRegister หน้าที่ไช้สำหรับรับค่าจากฟอร์ม Register
 func (c Auth) PostRegister(user *models.User) revel.Result {
-  user.HashedPassword, _ = bcrypt.GenerateFromPassword(
-		[]byte(user.Password), bcrypt.DefaultCost)
-  err := models.RegisterUserChaokaset(user.Username ,user.HashedPassword,user.Prefix ,user.Name ,user.Lastname ,user.Tel);
+  err := models.RegisterUserChaokaset(user.Username ,user.Password,user.Prefix ,user.Name ,user.Lastname ,user.Tel);
   if err {
     c.Flash.Success("สมัครสมาชิกสำเร็จ")
     return c.Redirect(App.Index)
   } else {
-    c.Flash.Error("เกิดข้อผิดพลาด 1Auth002 ไม่สามารถสมัครสมาชิกได้ กรุณาสมัครไหม่!!")
+    c.Flash.Error("เกิดข้อผิดพลาดไม่สามารถสมัครสมาชิกได้ กรุณาสมัครไหม่!!")
     return c.Redirect(Auth.Register)
   }
 }

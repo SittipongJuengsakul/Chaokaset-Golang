@@ -25,14 +25,15 @@ func NewUser() *User {
 	db[user.Uid] = user
 	return user
 }*/
-func RegisterUserChaokaset(username string,password []byte,prefix string,name string,lastname string,tel string) (result bool) { //result bool คือประกาศตัวแปรที่ใช้รีเทร์นค่่าเป็น boolean
+func RegisterUserChaokaset(username string,password string,prefix string,name string,lastname string,tel string) (result bool) { //result bool คือประกาศตัวแปรที่ใช้รีเทร์นค่่าเป็น boolean
   // connect to the cluster
 	 cluster := gocql.NewCluster("127.0.0.1")
 	 cluster.Keyspace = "chaokaset"
 	 cluster.Consistency = gocql.Quorum
 	 session, _ := cluster.CreateSession()
 	 defer session.Close()
-
+   user.HashedPassword, _ = bcrypt.GenerateFromPassword(
+    []byte(user.Password), bcrypt.DefaultCost)
     if err := session.Query("INSERT INTO users_by_chaokaset (userid,username, password, prefix, name, lname,tel) VALUES (uuid(),?, ?, ?, ?,?,?)",
         username, password, prefix, name, lastname,tel).Exec(); err != nil {
        log.Fatal(err)
@@ -42,22 +43,6 @@ func RegisterUserChaokaset(username string,password []byte,prefix string,name st
     }
     return result
 }
-/*
-func getUser(username string) *User {
-  // connect to the cluster
-  var userid string
-	 cluster := gocql.NewCluster("127.0.0.1")
-	 cluster.Keyspace = "chaokaset"
-	 cluster.Consistency = gocql.Quorum
-	 session, _ := cluster.CreateSession()
-	 defer session.Close()
-  if err := session.Query(`SELECT * FROM users_by_chaokaset WHERE username = '?' LIMIT 1 ALLOW FILTERING;`,
-        username).Consistency(gocql.One).Scan(&userid, &username); err != nil {
-        log.Fatal(err)
-  }
-	return *User
-}
-*/
 
 //GetPasswordUser สำหรับรับค่า รหัสผ่านของ User
 func CheckPasswordUser(Uusername string,Upassword string) (result bool){
