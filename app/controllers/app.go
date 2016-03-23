@@ -67,6 +67,8 @@ func (c Auth) PostLogin(user *models.User) revel.Result {
   result := models.CheckPasswordUser(user.Username,user.Password)
   if result {
     c.Session["username"] = user.Username
+    user = models.GetUserData(user.Username)
+    c.RenderArgs["user"] = user
     c.Flash.Success("เข้าสู่ระบบสำเร็จ")
     return c.Redirect(App.Index)
   } else {
@@ -93,6 +95,9 @@ func (c Auth) PostRegister(user *models.User) revel.Result {
   err := models.RegisterUserChaokaset(user.Username ,user.HashedPassword,user.Prefix ,user.Name ,user.Lastname ,user.Tel);
   if err {
     c.Flash.Success("สมัครสมาชิกสำเร็จ")
+    c.Session["username"] = user.Username
+    user = models.GetUserData(user.Username)
+    c.RenderArgs["user"] = user
     return c.Redirect(App.Index)
   } else {
     c.Flash.Error("เกิดข้อผิดพลาดไม่สามารถสมัครสมาชิกได้ กรุณาสมัครไหม่!!")
