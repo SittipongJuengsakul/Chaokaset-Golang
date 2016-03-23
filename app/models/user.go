@@ -30,8 +30,11 @@ func RegisterUserChaokaset(username string,password []byte,prefix string,name st
 	 cluster.Consistency = gocql.Quorum
 	 session, _ := cluster.CreateSession()
 	 defer session.Close()
-    if err := session.Query("INSERT INTO users_by_chaokaset (userid,username, password, prefix, name, lname,tel) VALUES (uuid(),?, ?, ?, ?,?,?)",
-        username, password, prefix, name, lastname,tel).Exec(); err != nil {
+   pic := "http://simpleicon.com/wp-content/uploads/multy-user.svg"
+   //role_user 1>admin 2>officer 3>farmer 4>user
+   role_user := 3
+   if err := session.Query("INSERT INTO users_by_chaokaset (userid,username, password, prefix, name, lname,tel,pic,role_user) VALUES (uuid(),?, ?, ?, ?,?,?,?,?)",
+        username, password, prefix, name, lastname,tel,pic,role_user).Exec(); err != nil {
        log.Fatal(err)
        result = false;
     } else{
@@ -50,12 +53,10 @@ func GetUserData(Uusername string) *User {
   defer session.Close()
   var username,name,lname string
   var userid gocql.UUID
-  //var password []byte
   if err := session.Query(`SELECT username,userid,name,lname FROM users_by_chaokaset WHERE username = ? LIMIT 1 ALLOW FILTERING`,
         Uusername).Scan(&username,&userid,&name,&lname); err != nil {
         log.Fatal(err)
   }
-  //var user *User
   user := &User{Userid: userid,Username: username,Name: name,Lastname: lname}
   return user
 }
@@ -91,7 +92,6 @@ func CheckPasswordUser(Uusername string,Upassword string) (result bool){
   var password []byte
   session.Query(`SELECT username,password FROM users_by_chaokaset WHERE username = ? LIMIT 1 ALLOW FILTERING`,
         Uusername).Scan(&username,&password);
-  //Upassword = "sittipongsssss"
   err := bcrypt.CompareHashAndPassword(password, []byte(Upassword))//ตรวจสอบรหัสผ่าน
    if err == nil{
       return true;
