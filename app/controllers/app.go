@@ -48,7 +48,7 @@ func (c Auth) Register() revel.Result {
 	return c.Render()
 }
 
-func (c Auth) postRegister(user *model.User) revel.Result {
-  models.RegisterUserChaokaset(user.Username ,user.Password ,user.Prefix ,user.name ,user.lastname ,user.Tel)
-	return c.Render()
+func (c Auth) PostRegister(user *models.User) revel.Result {
+  models.RegisterUserChaokaset(user.Username ,user.Password ,user.Prefix ,user.Name ,user.Lastname ,user.Tel)
+	return c.Redirect(App.Index)
 }
