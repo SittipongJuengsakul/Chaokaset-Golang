@@ -55,7 +55,9 @@ func GetUserData(Uusername string) *User {
         Uusername).Scan(&username,&userid,&name,&lname); err != nil {
         log.Fatal(err)
   }
-  return userdb[username]
+  //var user *User
+  user := &User{Userid: userid,Username: username,Name: name,Lastname: lname}
+  return user
 }
 
 //CheckUserLogin สำหรับเรียกข้อมูลผู้ใช้งาน

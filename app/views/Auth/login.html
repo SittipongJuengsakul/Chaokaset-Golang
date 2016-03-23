@@ -3,8 +3,8 @@
 <div class="chaokaset-container-fixed">
   <div class="row">
     <div class="col-md-6 col-md-offset-3 example">
-      <h2>เข้าสู่ระบบ {{.RenderArgs}}</h2>
-      <span style="color:red;font-size: 15px;">{{.flash.error}} {{.aa}}</span>
+      <h2>เข้าสู่ระบบ</h2>
+      <span style="color:red;font-size: 15px;">{{.flash.error}}</span>
       <form method="post" action="{{url "Auth.PostLogin"}}">
         {{with $field := field "user.Username" .}}
         <div class="form-group">

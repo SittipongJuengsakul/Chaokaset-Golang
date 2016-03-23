@@ -25,34 +25,25 @@ func init() {
 	revel.InterceptFunc(setuser, revel.BEFORE, &App{})
 }
 func (c App) connected() *models.User {
-	return c.RenderArgs["user"].(*models.User)
+  if c.RenderArgs["user"] != nil {
+		return c.RenderArgs["user"].(*models.User)
+	}
+	return nil
 }
 
 func setuser(c *revel.Controller) revel.Result {
 	var user *models.User
-	if _, ok := c.Session["username"]; ok {
-		user = models.GetUserData("sittipong")
+  if username, ok := c.Session["username"]; ok {
+		user = models.GetUserData(username)
     c.RenderArgs["user"] = user
-	}
-	if user == nil {
-    c.Flash.Error("กรุณาเข้าสู่ระบบ!!")
-    return c.Redirect(Auth.Login)
 	} else{
-    c.RenderArgs["user"] = user
-    return c.Redirect(Auth.Register)
+    c.Flash.Error("ยังไม่ล็อคอิน!!")
   }
-
 	return nil
 }
 
 //Index for Create routing Page Index (localhost/index)
 func (c App) Index(user *models.User) revel.Result {
-  /*if c.connected() != nil {
-    c.Flash.Error("logging")
-		return c.Render()
-	}
-	c.Flash.Error("ยังไม่ล็อคอิน!!")
-  */
 	return c.Render()
 }
 
@@ -68,14 +59,14 @@ func (c Search) SearchPlant() revel.Result {
 
 //Login for Create routing Page Login (localhost/login)
 func (c Auth) Login() revel.Result {
-  aa := c.Session["username"]
-	return c.Render(aa)
+  //user := models.GetUserData("sittipong")
+  //c.RenderArgs["user"] = user
+	return c.Render()
 }
 func (c Auth) PostLogin(user *models.User) revel.Result {
   result := models.CheckPasswordUser(user.Username,user.Password)
   if result {
     c.Session["username"] = user.Username
-    c.RenderArgs["user"] = user.Username
     c.Flash.Success("เข้าสู่ระบบสำเร็จ")
     return c.Redirect(App.Index)
   } else {
