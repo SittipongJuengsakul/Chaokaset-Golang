@@ -36,9 +36,7 @@ func setuser(c *revel.Controller) revel.Result {
   if username, ok := c.Session["username"]; ok {
 		user = models.GetUserData(username)
     c.RenderArgs["user"] = user
-	} else{
-    c.Flash.Error("ยังไม่ล็อคอิน!!")
-  }
+	} 
 	return nil
 }
 
