@@ -40,13 +40,16 @@ h1, h2, h3, h4, p {
   color: black; }
 
 .color-green {
-  color: #2ecc71; }
+  color: #2ecc71 !important; }
 
 .color-blue {
-  color: #05B2D2; }
+  color: #05B2D2 !important; }
+
+.color-yellow {
+  color: #F3D534 !important; }
 
 .color-white {
-  color: white; }
+  color: white !important; }
 
 .text-underline {
   text-decoration: underline; }
@@ -347,14 +350,38 @@ h1, h2, h3 {
     padding: 20px;
     margin-top: 20px; }
     .chaokaset-container-verticle .container-box thead th {
-      font-size: 30px;
+      font-size: 25px;
       color: black; }
     .chaokaset-container-verticle .container-box tbody td {
-      font-size: 25px;
+      font-size: 22px;
       color: #505050; }
-      .chaokaset-container-verticle .container-box tbody td a {
-        font-size: 25px;
-        color: #2ecc71; }
+      .chaokaset-container-verticle .container-box tbody td .status-ball {
+        margin-left: 18px;
+        margin-top: 6px;
+        width: 18px;
+        height: 18px;
+        display: block;
+        border-radius: 50%; }
+      .chaokaset-container-verticle .container-box tbody td a.name-crops {
+        font-size: 22px;
+        color: #2ecc71;
+        text-decoration: none; }
+        .chaokaset-container-verticle .container-box tbody td a.name-crops:hover {
+          text-decoration: none; }
+      .chaokaset-container-verticle .container-box tbody td a.option-crops {
+        font-size: 22px;
+        color: #05B2D2;
+        text-decoration: none; }
+        .chaokaset-container-verticle .container-box tbody td a.option-crops:hover {
+          text-decoration: none; }
+      .chaokaset-container-verticle .container-box tbody td a.option-dd {
+        font-size: 15px;
+        color: #6F6F6F;
+        text-align: center;
+        float: inherit;
+        text-decoration: none; }
+        .chaokaset-container-verticle .container-box tbody td a.option-dd:hover {
+          text-decoration: none; }
 
 .chaokaset-container-fixed {
   padding-left: 40px;

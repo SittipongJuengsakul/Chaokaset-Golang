@@ -28,6 +28,7 @@ type Crops struct {
 
 func init() {
 	revel.InterceptFunc(setuser, revel.BEFORE, &App{})
+  revel.InterceptFunc(setuser, revel.BEFORE, &Crops{})
 }
 func (c App) connected() *models.User {
   if c.RenderArgs["user"] != nil {

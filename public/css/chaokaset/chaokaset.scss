@@ -2,7 +2,7 @@
 $green: #2ecc71;
 $red: #e74c3c;
 $blue: #05B2D2;
-$yellow: #f1c40f;
+$yellow: #F3D534;
 $purple: #8e44ad;
 $turquoise: #1abc9c;
 $gray: #bbbbbb;
@@ -52,13 +52,16 @@ h1,h2,h3,h4,p{
   color: black;
 }
 .color-green{
-  color: $green;
+  color: $green!important;
 }
 .color-blue{
-  color: $blue;
+  color: $blue!important;
+}
+.color-yellow{
+  color: #F3D534!important;
 }
 .color-white{
-  color: white;
+  color: white!important;
 }
 .text-underline{
   text-decoration: underline;
@@ -447,17 +450,47 @@ h1,h2,h3{
     margin-top: 20px;
     thead{
       th{
-        font-size: 30px;
+        font-size: 25px;
         color: black;
       }
     }
     tbody{
       td{
-        font-size: 25px ;
+        font-size: 22px ;
         color: #505050;
-        a{
-          font-size: 25px;
+        .status-ball{
+          margin-left: 18px;
+          margin-top: 6px;
+          width: 18px;
+          height: 18px;
+          display: block;
+          border-radius: 50%;
+        }
+        a.name-crops{
+          font-size: 22px;
           color: $green;
+          text-decoration:none;
+          &:hover{
+            text-decoration:none;
+          }
+        }
+        a.option-crops{
+          font-size: 22px;
+          color: $blue;
+          text-decoration:none;
+          &:hover{
+            text-decoration:none;
+          }
+        }
+        a.option-dd{
+          font-size: 15px;
+          color: #6F6F6F;
+          text-align: center;
+          float: inherit;
+          text-decoration: none;
+          &:hover{
+            text-decoration:none;
+          }
         }
       }
     }
