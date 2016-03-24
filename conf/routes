@@ -14,6 +14,7 @@ GET     /template                               App.Templates
 GET     /favicon.ico                            404
 GET     /apiv1_0                                Api.Index
 GET     /apiv1_0/login/:Username/:Password      Api.CheckLogin
+POST    /apiv1_0/register/:Username/:Password/:Prefix/:Name/:Lname/:Tel       Api.RegisterUser
 
 
 
