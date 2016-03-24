@@ -12,6 +12,10 @@ GET     /searchplant                            Search.SearchPlant
 GET     /template                               App.Templates
 # Ignore favicon requests
 GET     /favicon.ico                            404
+GET     /apiv1_0                                Api.Index
+GET     /apiv1_0/login/:Username/:Password      Api.CheckLogin
+
+
 
 # Map static resources from the /app/public folder to the /public path
 GET     /public/*filepath                       Static.Serve("public")
