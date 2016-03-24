@@ -11,16 +11,17 @@ import (
 type Api struct {
 	*revel.Controller
 }
-
+type ResAuth struct {
+    Status      bool
+    Username    string
+}
 
 func (c Api) Index() revel.Result {
 	return c.Render()
 }
 func (c Api) CheckLogin(Username string,Password string) revel.Result {
+    var R *ResAuth
     res := models.CheckPasswordUser(Username,Password)
-    if res {
-      return  c.RenderJson(res)
-    } else {
-      return  c.RenderJson(res)
-    }
+    R = &ResAuth{Status: res,Username: Username}
+    return  c.RenderJson(R)
 }
