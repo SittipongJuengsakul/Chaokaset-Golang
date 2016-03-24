@@ -43,13 +43,13 @@ func GetUserData(Uusername string) *User {
   cluster.Consistency = gocql.Quorum
   session, _ := cluster.CreateSession()
   defer session.Close()
-  var username,name,lname string
+  var username,name,lname,pic,prefix,tel string
   var userid gocql.UUID
-  if err := session.Query(`SELECT username,userid,name,lname FROM users_by_chaokaset WHERE username = ? LIMIT 1 ALLOW FILTERING`,
-        Uusername).Scan(&username,&userid,&name,&lname); err != nil {
+  if err := session.Query(`SELECT username,userid,name,lname,pic,tel,prefix FROM users_by_chaokaset WHERE username = ? LIMIT 1 ALLOW FILTERING`,
+        Uusername).Scan(&username,&userid,&name,&lname,&pic,&tel,&prefix ); err != nil {
         log.Fatal(err)
   }
-  user := &User{Userid: userid,Username: username,Name: name,Lastname: lname}
+  user := &User{Userid: userid,Username: username,Name: name,Lastname: lname,Pic: pic,Tel: tel,Prefix: prefix}
   return user
 }
 
