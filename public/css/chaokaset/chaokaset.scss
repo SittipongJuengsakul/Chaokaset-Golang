@@ -185,15 +185,14 @@ h1,h2,h3{
       border-color: $blue;
       color: $blue;
       background: {
-          image: linear-gradient(to bottom, transparent 50%, $blue 50%);
-          position: 0 0;
-          size: 200%;
+        image: linear-gradient(45deg,$blue 50%, transparent 50%);
+        position: 100%;
+        size: 400%;
       }
-      transition: background 150ms ease-in-out, color 150ms ease-in-out;
-      -webkit-transition: 150ms ease-in-out, color 150ms ease-in-out;
+      transition: background 300ms ease-in-out;
+      -webkit-transition: 300ms ease-in-out;
       &:hover {
-        color: #fff;
-        background-position: 0 100%;
+        background-position: 0;
       }
       &:focus {
         outline: none;
