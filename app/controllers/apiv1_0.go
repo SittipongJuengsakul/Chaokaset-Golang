@@ -13,7 +13,7 @@ type Api struct {
 }
 type ResAuth struct {
     Status      bool
-    Username    string
+    UserData    *models.User
 }
 
 func (c Api) Index() revel.Result {
@@ -21,7 +21,11 @@ func (c Api) Index() revel.Result {
 }
 func (c Api) CheckLogin(Username string,Password string) revel.Result {
     var R *ResAuth
+    var U *models.User
     res := models.CheckPasswordUser(Username,Password)
-    R = &ResAuth{Status: res,Username: Username}
+    if res {
+      U = models.GetUserData(Username)
+    }
+    R = &ResAuth{Status: res,UserData: U}
     return  c.RenderJson(R)
 }
