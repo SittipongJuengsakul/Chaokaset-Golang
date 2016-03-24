@@ -13,15 +13,7 @@ type User struct { //สร้าง Struct
   HashedPassword                            []byte
 }
 var userdb = make(map[string]*User)
-/*
-func GetUser(id int) *User {
-	return userdb[id]
-}
-func NewUser() *User {
-	user := &User{Uid: rand.Intn(10000)}
-	db[user.Uid] = user
-	return user
-}*/
+
 //RegisterUserChaokaset สมัครสมาชิก
 func RegisterUserChaokaset(username string,password []byte,prefix string,name string,lastname string,tel string) (result bool) { //result bool คือประกาศตัวแปรที่ใช้รีเทร์นค่่าเป็น boolean
   // connect to the cluster
