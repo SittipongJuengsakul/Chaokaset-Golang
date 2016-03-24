@@ -36,12 +36,12 @@ func setuser(c *revel.Controller) revel.Result {
   if username, ok := c.Session["username"]; ok {
 		user = models.GetUserData(username)
     c.RenderArgs["user"] = user
-	} 
+	}
 	return nil
 }
 
 //Index for Create routing Page Index (localhost/index)
-func (c App) Index(user *models.User) revel.Result {
+func (c App) Index() revel.Result {
 	return c.Render()
 }
 
