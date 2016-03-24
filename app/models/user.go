@@ -9,7 +9,7 @@ import (
 type User struct { //สร้าง Struct
 	Userid                                    gocql.UUID
 	Username,Password,Validpassword           string
-  Name,Lastname,Prefix,Tel                  string
+  Name,Lastname,Prefix,Tel,Pic              string
   HashedPassword                            []byte
 }
 var userdb = make(map[string]*User)
