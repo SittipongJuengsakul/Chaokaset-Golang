@@ -21,6 +21,11 @@ type Search struct {
 type Auth struct {
 	*revel.Controller
 }
+//Crops
+type Crops struct {
+	*revel.Controller
+}
+
 func init() {
 	revel.InterceptFunc(setuser, revel.BEFORE, &App{})
 }
@@ -101,4 +106,9 @@ func (c Auth) PostRegister(user *models.User) revel.Result {
     c.Flash.Error("เกิดข้อผิดพลาดไม่สามารถสมัครสมาชิกได้ กรุณาสมัครไหม่!!")
     return c.Redirect(Auth.Register)
   }
+}
+
+//IndexCrops หน้าหลักของการจัดการการเพาะปลูก
+func (c Crops) IndexCrops() revel.Result {
+	return c.Render()
 }

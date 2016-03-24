@@ -9,6 +9,7 @@ GET     /index                                                                  
 GET     /login                                                                                     Auth.Login
 GET     /register                                                                                  Auth.Register
 GET     /searchplant                                                                               Search.SearchPlant
+GET     /crops                                                                                     Crops.IndexCrops
 GET     /template                                                                                  App.Templates
 # Ignore favicon requests
 GET     /favicon.ico                                                                               404

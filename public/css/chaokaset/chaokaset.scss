@@ -414,8 +414,8 @@ h1,h2,h3{
 //--- Container Pages
 //แสดงหน้ายาวแบบ one page
 .chaokaset-container-verticle{
-  padding: 80px 40px;
-  width: 100%;
+  padding: 80px;
+  height: 100%;
   p{
     font-size: 2em;
   }
@@ -435,11 +435,41 @@ h1,h2,h3{
     height: 38px;
     font-size: 1.2em;
   }
+  .varticle-header-box{
+    margin-top: 20px;
+    input{
+      height: 50px;
+    }
+  }
+  .container-box{
+    height: 100%;
+    padding: 20px;
+    margin-top: 20px;
+    thead{
+      th{
+        font-size: 30px;
+        color: black;
+      }
+    }
+    tbody{
+      td{
+        font-size: 25px ;
+        color: #505050;
+        a{
+          font-size: 25px;
+          color: $green;
+        }
+      }
+    }
+  }
 }
 
 // แสดงหน้าเดียว แบบ Fix หน้าจอ 100%
 .chaokaset-container-fixed{
-  padding: 80px 40px;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 80px;
+  padding-bottom: 20px;
   height: 100%;
   width: 100%;
   overflow: hidden;

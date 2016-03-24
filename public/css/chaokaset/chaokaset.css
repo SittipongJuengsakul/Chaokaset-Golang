@@ -323,8 +323,8 @@ h1, h2, h3 {
       width: 50%;
       height: 100%; } }
 .chaokaset-container-verticle {
-  padding: 80px 40px;
-  width: 100%; }
+  padding: 80px;
+  height: 100%; }
   .chaokaset-container-verticle p {
     font-size: 2em; }
   .chaokaset-container-verticle h1 {
@@ -338,9 +338,29 @@ h1, h2, h3 {
   .chaokaset-container-verticle input {
     height: 38px;
     font-size: 1.2em; }
+  .chaokaset-container-verticle .varticle-header-box {
+    margin-top: 20px; }
+    .chaokaset-container-verticle .varticle-header-box input {
+      height: 50px; }
+  .chaokaset-container-verticle .container-box {
+    height: 100%;
+    padding: 20px;
+    margin-top: 20px; }
+    .chaokaset-container-verticle .container-box thead th {
+      font-size: 30px;
+      color: black; }
+    .chaokaset-container-verticle .container-box tbody td {
+      font-size: 25px;
+      color: #505050; }
+      .chaokaset-container-verticle .container-box tbody td a {
+        font-size: 25px;
+        color: #2ecc71; }
 
 .chaokaset-container-fixed {
-  padding: 80px 40px;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 80px;
+  padding-bottom: 20px;
   height: 100%;
   width: 100%;
   overflow: hidden;

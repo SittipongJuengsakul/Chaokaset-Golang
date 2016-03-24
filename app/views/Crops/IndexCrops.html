@@ -1,0 +1,45 @@
+{{set . "title" "จัดกการการเพาะปลูก"}}
+{{template "Templates/header.html" .}}
+<div class="chaokaset-container-verticle">
+  <div class="col-sm-6 varticle-header-box">
+    <h1>จัดการการเพาะปลูก</h1>
+  </div>
+  <div class="col-sm-6 varticle-header-box">
+    <div class="form-group">
+      <input type="text" name="SearchCrops" class="form-control" placeholder="ค้นหาข้อมูลการเพาะปลูก">
+    </div>
+  </div>
+    <div class="col-sm-12 container-box">
+      <table class="table">
+        <thead>
+          <tr>
+            <th width="10%">สถานะ</th>
+            <th width="35%">ชื่อแปลง</th>
+            <th width="15%">วันเริ่มต้น</th>
+            <th width="15%">วันเก็บเกี่ยว</th>
+            <th width="10%">ผู้สนใจ</th>
+            <th width="10%">ตัวเลือก</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>เริ่มต้น</td>
+            <td>ไร่ดอยคำ (นายดำรง นะจ้ะ)</td>
+            <td>15 มีนาคม 2559</td>
+            <td>15 สิงหาคม 2559</td>
+            <td>28 คน</td>
+            <td class="color-green"><div class="dropdown open">
+            <a href="#" class="dropdown-toggle"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ดูเพิ่มเติม <span class="caret"></span></a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <button class="dropdown-item" type="button">Action</button>
+              <button class="dropdown-item" type="button">Another action</button>
+              <button class="dropdown-item" type="button">Something else here</button>
+            </div>
+          </div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{{template "Templates/footer.html" .}}
