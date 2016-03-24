@@ -13,7 +13,7 @@ type Api struct {
 }
 
 
-func (c Api) Index(user *models.User) revel.Result {
+func (c Api) Index() revel.Result {
 	return c.Render()
 }
 func (c Api) CheckLogin(Username string,Password string) revel.Result {
