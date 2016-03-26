@@ -448,13 +448,13 @@ h1,h2,h3{
     height: 100%;
     padding: 20px;
     margin-top: 20px;
-    thead{
+    thead.box-thead-show{
       th{
         font-size: 25px;
         color: black;
       }
     }
-    tbody{
+    tbody.box-tbody-show{
       td{
         font-size: 22px ;
         color: #505050;

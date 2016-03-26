@@ -349,38 +349,38 @@ h1, h2, h3 {
     height: 100%;
     padding: 20px;
     margin-top: 20px; }
-    .chaokaset-container-verticle .container-box thead th {
+    .chaokaset-container-verticle .container-box thead.box-thead-show th {
       font-size: 25px;
       color: black; }
-    .chaokaset-container-verticle .container-box tbody td {
+    .chaokaset-container-verticle .container-box tbody.box-tbody-show td {
       font-size: 22px;
       color: #505050; }
-      .chaokaset-container-verticle .container-box tbody td .status-ball {
+      .chaokaset-container-verticle .container-box tbody.box-tbody-show td .status-ball {
         margin-left: 18px;
         margin-top: 6px;
         width: 18px;
         height: 18px;
         display: block;
         border-radius: 50%; }
-      .chaokaset-container-verticle .container-box tbody td a.name-crops {
+      .chaokaset-container-verticle .container-box tbody.box-tbody-show td a.name-crops {
         font-size: 22px;
         color: #2ecc71;
         text-decoration: none; }
-        .chaokaset-container-verticle .container-box tbody td a.name-crops:hover {
+        .chaokaset-container-verticle .container-box tbody.box-tbody-show td a.name-crops:hover {
           text-decoration: none; }
-      .chaokaset-container-verticle .container-box tbody td a.option-crops {
+      .chaokaset-container-verticle .container-box tbody.box-tbody-show td a.option-crops {
         font-size: 22px;
         color: #05B2D2;
         text-decoration: none; }
-        .chaokaset-container-verticle .container-box tbody td a.option-crops:hover {
+        .chaokaset-container-verticle .container-box tbody.box-tbody-show td a.option-crops:hover {
           text-decoration: none; }
-      .chaokaset-container-verticle .container-box tbody td a.option-dd {
+      .chaokaset-container-verticle .container-box tbody.box-tbody-show td a.option-dd {
         font-size: 15px;
         color: #6F6F6F;
         text-align: center;
         float: inherit;
         text-decoration: none; }
-        .chaokaset-container-verticle .container-box tbody td a.option-dd:hover {
+        .chaokaset-container-verticle .container-box tbody.box-tbody-show td a.option-dd:hover {
           text-decoration: none; }
 
 .chaokaset-container-fixed {
