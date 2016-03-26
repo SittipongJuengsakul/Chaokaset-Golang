@@ -113,3 +113,8 @@ func (c Auth) PostRegister(user *models.User) revel.Result {
 func (c Crops) IndexCrops() revel.Result {
 	return c.Render()
 }
+
+//Management แสดงข้อมูลการเพาะปลูก
+func (c Crops) Management() revel.Result {
+	return c.Render()
+}
