@@ -13,6 +13,9 @@
 .bg-pink {
   background-color: #EA4C89; }
 
+.error {
+  color: #e74c3c; }
+
 .example {
   padding: 30px;
   background-color: #F1F1F1;
