@@ -51,6 +51,9 @@ $gray: #bbbbbb;
 h1,h2,h3,h4,p{
   color: black;
 }
+.color-red{
+  color: $red!important;
+}
 .color-green{
   color: $green!important;
 }
@@ -420,25 +423,26 @@ h1,h2,h3{
   padding: 80px;
   height: 100%;
   p{
-    font-size: 2em;
+    font-size: 16px;
   }
   h1{
-    font-size: 3em;
+    font-size: 35px;
   }
   h2{
-    font-size: 2.5em;
+    font-size: 25px;
   }
   form{
     margin-top: 10px;
   }
   label,button,a{
-    font-size: 1.3em;
+    font-size: 18px;
   }
   input{
     height: 38px;
-    font-size: 1.2em;
+    font-size: 18px;
   }
   .varticle-header-box{
+    padding: 10px;
     margin-top: 20px;
     input{
       height: 50px;
@@ -446,17 +450,17 @@ h1,h2,h3{
   }
   .container-box{
     height: 100%;
-    padding: 20px;
-    margin-top: 20px;
+    //padding: 20px;
+    //margin-top: 20px;
     thead.box-thead-show{
       th{
-        font-size: 25px;
+        font-size: 20px;
         color: black;
       }
     }
     tbody.box-tbody-show{
       td{
-        font-size: 22px ;
+        font-size: 18px ;
         color: #505050;
         .status-ball{
           margin-left: 18px;
@@ -467,7 +471,7 @@ h1,h2,h3{
           border-radius: 50%;
         }
         a.name-crops{
-          font-size: 22px;
+          font-size: 18px;
           color: $green;
           text-decoration:none;
           &:hover{
@@ -475,7 +479,7 @@ h1,h2,h3{
           }
         }
         a.option-crops{
-          font-size: 22px;
+          font-size: 18px;
           color: $blue;
           text-decoration:none;
           &:hover{
@@ -490,6 +494,11 @@ h1,h2,h3{
           text-decoration: none;
           &:hover{
             text-decoration:none;
+          }
+        }
+        .dd-menu{
+          a{
+            text-align: center;
           }
         }
       }

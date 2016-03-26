@@ -39,6 +39,9 @@
 h1, h2, h3, h4, p {
   color: black; }
 
+.color-red {
+  color: #e74c3c !important; }
+
 .color-green {
   color: #2ecc71 !important; }
 
@@ -329,31 +332,30 @@ h1, h2, h3 {
   padding: 80px;
   height: 100%; }
   .chaokaset-container-verticle p {
-    font-size: 2em; }
+    font-size: 16px; }
   .chaokaset-container-verticle h1 {
-    font-size: 3em; }
+    font-size: 35px; }
   .chaokaset-container-verticle h2 {
-    font-size: 2.5em; }
+    font-size: 25px; }
   .chaokaset-container-verticle form {
     margin-top: 10px; }
   .chaokaset-container-verticle label, .chaokaset-container-verticle button, .chaokaset-container-verticle a {
-    font-size: 1.3em; }
+    font-size: 18px; }
   .chaokaset-container-verticle input {
     height: 38px;
-    font-size: 1.2em; }
+    font-size: 18px; }
   .chaokaset-container-verticle .varticle-header-box {
+    padding: 10px;
     margin-top: 20px; }
     .chaokaset-container-verticle .varticle-header-box input {
       height: 50px; }
   .chaokaset-container-verticle .container-box {
-    height: 100%;
-    padding: 20px;
-    margin-top: 20px; }
+    height: 100%; }
     .chaokaset-container-verticle .container-box thead.box-thead-show th {
-      font-size: 25px;
+      font-size: 20px;
       color: black; }
     .chaokaset-container-verticle .container-box tbody.box-tbody-show td {
-      font-size: 22px;
+      font-size: 18px;
       color: #505050; }
       .chaokaset-container-verticle .container-box tbody.box-tbody-show td .status-ball {
         margin-left: 18px;
@@ -363,13 +365,13 @@ h1, h2, h3 {
         display: block;
         border-radius: 50%; }
       .chaokaset-container-verticle .container-box tbody.box-tbody-show td a.name-crops {
-        font-size: 22px;
+        font-size: 18px;
         color: #2ecc71;
         text-decoration: none; }
         .chaokaset-container-verticle .container-box tbody.box-tbody-show td a.name-crops:hover {
           text-decoration: none; }
       .chaokaset-container-verticle .container-box tbody.box-tbody-show td a.option-crops {
-        font-size: 22px;
+        font-size: 18px;
         color: #05B2D2;
         text-decoration: none; }
         .chaokaset-container-verticle .container-box tbody.box-tbody-show td a.option-crops:hover {
@@ -382,6 +384,8 @@ h1, h2, h3 {
         text-decoration: none; }
         .chaokaset-container-verticle .container-box tbody.box-tbody-show td a.option-dd:hover {
           text-decoration: none; }
+      .chaokaset-container-verticle .container-box tbody.box-tbody-show td .dd-menu a {
+        text-align: center; }
 
 .chaokaset-container-fixed {
   padding-left: 40px;
