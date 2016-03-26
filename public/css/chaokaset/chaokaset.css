@@ -16,6 +16,10 @@
 .error {
   color: #e74c3c; }
 
+.activity-new {
+  background-color: #e74c3c;
+  border-radius: 50%; }
+
 .example {
   padding: 30px;
   background-color: #F1F1F1;
@@ -347,6 +351,10 @@ h1, h2, h3 {
   .chaokaset-container-verticle input {
     height: 38px;
     font-size: 18px; }
+  .chaokaset-container-verticle .report-data {
+    height: 50px;
+    border-top: solid 1.5px #c5c5c5;
+    border-bottom: solid 1.5px #c5c5c5; }
   .chaokaset-container-verticle .varticle-header-box {
     padding: 10px;
     margin-top: 20px; }

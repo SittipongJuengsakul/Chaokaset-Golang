@@ -2,6 +2,7 @@
 $green: #2ecc71;
 $red: #e74c3c;
 $blue: #05B2D2;
+$grey: #c5c5c5;
 $yellow: #F3D534;
 $purple: #8e44ad;
 $turquoise: #1abc9c;
@@ -24,6 +25,10 @@ $gray: #bbbbbb;
 }
 .error{
   color: $red;
+}
+.activity-new{
+  background-color: $red;
+  border-radius: 50%;
 }
 .example{
   padding: 30px;
@@ -444,6 +449,11 @@ h1,h2,h3{
     height: 38px;
     font-size: 18px;
   }
+  .report-data{
+    height: 50px;
+    border-top: solid 1.5px #c5c5c5;
+    border-bottom: solid 1.5px #c5c5c5;
+  }
   .varticle-header-box{
     padding: 10px;
     margin-top: 20px;
@@ -453,8 +463,6 @@ h1,h2,h3{
   }
   .container-box{
     height: 100%;
-    //padding: 20px;
-    //margin-top: 20px;
     thead.box-thead-show{
       th{
         font-size: 20px;
