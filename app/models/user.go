@@ -20,27 +20,15 @@ var userdb = make(map[string]*User)
 var userRegex = regexp.MustCompile("^\\w*$")
 
 func (user *User) Validate(v *revel.Validation) {
-	v.Check(user.Username,
-		revel.Required{},
-		revel.MaxSize{15},
-		revel.MinSize{4},
-		revel.Match{userRegex},
-	)
-	ValidatePassword(v, user.Password).
-		Key("user.Password")
-
-	v.Check(user.Name,
-		revel.Required{},
-		revel.MaxSize{100},
-	)
-}
-
-func ValidatePassword(v *revel.Validation, password string) *revel.ValidationResult {
-	return v.Check(password,
-		revel.Required{},
-		revel.MaxSize{15},
-		revel.MinSize{5},
-	)
+  v.Required(user.Username).Message("จำเป็นต้องกรอก ชื่อผู้ใช้งาน")
+	v.MinSize(user.Username, 4).Message("ชื่อผู้ใช้ต้องมากกว่า 4 ตัวอักษร")
+  v.MaxSize(user.Username, 16).Message("ชื่อผู้ใช้ต้องน้อยกว่า 16 ตัวอักษร")
+  v.Required(user.Name).Message("จำเป็นต้องกรอก ชื่อ")
+  v.Required(user.Lastname).Message("จำเป็นต้องกรอก นามสกุล")
+  v.Required(user.Password).Message("จำเป็นต้องกรอก รหัสผ่าน")
+  v.Required(user.Validpassword).Message("จำเป็นต้องกรอก ยืนยันรหัสผ่าน")
+  v.Required(user.Tel).Message("จำเป็นต้องกรอก เบอร์โทรศัพท์")
+  v.Required(user.Validpassword == user.Password).Message("รหัสผ่านไม่ตรงกัน")
 }
 //RegisterUserChaokaset สมัครสมาชิก
 func RegisterUserChaokaset(username string,password []byte,prefix string,name string,lastname string,tel string) (result bool) { //result bool คือประกาศตัวแปรที่ใช้รีเทร์นค่่าเป็น boolean
