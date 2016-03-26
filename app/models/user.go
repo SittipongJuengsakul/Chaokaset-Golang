@@ -3,6 +3,7 @@ import (
     "log"
     "github.com/gocql/gocql"
     "golang.org/x/crypto/bcrypt"
+    "regexp"
 )
 
 
@@ -13,7 +14,34 @@ type User struct { //สร้าง Struct
   HashedPassword                            []byte
 }
 var userdb = make(map[string]*User)
+/*
+//ส่วน Validation Form
+var userRegex = regexp.MustCompile("^\\w*$")
 
+func (user *User) Validate(v *revel.Validation) {
+	v.Check(user.Username,
+		revel.Required{},
+		revel.MaxSize{15},
+		revel.MinSize{4},
+		revel.Match{userRegex},
+	)
+
+	ValidatePassword(v, user.Password).
+		Key("user.Password")
+
+	v.Check(user.Name,
+		revel.Required{},
+		revel.MaxSize{100},
+	)
+}
+
+func ValidatePassword(v *revel.Validation, password string) *revel.ValidationResult {
+	return v.Check(password,
+		revel.Required{},
+		revel.MaxSize{15},
+		revel.MinSize{5},
+	)
+}*/
 //RegisterUserChaokaset สมัครสมาชิก
 func RegisterUserChaokaset(username string,password []byte,prefix string,name string,lastname string,tel string) (result bool) { //result bool คือประกาศตัวแปรที่ใช้รีเทร์นค่่าเป็น boolean
   // connect to the cluster
