@@ -8,14 +8,16 @@
       <form method="post" action="{{url "Auth.PostLogin"}}">
         {{with $field := field "user.Username" .}}
         <div class="form-group">
-          <label for="exampleInputEmail1">ชื่อผู้ใช้งาน</label>
+          <label>ชื่อผู้ใช้งาน</label>
           <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกชื่อผู้ใช้งาน"  name="{{$field.Name}}" value="{{$field.Flash}}">
+          <span class="error">{{$field.Error}}</span>
         </div>
         {{end}}
         {{with $field := field "user.Password" .}}
         <div class="form-group">
           <label for="exampleInputPassword1">รหัสผ่าน</label>
           <input type="password" class="form-control" id="exampleInputPassword1" placeholder="กรอกรหัสผ่าน" name="{{$field.Name}}" value="{{$field.Flash}}">
+          <span class="error">{{$field.Error}}</span>
         </div>
         {{end}}
         <div class="col-sm-offset-4">

@@ -5,8 +5,9 @@ import (
     //"github.com/gocql/gocql"
 		"chaokaset-go/app/models"
     "golang.org/x/crypto/bcrypt"
+    "regexp"
 )
-
+var userRegex = regexp.MustCompile("^\\w*$")
 //App for save Structure of Folder App (in views)
 type App struct {
 	*revel.Controller
@@ -68,6 +69,13 @@ func (c Auth) Login() revel.Result {
 	return c.Render()
 }
 func (c Auth) PostLogin(user *models.User) revel.Result {
+  c.Validation.Required(user.Username).Message("จำเป็นต้องกรอก ชื่อผู้ใช้งาน")
+  c.Validation.Required(user.Password).Message("จำเป็นต้องกรอก รหัสผ่าน")
+  if c.Validation.HasErrors() {
+		c.Validation.Keep()
+		c.FlashParams()
+		return c.Redirect(Auth.Login)
+	}
   result := models.CheckPasswordUser(user.Username,user.Password)
   if result {
     c.Session["username"] = user.Username

@@ -21,6 +21,7 @@ var userRegex = regexp.MustCompile("^\\w*$")
 
 func (user *User) Validate(v *revel.Validation) {
   v.Required(user.Username).Message("จำเป็นต้องกรอก ชื่อผู้ใช้งาน")
+  v.Match(user.Username, regexp.MustCompile("[a-zA-Z0-9_]")).Message("ภาษาอังกฤษ และตัวเลขเท่านั้น")
 	v.MinSize(user.Username, 4).Message("ชื่อผู้ใช้ต้องมากกว่า 4 ตัวอักษร")
   v.MaxSize(user.Username, 16).Message("ชื่อผู้ใช้ต้องน้อยกว่า 16 ตัวอักษร")
   v.Required(user.Name).Message("จำเป็นต้องกรอก ชื่อ")
