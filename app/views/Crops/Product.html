@@ -1,0 +1,82 @@
+{{set . "title" "จัดการผลผลิต"}}
+{{template "Templates/header.html" .}}
+<div class="chaokaset-container-verticle">
+  <div class="col-sm-12 varticle-header-box">
+    <h1>ไร่หน้าหมู่บ้าน (นายดำรง นะจ้ะ)</h1>
+    <h2 style="color: grey; font-size: 16px;">ระยะเวลาปลูก 180 วัน / ผลผลิต 800 ต่อ 1 ไร่ / สิ้นสุด 18 สิงหาคม 2559</h2>
+  </div>
+  <div class="col-sm-12 report-data">
+
+  </div>
+  <div class="col-sm-3" style="padding: 0px;">
+    <ul class="nav bd-sidenav" style="padding-top: 20px;">
+        <li class="active bd-sidenav-active">
+          <a href="/crops/management">จัดการการเพาะปลูก</a>
+        </li>
+        <li class="">
+          <a href="/crops/account">บัญชีการเพาะปลูก</a>
+        </li>
+        <li class="">
+          <a href="/crops/problem">ปัญหาการเพาะปลูก</a>
+        </li>
+        <li class="">
+          <a href="/crops/product">จัดการผลผลิต</a>
+        </li>
+        <li class="">
+          <a href="/crops/board">กระดานข้อความ</a>
+        </li>
+    </ul>
+  </div>
+  <div class="col-sm-9 container-box">
+    <div class="col-sm-12 container-box-content">
+      <div class="col-sm-5 name-header padding-left-no padding-right-no"><h2>จัดการผลผลิต</h2></div>
+      <div class="col-sm-7 name-header padding-left-no padding-right-no">
+        <div class="col-sm-4">
+          <button type="button" name="button" class="btn btn-success">เพิ่มรายการ</button>
+        </div>
+        <div class="col-sm-8" style="padding: 0px;">
+          <input type="text" name="SearchCrops" class="form-control" placeholder="ค้นหารายการ">
+        </div>
+      </div>
+      <table class="table">
+        <thead class="box-thead-show">
+          <tr>
+            <th width="15%">วันที่</th>
+            <th>ประเภท</th>
+            <th width="35%">รายละเอียด</th>
+            <th>สถานะการตอบ</th>
+            <th>ตัวเลือก</th>
+          </tr>
+        </thead>
+        <tbody class="box-tbody-show">
+          <tr>
+            <td>22 มี.ค. 59</td>
+            <td>ดิน</td>
+            <td>ดินแข็งไม่สามารถเพาะปลูกได้</td>
+            <td class="color-red">รอการตอบ</td>
+            <td class="color-green">
+              <div class="dropdown">
+                <a href="#" class="dropdown-toggle option-crops"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ดูเพิ่มเติม <span class="caret"></span></a>
+                </button>
+                <ul class="dropdown-menu dd-menu" aria-labelledby="dropdownMenu1">
+                  <li><a href="#">รายละเอียด</a></li>
+                  <li><a href="#">แก้ไขรายการ</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="#" class="color-red">ลบรายการ</a></li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <nav>
+        <!-- แสดง 10 รายการ -->
+        <ul class="pager">
+          <li class="pager-prev disabled"><a href="#">ล่าสุด</a></li>
+          <li class="pager-next"><a href="#">ก่อนหน้า</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+{{template "Templates/footer.html" .}}

@@ -141,6 +141,10 @@ func (c Crops) Account() revel.Result {
 func (c Crops) Problem() revel.Result {
 	return c.Render()
 }
+//Problem แสดงข้อมูลการเพาะปลูก
+func (c Crops) Product() revel.Result {
+	return c.Render()
+}
 //Board แสดงข้อมูลการเพาะปลูก
 func (c Crops) Board() revel.Result {
 	return c.Render()
