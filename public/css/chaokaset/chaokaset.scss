@@ -3,6 +3,7 @@ $green: #2ecc71;
 $red: #e74c3c;
 $blue: #05B2D2;
 $grey: #c5c5c5;
+$fontgrey: #747474;
 $yellow: #F3D534;
 $purple: #8e44ad;
 $turquoise: #1abc9c;
@@ -451,8 +452,13 @@ h1,h2,h3{
   }
   .report-data{
     height: 50px;
+    line-height: 50px;
     border-top: solid 1.5px #c5c5c5;
     border-bottom: solid 1.5px #c5c5c5;
+    block-size: initial;
+    small{
+      color: #747474;
+    }
   }
   .varticle-header-box{
     padding: 10px;

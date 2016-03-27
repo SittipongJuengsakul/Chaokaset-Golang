@@ -5,7 +5,7 @@
   background-color: #19B5FE; }
 
 .bg-yellow {
-  background-color: #FFB200; }
+  background-color: #F3D534; }
 
 .bg-red {
   background-color: #e74c3c; }
@@ -353,8 +353,12 @@ h1, h2, h3 {
     font-size: 18px; }
   .chaokaset-container-verticle .report-data {
     height: 50px;
+    line-height: 50px;
     border-top: solid 1.5px #c5c5c5;
-    border-bottom: solid 1.5px #c5c5c5; }
+    border-bottom: solid 1.5px #c5c5c5;
+    block-size: initial; }
+    .chaokaset-container-verticle .report-data small {
+      color: #747474; }
   .chaokaset-container-verticle .varticle-header-box {
     padding: 10px;
     margin-top: 20px; }
