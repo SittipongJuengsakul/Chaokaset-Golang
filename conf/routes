@@ -11,6 +11,9 @@ GET     /register                                                               
 GET     /searchplant                                                                               Search.SearchPlant
 GET     /crops                                                                                     Crops.IndexCrops
 GET     /crops/management                                                                          Crops.Management
+GET     /crops/account                                                                             Crops.Account
+GET     /crops/problem                                                                             Crops.Problem
+GET     /crops/board                                                                               Crops.Board
 GET     /template                                                                                  App.Templates
 # Ignore favicon requests
 GET     /favicon.ico                                                                               404
