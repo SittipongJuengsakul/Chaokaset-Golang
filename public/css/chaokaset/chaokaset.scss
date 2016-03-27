@@ -64,7 +64,7 @@ h1,h2,h3,h4,p{
   color: $red!important;
 }
 .color-green{
-  color: $green!important;
+  color: #00b74e!important;
 }
 .color-blue{
   color: $blue!important;
@@ -474,6 +474,16 @@ h1,h2,h3{
     border-radius: 3px;
     .name-header{
       padding: 10px;
+    }
+    .info-plant-show{
+      label{
+        font-size: 20px;
+        color: #4d4d4d;
+      }
+      p{
+        font-size: 18px;
+        color: #6b6b6b;
+      }
     }
   }
   .container-box{
