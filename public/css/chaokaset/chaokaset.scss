@@ -466,6 +466,9 @@ h1,h2,h3{
     border: solid 2px #eaeaea;
     padding: 25px;
     border-radius: 3px;
+    .name-header{
+      padding: 10px;
+    }
   }
   .container-box{
     height: 100%;
@@ -520,6 +523,11 @@ h1,h2,h3{
         }
       }
     }
+  }
+}
+@media (max-width: 768px){
+  .chaokaset-container-verticle{
+    padding: 60px 10px;
   }
 }
 

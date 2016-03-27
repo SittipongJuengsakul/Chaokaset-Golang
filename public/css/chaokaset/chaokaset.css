@@ -365,6 +365,8 @@ h1, h2, h3 {
     border: solid 2px #eaeaea;
     padding: 25px;
     border-radius: 3px; }
+    .chaokaset-container-verticle .container-box-content .name-header {
+      padding: 10px; }
   .chaokaset-container-verticle .container-box {
     height: 100%; }
     .chaokaset-container-verticle .container-box thead.box-thead-show th {
@@ -403,6 +405,9 @@ h1, h2, h3 {
       .chaokaset-container-verticle .container-box tbody.box-tbody-show td .dd-menu a {
         text-align: center; }
 
+@media (max-width: 768px) {
+  .chaokaset-container-verticle {
+    padding: 60px 10px; } }
 .chaokaset-container-fixed {
   padding-left: 40px;
   padding-right: 40px;
