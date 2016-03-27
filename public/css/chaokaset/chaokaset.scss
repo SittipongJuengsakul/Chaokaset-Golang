@@ -461,6 +461,12 @@ h1,h2,h3{
       height: 50px;
     }
   }
+  .container-box-content{
+    margin-top: 20px;
+    border: solid 2px #eaeaea;
+    padding: 25px;
+    border-radius: 3px;
+  }
   .container-box{
     height: 100%;
     thead.box-thead-show{

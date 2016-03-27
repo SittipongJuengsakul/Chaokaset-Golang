@@ -360,6 +360,11 @@ h1, h2, h3 {
     margin-top: 20px; }
     .chaokaset-container-verticle .varticle-header-box input {
       height: 50px; }
+  .chaokaset-container-verticle .container-box-content {
+    margin-top: 20px;
+    border: solid 2px #eaeaea;
+    padding: 25px;
+    border-radius: 3px; }
   .chaokaset-container-verticle .container-box {
     height: 100%; }
     .chaokaset-container-verticle .container-box thead.box-thead-show th {
