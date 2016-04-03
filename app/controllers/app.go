@@ -2,7 +2,7 @@ package controllers
 
 import (
     "github.com/revel/revel"
-    //"github.com/gocql/gocql"
+    "github.com/gocql/gocql"
 		"chaokaset-go/app/models"
     "golang.org/x/crypto/bcrypt"
     "regexp"
@@ -49,7 +49,18 @@ func setuser(c *revel.Controller) revel.Result {
 
 //Index for Create routing Page Index (localhost/index)
 func (c App) Index() revel.Result {
-	return c.Render()
+  // connect to the cluster
+    cluster := gocql.NewCluster("128.199.195.236")
+    cluster.Keyspace = "chaokaset"
+    cluster.Consistency = gocql.Quorum
+    session, _ := cluster.CreateSession()
+    defer session.Close()
+    var usern string
+    if err := session.Query(`SELECT username FROM users_by_chaokaset WHERE username = ? LIMIT 1 ALLOW FILTERING`,
+        "ssss").Consistency(gocql.One).Scan(&usern,); err != nil {
+        usern = "usern"
+    }
+	return c.Render(usern)
 }
 
 //Templates for Example Template (localhost/template)
