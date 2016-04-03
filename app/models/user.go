@@ -34,7 +34,7 @@ func (user *User) Validate(v *revel.Validation) {
 //RegisterUserChaokaset สมัครสมาชิก
 func RegisterUserChaokaset(username string,password []byte,prefix string,name string,lastname string,tel string) (result bool) { //result bool คือประกาศตัวแปรที่ใช้รีเทร์นค่่าเป็น boolean
   // connect to the cluster
-	 cluster := gocql.NewCluster("127.0.0.1")
+	 cluster := gocql.NewCluster("128.199.195.236")
 	 cluster.Keyspace = "chaokaset"
 	 cluster.Consistency = gocql.Quorum
 	 session, _ := cluster.CreateSession()
@@ -55,7 +55,7 @@ func RegisterUserChaokaset(username string,password []byte,prefix string,name st
 //GetUserData สำหรับเรียกข้อมูลผู้ใช้งาน
 func GetUserData(Uusername string) *User {
 
-  cluster := gocql.NewCluster("127.0.0.1")
+  cluster := gocql.NewCluster("128.199.195.236")
   cluster.Keyspace = "chaokaset"
   cluster.Consistency = gocql.Quorum
   session, _ := cluster.CreateSession()
@@ -73,7 +73,7 @@ func GetUserData(Uusername string) *User {
 //CheckUserLogin สำหรับเรียกข้อมูลผู้ใช้งาน
 func CheckUserLogin(Uusername string) *User{
 
-  cluster := gocql.NewCluster("127.0.0.1")
+  cluster := gocql.NewCluster("128.199.195.236")
   cluster.Keyspace = "chaokaset"
   cluster.Consistency = gocql.Quorum
   session, _ := cluster.CreateSession()
@@ -92,7 +92,7 @@ func CheckUserLogin(Uusername string) *User{
 
 //GetPasswordUser สำหรับรับค่า รหัสผ่านของ User
 func CheckPasswordUser(Uusername string,Upassword string) (result bool){
-  cluster := gocql.NewCluster("127.0.0.1")
+  cluster := gocql.NewCluster("128.199.195.236")
   cluster.Keyspace = "chaokaset"
   cluster.Consistency = gocql.Quorum
   session, _ := cluster.CreateSession()
