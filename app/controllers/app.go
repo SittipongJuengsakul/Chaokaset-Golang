@@ -49,18 +49,7 @@ func setuser(c *revel.Controller) revel.Result {
 
 //Index for Create routing Page Index (localhost/index)
 func (c App) Index() revel.Result {
-  // connect to the cluster
-    cluster := gocql.NewCluster("128.199.195.236")
-    cluster.Keyspace = "chaokaset"
-    cluster.Consistency = gocql.Quorum
-    session, _ := cluster.CreateSession()
-    defer session.Close()
-    var usern string
-    if err := session.Query(`SELECT username FROM users_by_chaokaset WHERE username = ? LIMIT 1 ALLOW FILTERING`,
-        "ssss").Consistency(gocql.One).Scan(&usern,); err != nil {
-        usern = "usern"
-    }
-	return c.Render(usern)
+	return c.Render()
 }
 
 //Templates for Example Template (localhost/template)
