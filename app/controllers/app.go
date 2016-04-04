@@ -51,18 +51,8 @@ func setuser(c *revel.Controller) revel.Result {
 
 //Index for Create routing Page Index (localhost/index)
 func (c App) Index() revel.Result {
-  session, err := mgo.Dial("127.0.0.1")
-  if err != nil {
-      panic(err)
-  }
-  defer session.Close()
-  var result *models.User
-  mgod := session.DB("chaokaset").C("users")
-  err = mgod.Find(bson.M{"name": "sittipong"}).One(&result)
-  if err != nil {
-     log.Fatal(err)
-  }
-	return c.Render(result)
+
+	return c.Render()
 }
 
 //Templates for Example Template (localhost/template)
@@ -77,6 +67,18 @@ func (c Search) SearchPlant() revel.Result {
 
 //Login for Create routing Page Login (localhost/login)
 func (c Auth) Login() revel.Result {
+  session, err := mgo.Dial("127.0.0.122")
+  if err != nil {
+      panic(err)
+  }
+  defer session.Close()
+  session.SetMode(mgo.Monotonic, true)
+  var result *models.User
+  err = c.Insert(&result{"Ale", "+55 53 8116 9639"},
+	               &result{"Cla", "+55 53 8402 8510"})
+        if err != nil {
+                log.Fatal(err)
+        }
   //user := models.GetUserData("sittipong")
   //c.RenderArgs["user"] = user
 	return c.Render()
