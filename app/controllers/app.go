@@ -59,7 +59,7 @@ func setuser(c *revel.Controller) revel.Result {
 
 //Index for Create routing Page Index (localhost/index)
 func (c App) Index() revel.Result {
-  session, err := mgo.Dial("127.0.0.1")
+  /*session, err := mgo.Dial("127.0.0.1")
   if err != nil {
       panic(err)
   }
@@ -69,6 +69,7 @@ func (c App) Index() revel.Result {
   qmgo := session.DB("chaokaset").C("users")
   result := Person{}
   err = qmgo.Find(bson.M{"username": "sittipong"}).One(&result)
+  */
 	return c.Render(result)
 }
 
