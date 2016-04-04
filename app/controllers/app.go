@@ -7,14 +7,18 @@ import (
 		"chaokaset-go/app/models"
     "golang.org/x/crypto/bcrypt"
     "regexp"
-    "log"
+    //"log"
 )
 var userRegex = regexp.MustCompile("^\\w*$")
 //App for save Structure of Folder App (in views)
 type App struct {
 	*revel.Controller
 }
-
+type Person struct {
+	ID            bson.ObjectId `bson:"_id,omitempty"`
+	Username      string
+	Phone         string
+}
 //Search for save Structure of Folder Search (in views)
 type Search struct {
 	*revel.Controller
@@ -27,6 +31,10 @@ type Auth struct {
 //Crops
 type Crops struct {
 	*revel.Controller
+}
+
+type Usss struct{
+  Name string
 }
 
 func init() {
@@ -51,8 +59,17 @@ func setuser(c *revel.Controller) revel.Result {
 
 //Index for Create routing Page Index (localhost/index)
 func (c App) Index() revel.Result {
-
-	return c.Render()
+  session, err := mgo.Dial("127.0.0.1")
+  if err != nil {
+      panic(err)
+  }
+  defer session.Close()
+  session.SetMode(mgo.Monotonic, true)
+  //var result *models.User
+  qmgo := session.DB("chaokaset").C("users")
+  result := Person{}
+  err = qmgo.Find(bson.M{"Username": "sittipong"}).Select(bson.M{"Username": 0}).One(&result)
+	return c.Render(result)
 }
 
 //Templates for Example Template (localhost/template)
@@ -67,21 +84,19 @@ func (c Search) SearchPlant() revel.Result {
 
 //Login for Create routing Page Login (localhost/login)
 func (c Auth) Login() revel.Result {
-  session, err := mgo.Dial("127.0.0.122")
+  session, err := mgo.Dial("127.0.0.1")
   if err != nil {
       panic(err)
   }
   defer session.Close()
   session.SetMode(mgo.Monotonic, true)
-  var result *models.User
-  err = c.Insert(&result{"Ale", "+55 53 8116 9639"},
-	               &result{"Cla", "+55 53 8402 8510"})
-        if err != nil {
-                log.Fatal(err)
-        }
+  //var result *models.User
+  qmgo := session.DB("chaokaset").C("users")
+  result := Person{}
+	err = qmgo.Find(bson.M{"Username": "sittipong"}).Select(bson.M{"Username": 0}).One(&result)
   //user := models.GetUserData("sittipong")
   //c.RenderArgs["user"] = user
-	return c.Render()
+	return c.Render(result)
 }
 func (c Auth) PostLogin(user *models.User) revel.Result {
   c.Validation.Required(user.Username).Message("จำเป็นต้องกรอก ชื่อผู้ใช้งาน")
