@@ -81,11 +81,12 @@ func GetUserData(Uusername string) *User {
       panic(err)
   }
   defer session.Close()
+  var user *User
   session.SetMode(mgo.Monotonic, true)
   qmgo := session.DB("chaokaset").C("users")
   result := User{}
-	query := qmgo.Find(bson.M{"username": Uusername}).One(&result)
-  user := &User{Userid: result.Userid,Username: result.Username,Name: result.Name}
+	qmgo.Find(bson.M{"username": Uusername}).One(&result)
+  user = &User{Userid: result.Userid,Username: result.Username,Name: result.Name}
   return user
 }
 

@@ -19,19 +19,7 @@ type ResAuth struct {
 }
 func (c Api) Index() revel.Result {
   var user *models.User
-	user = models.GetUserData("sittipongss")
-  /*
-  session, err := mgo.Dial("127.0.0.1")
-  if err != nil {
-      panic(err)
-  }
-  defer session.Close()
-  session.SetMode(mgo.Monotonic, true)
-  //var result *models.User
-  qmgo := session.DB("chaokaset").C("users")
-  result := User{}
-	err = qmgo.Find(bson.M{"username": "sittipong"}).One(&result)
-  */
+	user = models.GetUserData("sittipong")
 	return c.Render(user)
 }
 func (c Api) CheckLogin(Username string,Password string) revel.Result {
