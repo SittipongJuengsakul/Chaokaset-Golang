@@ -110,6 +110,8 @@ func (c Auth) Register() revel.Result {
 }
 //PostRegister หน้าที่ไช้สำหรับรับค่าจากฟอร์ม Register
 func (c Auth) PostRegister(user *models.User,Validpassword string) revel.Result {
+  resUserData := models.GetUserData(user.Username)
+  c.Validation.Required(user.Username != resUserData.Username).Message("ชื่อผู้ไช้มีคนไช้งานแล้ว")
 	user.Validate(c.Validation)
   if c.Validation.HasErrors() {
 		c.Validation.Keep()
