@@ -74,8 +74,6 @@ func (c Search) SearchPlant() revel.Result {
 
 //Login for Create routing Page Login (localhost/login)
 func (c Auth) Login() revel.Result {
-  //user := models.GetUserData("sittipong")
-  //c.RenderArgs["user"] = user
 	return c.Render()
 }
 func (c Auth) PostLogin(user *models.User) revel.Result {

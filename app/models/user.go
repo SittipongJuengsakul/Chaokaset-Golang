@@ -4,17 +4,27 @@ import (
     //"github.com/gocql/gocql"
     "gopkg.in/mgo.v2"
     "gopkg.in/mgo.v2/bson"
-    //"golang.org/x/crypto/bcrypt"
+    "golang.org/x/crypto/bcrypt"
     "github.com/revel/revel"
     "regexp"
+    "time"
 )
 
 
 type User struct { //สร้าง Struct
 	Userid                                    bson.ObjectId `bson:"_id,omitempty"`
 	Username,Password,Validpassword           string
+  Role                                      int
   Name,Lastname,Prefix,Tel,Pic              string
   HashedPassword                            []byte
+  Timestamp                                 time.Time
+}
+type UserByChaokaset struct{
+  Userid                                    bson.ObjectId `bson:"_id,omitempty"`
+  Username,Name,Lastname,Prefix,Tel,Pic     string
+  Password                                  []byte
+  Timestamp                                 time.Time
+  Role                                      int
 }
 var userdb = make(map[string]*User)
 
@@ -36,42 +46,24 @@ func (user *User) Validate(v *revel.Validation) {
 //RegisterUserChaokaset สมัครสมาชิก
 func RegisterUserChaokaset(username string,password []byte,prefix string,name string,lastname string,tel string) (result bool) { //result bool คือประกาศตัวแปรที่ใช้รีเทร์นค่่าเป็น boolean
   // connect to the cluster
-  /*
-	 cluster := gocql.NewCluster("128.199.195.236")
-	 cluster.Keyspace = "chaokaset"
-	 cluster.Consistency = gocql.Quorum
-	 session, _ := cluster.CreateSession()
-	 defer session.Close()
-   pic := "http://simpleicon.com/wp-content/uploads/multy-user.svg"
-   //role_user 1>admin 2>officer 3>farmer 4>user
-   role_user := 3
-   if err := session.Query("INSERT INTO users_by_chaokaset (userid,username, password, prefix, name, lname,tel,pic,role_user) VALUES (uuid(),?, ?, ?, ?,?,?,?,?)",
-        username, password, prefix, name, lastname,tel,pic,role_user).Exec(); err != nil {
-       log.Fatal(err)
-       result = false;
-    } else{
-      result = true;
-    }
-    return result
-    ////
-    session, err := mgo.Dial("server1.example.com,server2.example.com")
-    if err != nil {
-        panic(err)
-    }
-    defer session.Close()
-     c := session.DB("chaokaset").C("users")
-     err = c.Insert(&User{"Username", "tsssss"})
+     session, err := mgo.Dial("127.0.0.1")
      if err != nil {
-       log.Fatal(err)
+         panic(err)
+     }
+     defer session.Close()
+     //var user *User
+     session.SetMode(mgo.Monotonic, true)
+     qmgo := session.DB("chaokaset").C("users")
+     //role_user 1>admin 2>officer 3>farmer 4>user
+     pic := "http://simpleicon.com/wp-content/uploads/multy-user.svg"
+     role_user := 3
+     err = qmgo.Insert(&UserByChaokaset{Username: username, Password: password,Prefix: prefix,Name: name,Lastname: lastname,Tel: tel,Timestamp: time.Now(),Pic: pic,Role: role_user})
+     if err != nil {
+       return false
+     }else{
+       return true
      }
 
-     result := User{}
-     err = c.Find(bson.M{"name": "sittipong"}).One(&result)
-     if err != nil {
-        log.Fatal(err)
-     }
-     */
-     return false
 }
 
 //GetUserData สำหรับเรียกข้อมูลผู้ใช้งาน
@@ -86,50 +78,41 @@ func GetUserData(Uusername string) *User {
   qmgo := session.DB("chaokaset").C("users")
   result := User{}
 	qmgo.Find(bson.M{"username": Uusername}).One(&result)
-  user = &User{Userid: result.Userid,Username: result.Username,Name: result.Name}
+  user = &User{Userid: result.Userid,Username: result.Username,Name: result.Name,Lastname: result.Lastname,Pic: result.Pic,Role: result.Role}
   return user
 }
 
 //CheckUserLogin สำหรับเรียกข้อมูลผู้ใช้งาน
 func CheckUserLogin(Uusername string) *User{
-/*
-  cluster := gocql.NewCluster("128.199.195.236")
-  cluster.Keyspace = "chaokaset"
-  cluster.Consistency = gocql.Quorum
-  session, _ := cluster.CreateSession()
-  defer session.Close()
-
-  var username string
-  if err := session.Query(`SELECT username FROM users_by_chaokaset WHERE username = ? LIMIT 1 ALLOW FILTERING`,
-        Uusername).Scan(&username); err != nil {
-        return nil;
-  } else {
-    user := &User{Username: username}
-  	userdb[user.Username] = user
-  	return user
+  session, err := mgo.Dial("127.0.0.1")
+  if err != nil {
+      panic(err)
   }
-  */
-  user := &User{Username: "111"}
+  defer session.Close()
+  var user *User
+  session.SetMode(mgo.Monotonic, true)
+  qmgo := session.DB("chaokaset").C("users")
+  result := User{}
+	qmgo.Find(bson.M{"username": Uusername}).One(&result)
+  user = &User{Userid: result.Userid,Username: result.Username,Name: result.Name,Lastname: result.Lastname,Pic: result.Pic,Role: result.Role}
   return user
 }
 
 //GetPasswordUser สำหรับรับค่า รหัสผ่านของ User
 func CheckPasswordUser(Uusername string,Upassword string) (result bool){
-  /*cluster := gocql.NewCluster("128.199.195.236")
-  cluster.Keyspace = "chaokaset"
-  cluster.Consistency = gocql.Quorum
-  session, _ := cluster.CreateSession()
-  defer session.Close()
-  var username string
-  var password []byte
-  session.Query(`SELECT username,password FROM users_by_chaokaset WHERE username = ? LIMIT 1 ALLOW FILTERING`,
-        Uusername).Scan(&username,&password);
-  err := bcrypt.CompareHashAndPassword(password, []byte(Upassword))//ตรวจสอบรหัสผ่าน
+   session, err := mgo.Dial("127.0.0.1")
+   if err != nil {
+       panic(err)
+   }
+   defer session.Close()
+   session.SetMode(mgo.Monotonic, true)
+   qmgo := session.DB("chaokaset").C("users")
+   UserResult := UserByChaokaset{}
+ 	 qmgo.Find(bson.M{"username": Uusername}).One(&UserResult)
+   err = bcrypt.CompareHashAndPassword(UserResult.Password, []byte(Upassword))//ตรวจสอบรหัสผ่าน
    if err == nil{
       return true;
    } else {
       return false;
    }
-   */
-   return false
 }
