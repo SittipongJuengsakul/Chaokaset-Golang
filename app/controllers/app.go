@@ -68,7 +68,7 @@ func (c App) Index() revel.Result {
   //var result *models.User
   qmgo := session.DB("chaokaset").C("users")
   result := Person{}
-  err = qmgo.Find(bson.M{"Username": "sittipong"}).Select(bson.M{"Username": 0}).One(&result)
+  err = qmgo.Find(bson.M{"username": "sittipong"}).One(&result)
 	return c.Render(result)
 }
 
