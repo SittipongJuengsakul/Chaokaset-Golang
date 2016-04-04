@@ -62,7 +62,7 @@ func (c App) Index() revel.Result {
   if err != nil {
      log.Fatal(err)
   }
-	return c.Render()
+	return c.Render(result)
 }
 
 //Templates for Example Template (localhost/template)
