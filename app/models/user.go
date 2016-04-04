@@ -2,7 +2,7 @@ package models
 import (
     //"log"
     //"github.com/gocql/gocql"
-    //"gopkg.in/mgo.v2"
+    "gopkg.in/mgo.v2"
     "gopkg.in/mgo.v2/bson"
     //"golang.org/x/crypto/bcrypt"
     "github.com/revel/revel"
@@ -76,22 +76,16 @@ func RegisterUserChaokaset(username string,password []byte,prefix string,name st
 
 //GetUserData สำหรับเรียกข้อมูลผู้ใช้งาน
 func GetUserData(Uusername string) *User {
-/*
-  cluster := gocql.NewCluster("128.199.195.236")
-  cluster.Keyspace = "chaokaset"
-  cluster.Consistency = gocql.Quorum
-  session, _ := cluster.CreateSession()
-  defer session.Close()
-  var username,name,lname,pic,prefix,tel string
-  var userid gocql.UUID
-  if err := session.Query(`SELECT username,userid,name,lname,pic,tel,prefix FROM users_by_chaokaset WHERE username = ? LIMIT 1 ALLOW FILTERING`,
-        Uusername).Scan(&username,&userid,&name,&lname,&pic,&tel,&prefix ); err != nil {
-        log.Fatal(err)
+  session, err := mgo.Dial("127.0.0.1")
+  if err != nil {
+      panic(err)
   }
-  user := &User{Userid: userid,Username: username,Name: name,Lastname: lname,Pic: pic,Tel: tel,Prefix: prefix}
-
-  */
-  user := &User{Username: "111"}
+  defer session.Close()
+  session.SetMode(mgo.Monotonic, true)
+  qmgo := session.DB("chaokaset").C("users")
+  result := User{}
+	query := qmgo.Find(bson.M{"username": Uusername}).One(&result)
+  user := &User{Userid: result.Userid,Username: result.Username,Name: result.Name}
   return user
 }
 

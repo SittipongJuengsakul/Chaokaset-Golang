@@ -2,7 +2,7 @@ package controllers
 
 import (
     "github.com/revel/revel"
-    "gopkg.in/mgo.v2"
+    //"gopkg.in/mgo.v2"
     "gopkg.in/mgo.v2/bson"
 		"chaokaset-go/app/models"
     "golang.org/x/crypto/bcrypt"
@@ -70,7 +70,7 @@ func (c App) Index() revel.Result {
   result := Person{}
   err = qmgo.Find(bson.M{"username": "sittipong"}).One(&result)
   */
-	return c.Render(result)
+	return c.Render()
 }
 
 //Templates for Example Template (localhost/template)
@@ -85,19 +85,9 @@ func (c Search) SearchPlant() revel.Result {
 
 //Login for Create routing Page Login (localhost/login)
 func (c Auth) Login() revel.Result {
-  session, err := mgo.Dial("127.0.0.1")
-  if err != nil {
-      panic(err)
-  }
-  defer session.Close()
-  session.SetMode(mgo.Monotonic, true)
-  //var result *models.User
-  qmgo := session.DB("chaokaset").C("users")
-  result := Person{}
-	err = qmgo.Find(bson.M{"Username": "sittipong"}).Select(bson.M{"Username": 0}).One(&result)
   //user := models.GetUserData("sittipong")
   //c.RenderArgs["user"] = user
-	return c.Render(result)
+	return c.Render()
 }
 func (c Auth) PostLogin(user *models.User) revel.Result {
   c.Validation.Required(user.Username).Message("จำเป็นต้องกรอก ชื่อผู้ใช้งาน")
