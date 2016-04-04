@@ -51,7 +51,7 @@ func setuser(c *revel.Controller) revel.Result {
 
 //Index for Create routing Page Index (localhost/index)
 func (c App) Index() revel.Result {
-  session, err := mgo.Dial("139.59.251.86")
+  session, err := mgo.Dial("127.0.0.1")
   if err != nil {
       panic(err)
   }
