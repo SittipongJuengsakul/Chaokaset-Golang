@@ -1,15 +1,17 @@
 package models
 import (
-    "log"
-    "github.com/gocql/gocql"
-    "golang.org/x/crypto/bcrypt"
+    //"log"
+    //"github.com/gocql/gocql"
+    //"gopkg.in/mgo.v2"
+    "gopkg.in/mgo.v2/bson"
+    //"golang.org/x/crypto/bcrypt"
     "github.com/revel/revel"
     "regexp"
 )
 
 
 type User struct { //สร้าง Struct
-	Userid                                    gocql.UUID
+	Userid                                    bson.ObjectId `bson:"_id,omitempty"`
 	Username,Password,Validpassword           string
   Name,Lastname,Prefix,Tel,Pic              string
   HashedPassword                            []byte
@@ -34,6 +36,7 @@ func (user *User) Validate(v *revel.Validation) {
 //RegisterUserChaokaset สมัครสมาชิก
 func RegisterUserChaokaset(username string,password []byte,prefix string,name string,lastname string,tel string) (result bool) { //result bool คือประกาศตัวแปรที่ใช้รีเทร์นค่่าเป็น boolean
   // connect to the cluster
+  /*
 	 cluster := gocql.NewCluster("128.199.195.236")
 	 cluster.Keyspace = "chaokaset"
 	 cluster.Consistency = gocql.Quorum
@@ -50,11 +53,30 @@ func RegisterUserChaokaset(username string,password []byte,prefix string,name st
       result = true;
     }
     return result
+    ////
+    session, err := mgo.Dial("server1.example.com,server2.example.com")
+    if err != nil {
+        panic(err)
+    }
+    defer session.Close()
+     c := session.DB("chaokaset").C("users")
+     err = c.Insert(&User{"Username", "tsssss"})
+     if err != nil {
+       log.Fatal(err)
+     }
+
+     result := User{}
+     err = c.Find(bson.M{"name": "sittipong"}).One(&result)
+     if err != nil {
+        log.Fatal(err)
+     }
+     */
+     return false
 }
 
 //GetUserData สำหรับเรียกข้อมูลผู้ใช้งาน
 func GetUserData(Uusername string) *User {
-
+/*
   cluster := gocql.NewCluster("128.199.195.236")
   cluster.Keyspace = "chaokaset"
   cluster.Consistency = gocql.Quorum
@@ -67,12 +89,15 @@ func GetUserData(Uusername string) *User {
         log.Fatal(err)
   }
   user := &User{Userid: userid,Username: username,Name: name,Lastname: lname,Pic: pic,Tel: tel,Prefix: prefix}
+
+  */
+  user := &User{Username: "111"}
   return user
 }
 
 //CheckUserLogin สำหรับเรียกข้อมูลผู้ใช้งาน
 func CheckUserLogin(Uusername string) *User{
-
+/*
   cluster := gocql.NewCluster("128.199.195.236")
   cluster.Keyspace = "chaokaset"
   cluster.Consistency = gocql.Quorum
@@ -88,11 +113,14 @@ func CheckUserLogin(Uusername string) *User{
   	userdb[user.Username] = user
   	return user
   }
+  */
+  user := &User{Username: "111"}
+  return user
 }
 
 //GetPasswordUser สำหรับรับค่า รหัสผ่านของ User
 func CheckPasswordUser(Uusername string,Upassword string) (result bool){
-  cluster := gocql.NewCluster("128.199.195.236")
+  /*cluster := gocql.NewCluster("128.199.195.236")
   cluster.Keyspace = "chaokaset"
   cluster.Consistency = gocql.Quorum
   session, _ := cluster.CreateSession()
@@ -107,4 +135,6 @@ func CheckPasswordUser(Uusername string,Upassword string) (result bool){
    } else {
       return false;
    }
+   */
+   return false
 }

@@ -2,10 +2,12 @@ package controllers
 
 import (
     "github.com/revel/revel"
-    "github.com/gocql/gocql"
+    "gopkg.in/mgo.v2"
+    "gopkg.in/mgo.v2/bson"
 		"chaokaset-go/app/models"
     "golang.org/x/crypto/bcrypt"
     "regexp"
+    "log"
 )
 var userRegex = regexp.MustCompile("^\\w*$")
 //App for save Structure of Folder App (in views)
@@ -49,6 +51,17 @@ func setuser(c *revel.Controller) revel.Result {
 
 //Index for Create routing Page Index (localhost/index)
 func (c App) Index() revel.Result {
+  session, err := mgo.Dial("139.59.251.86")
+  if err != nil {
+      panic(err)
+  }
+  defer session.Close()
+  var result *models.User
+  mgod := session.DB("chaokaset").C("users")
+  err = mgod.Find(bson.M{"name": "sittipong"}).One(&result)
+  if err != nil {
+     log.Fatal(err)
+  }
 	return c.Render()
 }
 
