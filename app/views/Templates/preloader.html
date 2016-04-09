@@ -1,3 +1,9 @@
-<div id="chaokaset-preloader" class="chaokaset-container-verticle">
-
+<div class="chaokaset-container-fixed" id="chaokaset-preloader" style="display: block;">
+  <img src="/public/img/chaokaset-logo.png" style="width: 200px;margin-top: 20%;" class="col-sm-offset-5 col-xs-offset-2">
 </div>
+<script>
+$( document ).ready(function() {
+  $( "#chaokaset-preloader" ).hide();
+  $( "#chaokaset-loader" ).show();
+});
+</script>
