@@ -37,7 +37,7 @@ func (c Api) RegisterUser(Username string,Password string,Prefix string,Name str
   var U *models.User
   HashedPassword, _ := bcrypt.GenerateFromPassword(
     []byte(Password), bcrypt.DefaultCost)
-  res := models.RegisterUserChaokaset(Username ,HashedPassword,Prefix ,Name ,Lname ,Tel);
+  res := models.RegisterUserChaokaset(Username,HashedPassword,Prefix ,Name ,Lname ,Tel); //ไม่เสดนะจ้ะ
   if res {
     U = models.GetUserData(Username)
   }
