@@ -8,7 +8,7 @@ import (
     "golang.org/x/crypto/bcrypt"
     "regexp"
     //"log"
-    "time"
+    //"time"
 )
 var userRegex = regexp.MustCompile("^\\w*$")
 
@@ -61,8 +61,7 @@ func setuser(c *revel.Controller) revel.Result {
 
 //Index for Create routing Page Index (localhost/index)
 func (c App) Index() revel.Result {
-  tt := time.Now()
-	return c.Render(tt)
+	return c.Render()
 }
 
 //Templates for Example Template (localhost/template)
