@@ -8,6 +8,7 @@ GET     /                                                                       
 GET     /index                                                                                     App.Index
 GET     /login                                                                                     Auth.Login
 GET     /register                                                                                  Auth.Register
+GET     /edituser                                                                                  Auth.EditUser
 GET     /searchplant                                                                               Search.SearchPlant
 GET     /crops                                                                                     Crops.IndexCrops
 GET     /crops/management                                                                          Crops.Management

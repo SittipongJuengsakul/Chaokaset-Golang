@@ -42,6 +42,7 @@ type Usss struct{
 func init() {
 	revel.InterceptFunc(setuser, revel.BEFORE, &App{})
   revel.InterceptFunc(setuser, revel.BEFORE, &Crops{})
+  revel.InterceptFunc(setuser, revel.BEFORE, &Auth{})
 }
 func (c App) connected() *models.User {
   if c.RenderArgs["user"] != nil {
@@ -134,6 +135,14 @@ func (c Auth) PostRegister(user *models.User,Validpassword string) revel.Result 
       return c.Redirect(Auth.Register)
     }
   }
+}
+//EditUser for Create routing Page Register (localhost/register)
+func (c Auth) EditUser() revel.Result {
+	return c.Render()
+}
+//PostEditUser for Create routing Page Register (localhost/register)
+func (c Auth) PostEditUser() revel.Result {
+	return c.Render()
 }
 
 //IndexCrops หน้าหลักของการจัดการการเพาะปลูก
