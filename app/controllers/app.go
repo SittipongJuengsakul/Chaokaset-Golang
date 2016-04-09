@@ -8,8 +8,10 @@ import (
     "golang.org/x/crypto/bcrypt"
     "regexp"
     //"log"
+    "time"
 )
 var userRegex = regexp.MustCompile("^\\w*$")
+
 //App for save Structure of Folder App (in views)
 type App struct {
 	*revel.Controller
@@ -59,7 +61,8 @@ func setuser(c *revel.Controller) revel.Result {
 
 //Index for Create routing Page Index (localhost/index)
 func (c App) Index() revel.Result {
-	return c.Render()
+  tt := time.Now()
+	return c.Render(tt)
 }
 
 //Templates for Example Template (localhost/template)
