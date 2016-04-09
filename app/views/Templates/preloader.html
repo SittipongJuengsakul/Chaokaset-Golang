@@ -1,9 +1,13 @@
-<div class="chaokaset-container-fixed" id="chaokaset-preloader" style="display: block;">
+<div class="col-sm-12 col-xs-12" id="chaokaset-preloader" style="display: block;background-color: white;">
   <img src="/public/img/chaokaset-logo.png" style="width: 200px;margin-top: 20%;" class="col-sm-offset-5 col-xs-offset-2">
 </div>
 <script>
 $( document ).ready(function() {
+  $( "#chaokaset-preloader" ).show();
+  $( "#chaokaset-loader" ).hide();
+});
+$(window).load(function() {
   $( "#chaokaset-preloader" ).hide();
-  $( "#chaokaset-loader" ).show();
+  $( "#chaokaset-loader" ).fadeIn(400);
 });
 </script>
