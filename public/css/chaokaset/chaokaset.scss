@@ -46,6 +46,33 @@ $gray: #bbbbbb;
 .padding-right-no{
   padding-right: 0px;
 }
+.abtn{
+  margin: 20px auto 0px;
+  margin-top: 13px;
+  box-sizing: border-box;
+  appearance: none;
+  border-radius: 10px;
+  background-color: transparent;
+  border: 2px solid $red;
+  color: $red;
+  cursor: pointer;
+  display: flex;
+  align-self: center;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1;
+  padding: 15px 25px;
+  text-decoration: none;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: 'Kanit', sans-serif;
+  font-weight: 700;
+
+  &:hover{
+    color: #fff;
+    outline: 0;
+  }
+}
 @media (max-width: 768px){
   .padding-left-no{
     padding-left: 0px;
@@ -229,6 +256,20 @@ h1,h2,h3{
       }
       &:focus {
         outline: none;
+      }
+    }
+    .btn-style-choice {
+      // background: $yellow;
+      border: $green;
+      color: white;
+      background-color: $green;
+      &:hover {
+        background-color: #28b162;
+        border: #28b162;
+      }
+      &:focus {
+        background-color: #28b162;
+        border: #28b162;
       }
     }
 }
@@ -474,6 +515,10 @@ h1,h2,h3{
     border-radius: 3px;
     .name-header{
       padding: 10px;
+    }
+    .name-content{
+      padding-left: 10px;
+      padding-right: 10px;
     }
     .info-plant-show{
       label{
