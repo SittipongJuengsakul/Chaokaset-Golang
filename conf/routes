@@ -10,6 +10,10 @@ GET     /aboutus                                                                
 GET     /social                                                                                    App.Social
 GET     /login                                                                                     Auth.Login
 GET     /register                                                                                  Auth.Register
+GET     /howto/authen                                                                              Howto.HowtoRegister
+GET     /howto/crops                                                                               Howto.HowtoCrops
+GET     /howto/setting                                                                             Howto.HowtoSetting
+GET     /howto/market                                                                              Howto.HowtoMarket
 GET     /edituser                                                                                  Profile.EditUser
 GET     /changepassword                                                                            Profile.ChangePassword
 GET     /setting/user                                                                              Profile.SettingUser

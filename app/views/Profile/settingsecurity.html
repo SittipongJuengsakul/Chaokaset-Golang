@@ -2,7 +2,7 @@
 {{template "Templates/header.html" .}}
 {{template "Templates/preloader.html" .}}
 <div class="chaokaset-container-verticle" id="chaokaset-loader">
-  {{template "Templates/notification.html" .}}
+
   <div class="col-sm-12 varticle-header-box">
     <h1>ตั้งค่า</h1>
   </div>
@@ -19,11 +19,123 @@
   <div class="col-sm-9 container-box">
     <div class="col-sm-12 container-box-content" >
       <div class="col-sm-5 name-header padding-left-no padding-right-no"><h2 class="color-green">เครื่องที่ใช้งาน</h2></div>
-
+      <table class="table">
+        <thead class="box-thead-show">
+          <tr>
+            <th width="25%">วันที่</th>
+            <th width="35%">รายละเอียด</th>
+            <th width="20%">ไอพี</th>
+            <th width="15%">ตัวเลือก</th>
+          </tr>
+        </thead>
+        <tbody class="box-tbody-show">
+          <tr>
+            <td>22 มี.ค. 59</td>
+            <td>ผ่าน Window_Chrome</td>
+            <td>202.22.22.11</td>
+            <td class="color-green">
+              <div class="dropdown">
+                <a href="#" class="dropdown-toggle option-crops"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ดูเพิ่มเติม <span class="caret"></span></a>
+                </button>
+                <ul class="dropdown-menu dd-menu" aria-labelledby="dropdownMenu1">
+                  <li><a href="#">รายละเอียด</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="#" class="color-red">รายงาน</a></li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>22 มี.ค. 59</td>
+            <td>ผ่าน Mac_Safari</td>
+            <td>201.33.31.22</td>
+            <td class="color-green">
+              <div class="dropdown">
+                <a href="#" class="dropdown-toggle option-crops"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ดูเพิ่มเติม <span class="caret"></span></a>
+                </button>
+                <ul class="dropdown-menu dd-menu" aria-labelledby="dropdownMenu1">
+                  <li><a href="#">รายละเอียด</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="#" class="color-red">รายงาน</a></li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <nav>
+        <!-- แสดง 10 รายการ -->
+        <ul class="pager">
+          <li class="pager-prev disabled"><a href="#">< ย้อนกลับ</a></li>
+          <li class="pager-next"><a href="#" style="width: 110px">ต่อไป ></a></li>
+        </ul>
+      </nav>
     </div>
     <div class="col-sm-12 container-box-content" >
       <div class="col-sm-5 name-header padding-left-no padding-right-no"><h2 class="color-green">รายงานการใช้งาน</h2></div>
-
+      <table class="table">
+        <thead class="box-thead-show">
+          <tr>
+            <th width="25%">วันที่</th>
+            <th width="55%">รายละเอียด</th>
+            <th width="20%">ตัวเลือก</th>
+          </tr>
+        </thead>
+        <tbody class="box-tbody-show">
+          <tr>
+            <td>20 มี.ค. 59</td>
+            <td>สมัครสมาชิก</td>
+            <td class="color-green">
+              <div class="dropdown">
+                <a href="#" class="dropdown-toggle option-crops"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ดูเพิ่มเติม <span class="caret"></span></a>
+                </button>
+                <ul class="dropdown-menu dd-menu" aria-labelledby="dropdownMenu1">
+                  <li><a href="#">รายละเอียด</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="#" class="color-red">รายงาน</a></li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>22 มี.ค. 59</td>
+            <td>ล็อคอิน</td>
+            <td class="color-green">
+              <div class="dropdown">
+                <a href="#" class="dropdown-toggle option-crops"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ดูเพิ่มเติม <span class="caret"></span></a>
+                </button>
+                <ul class="dropdown-menu dd-menu" aria-labelledby="dropdownMenu1">
+                  <li><a href="#">รายละเอียด</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="#" class="color-red">รายงาน</a></li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>22 มี.ค. 59</td>
+            <td>เสนอซื้อข้าวไรซ์เบอร์รี่</td>
+            <td class="color-green">
+              <div class="dropdown">
+                <a href="#" class="dropdown-toggle option-crops"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ดูเพิ่มเติม <span class="caret"></span></a>
+                </button>
+                <ul class="dropdown-menu dd-menu" aria-labelledby="dropdownMenu1">
+                  <li><a href="#">รายละเอียด</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="#" class="color-red">รายงาน</a></li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <nav>
+        <!-- แสดง 10 รายการ -->
+        <ul class="pager">
+          <li class="pager-prev disabled"><a href="#">< ย้อนกลับ</a></li>
+          <li class="pager-next"><a href="#" style="width: 110px">ต่อไป ></a></li>
+        </ul>
+      </nav>
     </div>
   </div>
 </div>

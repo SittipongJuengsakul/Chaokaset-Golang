@@ -30,17 +30,17 @@ type Search struct {
 type Auth struct {
 	*revel.Controller
 }
-//Profile for save Structure of Folder Authen (in views)
+//Profile for save Structure of Folder Profile (in views)
 type Profile struct {
+	*revel.Controller
+}
+//Howto for save Structure of Folder Howto (in views)
+type Howto struct {
 	*revel.Controller
 }
 //Crops
 type Crops struct {
 	*revel.Controller
-}
-
-type Usss struct{
-  Name string
 }
 
 func init() {
@@ -211,5 +211,18 @@ func (c Crops) Product() revel.Result {
 }
 //Board แสดงข้อมูลการเพาะปลูก
 func (c Crops) Board() revel.Result {
+	return c.Render()
+}
+
+func (c Howto) HowtoRegister() revel.Result {
+	return c.Render()
+}
+func (c Howto) HowtoCrops() revel.Result {
+	return c.Render()
+}
+func (c Howto) HowtoSetting() revel.Result {
+	return c.Render()
+}
+func (c Howto) HowtoMarket() revel.Result {
 	return c.Render()
 }
