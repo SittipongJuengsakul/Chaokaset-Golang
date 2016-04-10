@@ -11,11 +11,12 @@ $( document ).ready(function() {
   $( "#loading-progress" ).css('width','10%');
   $( "#chaokaset-loader" ).hide();
   $( "#chaokaset-preloader" ).show();
-  $( "#loading-progress" ).css('width','30%');
+  $( "#loading-progress" ).css('width','40%');
 });
 $(window).load(function() {
-  $( "#loading-progress" ).css('width','100%');
+  $( "#loading-progress" ).css('width','80%');
   setTimeout(function(){
+     $( "#loading-progress" ).css('width','100%');
      $('#chaokaset-preloader').css('display','none');
   }, 500);
   $( "#chaokaset-loader" ).fadeIn(1200);
