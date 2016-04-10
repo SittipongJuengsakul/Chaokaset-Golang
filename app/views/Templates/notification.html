@@ -1,18 +1,19 @@
 <div class="notification-app">
-  <div class="alert notification-success" id="notification_1" onclick="hidenotification(this)">
-    นายทองดี <strong>เริ่มติดตาม ไร่หน้าหมู่บ้าน</strong>
+  <div class="alert notification-success" id="notification_1">
+      นายทองดี <strong>เริ่มติดตาม ไร่หน้าหมู่บ้าน</strong><button class="notification-close" onclick="hidenotification(1)" title="ปิด">X</button>
   </div>
-  <div class="alert notification-success" id="notification_2" onclick="hidenotification(this)">
-    นายทองดี <strong>ส่งคำขอสั่งซื้อ ข้าวไรซ์เบอร์รี่</strong>
+  <div class="alert notification-success" id="notification_2">
+    นายทองดี <strong>ส่งคำขอสั่งซื้อ ข้าวไรซ์เบอร์รี่</strong><button class="notification-close" onclick="hidenotification(2)" title="ปิด">X</button>
   </div>
-  <div class="alert notification-error" id="notification_3" onclick="hidenotification(this)">
-    นางทองหยิบ <strong>ยกเลิกการสั่งซื้อ ข้าวไรซ์เบอร์รี่</strong>
+  <div class="alert notification-error" id="notification_3">
+    นางทองหยิบ <strong>ยกเลิกการสั่งซื้อ ข้าวไรซ์เบอร์รี่</strong><button class="notification-close" onclick="hidenotification(3)" title="ปิด">X</button>
   </div>
 </div>
 
 <script>
 function hidenotification(item){
-  var id_ele = $(item).attr("id");
-  $( "#"+id_ele ).fadeOut(800);
+  //var id_ele = $(item).attr("id");
+  var id_ele = "notification_"+item;
+  $( "#"+id_ele ).fadeOut(700);
 }
 </script>
