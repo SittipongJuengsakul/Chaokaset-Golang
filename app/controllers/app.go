@@ -144,8 +144,16 @@ func (c Auth) EditUser() revel.Result {
 func (c Auth) PostEditUser() revel.Result {
 	return c.Render()
 }
+//Setting for Create routing Page Register (localhost/register)
+func (c Auth) Setting() revel.Result {
+	return c.Render()
+}
 //SettingUser for Create routing Page Register (localhost/register)
 func (c Auth) SettingUser() revel.Result {
+	return c.Render()
+}
+//SettingSecurity for Create routing Page Register (localhost/register)
+func (c Auth) SettingSecurity() revel.Result {
 	return c.Render()
 }
 //IndexCrops หน้าหลักของการจัดการการเพาะปลูก
