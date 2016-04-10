@@ -1,0 +1,18 @@
+<div class="notification-app">
+  <div class="alert notification-success" id="notification_1" onclick="hidenotification(this)">
+    นายทองดี <strong>เริ่มติดตาม ไร่หน้าหมู่บ้าน</strong>
+  </div>
+  <div class="alert notification-success" id="notification_2" onclick="hidenotification(this)">
+    นายทองดี <strong>ส่งคำขอสั่งซื้อ ข้าวไรซ์เบอร์รี่</strong>
+  </div>
+  <div class="alert notification-error" id="notification_3" onclick="hidenotification(this)">
+    นางทองหยิบ <strong>ยกเลิกการสั่งซื้อ ข้าวไรซ์เบอร์รี่</strong>
+  </div>
+</div>
+
+<script>
+function hidenotification(item){
+  var id_ele = $(item).attr("id");
+  $( "#"+id_ele ).fadeOut(800);
+}
+</script>

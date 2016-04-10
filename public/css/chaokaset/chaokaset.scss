@@ -46,6 +46,37 @@ $gray: #bbbbbb;
 .padding-right-no{
   padding-right: 0px;
 }
+.notification-app{
+  background-color: transparent;
+  position: fixed;
+  right: 0;
+  font-size: 16px;
+  padding: 20px 20px;
+  width: 400px;
+  z-index: 1000;
+  .notification-success{
+    border-radius: 10px;
+    background-color: white;
+    border: 2px solid $green;
+    color: $green;
+  }
+  .notification-error{
+    border-radius: 10px;
+    background-color: white;
+    border: 2px solid $red;
+    color: $red;
+  }
+  .notification-warning{
+    border-radius: 10px;
+    background-color: white;
+    border: 2px solid $yellow;
+    color: $yellow;
+  }
+  .notification-close{
+    background-color: #f9f9f9;
+    color: #838383;
+  }
+}
 .abtn{
   margin: 20px auto 0px;
   margin-top: 13px;
