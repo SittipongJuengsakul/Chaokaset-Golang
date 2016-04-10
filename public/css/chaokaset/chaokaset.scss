@@ -54,6 +54,7 @@ $gray: #bbbbbb;
   padding: 20px 20px;
   width: 400px;
   z-index: 1000;
+  cursor: pointer;
   .notification-success{
     border-radius: 10px;
     background-color: white;
@@ -73,8 +74,11 @@ $gray: #bbbbbb;
     color: $yellow;
   }
   .notification-close{
-    background-color: #f9f9f9;
+    float: right;
+    background-color: white;
     color: #838383;
+    text-decoration: none;
+    border: none;
   }
 }
 .abtn{

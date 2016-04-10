@@ -1,6 +1,7 @@
 {{set . "title" "แก้ไขข้อมูลสมาชิก"}}
 {{template "Templates/header.html" .}}
-<div class="chaokaset-container-verticle">
+{{template "Templates/preloader.html" .}}
+<div class="chaokaset-container-verticle" id="chaokaset-loader" style="display: none;">
   <div class="row">
     <div class="col-md-6 col-md-offset-3 example">
       <h2>แก้ไขข้อมูลสมาชิก <span style="color:red;font-size: 15px;">{{.flash.error}}</span></h2>

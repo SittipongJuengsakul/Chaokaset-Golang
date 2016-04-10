@@ -42,7 +42,8 @@
   font-size: 16px;
   padding: 20px 20px;
   width: 400px;
-  z-index: 1000; }
+  z-index: 1000;
+  cursor: pointer; }
   .notification-app .notification-success {
     border-radius: 10px;
     background-color: white;
@@ -59,8 +60,11 @@
     border: 2px solid #F3D534;
     color: #F3D534; }
   .notification-app .notification-close {
-    background-color: #f9f9f9;
-    color: #838383; }
+    float: right;
+    background-color: white;
+    color: #838383;
+    text-decoration: none;
+    border: none; }
 
 .abtn {
   margin: 20px auto 0px;
