@@ -103,6 +103,9 @@ func (c Search) SearchPlant() revel.Result {
 
 //Login for Create routing Page Login (localhost/login)
 func (c Auth) Login() revel.Result {
+  if _, ok := c.Session["username"]; ok {
+    return c.Redirect(App.Index)
+	}
 	return c.Render()
 }
 func (c Auth) PostLogin(user *models.User) revel.Result {
@@ -135,6 +138,9 @@ func (c Auth) Logout() revel.Result {
 }
 //Register for Create routing Page Register (localhost/register)
 func (c Auth) Register() revel.Result {
+  if _, ok := c.Session["username"]; ok {
+    return c.Redirect(App.Index)
+	}
 	return c.Render()
 }
 //PostRegister หน้าที่ไช้สำหรับรับค่าจากฟอร์ม Register
