@@ -38,20 +38,20 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav nav-content">
-            <li><button class="chaokaset-btn-border btn-style-one">เกี่ยวกับเรา</button></li>
+            <li><button class="chaokaset-btn-border btn-style-one" onclick="javascript:location.href='/aboutus'">เกี่ยวกับเรา</button></li>
           </ul>
           <ul class="nav navbar-nav navbar-right nav-content-right">
             {{ if .user}}
             <li><button class="chaokaset-btn-border btn-style-two" onclick="javascript:location.href='/crops'">จัดการการเกษตร</button></li>
-            <li><a href="#">สังคมชาวเกษตร <span class="label label-default label-pill pull-xs-right activity-new">14</span></a></li>
+            <li><a href="/social">สังคมชาวเกษตร <span class="label label-default label-pill pull-xs-right activity-new">14</span></a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ช่วยเหลือ <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
+                <li><a href="#">การสมัครสมาชิก</a></li>
+                <li><a href="#">การจัดการการเกษตร</a></li>
+                <li><a href="#">การตั้งค่าข้อมูลสมาชิก</a></li>
                 <li role="separator" class="divider"></li>
-                <li><a href="#">Separated link</a></li>
+                <li><a href="#">การซื้อ-ขายสินค้าการเกษตร</a></li>
               </ul>
             </li>
             <li class="dropdown">
@@ -68,11 +68,11 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ช่วยเหลือ <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
+                <li><a href="#">การสมัครสมาชิก</a></li>
+                <li><a href="#">การจัดการการเกษตร</a></li>
+                <li><a href="#">การตั้งค่าข้อมูลสมาชิก</a></li>
                 <li role="separator" class="divider"></li>
-                <li><a href="#">Separated link</a></li>
+                <li><a href="#">การซื้อ-ขายสินค้าการเกษตร</a></li>
               </ul>
             </li>
             <!-- พื้นที่แสดงข้อมูลผู้ใช้ -->

@@ -47,6 +47,8 @@ func init() {
 	revel.InterceptFunc(setuser, revel.BEFORE, &App{})
   revel.InterceptFunc(setuser, revel.BEFORE, &Crops{})
   revel.InterceptFunc(setuser, revel.BEFORE, &Profile{})
+  revel.InterceptFunc(checksetuser, revel.BEFORE, &Crops{})
+  revel.InterceptFunc(checksetuser, revel.BEFORE, &Profile{})
 }
 func (c App) connected() *models.User {
   if c.RenderArgs["user"] != nil {
@@ -54,8 +56,17 @@ func (c App) connected() *models.User {
 	}
 	return nil
 }
-
+//ตราจสอบ Session
 func setuser(c *revel.Controller) revel.Result {
+	var user *models.User
+  if username, ok := c.Session["username"]; ok {
+		user = models.GetUserData(username)
+    c.RenderArgs["user"] = user
+	}
+	return nil
+}
+//ตรวจสอบว่ามีสิทธิไช้งานหรือไม่ หากไม่ ล็อกอินก่อน
+func checksetuser(c *revel.Controller) revel.Result {
 	var user *models.User
   if username, ok := c.Session["username"]; ok {
 		user = models.GetUserData(username)
@@ -69,6 +80,14 @@ func setuser(c *revel.Controller) revel.Result {
 
 //Index for Create routing Page Index (localhost/index)
 func (c App) Index() revel.Result {
+	return c.Render()
+}
+//AboutUs for Create routing Page AboutUs
+func (c App) AboutUs() revel.Result {
+	return c.Render()
+}
+//Social for Create routing Page Social
+func (c App) Social() revel.Result {
 	return c.Render()
 }
 
@@ -147,19 +166,19 @@ func (c Auth) PostRegister(user *models.User,Validpassword string) revel.Result 
 func (c Profile) ChangePassword() revel.Result {
 	return c.Render()
 }
-//EditUser for Create routing Page Register 
+//EditUser for Create routing Page Register
 func (c Profile) EditUser() revel.Result {
 	return c.Render()
 }
-//PostEditUser for Create routing Page Register 
+//PostEditUser for Create routing Page Register
 func (c Profile) PostEditUser() revel.Result {
 	return c.Render()
 }
-//SettingUser for Create routing Page Register 
+//SettingUser for Create routing Page Register
 func (c Profile) SettingUser() revel.Result {
 	return c.Render()
 }
-//SettingSecurity for Create routing Page Register 
+//SettingSecurity for Create routing Page Register
 func (c Profile) SettingSecurity() revel.Result {
 	return c.Render()
 }

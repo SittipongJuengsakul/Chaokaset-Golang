@@ -6,6 +6,8 @@ module:testrunner
 
 GET     /                                                                                          App.Index
 GET     /index                                                                                     App.Index
+GET     /aboutus                                                                                   App.AboutUs
+GET     /social                                                                                    App.Social
 GET     /login                                                                                     Auth.Login
 GET     /register                                                                                  Auth.Register
 GET     /edituser                                                                                  Profile.EditUser
