@@ -143,19 +143,23 @@ func (c Auth) PostRegister(user *models.User,Validpassword string) revel.Result 
     }
   }
 }
-//EditUser for Create routing Page Register (localhost/register)
+//ChangePassword for Create routing Page ChangePassword
+func (c Profile) ChangePassword() revel.Result {
+	return c.Render()
+}
+//EditUser for Create routing Page Register 
 func (c Profile) EditUser() revel.Result {
 	return c.Render()
 }
-//PostEditUser for Create routing Page Register (localhost/register)
+//PostEditUser for Create routing Page Register 
 func (c Profile) PostEditUser() revel.Result {
 	return c.Render()
 }
-//SettingUser for Create routing Page Register (localhost/register)
+//SettingUser for Create routing Page Register 
 func (c Profile) SettingUser() revel.Result {
 	return c.Render()
 }
-//SettingSecurity for Create routing Page Register (localhost/register)
+//SettingSecurity for Create routing Page Register 
 func (c Profile) SettingSecurity() revel.Result {
 	return c.Render()
 }
