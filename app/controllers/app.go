@@ -30,6 +30,10 @@ type Search struct {
 type Auth struct {
 	*revel.Controller
 }
+//Profile for save Structure of Folder Authen (in views)
+type Profile struct {
+	*revel.Controller
+}
 //Crops
 type Crops struct {
 	*revel.Controller
@@ -42,7 +46,7 @@ type Usss struct{
 func init() {
 	revel.InterceptFunc(setuser, revel.BEFORE, &App{})
   revel.InterceptFunc(setuser, revel.BEFORE, &Crops{})
-  revel.InterceptFunc(setuser, revel.BEFORE, &Auth{})
+  revel.InterceptFunc(setuser, revel.BEFORE, &Profile{})
 }
 func (c App) connected() *models.User {
   if c.RenderArgs["user"] != nil {
@@ -56,7 +60,10 @@ func setuser(c *revel.Controller) revel.Result {
   if username, ok := c.Session["username"]; ok {
 		user = models.GetUserData(username)
     c.RenderArgs["user"] = user
-	}
+	} else{
+    c.Flash.Error("กรุณาล็อคอินก่อนทำรายการ !!")
+    return c.Redirect(Auth.Login)
+  }
 	return nil
 }
 
@@ -137,19 +144,19 @@ func (c Auth) PostRegister(user *models.User,Validpassword string) revel.Result 
   }
 }
 //EditUser for Create routing Page Register (localhost/register)
-func (c Auth) EditUser() revel.Result {
+func (c Profile) EditUser() revel.Result {
 	return c.Render()
 }
 //PostEditUser for Create routing Page Register (localhost/register)
-func (c Auth) PostEditUser() revel.Result {
+func (c Profile) PostEditUser() revel.Result {
 	return c.Render()
 }
 //SettingUser for Create routing Page Register (localhost/register)
-func (c Auth) SettingUser() revel.Result {
+func (c Profile) SettingUser() revel.Result {
 	return c.Render()
 }
 //SettingSecurity for Create routing Page Register (localhost/register)
-func (c Auth) SettingSecurity() revel.Result {
+func (c Profile) SettingSecurity() revel.Result {
 	return c.Render()
 }
 //IndexCrops หน้าหลักของการจัดการการเพาะปลูก
