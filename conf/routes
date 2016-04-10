@@ -9,7 +9,6 @@ GET     /index                                                                  
 GET     /login                                                                                     Auth.Login
 GET     /register                                                                                  Auth.Register
 GET     /edituser                                                                                  Auth.EditUser
-GET     /setting                                                                                   Auth.Setting
 GET     /setting/user                                                                              Auth.SettingUser
 GET     /setting/security                                                                          Auth.SettingSecurity
 GET     /searchplant                                                                               Search.SearchPlant
