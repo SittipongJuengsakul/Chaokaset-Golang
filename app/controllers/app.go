@@ -202,6 +202,10 @@ func (c Crops) Management() revel.Result {
 func (c Crops) Account() revel.Result {
 	return c.Render()
 }
+//AddCrop เพิ่มข้อมูลการเพาะปลูก
+func (c Crops) AddCrop() revel.Result {
+	return c.Render()
+}
 //Problem แสดงข้อมูลการเพาะปลูก
 func (c Crops) Problem() revel.Result {
 	return c.Render()

@@ -20,6 +20,7 @@ GET     /setting/user                                                           
 GET     /setting/security                                                                          Profile.SettingSecurity
 GET     /searchplant                                                                               Search.SearchPlant
 GET     /crops                                                                                     Crops.IndexCrops
+GET     /crops/add                                                                                 Crops.AddCrop
 GET     /crops/management                                                                          Crops.Management
 GET     /crops/account                                                                             Crops.Account
 GET     /crops/problem                                                                             Crops.Problem
