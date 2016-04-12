@@ -7,14 +7,14 @@
   </div>
 </div>
 <script>
-$( "#chaokaset-loader" ).css('display','none');
-$( "#chaokaset-preloader" ).css('display','block');
+$("#chaokaset-loader").css('display','none');
+$("#chaokaset-preloader").show();
 $( "#loading-progress" ).css('width','30%');
 $(window).load(function() {
   $( "#loading-progress" ).css('width','100%');
   setTimeout(function(){
      $('#chaokaset-preloader').css('display','none');
-     $( "#chaokaset-loader" ).fadeIn(500);
+     $("#chaokaset-loader").fadeIn(700);
   }, 500);
 });
 </script>
