@@ -16,85 +16,50 @@
           <input type="text" name="SearchCrops" class="form-control" placeholder="ค้นหารายการบัญชี">
         </div>
       </div>
-      <table class="table col-md-12">
-        <thead class="box-thead-show">
-          <tr>
-            <th width="15%">วันที่</th>
-            <th>ประเภท</th>
-            <th width="25%">ชื่อรายการ</th>
-            <th>จำนวนเงิน</th>
-            <th>ยอดเงินรวม</th>
-            <th>ตัวเลือก</th>
-          </tr>
-        </thead>
-        <tbody class="box-tbody-show">
-          <tr>
-            <td>10 มี.ค. 59</td>
-            <td>เมล็ดพันธุ์</td>
-            <td>ซื้อเมล็ดพันธุ์</td>
-            <td class="color-red">- 1500.00</td>
-            <td>3,000.00</td>
-            <td class="color-green">
-              <div class="dropdown">
-                <a href="#" class="dropdown-toggle option-crops"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ดูเพิ่มเติม <span class="caret"></span></a>
-                </button>
-                <ul class="dropdown-menu dd-menu" aria-labelledby="dropdownMenu1">
-                  <li><a href="#">รายละเอียด</a></li>
-                  <li><a href="#">แก้ไขรายการ</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li><a href="#" class="color-red">ลบรายการ</a></li>
-                </ul>
-              </div>
-            </td>
-          </tr>
-          <tr>
-          <tr>
-            <td>2 มี.ค. 59</td>
-            <td>ค่าปุ๋ย</td>
-            <td>ซื้อปุ๋ยอินทรี</td>
-            <td class="color-red">- 500.00</td>
-            <td>4,500.00</td>
-            <td class="color-green">
-              <div class="dropdown">
-                <a href="#" class="dropdown-toggle option-crops"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ดูเพิ่มเติม <span class="caret"></span></a>
-                </button>
-                <ul class="dropdown-menu dd-menu" aria-labelledby="dropdownMenu1">
-                  <li><a href="#">รายละเอียด</a></li>
-                  <li><a href="#">แก้ไขรายการ</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li><a href="#" class="color-red">ลบรายการ</a></li>
-                </ul>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>20 ก.พ. 59</td>
-            <td>กู้เงิน</td>
-            <td>กู้เงินจาก ธกส.</td>
-            <td class="color-green">+ 5,000.00</td>
-            <td>5,000.00</td>
-            <td class="color-green">
-              <div class="dropdown">
-                <a href="#" class="dropdown-toggle option-crops"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ดูเพิ่มเติม <span class="caret"></span></a>
-                </button>
-                <ul class="dropdown-menu dd-menu" aria-labelledby="dropdownMenu1">
-                  <li><a href="#">รายละเอียด</a></li>
-                  <li><a href="#">แก้ไขรายการ</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li><a href="#" class="color-red">ลบรายการ</a></li>
-                </ul>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <nav>
-        <!-- แสดง 10 รายการ -->
-        <ul class="pager">
-          <li class="pager-prev disabled"><a href="#">< ย้อนกลับ</a></li>
-          <li class="pager-next"><a href="#" style="width: 110px">ต่อไป ></a></li>
-        </ul>
-      </nav>
+      <form>
+        <div class="info-plant-show">
+          <fieldset class="form-group col-sm-4">
+            <label for="exampleInputEmail1">ชนิดพืช</label>
+            <p>ข้าว</p>
+          </fieldset>
+          <fieldset class="form-group col-sm-4">
+            <label for="exampleInputEmail1">พันธุ์พืช</label>
+            <p>ไรซ์เบอร์รี่</p>
+          </fieldset>
+          <fieldset class="form-group col-md-4">
+            <label for="exampleInputEmail1">แผนการเพาะปลูก</label>
+            <p>ไรซ์เบอร์รี่ ม.เกษตรศาตร์</p>
+          </fieldset>
+        </div>
+        <div class="info-plant-show">
+          <fieldset class="form-group col-sm-4">
+            <label for="exampleInputEmail1">ระยะเวลาปลูกเพาะปลูก</label>
+            <p>180 วัน</p>
+          </fieldset>
+          <fieldset class="form-group col-sm-4">
+            <label for="exampleInputEmail1">วันที่เริ่ม</label>
+            <p>2 มีนาคม 2559</p>
+          </fieldset>
+          <fieldset class="form-group col-md-4">
+            <label for="exampleInputEmail1">วันที่สิ้นสุด</label>
+            <p>18 สิงหาคม 2559</p>
+          </fieldset>
+        </div>
+        <div class="info-plant-show">
+          <fieldset class="form-group col-sm-4">
+            <label for="exampleInputEmail1">ขนาดพื้นที่</label>
+            <p>20 ไร่ 2 งาน 3 ตาราง</p>
+          </fieldset>
+          <fieldset class="form-group col-sm-4">
+            <label for="exampleInputEmail1">จำนวนผลผลิตต่อไร่</label>
+            <p>800 กก.</p>
+          </fieldset>
+          <fieldset class="form-group col-md-4">
+            <label for="exampleInputEmail1">ประมาณผลผลิตทั้งหมด</label>
+            <p>16,000 กก.</p>
+          </fieldset>
+        </div>
+      </form>
     </div>
   </div>
 </div>
