@@ -7,57 +7,87 @@
   </div>
   <div class="col-sm-12 container-box">
     <div class="col-sm-12 container-box-content" >
-      <div class="col-sm-5 name-header padding-left-no padding-right-no"><h2 class="color-green">บัญชีการเพาะปลูก</h2></div>
-      <div class="col-sm-7 name-header padding-left-no padding-right-no">
-        <div class="col-sm-4">
-          <button type="button" name="button" class="btn btn-success">เพิ่มข้อมูล</button>
-        </div>
-        <div class="col-sm-8" style="padding: 0px;">
-          <input type="text" name="SearchCrops" class="form-control" placeholder="ค้นหารายการบัญชี">
-        </div>
-      </div>
-      <form>
+      <div class="col-sm-12 padding-left-no padding-right-no name-header" style="padding-left: 0px;"><h2 class="color-green">บัญชีการเพาะปลูก</h2></div>
+      <form method="post" action="{{url "Auth.PostRegister"}}">
         <div class="info-plant-show">
-          <fieldset class="form-group col-sm-4">
-            <label for="exampleInputEmail1">ชนิดพืช</label>
-            <p>ข้าว</p>
-          </fieldset>
-          <fieldset class="form-group col-sm-4">
-            <label for="exampleInputEmail1">พันธุ์พืช</label>
-            <p>ไรซ์เบอร์รี่</p>
-          </fieldset>
-          <fieldset class="form-group col-md-4">
-            <label for="exampleInputEmail1">แผนการเพาะปลูก</label>
-            <p>ไรซ์เบอร์รี่ ม.เกษตรศาตร์</p>
-          </fieldset>
+          {{with $field := field "user.Name" .}}
+          <div class="form-grop col-md-12" style="padding: 0px;">
+            <div class="form-group col-md-6 padding-left-no">
+              <label for="exampleInputEmail1">ชนิดพืช</label>
+              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกชื่อ" name="{{$field.Name}}" value="{{$field.Flash}}">
+              <span class="error">{{$field.Error}}</span>
+            </div>
+            {{end}}
+            {{with $field := field "user.Lastname" .}}
+            <div class="form-group col-md-6 padding-right-no">
+              <label for="exampleInputEmail1">พันธุ์พืช</label>
+              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกนามสกุล" name="{{$field.Name}}" value="{{$field.Flash}}">
+              <span class="error">{{$field.Error}}</span>
+            </div>
+          </div>
+          {{end}}
+          {{with $field := field "user.Name" .}}
+          <div class="form-grop col-md-12" style="padding: 0px;">
+            <div class="form-group col-md-4 padding-left-no">
+              <label for="exampleInputEmail1">แผนการเพาะปลูก</label>
+              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกชื่อ" name="{{$field.Name}}" value="{{$field.Flash}}">
+              <span class="error">{{$field.Error}}</span>
+            </div>
+            {{end}}
+            {{with $field := field "user.Lastname" .}}
+            <div class="form-group col-md-4">
+              <label for="exampleInputEmail1">ระยะเวลาปลูกเพาะปลูก</label>
+              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกนามสกุล" name="{{$field.Name}}" value="{{$field.Flash}}">
+              <span class="error">{{$field.Error}}</span>
+            </div>
+            <div class="form-group col-md-4 padding-right-no">
+              <label for="exampleInputEmail1">จำนวนผลผลิตต่อไร่</label>
+              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกนามสกุล" name="{{$field.Name}}" value="{{$field.Flash}}">
+              <span class="error">{{$field.Error}}</span>
+            </div>
+          </div>
+          {{end}}
+          {{with $field := field "user.Name" .}}
+          <div class="form-grop col-md-12" style="padding: 0px;">
+            <div class="form-group col-md-4 padding-left-no">
+              <label for="exampleInputEmail1">ขนาดพื้นที่</label>
+              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกชื่อ" name="{{$field.Name}}" value="{{$field.Flash}}">
+              <span class="error">{{$field.Error}}</span>
+            </div>
+            {{end}}
+            {{with $field := field "user.Lastname" .}}
+            <div class="form-group col-md-4">
+              <label for="exampleInputEmail1">วันที่เริ่ม</label>
+              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกนามสกุล" name="{{$field.Name}}" value="{{$field.Flash}}">
+              <span class="error">{{$field.Error}}</span>
+            </div>
+            <div class="form-group col-md-4 padding-right-no">
+              <label for="exampleInputEmail1">วันที่สิ้นสุด</label>
+              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกนามสกุล" name="{{$field.Name}}" value="{{$field.Flash}}">
+              <span class="error">{{$field.Error}}</span>
+            </div>
+          </div>
+          {{end}}
+          {{with $field := field "user.Name" .}}
+          <div class="form-grop col-md-12" style="padding: 0px;">
+            <div class="form-group col-md-6 padding-left-no">
+              <label for="exampleInputEmail1">จำนวนผลผลิตต่อไร่</label>
+              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกชื่อ" name="{{$field.Name}}" value="{{$field.Flash}}">
+              <span class="error">{{$field.Error}}</span>
+            </div>
+            {{end}}
+            {{with $field := field "user.Lastname" .}}
+            <div class="form-group col-md-6 padding-right-no">
+              <label for="exampleInputEmail1">ประมาณผลผลิตทั้งหมด</label>
+              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกนามสกุล" name="{{$field.Name}}" value="{{$field.Flash}}">
+              <span class="error">{{$field.Error}}</span>
+            </div>
+          </div>
+          {{end}}
         </div>
-        <div class="info-plant-show">
-          <fieldset class="form-group col-sm-4">
-            <label for="exampleInputEmail1">ระยะเวลาปลูกเพาะปลูก</label>
-            <p>180 วัน</p>
-          </fieldset>
-          <fieldset class="form-group col-sm-4">
-            <label for="exampleInputEmail1">วันที่เริ่ม</label>
-            <p>2 มีนาคม 2559</p>
-          </fieldset>
-          <fieldset class="form-group col-md-4">
-            <label for="exampleInputEmail1">วันที่สิ้นสุด</label>
-            <p>18 สิงหาคม 2559</p>
-          </fieldset>
-        </div>
-        <div class="info-plant-show">
-          <fieldset class="form-group col-sm-4">
-            <label for="exampleInputEmail1">ขนาดพื้นที่</label>
-            <p>20 ไร่ 2 งาน 3 ตาราง</p>
-          </fieldset>
-          <fieldset class="form-group col-sm-4">
-            <label for="exampleInputEmail1">จำนวนผลผลิตต่อไร่</label>
-            <p>800 กก.</p>
-          </fieldset>
-          <fieldset class="form-group col-md-4">
-            <label for="exampleInputEmail1">ประมาณผลผลิตทั้งหมด</label>
-            <p>16,000 กก.</p>
-          </fieldset>
+        <div style="width: 100%;text-align: center;">
+          <button type="submit" class="btn btn-default">สมัครสมาชิก</button>
+          <button type="submit" class="btn btn-default">ยกเลิก</button>
         </div>
       </form>
     </div>
