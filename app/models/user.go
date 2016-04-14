@@ -30,7 +30,7 @@ var userdb = make(map[string]*User)
 //ส่วน Validation Form
 var userRegex = regexp.MustCompile("^\\w*$")
 
-//ฟังก์ชั่น RegisterUserChaokaset สำหรับ Generate String
+//ฟังก์ชั่น GenString สำหรับ Generate String
 func GenString(num int) (result string){
   rand.Seed(time.Now().UnixNano())
   var letterRunes = []rune("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
