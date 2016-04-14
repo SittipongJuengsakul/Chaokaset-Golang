@@ -82,8 +82,8 @@ func checksetuser(c *revel.Controller) revel.Result {
 
 //Index for Create routing Page Index (localhost/index)
 func (c App) Index() revel.Result {
-  res := models.GenString(6)
-	return c.Render(res)
+  //res := models.GenString(6)
+	return c.Render()
 }
 //AboutUs for Create routing Page AboutUs
 func (c App) AboutUs() revel.Result {
