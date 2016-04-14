@@ -1,6 +1,7 @@
 {{set . "title" "หน้าหลัก"}}
 {{template "Templates/header.html" .}}
 <script type="text/javascript" src="/public/js/fullpagejs/fullpage.js"></script>
+<script type="text/javascript" src="/public/js/chaokaset.js"></script>
 <script type="text/javascript">
 		$(document).ready(function() {
 			$('#fullpage').fullpage({
@@ -12,16 +13,10 @@
 				}
 			});
 		});
-		var ChaokasetApp = angular.module('ChaokasetApp', []);
-
-		ChaokasetApp.controller('MainController', function($scope) {
-		    $scope.message = "Hello AngularJS";
-		    $scope.name = 'หหหห';
-		});
 	</script>
 
 </head>
-<div id="fullpage" ng-controller="MainController">
+<div id="fullpage" ng-app="ChaokasetApp" ng-controller="myCtrl">
 	<div class="section chaokaset-main-video" id="section0">
 		<video autoplay loop muted id="myVideo">
 			<source src="/public/img/rice_bg_video.mp4" type="video/mp4">
