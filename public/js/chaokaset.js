@@ -1,5 +1,4 @@
 var app = angular.module('ChaokasetApp', []);
-app.controller('myCtrl', function($scope) {
-    $scope.firstname = "John";
-    $scope.lastname = "Doe";
+app.controller('searchCtrl', function($scope) {
+    $scope.message = "ทดสอบ AngularJs";
 });
