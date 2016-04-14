@@ -12,11 +12,18 @@
 				}
 			});
 		});
+		var myApp = angular.module('ChaokasetApp', []);
+
+		myApp.controller('MainController', function($scope) {
+
+		    $scope.message = "Hello AngularJS";
+		    $scope.name = '';
+
+		});
 	</script>
 
 </head>
-<body>
-<div id="fullpage">
+<div id="fullpage" ng-controller="MainController">
 	<div class="section chaokaset-main-video" id="section0">
 		<video autoplay loop muted id="myVideo">
 			<source src="/public/img/rice_bg_video.mp4" type="video/mp4">
@@ -25,7 +32,7 @@
 			<h1 style="color: white;">ค้นหา</h1>
 			<form action="index.html" method="post">
 				<div class="chaokaset-main-search">
-					<input type="text" name="smartsearch" class="search-plant" value="">
+					<input type="text" name="smartsearch" class="search-plant" value="" ng-model="name">
 				</div>
 				<div class="chaokaset-main-button-search">
 					<button type="button" class="button-search">ค้นหาผลผลิต</button>

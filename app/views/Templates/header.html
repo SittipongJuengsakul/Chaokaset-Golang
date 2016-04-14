@@ -13,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="/public/css/chaokaset/chaokaset.css" />
     <script src="/public/js/jquery-2.2.1.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="/public/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
-    <script src="/public/js/angular-1.5.3/angular.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     {{range .moreStyles}}
       <link rel="stylesheet" type="text/css" href="/public/{{.}}">
     {{end}}
@@ -21,7 +21,7 @@
       <script src="/public/{{.}}" type="text/javascript" charset="utf-8"></script>
     {{end}}
   </head>
-  <body>
+  <body ng-app="ChaokasetApp">
     <nav class="navbar navbar-default navbar-fixed-top chaokaset-nav">
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
