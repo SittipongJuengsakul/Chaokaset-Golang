@@ -12,13 +12,11 @@
 				}
 			});
 		});
-		var myApp = angular.module('ChaokasetApp', []);
+		var ChaokasetApp = angular.module('ChaokasetApp', []);
 
-		myApp.controller('MainController', function($scope) {
-
+		ChaokasetApp.controller('MainController', function($scope) {
 		    $scope.message = "Hello AngularJS";
-		    $scope.name = '';
-
+		    $scope.name = 'หหหห';
 		});
 	</script>
 
@@ -32,7 +30,7 @@
 			<h1 style="color: white;">ค้นหา</h1>
 			<form action="index.html" method="post">
 				<div class="chaokaset-main-search">
-					<input type="text" name="smartsearch" class="search-plant" value="" ng-model="name">
+					<input type="text" name="smartsearch" class="search-plant" value="">
 				</div>
 				<div class="chaokaset-main-button-search">
 					<button type="button" class="button-search">ค้นหาผลผลิต</button>
