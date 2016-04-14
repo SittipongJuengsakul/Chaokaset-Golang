@@ -6,6 +6,7 @@ import (
     "github.com/revel/revel"
     "regexp"
     "time"
+    "math/rand"
 )
 
 
@@ -28,6 +29,18 @@ var userdb = make(map[string]*User)
 
 //ส่วน Validation Form
 var userRegex = regexp.MustCompile("^\\w*$")
+
+//ฟังก์ชั่น RegisterUserChaokaset สำหรับ Generate String
+func GenString(num int) (result string){
+  rand.Seed(time.Now().UnixNano())
+  var letterRunes = []rune("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+  b := make([]rune, num)
+  for i := range b {
+    b[i] = letterRunes[rand.Intn(len(letterRunes))]
+  }
+  result = string(b[:num])
+  return result
+}
 
 func (user *User) Validate(v *revel.Validation) {
   v.Required(user.Username).Message("จำเป็นต้องกรอก ชื่อผู้ใช้งาน")

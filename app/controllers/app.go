@@ -51,6 +51,7 @@ func init() {
   revel.InterceptFunc(checksetuser, revel.BEFORE, &Crops{})
   revel.InterceptFunc(checksetuser, revel.BEFORE, &Profile{})
 }
+
 func (c App) connected() *models.User {
   if c.RenderArgs["user"] != nil {
 		return c.RenderArgs["user"].(*models.User)
@@ -81,7 +82,8 @@ func checksetuser(c *revel.Controller) revel.Result {
 
 //Index for Create routing Page Index (localhost/index)
 func (c App) Index() revel.Result {
-	return c.Render()
+  res := models.GenString(6)
+	return c.Render(res)
 }
 //AboutUs for Create routing Page AboutUs
 func (c App) AboutUs() revel.Result {
