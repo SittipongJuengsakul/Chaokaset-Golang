@@ -19,6 +19,7 @@ GET     /changepassword                                                         
 GET     /setting/user                                                                              Profile.SettingUser
 GET     /setting/security                                                                          Profile.SettingSecurity
 GET     /searchplant                                                                               Search.SearchPlant
+GET     /plan/addplan                                                                              Plan.AddCropPlan
 GET     /crops                                                                                     Crops.IndexCrops
 GET     /crops/add                                                                                 Crops.AddCrop
 GET     /crops/management                                                                          Crops.Management

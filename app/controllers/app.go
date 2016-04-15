@@ -38,6 +38,10 @@ type Profile struct {
 type Howto struct {
 	*revel.Controller
 }
+//plan for save Structure of Folder Plan (in views)
+type Plan struct {
+	*revel.Controller
+}
 //Crops
 type Crops struct {
 	*revel.Controller
@@ -48,6 +52,7 @@ func init() {
   revel.InterceptFunc(setuser, revel.BEFORE, &Crops{})
   revel.InterceptFunc(setuser, revel.BEFORE, &Profile{})
   revel.InterceptFunc(setuser, revel.BEFORE, &Howto{})
+  revel.InterceptFunc(setuser, revel.BEFORE, &Plan{})
   revel.InterceptFunc(checksetuser, revel.BEFORE, &Crops{})
   revel.InterceptFunc(checksetuser, revel.BEFORE, &Profile{})
 }
@@ -218,6 +223,10 @@ func (c Crops) Product() revel.Result {
 }
 //Board แสดงข้อมูลการเพาะปลูก
 func (c Crops) Board() revel.Result {
+	return c.Render()
+}
+//AddCropPlan เพิ่มข้อมูลแผนการเพาะปลูก
+func (c Plan) AddCropPlan() revel.Result {
 	return c.Render()
 }
 
