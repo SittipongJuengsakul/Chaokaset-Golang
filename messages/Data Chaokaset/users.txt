@@ -1,0 +1,15 @@
+@author : Sittipong Jungsakul
+ชื่อฐานข้อมูล chaokaset
+//--------------------------------------------------------------//
+ชื่อตาราง users
+{ "_id" : ObjectId("5708ba6c89f3d4811b896a29"), //รหัสผู้ไช้
+  "username" : "sittipong",  //username
+  "prefix" : "นาย", //คำนำหน้าชื่อ
+  "name" : "สิทธิพงศ์", //ชื่อ
+  "lastname" : "จึงสกุล", //นามสกุล
+  "tel" : "0839915593", //เบอร์โทรศัพท์
+  "pic" : "http://simpleicon.com/wp-content/uploads/multy-user.svg", //รูปภาพหน้าปก
+  "password" : BinData(0,"JDJhJDEwJC9LdTdNRnlIVzUyN1RtbUFELnBGdnVRZG15blhlRVYyWUtSYUsydU5aQ3RUMWR4WFE4YThp"), //รหัสผ่านแบบเข้ารหัส
+  "timestamp" : ISODate("2016-04-09T08:16:44.420Z"), //เวลาสร้าง
+  "role" : 3 //รหัสประเภทผู้ไช้ (1=admin,2=เจ้าหน้าที่,3=เกษตรกร,4=ผู้สนไจสินค้่าการเกษตร)
+}
