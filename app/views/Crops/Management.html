@@ -11,25 +11,7 @@
     <div class="col-sm-5"><p>วันที่เริ่ม - วันที่สิ้นสุด : <small>3 มีนาคม 2559 - 18 สิงหาคม 2559</small></p></div>
     <div class="col-sm-4"><p>ขนาดแปลงปลูก : <small>20 ไร่ 2 งาน 3 ตาราง</small></p></div>
   </div>
-  <div class="col-sm-3" style="padding: 0px;">
-    <ul class="nav bd-sidenav" style="padding-top: 20px;">
-        <li class="active bd-sidenav-active">
-          <a href="/crops/management">จัดการการเพาะปลูก</a>
-        </li>
-        <li class="">
-          <a href="/crops/account">บัญชีการเพาะปลูก</a>
-        </li>
-        <li class="">
-          <a href="/crops/problem">ปัญหาการเพาะปลูก</a>
-        </li>
-        <li class="">
-          <a href="/crops/product">จัดการผลผลิต</a>
-        </li>
-        <li class="">
-          <a href="/crops/board">กระดานข้อความ</a>
-        </li>
-    </ul>
-  </div>
+  {{template "Crops/sidebarcrops.html" .}}
   <div class="col-sm-9 container-box">
     <div class="col-sm-12 container-box-content">
       <div class="col-sm-12 name-header"> <h2 class="color-green">ข้อมูลแปลงเพาะปลูก</h2></div>
