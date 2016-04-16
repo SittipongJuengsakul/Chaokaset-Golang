@@ -32,12 +32,12 @@ func (c Api) CheckLogin(Username string,Password string) revel.Result {
     R = &ResAuth{Status: res,UserData: U}
     return  c.RenderJson(R)
 }
-func (c Api) RegisterUser(Username string,Password string,Prefix string,Name string,Lname string,Tel string) revel.Result {
+func (c Api) RegisterUser(Username string,Password string,Prefix string,Name string,Lname string,Tel string,Role_user int) revel.Result {
   var R *ResAuth
   var U *models.User
   HashedPassword, _ := bcrypt.GenerateFromPassword(
     []byte(Password), bcrypt.DefaultCost)
-  res := models.RegisterUserChaokaset(Username,HashedPassword,Prefix ,Name ,Lname ,Tel); //ไม่เสดนะจ้ะ
+  res := models.RegisterUserChaokaset(Username,HashedPassword,Prefix ,Name ,Lname ,Tel,Role_user); //s
   if res {
     U = models.GetUserData(Username)
   }

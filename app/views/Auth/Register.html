@@ -15,19 +15,22 @@
         {{with $field := field "user.Prefix" .}}
         <div class="form-grop col-md-12" style="padding: 0px;">
           <div class="form-group col-md-3 padding-left-no">
-            <label for="exampleInputEmail1">คำนำหน้าชื่อ</label>
-            <input type="text" class="form-control" placeholder="กรอกชื่อ" name="{{$field.Name}}" value="{{$field.Flash}}">
-            <span class="error">{{$field.Error}}</span>
+            <label>คำนำหน้าชื่อ</label>
+            <select class="form-control" id="sel1">
+               <option value="นาย">นาย</option>
+               <option value="นาง">นาง</option>
+               <option value="นางสาว">นางสาว</option>
+             </select>
           </div>
           <div class="form-group col-md-5">
-            <label for="exampleInputEmail1">ชื่อ</label>
+            <label>ชื่อ</label>
             <input type="text" class="form-control" placeholder="กรอกชื่อ" name="{{$field.Name}}" value="{{$field.Flash}}">
             <span class="error">{{$field.Error}}</span>
           </div>
           {{end}}
           {{with $field := field "user.Lastname" .}}
           <div class="form-group col-md-4 padding-right-no">
-            <label for="exampleInputEmail1">นามสกุล</label>
+            <label>นามสกุล</label>
             <input type="text" class="form-control" placeholder="กรอกนามสกุล" name="{{$field.Name}}" value="{{$field.Flash}}">
             <span class="error">{{$field.Error}}</span>
           </div>
@@ -35,23 +38,33 @@
         {{end}}
         {{with $field := field "user.Password" .}}
         <div class="form-group">
-          <label for="exampleInputPassword1">รหัสผ่าน</label>
-          <input type="password" class="form-control" placeholder="กรอกรหัสผ่าน" name="{{$field.Name}}" value="{{$field.Flash}}">
+          <label>รหัสผ่าน</label>
+          <input type="password" class="form-control" placeholder="กรอกรหัสผ่าน (ภาษาอังกฤษเท่านั้น)" name="{{$field.Name}}" value="{{$field.Flash}}">
           <span class="error">{{$field.Error}}</span>
         </div>
         {{end}}
         {{with $field := field "user.Validpassword" .}}
         <div class="form-group">
-          <label for="exampleInputPassword1">ยืนยันรหัสผ่าน</label>
-          <input type="password" class="form-control" placeholder="กรอกรหัสผ่าน" name="{{$field.Name}}" value="{{$field.Flash}}">
+          <label>ยืนยันรหัสผ่าน</label>
+          <input type="password" class="form-control" placeholder="กรอกรหัสผ่านอีกครั้งให้ตรงกับช่องรหัสผ่าน" name="{{$field.Name}}" value="{{$field.Flash}}">
           <span class="error">{{$field.Error}}</span>
         </div>
         {{end}}
         {{with $field := field "user.Tel" .}}
         <div class="form-group">
-          <label for="exampleInputEmail1">เบอร์โทรศัพท์</label>
+          <label>เบอร์โทรศัพท์</label>
           <input type="text" class="form-control" placeholder="กรอกเบอร์โทรศัพท์" name="{{$field.Name}}" value="{{$field.Flash}}">
           <span class="error">{{$field.Error}}</span>
+        </div>
+        {{end}}
+        {{with $field := field "user.Role" .}}
+        <div class="form-group">
+          <label>คุณคือ</label>
+          <select class="form-control" id="sel1">
+             <option value="3">เกษตรกร</option>
+             <option value="4">ผู้สนไจสินค้าเกษตร</option>
+             <option value="2">เจ้าหน้าที่</option>
+           </select>
         </div>
         {{end}}
         <div class="col-xs-offset-2 col-sm-offset-4">

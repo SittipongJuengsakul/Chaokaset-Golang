@@ -55,7 +55,7 @@ func (user *User) Validate(v *revel.Validation) {
   v.Required(user.Validpassword == user.Password).Message("รหัสผ่านไม่ตรงกัน")
 }
 //RegisterUserChaokaset สมัครสมาชิก
-func RegisterUserChaokaset(username string,password []byte,prefix string,name string,lastname string,tel string) (result bool) { //result bool คือประกาศตัวแปรที่ใช้รีเทร์นค่่าเป็น boolean
+func RegisterUserChaokaset(username string,password []byte,prefix string,name string,lastname string,tel string,role_user int) (result bool) { //result bool คือประกาศตัวแปรที่ใช้รีเทร์นค่่าเป็น boolean
   // connect to the cluster
      session, err := mgo.Dial("127.0.0.1")
      if err != nil {
@@ -67,7 +67,6 @@ func RegisterUserChaokaset(username string,password []byte,prefix string,name st
      qmgo := session.DB("chaokaset").C("users")
      //role_user 1>admin 2>officer 3>farmer 4>user
      pic := "http://simpleicon.com/wp-content/uploads/multy-user.svg"
-     role_user := 3
      err = qmgo.Insert(&UserByChaokaset{Username: username, Password: password,Prefix: prefix,Name: name,Lastname: lastname,Tel: tel,Timestamp: time.Now(),Pic: pic,Role: role_user})
      if err != nil {
        return false
