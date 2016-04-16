@@ -28,6 +28,8 @@ GET     /crops/product                                                          
 GET     /crops/board                                                                               Crops.Board
 GET     /management                                                                                Management.IndexManagement
 GET     /plan/addplan                                                                              Plan.AddCropPlan
+GET     /plan/showplan                                                                             Plan.ShowPlan
+GET     /farmer/showfarmer                                                                         Farmer.ShowFarmer
 GET     /template                                                                                  App.Templates
 # Ignore favicon requests
 GET     /favicon.ico                                                                               404

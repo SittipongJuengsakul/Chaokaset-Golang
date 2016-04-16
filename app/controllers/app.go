@@ -50,6 +50,10 @@ type Crops struct {
 type Management struct {
 	*revel.Controller
 }
+//Farmer
+type Farmer struct {
+	*revel.Controller
+}
 
 func init() {
 	revel.InterceptFunc(setuser, revel.BEFORE, &App{})
@@ -242,6 +246,15 @@ func (c Crops) Board() revel.Result {
 }
 //AddCropPlan เพิ่มข้อมูลแผนการเพาะปลูก
 func (c Plan) AddCropPlan() revel.Result {
+	return c.Render()
+}
+//AddCropPlan เพิ่มข้อมูลแผนการเพาะปลูก
+func (c Plan) ShowPlan() revel.Result {
+	return c.Render()
+}
+
+//ShowFarmer
+func (c Farmer) ShowFarmer() revel.Result {
 	return c.Render()
 }
 
