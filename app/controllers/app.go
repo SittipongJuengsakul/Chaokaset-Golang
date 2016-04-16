@@ -69,6 +69,15 @@ func setuser(c *revel.Controller) revel.Result {
   if username, ok := c.Session["username"]; ok {
 		user = models.GetUserData(username)
     c.RenderArgs["user"] = user
+    if user.Role == 1{
+      c.RenderArgs["admin"] = "ผู้ดูแลระบบ"
+    } else if user.Role == 2{
+      c.RenderArgs["officer"] = "เจ้าหน้าที่"
+    } else if user.Role == 3{
+      c.RenderArgs["kasetkorn"] = "เกษตรกร"
+    } else if user.Role == 4{
+      c.RenderArgs["userkaset"] = "เกษตรกร"
+    }
 	}
 	return nil
 }
@@ -78,6 +87,7 @@ func checksetuser(c *revel.Controller) revel.Result {
   if username, ok := c.Session["username"]; ok {
 		user = models.GetUserData(username)
     c.RenderArgs["user"] = user
+
 	} else{
     c.Flash.Error("กรุณาล็อคอินก่อนทำรายการ !!")
     return c.Redirect(Auth.Login)
@@ -161,7 +171,6 @@ func (c Auth) PostRegister(user *models.User,Validpassword string) revel.Result 
 		c.FlashParams()
 		return c.Redirect(Auth.Register)
 	} else{
-    c.Flash.Error("ssss!!")
     user.HashedPassword, _ = bcrypt.GenerateFromPassword(
   		[]byte(user.Password), bcrypt.DefaultCost)
     err := models.RegisterUserChaokaset(user.Username ,user.HashedPassword,user.Prefix ,user.Name ,user.Lastname ,user.Tel,user.Role);
