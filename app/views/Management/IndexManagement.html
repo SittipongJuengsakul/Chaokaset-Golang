@@ -1,0 +1,64 @@
+{{set . "title" "จัดการการเกษตร"}}
+{{template "Templates/header.html" .}}
+
+{{template "Templates/preloader.html" .}}
+<div class="chaokaset-container-verticle" id="chaokaset-loader" style="display: none;">
+  <div class="col-sm-12 varticle-header-box">
+    <h1>จัดการการเกษตร</h1>
+  </div>
+    <div class="col-sm-12 container-box">
+      <table class="table">
+        <thead class="box-thead-show">
+          <tr>
+            <th width="10%">สถานะ</th>
+            <th width="35%">ชื่อแปลง</th>
+            <th width="15%">วันเริ่มต้น</th>
+            <th width="15%">วันเก็บเกี่ยว</th>
+            <th width="10%">ผู้สนใจ</th>
+            <th width="10%">ตัวเลือก</th>
+          </tr>
+        </thead>
+        <tbody class="box-tbody-show">
+          <tr>
+            <td class="color-yellow"><span class="status-ball bg-green"></span></td>
+            <td class="color-green"><a href="/crops/management" class="name-crops">ไร่หน้าหมู่บ้าน (นายดำรง นะจ้ะ)</a></td>
+            <td>3 มีนาคม 2559</td>
+            <td>12 สิงหาคม 2559</td>
+            <td>12 คน</td>
+            <td class="color-green">
+              <div class="dropdown">
+                <a href="#" class="dropdown-toggle option-crops"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ดูเพิ่มเติม <span class="caret"></span></a>
+                </button>
+                <ul class="dropdown-menu dd-menu" aria-labelledby="dropdownMenu1">
+                  <li><a href="#">ดูข้อมูล</a></li>
+                  <li><a href="#">ผู้สนใจ</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="#" class="color-red">ลบแปลงนี้</a></li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="color-yellow"><span class="status-ball bg-yellow"></span></td>
+            <td class="color-green"><a href="#ไร่ดอยคำ" class="name-crops">ไร่ดอยคำ (นายดำรง นะจ้ะ)</a></td>
+            <td>15 มีนาคม 2559</td>
+            <td>15 สิงหาคม 2559</td>
+            <td>28 คน</td>
+            <td class="color-green">
+              <div class="dropdown">
+                <a href="#" class="dropdown-toggle option-crops"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ดูเพิ่มเติม <span class="caret"></span></a>
+                </button>
+                <ul class="dropdown-menu dd-menu" aria-labelledby="dropdownMenu1">
+                  <li><a href="#">ดูข้อมูล</a></li>
+                  <li><a href="#">ผู้สนใจ</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="#" class="color-red">ลบแปลงนี้</a></li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div>
+{{template "Templates/footer.html" .}}
