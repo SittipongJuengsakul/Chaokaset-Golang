@@ -16,12 +16,14 @@
         <div class="form-grop col-md-12" style="padding: 0px;">
           <div class="form-group col-md-3 padding-left-no">
             <label>คำนำหน้าชื่อ</label>
-            <select class="form-control" id="sel1">
+            <select class="form-control" name="{{$field.Name}}">
                <option value="นาย">นาย</option>
                <option value="นาง">นาง</option>
                <option value="นางสาว">นางสาว</option>
              </select>
           </div>
+          {{end}}
+          {{with $field := field "user.Name" .}}
           <div class="form-group col-md-5">
             <label>ชื่อ</label>
             <input type="text" class="form-control" placeholder="กรอกชื่อ" name="{{$field.Name}}" value="{{$field.Flash}}">
@@ -60,7 +62,7 @@
         {{with $field := field "user.Role" .}}
         <div class="form-group">
           <label>คุณคือ</label>
-          <select class="form-control" id="sel1">
+          <select class="form-control" name="{{$field.Name}}">
              <option value="3">เกษตรกร</option>
              <option value="4">ผู้สนไจสินค้าเกษตร</option>
              <option value="2">เจ้าหน้าที่</option>

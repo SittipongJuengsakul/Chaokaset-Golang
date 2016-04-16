@@ -161,6 +161,7 @@ func (c Auth) PostRegister(user *models.User,Validpassword string) revel.Result 
 		c.FlashParams()
 		return c.Redirect(Auth.Register)
 	} else{
+    c.Flash.Error("ssss!!")
     user.HashedPassword, _ = bcrypt.GenerateFromPassword(
   		[]byte(user.Password), bcrypt.DefaultCost)
     err := models.RegisterUserChaokaset(user.Username ,user.HashedPassword,user.Prefix ,user.Name ,user.Lastname ,user.Tel,user.Role);
