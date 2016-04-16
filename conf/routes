@@ -19,7 +19,6 @@ GET     /changepassword                                                         
 GET     /setting/user                                                                              Profile.SettingUser
 GET     /setting/security                                                                          Profile.SettingSecurity
 GET     /searchplant                                                                               Search.SearchPlant
-GET     /plan/addplan                                                                              Plan.AddCropPlan
 GET     /crops                                                                                     Crops.IndexCrops
 GET     /crops/add                                                                                 Crops.AddCrop
 GET     /crops/management                                                                          Crops.Management
@@ -27,6 +26,8 @@ GET     /crops/account                                                          
 GET     /crops/problem                                                                             Crops.Problem
 GET     /crops/product                                                                             Crops.Product
 GET     /crops/board                                                                               Crops.Board
+GET     /management                                                                                Management.IndexManagement
+GET     /plan/addplan                                                                              Plan.AddCropPlan
 GET     /template                                                                                  App.Templates
 # Ignore favicon requests
 GET     /favicon.ico                                                                               404

@@ -46,6 +46,10 @@ type Plan struct {
 type Crops struct {
 	*revel.Controller
 }
+//Management
+type Management struct {
+	*revel.Controller
+}
 
 func init() {
 	revel.InterceptFunc(setuser, revel.BEFORE, &App{})
@@ -250,5 +254,10 @@ func (c Howto) HowtoSetting() revel.Result {
 	return c.Render()
 }
 func (c Howto) HowtoMarket() revel.Result {
+	return c.Render()
+}
+
+//Management
+func (c Management) IndexManagement() revel.Result {
 	return c.Render()
 }
