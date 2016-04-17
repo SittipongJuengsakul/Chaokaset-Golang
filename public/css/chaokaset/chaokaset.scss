@@ -41,6 +41,14 @@ $gray: #bbbbbb;
 .margin-example{
   margin-top: 30px;
 }
+.margin-left{
+  margin: 10px 10px 0px;
+}
+@media (max-width: 768px){
+  .margin-left{
+    margin: 0px;
+  }
+}
 .padding-left-no{
   padding-left: 0px;
 }

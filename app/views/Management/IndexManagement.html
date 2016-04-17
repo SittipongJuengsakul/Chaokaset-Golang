@@ -7,58 +7,41 @@
     <h1>จัดการการเกษตร</h1>
   </div>
   {{template "Management/sidebarmanagement.html" .}}
-    <div class="col-sm-9 container-box">
-      <div class="col-sm-12 container-box-content">
-        <div class="col-sm-5 name-header padding-left-no padding-right-no"><h2 class="color-green">จัดการผลผลิต</h2></div>
-        <div class="col-sm-7 name-header padding-left-no padding-right-no">
-          <div class="col-sm-4">
-            <button type="button" name="button" class="btn btn-success">เพิ่มรายการ</button>
+  <div class="col-sm-9 container-box" style="text-align: center;">
+    <div style="width: 100%;margin: 0 auto;">
+      <div class="col-sm-5 container-box-content margin-left">
+          <div class="card card-block">
+            <h2 class="card-title">เกษตรกร</h2>
+            <p class="card-text">การจัดการข้อมูลเกษตรกร</p>
+            <button class="chaokaset-btn-border btn-style-choice col-sm-12" onclick="javascript:location.href='/farmer/showfarmer'">ค้นหารายชื่อเกษตรกร</button>
+            <button class="chaokaset-btn-border btn-style-choice col-sm-12" onclick="javascript:location.href='/farmer/management'">จัดการข้อมูลเกษตรกร</button>
           </div>
-          <div class="col-sm-8" style="padding: 0px;">
-            <input type="text" name="SearchCrops" class="form-control" placeholder="ค้นหารายการ">
+      </div>
+      <div class="col-sm-5 container-box-content margin-left">
+          <div class="card card-block">
+            <h2 class="card-title">แผนการเพาะปลูก</h2>
+            <p class="card-text">การจัดการแผนการเพาะปลูก</p>
+            <button class="chaokaset-btn-border btn-style-choice col-sm-12" onclick="javascript:location.href='/plan/showplan'">ค้นหาแผนการเพาะปลูก</button>
+            <button class="chaokaset-btn-border btn-style-choice col-sm-12" onclick="javascript:location.href='/plan/management'">จัดการข้อมูลแผนการเพาะปลูก</button>
           </div>
-        </div>
-        <table class="table">
-          <thead class="box-thead-show">
-            <tr>
-              <th width="15%">วันที่</th>
-              <th>ประเภท</th>
-              <th width="35%">รายละเอียด</th>
-              <th>ราคา</th>
-              <th>จำนวน</th>
-              <th>ตัวเลือก</th>
-            </tr>
-          </thead>
-          <tbody class="box-tbody-show">
-            <tr>
-              <td>22 มี.ค. 59</td>
-              <td>ขอจอง</td>
-              <td>สนใจข้าวจำนวนมาก</td>
-              <td>26 บาท/กก.</td>
-              <td>1000 กก.</td>
-              <td class="color-green">
-                <div class="dropdown">
-                  <a href="#" class="dropdown-toggle option-crops"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ดูเพิ่มเติม <span class="caret"></span></a>
-                  </button>
-                  <ul class="dropdown-menu dd-menu" aria-labelledby="dropdownMenu1">
-                    <li><a href="#">รายละเอียด</a></li>
-                    <li><a href="#">แก้ไขรายการ</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="#" class="color-red">ลบรายการ</a></li>
-                  </ul>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <nav>
-          <!-- แสดง 10 รายการ -->
-          <ul class="pager">
-            <li class="pager-prev disabled"><a href="#">< ย้อนกลับ</a></li>
-            <li class="pager-next"><a href="#" style="width: 110px">ต่อไป ></a></li>
-          </ul>
-        </nav>
+      </div>
+      <div class="col-sm-5 container-box-content margin-left">
+          <div class="card card-block">
+            <h2 class="card-title">เกษตรกร</h2>
+            <p class="card-text">การจัดการข้อมูลเกษตรกร</p>
+            <button class="chaokaset-btn-border btn-style-choice col-sm-12" onclick="javascript:location.href='/farmer/showfarmer'">ค้นหารายชื่อเกษตรกร</button>
+            <button class="chaokaset-btn-border btn-style-choice col-sm-12" onclick="javascript:location.href='/farmer/management'">จัดการข้อมูลเกษตรกร</button>
+          </div>
+      </div>
+      <div class="col-sm-5 container-box-content margin-left">
+          <div class="card card-block">
+            <h2 class="card-title">แผนการเพาะปลูก</h2>
+            <p class="card-text">การจัดการแผนการเพาะปลูก</p>
+            <button class="chaokaset-btn-border btn-style-choice col-sm-12" onclick="javascript:location.href='/plan/showplan'">ค้นหาแผนการเพาะปลูก</button>
+            <button class="chaokaset-btn-border btn-style-choice col-sm-12" onclick="javascript:location.href='/plan/management'">จัดการข้อมูลแผนการเพาะปลูก</button>
+          </div>
       </div>
     </div>
+  </div>
 </div>
 {{template "Templates/footer.html" .}}
