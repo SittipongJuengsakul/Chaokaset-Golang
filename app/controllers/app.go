@@ -248,13 +248,21 @@ func (c Crops) Board() revel.Result {
 func (c Plan) AddCropPlan() revel.Result {
 	return c.Render()
 }
-//AddCropPlan เพิ่มข้อมูลแผนการเพาะปลูก
+//ShowPlan
 func (c Plan) ShowPlan() revel.Result {
+	return c.Render()
+}
+//PlanManagement
+func (c Plan) PlanManagement() revel.Result {
 	return c.Render()
 }
 
 //ShowFarmer
 func (c Farmer) ShowFarmer() revel.Result {
+	return c.Render()
+}
+//FarmerManagement
+func (c Farmer) FarmerManagement() revel.Result {
 	return c.Render()
 }
 

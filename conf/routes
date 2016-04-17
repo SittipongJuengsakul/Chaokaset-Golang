@@ -29,6 +29,8 @@ GET     /crops/board                                                            
 GET     /management                                                                                Management.IndexManagement
 GET     /plan/addplan                                                                              Plan.AddCropPlan
 GET     /plan/showplan                                                                             Plan.ShowPlan
+GET     /plan/managemnet                                                                           Plan.PlanManagement
+GET     /farmer/management                                                                         Farmer.FarmerManagement
 GET     /farmer/showfarmer                                                                         Farmer.ShowFarmer
 GET     /template                                                                                  App.Templates
 # Ignore favicon requests
