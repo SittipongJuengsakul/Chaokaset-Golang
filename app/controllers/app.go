@@ -54,6 +54,9 @@ type Management struct {
 type Farmer struct {
 	*revel.Controller
 }
+type Sell struct {
+	*revel.Controller
+}
 
 func init() {
 	revel.InterceptFunc(setuser, revel.BEFORE, &App{})
@@ -284,5 +287,9 @@ func (c Howto) HowtoMarket() revel.Result {
 
 //Management
 func (c Management) IndexManagement() revel.Result {
+	return c.Render()
+}
+
+func (c Sell) IndexSell() revel.Result {
 	return c.Render()
 }

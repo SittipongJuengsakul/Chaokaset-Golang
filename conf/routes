@@ -32,6 +32,7 @@ GET     /plan/showplan                                                          
 GET     /plan/managemnet                                                                           Plan.PlanManagement
 GET     /farmer/management                                                                         Farmer.FarmerManagement
 GET     /farmer/showfarmer                                                                         Farmer.ShowFarmer
+GET		/sell/showproduct																		   Sell.IndexSell
 GET     /template                                                                                  App.Templates
 # Ignore favicon requests
 GET     /favicon.ico                                                                               404

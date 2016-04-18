@@ -1,0 +1,78 @@
+{{set . "title" "การซื้อ-ขาย สินค้า"}}
+{{template "Templates/header.html" .}}
+{{template "Templates/preloader.html" .}}
+<div class="chaokaset-container-verticle" id="chaokaset-loader" style="display: none;">
+  <div class="col-sm-12 varticle-header-box">
+    <h1>การซื้อ-ขาย สินค้า</h1>
+  </div>
+  <div class="col-sm-3" style="padding: 0px;">
+    <ul class="nav bd-sidenav" style="padding-top: 20px;">
+        <li class="active bd-sidenav-active">
+          <a href="/sell/showproduct">รายการสินค้า</a>
+        </li>
+        <li class="">
+          <a href="/setting/security">ประกาศขายสินค้า</a>
+        </li>
+    </ul>
+  </div>
+  <div class="col-sm-9 container-box">
+    <div class="col-sm-12 container-box-content" >
+      <div class="row">
+      <div class="col-sm-8 name-header"> 
+        <h2 class="color-green">รายการสินค้า</h2>
+      </div>
+      <div class="col-sm-4" style="padding: 5px;">
+          <input type="text" name="SearchCrops" class="form-control" placeholder="ค้นหาสินค้า">
+      </div>
+      </div>
+
+      
+      </br>
+        <div class="row">
+          <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+              <img src="/public/img/pic/rice2.jpg" alt="..." width="100%">
+              <div class="caption">
+                <h2 class="color-blue">ข้าวกล้อง</h2>
+                <p><small>ข้าวกล้องปลูกเองพร้อมวิตามินอย่างสูง ปลอกภัยไร้สารพิษ</small></p>
+                <button type="button" class="btn bg-link">รายละเอียดสินค้า</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+              <img src="/public/img/pic/rice2.jpg" alt="..." width="100%">
+              <div class="caption">
+                <h2 class="color-blue">ข้าวกล้อง</h2>
+                <p><small>ข้าวกล้องปลูกเองพร้อมวิตามินอย่างสูง ปลอกภัยไร้สารพิษ</small></p>
+                <button type="button" class="btn bg-link">รายละเอียดสินค้า</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+              <img src="/public/img/pic/rice2.jpg" alt="..." width="100%">
+              <div class="caption">
+                <h2 class="color-blue">ข้าวกล้อง</h2>
+                <p><small>ข้าวกล้องปลูกเองพร้อมวิตามินอย่างสูง ปลอกภัยไร้สารพิษ</small></p>
+                <button type="button" class="btn bg-link">รายละเอียดสินค้า</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+              <img src="/public/img/pic/rice2.jpg" alt="..." width="100%">
+              <div class="caption">
+                <h2 class="color-blue">ข้าวกล้อง</h2>
+                <p><small>ข้าวกล้องปลูกเองพร้อมวิตามินอย่างสูง ปลอกภัยไร้สารพิษ</small></p>
+                <button type="button" class="btn bg-link">รายละเอียดสินค้า</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+    </div>
+
+  </div>
+</div>
+{{template "Templates/footer.html" .}}
