@@ -1,0 +1,59 @@
+{{set . "title" "แสดงแผนการเพาะปลูก"}}
+{{template "Templates/header.html" .}}
+
+{{template "Templates/preloader.html" .}}
+<div class="chaokaset-container-verticle" id="chaokaset-loader" style="display: none;">
+  <div class="col-sm-12 varticle-header-box">
+    <h1>จัดการการเกษตร</h1>
+  </div>
+  {{template "Management/sidebarmanagement.html" .}}
+  <div class="col-sm-9 container-box">
+    <table class="table col-md-12">
+      <thead class="box-thead-show">
+        <tr>
+          <th width="25%">ชื่อ - นามสกุล</th>
+          <th>หน่วยงาน</th>
+          <th>จังหวัด</th>
+          <th>ตัวเลือก</th>
+        </tr>
+      </thead>
+      <tbody class="box-tbody-show">
+        <tr>
+          <td>นาย ภวิล ศรีวัง</td>
+          <td>ศูนย์ข้าวชุมชนกำแพงเพชร</td>
+          <td>กำแพงเพชร</td>
+          <td class="color-green">
+            <div class="dropdown">
+              <a href="#" class="dropdown-toggle option-crops"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ดูเพิ่มเติม <span class="caret"></span></a>
+              </button>
+              <ul class="dropdown-menu dd-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="#">รายละเอียด</a></li>
+                <li><a href="#">แก้ไขข้อมูล</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#" class="color-red">ลบ</a></li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>นาย จำปา ศรีวัง</td>
+          <td>ศูนย์ข้าวชุมชนกำแพงเพชร</td>
+          <td>กำแพงเพชร</td>
+          <td class="color-green">
+            <div class="dropdown">
+              <a href="#" class="dropdown-toggle option-crops"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ดูเพิ่มเติม <span class="caret"></span></a>
+              </button>
+              <ul class="dropdown-menu dd-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="#">รายละเอียด</a></li>
+                <li><a href="#">แก้ไขข้อมูล</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#" class="color-red">ลบ</a></li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+{{template "Templates/footer.html" .}}

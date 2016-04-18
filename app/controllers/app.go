@@ -62,6 +62,7 @@ func init() {
   revel.InterceptFunc(setuser, revel.BEFORE, &Howto{})
   revel.InterceptFunc(setuser, revel.BEFORE, &Plan{})
   revel.InterceptFunc(setuser, revel.BEFORE, &Management{})
+  revel.InterceptFunc(setuser, revel.BEFORE, &Farmer{})
   revel.InterceptFunc(checksetuser, revel.BEFORE, &Crops{})
   revel.InterceptFunc(checksetuser, revel.BEFORE, &Profile{})
 }
