@@ -25,6 +25,15 @@ type UserByChaokaset struct{
   Timestamp                                 time.Time
   Role                                      int
 }
+
+type UserData struct{
+  Userid                                    bson.ObjectId `bson:"_id,omitempty"`
+  Timestamp                                 time.Time
+  Role                                      int
+  Username,Name,Lastname,Prefix,Tel,Pic     string
+  Email,Province,Aumphur,Tumbon,Address     string
+  Zipcode                                   string
+}
 var userdb = make(map[string]*User)
 
 //ส่วน Validation Form
@@ -88,7 +97,37 @@ func GetUserData(Uusername string) *User {
   qmgo := session.DB("chaokaset").C("users")
   result := User{}
 	qmgo.Find(bson.M{"username": Uusername}).One(&result)
-  user = &User{Userid: result.Userid,Username: result.Username,Name: result.Name,Lastname: result.Lastname,Pic: result.Pic,Role: result.Role}
+  user = &User{Userid: result.Userid,Username: result.Username,Name: result.Name,Lastname: result.Lastname,Pic: result.Pic,Role: result.Role,Tel: result.Tel}
+  return user
+}
+//GetEditUserData สำหรับเรียกข้อมูลแก้ไขผู้ใช้งาน
+func GetEditUserData(Uusername string) *UserData {
+  session, err := mgo.Dial("127.0.0.1")
+  if err != nil {
+      panic(err)
+  }
+  defer session.Close()
+  var user *UserData
+  session.SetMode(mgo.Monotonic, true)
+  qmgo := session.DB("chaokaset").C("users")
+  result := UserData{}
+	qmgo.Find(bson.M{"username": Uusername}).One(&result)
+  user = &UserData{Userid: result.Userid,Username: result.Username,Name: result.Name,Lastname: result.Lastname,Pic: result.Pic,Role: result.Role,Tel: result.Tel}
+  return user
+}
+
+func EditUserData(Uusername string) *UserData {
+  session, err := mgo.Dial("127.0.0.1")
+  if err != nil {
+      panic(err)
+  }
+  defer session.Close()
+  var user *UserData
+  session.SetMode(mgo.Monotonic, true)
+  qmgo := session.DB("chaokaset").C("users")
+  result := UserData{}
+	qmgo.Find(bson.M{"username": Uusername}).One(&result)
+  user = &UserData{Userid: result.Userid,Username: result.Username,Name: result.Name,Lastname: result.Lastname,Pic: result.Pic,Role: result.Role,Tel: result.Tel}
   return user
 }
 

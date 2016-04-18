@@ -4,77 +4,50 @@
 <div class="chaokaset-container-verticle" id="chaokaset-loader" style="display: none;">
   <div class="row">
     <div class="col-md-6 col-md-offset-3 example">
-      <h2>แก้ไขข้อมูลสมาชิก <span style="color:red;font-size: 15px;">{{.flash.error}}</span></h2>
+      <h2>แก้ไขข้อมูลสมาชิก<span style="color:red;font-size: 15px;">{{.flash.error}}</span></h2>
       <form method="post" action="{{url "Auth.PostRegister"}}">
-        {{with $field := field "user.Name" .}}
         <div class="form-grop col-md-12" style="padding: 0px;">
           <div class="form-group col-md-6 padding-left-no">
-            <label for="exampleInputEmail1">ชื่อ</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกชื่อ" name="{{$field.Name}}" value="{{$field.Flash}}">
-            <span class="error">{{$field.Error}}</span>
+            <label>ชื่อ</label>
+            <input type="text" class="form-control" placeholder="กรอกชื่อ" name="User.Name" value="{{ .user.Name }}">
           </div>
-          {{end}}
-          {{with $field := field "user.Lastname" .}}
           <div class="form-group col-md-6 padding-right-no">
-            <label for="exampleInputEmail1">นามสกุล</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกนามสกุล" name="{{$field.Name}}" value="{{$field.Flash}}">
-            <span class="error">{{$field.Error}}</span>
+            <label>นามสกุล</label>
+            <input type="text" class="form-control" placeholder="กรอกนามสกุล" name="" value="{{ .user.Lastname }}">
           </div>
         </div>
-        {{end}}
-        {{with $field := field "user.Tel" .}}
         <div class="form-group">
-          <label for="exampleInputEmail1">เบอร์โทรศัพท์</label>
-          <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกเบอร์โทรศัพท์" name="{{$field.Name}}" value="{{$field.Flash}}">
-          <span class="error">{{$field.Error}}</span>
+          <label>เบอร์โทรศัพท์</label>
+          <input type="text" class="form-control" placeholder="กรอกเบอร์โทรศัพท์" name="" value="{{ .user.Tel }}">
         </div>
-        {{end}}
-        {{with $field := field "user.Email" .}}
         <div class="form-group">
-          <label for="exampleInputEmail1">อีเมล</label>
-          <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกอีเมล" name="{{$field.Name}}" value="{{$field.Flash}}">
-          <span class="error">{{$field.Error}}</span>
+          <label>อีเมล</label>
+          <input type="text" class="form-control" placeholder="กรอกอีเมล" name="" value="{{ .user.Email }}">
         </div>
-        {{end}}
-        {{with $field := field "user.Address" .}}
         <div class="form-group">
-          <label for="exampleInputEmail1">ที่อยู่</label>
-          <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกอีเมล" name="{{$field.Name}}" value="{{$field.Flash}}">
-          <span class="error">{{$field.Error}}</span>
+          <label>ที่อยู่</label>
+          <input type="text" class="form-control" placeholder="กรอกที่อยู่" name="" value="{{ .user.Address }}">
         </div>
-        {{end}}
-        {{with $field := field "user.Tumbon" .}}
         <div class="form-grop col-md-12" style="padding: 0px;">
           <div class="form-group col-md-6 padding-left-no">
-            <label for="exampleInputEmail1">ตำบล</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกชื่อ" name="{{$field.Name}}" value="{{$field.Flash}}">
-            <span class="error">{{$field.Error}}</span>
+            <label>ตำบล</label>
+            <input type="text" class="form-control" placeholder="กรอกชื่อ" name="" value="{{ .user.Tumbon }}">
           </div>
-          {{end}}
-          {{with $field := field "user.Aumphur" .}}
           <div class="form-group col-md-6 padding-right-no">
-            <label for="exampleInputEmail1">อำเภอ</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกนามสกุล" name="{{$field.Name}}" value="{{$field.Flash}}">
-            <span class="error">{{$field.Error}}</span>
+            <label>อำเภอ</label>
+            <input type="text" class="form-control" placeholder="กรอกนามสกุล" name="" value="{{ .user.Aumphur }}">
           </div>
         </div>
-        {{end}}
-        {{with $field := field "user.Jungvad" .}}
         <div class="form-grop col-md-12" style="padding: 0px;">
           <div class="form-group col-md-6 padding-left-no">
-            <label for="exampleInputEmail1">จังหวัด</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกชื่อ" name="{{$field.Name}}" value="{{$field.Flash}}">
-            <span class="error">{{$field.Error}}</span>
+            <label>จังหวัด</label>
+            <input type="text" class="form-control" placeholder="กรอกชื่อ" name="" value="{{ .user.Province }}">
           </div>
-          {{end}}
-          {{with $field := field "user.JungvadCode" .}}
           <div class="form-group col-md-6 padding-right-no">
-            <label for="exampleInputEmail1">รหัสไปรณีย์</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกนามสกุล" name="{{$field.Name}}" value="{{$field.Flash}}">
-            <span class="error">{{$field.Error}}</span>
+            <label>รหัสไปรณีย์</label>
+            <input type="text" class="form-control" placeholder="กรอกนามสกุล" name="" value="{{ .user.Zipcode }}">
           </div>
         </div>
-        {{end}}
         <div class="col-xs-offset-2 col-sm-offset-4">
           <button type="submit" class="btn btn-default">ตกลง</button>
           <button type="submit" class="btn btn-default">ยกเลิก</button>

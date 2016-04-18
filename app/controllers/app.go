@@ -202,7 +202,9 @@ func (c Profile) ChangePassword() revel.Result {
 }
 //EditUser for Create routing Page Register
 func (c Profile) EditUser() revel.Result {
-	return c.Render()
+  var user *models.UserData
+  user = models.GetEditUserData("sittipong")
+	return c.Render(user)
 }
 //PostEditUser for Create routing Page Register
 func (c Profile) PostEditUser() revel.Result {
