@@ -34,10 +34,7 @@ type UserData struct{
   Email,Province,Aumphur,Tumbon,Address     string
   Zipcode                                   string
 }
-var userdb = make(map[string]*User)
-
-//ส่วน Validation Form
-var userRegex = regexp.MustCompile("^\\w*$")
+var ip_mgo = "127.0.0.1"
 
 //ฟังก์ชั่น GenString สำหรับ Generate String
 func GenString(num int) (result string){
@@ -50,7 +47,7 @@ func GenString(num int) (result string){
   result = string(b[:num])
   return result
 }
-
+//ส่วน Validation Form
 func (user *User) Validate(v *revel.Validation) {
   v.Required(user.Username).Message("จำเป็นต้องกรอก ชื่อผู้ใช้งาน")
   v.Match(user.Username, regexp.MustCompile("[a-zA-Z0-9_]")).Message("ภาษาอังกฤษ และตัวเลขเท่านั้น")
@@ -66,7 +63,7 @@ func (user *User) Validate(v *revel.Validation) {
 //RegisterUserChaokaset สมัครสมาชิก
 func RegisterUserChaokaset(username string,password []byte,prefix string,name string,lastname string,tel string,role_user int) (result bool) { //result bool คือประกาศตัวแปรที่ใช้รีเทร์นค่่าเป็น boolean
   // connect to the cluster
-     session, err := mgo.Dial("127.0.0.1")
+     session, err := mgo.Dial(ip_mgo)
      if err != nil {
          panic(err)
      }
@@ -87,7 +84,7 @@ func RegisterUserChaokaset(username string,password []byte,prefix string,name st
 
 //GetUserData สำหรับเรียกข้อมูลผู้ใช้งาน
 func GetUserData(Uusername string) *User {
-  session, err := mgo.Dial("127.0.0.1")
+  session, err := mgo.Dial(ip_mgo)
   if err != nil {
       panic(err)
   }
@@ -102,7 +99,7 @@ func GetUserData(Uusername string) *User {
 }
 //GetEditUserData สำหรับเรียกข้อมูลแก้ไขผู้ใช้งาน
 func GetEditUserData(Uusername string) *UserData {
-  session, err := mgo.Dial("127.0.0.1")
+  session, err := mgo.Dial(ip_mgo)
   if err != nil {
       panic(err)
   }
@@ -117,7 +114,7 @@ func GetEditUserData(Uusername string) *UserData {
 }
 
 func EditUserData(Uusername string,prefix string,name string,lastname string,tel string,email string,province string,tumbon string,aumphur string,zipcode string,address string) (result bool) {
-  session, err := mgo.Dial("127.0.0.1")
+  session, err := mgo.Dial(ip_mgo)
   if err != nil {
       panic(err)
   }
@@ -135,7 +132,7 @@ func EditUserData(Uusername string,prefix string,name string,lastname string,tel
 
 //CheckUserLogin สำหรับเรียกข้อมูลผู้ใช้งาน
 func CheckUserLogin(Uusername string) *User{
-  session, err := mgo.Dial("127.0.0.1")
+  session, err := mgo.Dial(ip_mgo)
   if err != nil {
       panic(err)
   }
@@ -151,7 +148,7 @@ func CheckUserLogin(Uusername string) *User{
 
 //GetPasswordUser สำหรับรับค่า รหัสผ่านของ User
 func CheckPasswordUser(Uusername string,Upassword string) (result bool){
-   session, err := mgo.Dial("127.0.0.1")
+   session, err := mgo.Dial(ip_mgo)
    if err != nil {
        panic(err)
    }
