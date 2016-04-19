@@ -112,23 +112,25 @@ func GetEditUserData(Uusername string) *UserData {
   qmgo := session.DB("chaokaset").C("users")
   result := UserData{}
 	qmgo.Find(bson.M{"username": Uusername}).One(&result)
-  user = &UserData{Userid: result.Userid,Username: result.Username,Name: result.Name,Lastname: result.Lastname,Pic: result.Pic,Role: result.Role,Tel: result.Tel}
+  user = &UserData{Userid: result.Userid,Username: result.Username,Name: result.Name,Lastname: result.Lastname,Pic: result.Pic,Role: result.Role,Tel: result.Tel,Province: result.Province,Tumbon: result.Tumbon,Aumphur: result.Aumphur,Zipcode: result.Zipcode,Email: result.Email,Address: result.Address}
   return user
 }
 
-func EditUserData(Uusername string) *UserData {
+func EditUserData(Uusername string,prefix string,name string,lastname string,tel string,email string,province string,tumbon string,aumphur string,zipcode string,address string) (result bool) {
   session, err := mgo.Dial("127.0.0.1")
   if err != nil {
       panic(err)
   }
   defer session.Close()
-  var user *UserData
+  //var user *UserData
   session.SetMode(mgo.Monotonic, true)
   qmgo := session.DB("chaokaset").C("users")
-  result := UserData{}
-	qmgo.Find(bson.M{"username": Uusername}).One(&result)
-  user = &UserData{Userid: result.Userid,Username: result.Username,Name: result.Name,Lastname: result.Lastname,Pic: result.Pic,Role: result.Role,Tel: result.Tel}
-  return user
+  result = true
+	err = qmgo.Update(bson.M{"username": Uusername}, bson.M{"$set": bson.M{"name": name,"tel" : tel,"email" : email,"province": province,"aumphur": aumphur,"tumbon" : tumbon,"zipcode": zipcode,"lastname" : lastname, "lastedit": time.Now(),"address": address}})
+	if err != nil {
+		panic(err)
+	}
+  return result
 }
 
 //CheckUserLogin สำหรับเรียกข้อมูลผู้ใช้งาน

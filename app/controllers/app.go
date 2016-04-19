@@ -203,12 +203,17 @@ func (c Profile) ChangePassword() revel.Result {
 //EditUser for Create routing Page Register
 func (c Profile) EditUser() revel.Result {
   var user *models.UserData
-  user = models.GetEditUserData("sittipong")
+  user = models.GetEditUserData(c.Session["username"])
 	return c.Render(user)
 }
 //PostEditUser for Create routing Page Register
-func (c Profile) PostEditUser() revel.Result {
-	return c.Render()
+func (c Profile) PostEditUser(user *models.UserData) revel.Result {
+  result := models.EditUserData(c.Session["username"],user.Prefix,user.Name,user.Lastname,user.Tel,user.Email,user.Province,user.Tumbon,user.Aumphur,user.Zipcode,user.Address)
+  if result {
+    return c.Redirect(App.Index)
+  } else{
+    return c.Redirect(Profile.EditUser)
+  }
 }
 //SettingUser for Create routing Page Register
 func (c Profile) SettingUser() revel.Result {
