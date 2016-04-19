@@ -1,0 +1,120 @@
+{{set . "title" "รายละเอียดสินค้า"}}
+{{template "Templates/header.html" .}}
+{{template "Templates/preloader.html" .}}
+<div class="chaokaset-container-verticle" id="chaokaset-loader" style="display: none;">
+  <div class="col-sm-12 varticle-header-box">
+    <h1>การซื้อ-ขาย สินค้า</h1>
+  </div>
+  <div class="col-sm-3" style="padding: 0px;">
+    <div class="container col-sm-12">
+        <ul class="nav bd-sidenav" >
+          <p class="text-bold " style="padding-top: 20px;font-size:20px">แสดงรายการสินค้า</p>
+            <li class="active bd-sidenav-active">
+              <a href="/sell/showproduct">ข้าว</a>
+            </li>
+            <li class="">
+              <a href="/sell/showproduct">ผลไม้</a>
+            </li>
+            <li class="">
+              <a href="/sell/showproduct">พืชผัก</a>
+            </li>
+            <li class="">
+              <a href="/sell/showproduct">พืชไร่</a>
+            </li>
+            <li class="">
+              <a href="/sell/showproduct">พืชสวน</a>
+            </li>
+            <li class="">
+              <a href="/sell/showproduct">สัตว์</a>
+            </li>
+            <li class="">
+              <a href="/sell/showproduct">สินค้าอื่นๆ</a>
+            </li>
+        </ul>
+        
+        <ul class="nav bd-sidenav" >
+          <p class="text-bold " style="padding-top: 5px;font-size:20px">ประกาศขายสินค้า</p>
+            <li class="">
+                <a href="/sell/showproduct">ขายสินค้า</a>
+            </li>
+            <li class="">
+              <a href="/setting/security">จัดการสินค้า</a>
+            </li>
+        </ul>
+ 
+    </div>
+  </div>
+
+  <div class="col-sm-9 container-box">
+    <div class="col-sm-12 container-box-content" >
+      <h2 class="color-green">รายละเอียดสินค้า "ข้าวกล้อง"</h2>
+      <div class="row">
+        <div class="col-sm-5" style="padding-top:20px;">
+          <img src="/public/img/pic/rice2.jpg" alt="..." width="100%">
+        </div>
+        <div class="col-sm-7" style="padding-top:20px;">
+          <div class="row info-plant-show">
+            <div class="col-sm-12">
+              <div class="row">
+                <div class="col-sm-6">
+                  <fieldset class="form-group col-sm-12">
+                    <label for=""><img src="/public/img/Carbohydrates-48.png" width="33px"> ชื่อสินค้า</label>
+                    <p>ข้าวกล้อง</p>
+                  </fieldset>
+                  <fieldset class="form-group col-sm-12">
+                    <label for=""><img src="/public/img/Coins-48.png" width="30px"> ราคา</label>
+                    <p>5000 บาท/กิโลกรัม</p>
+                  </fieldset>
+                  <fieldset class="form-group col-sm-12">
+                    <label for=""><img src="/public/img/Geo-fence-48.png" width="30px"> ที่อยู่ของสินค้า</label>
+                    <p>ต.แสนสุข อ.เมือง จ.ชลบุรี</p>
+                  </fieldset>
+                </div>
+                <div class="col-sm-6">
+                  <fieldset class="form-group col-sm-12">
+                    <label for=""><img src="/public/img/View Details-48.png" width="28px"> รายละเอียดสินค้า</label>
+                    <p>ข้าวกล้องปลูกเองพร้อมวิตามินอย่างสูง ปลอกภัยไร้สารพิษ</p>
+                  </fieldset>
+                  <fieldset class="form-group col-sm-12">
+                    <label for=""><img src="/public/img/User Menu Male-48.png" width="30px"> ติดต่อ</label>
+                    <p>นายนามสมมุติ นามสกุล</p>
+                    <p><img src="/public/img/Phone-48.png" width="15px" > 084-2050940</p>
+                    <p><img src="/public/img/Phone-48.png" width="15px" > 084-2050940</p>
+                  </fieldset>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="col-sm-8 container-box-content">
+      <h2 class="color-green">ความคิดเห็น</h2>
+      <div class="col-sm-12 container-box-content">
+        <p class="text-bold">ความคิดเห็นที่ 1</p>
+        <br>
+        <p>5555555555555</p>
+        <p class="text-right" style="padding-top:15px;"><b>โดย</b> นายสาริน  นามสกุล <b>วันที่</b> 11 พ.ค. 59 <b>เวลา</b> 13.00 น.<p/>
+      </div><div class="col-sm-12 container-box-content">
+        <p class="text-bold">ความคิดเห็นที่ 2</p>
+        <br>
+        <p>5555555555555</p>
+        <p class="text-right" style="padding-top:15px;"><b>โดย</b> นายสาริน  นามสกุล <b>วันที่</b> 11 พ.ค. 59 <b>เวลา</b> 13.00 น.<p/>
+      </div>
+    </div>
+
+
+
+  </div>
+
+  
+
+
+  
+
+
+
+</div>
+{{template "Templates/footer.html" .}}
