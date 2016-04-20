@@ -35,7 +35,7 @@
         <ul class="nav bd-sidenav" >
           <p class="text-bold " style="padding-top: 5px;font-size:20px">ประกาศขายสินค้า</p>
             <li class="">
-                <a href="/sell/showproduct">ขายสินค้า</a>
+                <a href="/sell">ขายสินค้า</a>
             </li>
             <li class="">
               <a href="/setting/security">จัดการสินค้า</a>
@@ -71,7 +71,7 @@
           <input type="text" class="form-control" placeholder="กรอกราคาหน่วยเป็นบาท"> 
         </div>
         <div  class="col-sm-6">
-          <label for="">หน่วยสินค้าที่ประกาศ</label>
+          <label for="">หน่วยสินค้าที่ขาย</label>
           <input type="text" class="form-control" placeholder="เช่น กิโลกรัม ผล โหล ลัง"> 
         </div>
       </div>
@@ -82,6 +82,10 @@
       <div class="form-group">
         <label for="">รายละเอียดสินค้า</label>
         <textarea class="form-control" rows="5" id="comment"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="">วันหมดอายุ/วันปิดการขาย</label>
+        <input type="date" class="form-control"> 
       </div>
       <p class="text-right" >
         <button type="button" class="btn bg-link">ขายสินค้า</button>
