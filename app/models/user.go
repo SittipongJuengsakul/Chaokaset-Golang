@@ -34,6 +34,7 @@ type UserData struct{
   Email,Province,Aumphur,Tumbon,Address     string
   Zipcode                                   string
 }
+//ไอพีของฐานข้อมูล mongo DB
 var ip_mgo = "127.0.0.1"
 
 //ฟังก์ชั่น GenString สำหรับ Generate String
