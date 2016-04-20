@@ -297,3 +297,7 @@ func (c Sell) IndexSell() revel.Result {
 func (c Sell) ProductDetail() revel.Result {
 	return c.Render()
 }
+
+func (c Sell) Sell() revel.Result {
+	return c.Render()
+}

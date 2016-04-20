@@ -1,0 +1,91 @@
+{{set . "title" "การซื้อ-ขาย สินค้า"}}
+{{template "Templates/header.html" .}}
+{{template "Templates/preloader.html" .}}
+<div class="chaokaset-container-verticle" id="chaokaset-loader" style="display: none;">
+  <div class="col-sm-12 varticle-header-box">
+    <h1>การซื้อ-ขาย สินค้า</h1>
+  </div>
+  <div class="col-sm-3" style="padding: 0px;">
+    <div class="container col-sm-12">
+        <ul class="nav bd-sidenav" >
+          <p class="text-bold " style="padding-top: 20px;font-size:20px">แสดงรายการสินค้า</p>
+            <li class="active bd-sidenav-active">
+                <a href="/sell/showproduct">ข้าว</a>
+            </li>
+            <li class="">
+              <a href="/sell/showproduct">ผลไม้</a>
+            </li>
+            <li class="">
+              <a href="/sell/showproduct">พืชผัก</a>
+            </li>
+            <li class="">
+              <a href="/sell/showproduct">พืชไร่</a>
+            </li>
+            <li class="">
+              <a href="/sell/showproduct">พืชสวน</a>
+            </li>
+            <li class="">
+              <a href="/sell/showproduct">สัตว์</a>
+            </li>
+            <li class="">
+              <a href="/sell/showproduct">สินค้าอื่นๆ</a>
+            </li>
+        </ul>
+        
+        <ul class="nav bd-sidenav" >
+          <p class="text-bold " style="padding-top: 5px;font-size:20px">ประกาศขายสินค้า</p>
+            <li class="">
+                <a href="/sell/showproduct">ขายสินค้า</a>
+            </li>
+            <li class="">
+              <a href="/setting/security">จัดการสินค้า</a>
+            </li>
+        </ul>
+ 
+    </div>
+  </div>
+
+  <div class="col-sm-9">
+    <div class="col-sm-12 container-box-content" >
+      <h2 class="color-green">ประกาศขายสินค้า</h2>
+      </br>
+      <div class="form-group">
+          <label for="">ประเภทสินค้า</label>
+            <select class="form-control" id="sel1">
+            <option>ข้าว</option>
+            <option>ผลไม้</option>
+            <option>พืชผัก</option>
+            <option>พืชไร่</option>
+            <option>พืชสวน</option>
+            <option>สัตว์</option>
+            <option>สินค้าอื่นๆ</option>
+          </select>
+      </div>
+      <div class="form-group">
+        <label for="">ชื่อสินค้า</label>
+        <input type="text" class="form-control" placeholder="กรอกชื่อสินค้า เช่น ข้าวหอมมะลิ">
+      </div>
+      <div class="row">
+        <div  class="col-sm-6">
+          <label for="">ราคา (หน่วยเป็นบาท)</label>
+          <input type="text" class="form-control" placeholder="กรอกราคาหน่วยเป็นบาท"> 
+        </div>
+        <div  class="col-sm-6">
+          <label for="">หน่วยสินค้าที่ประกาศ</label>
+          <input type="text" class="form-control" placeholder="เช่น กิโลกรัม ผล โหล ลัง"> 
+        </div>
+      </div>
+      <div class="form-group" style="padding-top:15px;">
+        <label for="">รูปสินค้า</label>
+        <input type="file"  >
+      </div>
+      <div class="form-group">
+        <label for="">รายละเอียดสินค้า</label>
+        <textarea class="form-control" rows="5" id="comment"></textarea>
+      </div>
+      <p class="text-right" >
+        <button type="button" class="btn bg-link">ขายสินค้า</button>
+      <p/>
+  </div>
+</div>
+{{template "Templates/footer.html" .}}
