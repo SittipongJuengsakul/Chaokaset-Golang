@@ -73,7 +73,7 @@ func (user *User) Validate(v *revel.Validation) {
   v.Required(user.Tel).Message("จำเป็นต้องกรอก เบอร์โทรศัพท์")
   v.MinSize(user.Tel, 9).Message("เบอร์โทรศัพท์ต้องมี 10 ตัวเลข")
   v.MaxSize(user.Tel, 10).Message("เบอร์โทรศัพท์ต้องมี 10 ตัวเลข")
-  v.Match(user.Tel, regexp.MustCompile("[0-9]")).Message("เบอร์โทรศัพท์เป็นตัวเลขเท่านั้น เช่น 08011122233")
+  v.Match(user.Tel, regexp.MustCompile("^\\d*$")).Message("เบอร์โทรศัพท์เป็นตัวเลขเท่านั้น เช่น 08011122233")
   v.Required(user.Validpassword == user.Password).Message("รหัสผ่านไม่ตรงกัน")
 }
 //RegisterUserChaokaset สมัครสมาชิก

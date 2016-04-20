@@ -32,7 +32,7 @@
         </div>
         <div class="form-group">
           <label>เบอร์โทรศัพท์</label>
-          <input type="text" class="form-control" placeholder="กรอกเบอร์โทรศัพท์" name="user.Tel" value="{{ .user.Tel }}" pattern="[0-9]{9,10}" title="เบอร์โทรศัพท์เป็นตัวเลขเท่านั้น เช่น 08011122233">
+          <input type="text" class="form-control" placeholder="กรอกเบอร์โทรศัพท์" name="user.Tel" value="{{ .user.Tel }}">
           {{with $field := field "user.Tel" .}}
           <span class="error">{{$field.Error}}</span>
           {{end}}
