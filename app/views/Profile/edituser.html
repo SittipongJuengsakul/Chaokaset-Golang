@@ -7,22 +7,42 @@
       <h2>แก้ไขข้อมูลสมาชิก<span style="color:red;font-size: 15px;">{{.flash.error}}</span></h2>
       <form method="post" action="{{url "Profile.PostEditUser"}}">
         <div class="form-grop col-md-12" style="padding: 0px;">
-          <div class="form-group col-md-6 padding-left-no">
+          <div class="form-group col-md-3 padding-left-no">
+            <label>คำนำหน้าชื่อ</label>
+            <select class="form-control" name="user.Prefix" style="height: 38px;font-size: 18px;">
+               <option value="นาย">นาย</option>
+               <option value="นาง">นาง</option>
+               <option value="นางสาว">นางสาว</option>
+             </select>
+          </div>
+          <div class="form-group col-md-5">
             <label>ชื่อ</label>
             <input type="text" class="form-control" placeholder="กรอกชื่อ" name="user.Name" value="{{ .user.Name }}">
+            {{with $field := field "user.Name" .}}
+            <span class="error">{{$field.Error}}</span>
+            {{end}}
           </div>
-          <div class="form-group col-md-6 padding-right-no">
+          <div class="form-group col-md-4 padding-right-no">
             <label>นามสกุล</label>
             <input type="text" class="form-control" placeholder="กรอกนามสกุล" name="user.Lastname" value="{{ .user.Lastname }}">
+            {{with $field := field "user.Lastname" .}}
+            <span class="error">{{$field.Error}}</span>
+            {{end}}
           </div>
         </div>
         <div class="form-group">
           <label>เบอร์โทรศัพท์</label>
-          <input type="text" class="form-control" placeholder="กรอกเบอร์โทรศัพท์" name="user.Tel" value="{{ .user.Tel }}">
+          <input type="text" class="form-control" placeholder="กรอกเบอร์โทรศัพท์" name="user.Tel" value="{{ .user.Tel }}" pattern="[0-9]{9,10}" title="เบอร์โทรศัพท์เป็นตัวเลขเท่านั้น เช่น 08011122233">
+          {{with $field := field "user.Tel" .}}
+          <span class="error">{{$field.Error}}</span>
+          {{end}}
         </div>
         <div class="form-group">
           <label>อีเมล</label>
           <input type="text" class="form-control" placeholder="กรอกอีเมล" name="user.Email" value="{{ .user.Email }}">
+          {{with $field := field "user.Email" .}}
+          <span class="error">{{$field.Error}}</span>
+          {{end}}
         </div>
         <div class="form-group">
           <label>ที่อยู่</label>

@@ -183,7 +183,7 @@ func (c Auth) PostRegister(user *models.User,Validpassword string) revel.Result 
 	} else{
     user.HashedPassword, _ = bcrypt.GenerateFromPassword(
   		[]byte(user.Password), bcrypt.DefaultCost)
-    err := models.RegisterUserChaokaset(user.Username ,user.HashedPassword,user.Prefix ,user.Name ,user.Lastname ,user.Tel,user.Role);
+    err := models.RegisterUserChaokaset(user.Username ,user.HashedPassword,user.Prefix ,user.Name ,user.Lastname ,user.Tel,user.Role,user.Email);
     if err {
       c.Flash.Success("สมัครสมาชิกสำเร็จ")
       c.Session["username"] = user.Username
@@ -208,6 +208,12 @@ func (c Profile) EditUser() revel.Result {
 }
 //PostEditUser for Create routing Page Register
 func (c Profile) PostEditUser(user *models.UserData) revel.Result {
+	user.ValidateUserData(c.Validation)
+  if c.Validation.HasErrors() {
+		c.Validation.Keep()
+		c.FlashParams()
+		return c.Redirect(Profile.EditUser)
+  }
   result := models.EditUserData(c.Session["username"],user.Prefix,user.Name,user.Lastname,user.Tel,user.Email,user.Province,user.Tumbon,user.Aumphur,user.Zipcode,user.Address)
   if result {
     return c.Redirect(App.Index)
