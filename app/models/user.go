@@ -21,6 +21,7 @@ type User struct { //สร้าง Struct
 type UserByChaokaset struct{
   Userid                                    bson.ObjectId `bson:"_id,omitempty"`
   Username,Name,Lastname,Prefix,Tel,Pic     string
+  Email                                     string
   Password                                  []byte
   Timestamp                                 time.Time
   Role                                      int
@@ -53,7 +54,7 @@ func (user *UserData) ValidateUserData(v *revel.Validation) {
   v.Required(user.Name).Message("จำเป็นต้องกรอก ชื่อ")
   v.Required(user.Lastname).Message("จำเป็นต้องกรอก นามสกุล")
   v.Required(user.Tel).Message("จำเป็นต้องกรอก เบอร์โทรศัพท์")
-  v.Match(user.Tel, regexp.MustCompile("[0-9]")).Message("เบอร์โทรศัพท์เป็นตัวเลขเท่านั้น เช่น 08011122233")
+  v.Match(user.Tel, regexp.MustCompile("^\\d*$")).Message("เบอร์โทรศัพท์เป็นตัวเลขเท่านั้น เช่น 08011122233")
   v.MinSize(user.Tel, 9).Message("เบอร์โทรศัพท์ต้องมี 10 ตัวเลข")
   v.MaxSize(user.Tel, 10).Message("เบอร์โทรศัพท์ต้องมี 10 ตัวเลข")
   v.Required(user.Email).Message("จำเป็นต้องกรอก อีเมล์")
@@ -62,7 +63,7 @@ func (user *UserData) ValidateUserData(v *revel.Validation) {
 //ส่วน Validation Form
 func (user *User) Validate(v *revel.Validation) {
   v.Required(user.Username).Message("จำเป็นต้องกรอก ชื่อผู้ใช้งาน")
-  v.Match(user.Username, regexp.MustCompile("[a-zA-Z0-9_]")).Message("ภาษาอังกฤษ และตัวเลขเท่านั้น")
+  v.Match(user.Username, regexp.MustCompile("^\\w*$")).Message("ภาษาอังกฤษ และตัวเลขเท่านั้น")
 	v.MinSize(user.Username, 4).Message("ชื่อผู้ใช้ต้องมากกว่า 4 ตัวอักษร")
   v.MaxSize(user.Username, 16).Message("ชื่อผู้ใช้ต้องน้อยกว่า 16 ตัวอักษร")
   v.Required(user.Name).Message("จำเป็นต้องกรอก ชื่อ")
@@ -72,7 +73,7 @@ func (user *User) Validate(v *revel.Validation) {
   v.Required(user.Tel).Message("จำเป็นต้องกรอก เบอร์โทรศัพท์")
   v.MinSize(user.Tel, 9).Message("เบอร์โทรศัพท์ต้องมี 10 ตัวเลข")
   v.MaxSize(user.Tel, 10).Message("เบอร์โทรศัพท์ต้องมี 10 ตัวเลข")
-  v.Match(user.Tel, regexp.MustCompile("0-9")).Message("เบอร์โทรศัพท์เป็นตัวเลขเท่านั้น เช่น 08011122233")
+  v.Match(user.Tel, regexp.MustCompile("[0-9]")).Message("เบอร์โทรศัพท์เป็นตัวเลขเท่านั้น เช่น 08011122233")
   v.Required(user.Validpassword == user.Password).Message("รหัสผ่านไม่ตรงกัน")
 }
 //RegisterUserChaokaset สมัครสมาชิก
