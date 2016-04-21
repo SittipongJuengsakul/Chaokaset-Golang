@@ -36,7 +36,7 @@ type UserData struct{
   Zipcode                                   string
 }
 //ไอพีของฐานข้อมูล mongo DB
-var ip_mgo = "127.0.0.1"
+var ip_mgo = "188.166.230.170"
 
 //ฟังก์ชั่น GenString สำหรับ Generate String
 func GenString(num int) (result string){
