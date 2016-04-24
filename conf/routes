@@ -21,6 +21,7 @@ GET     /setting/security                                                       
 GET     /searchplant                                                                               Search.SearchPlant
 GET     /crops                                                                                     Crops.IndexCrops
 GET     /crops/add                                                                                 Crops.AddCrop
+GET     /crops/calendar                                                                            Crops.Calendar
 GET     /crops/management                                                                          Crops.Management
 GET     /crops/account                                                                             Crops.Account
 GET     /crops/problem                                                                             Crops.Problem

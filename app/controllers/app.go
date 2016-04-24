@@ -238,6 +238,10 @@ func (c Crops) IndexCrops() revel.Result {
 func (c Crops) Management() revel.Result {
 	return c.Render()
 }
+//Carlendar
+func (c Crops) Calendar() revel.Result {
+	return c.Render()
+}
 //Account แสดงข้อมูลการเพาะปลูก
 func (c Crops) Account() revel.Result {
 	return c.Render()

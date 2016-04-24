@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="th">
+  <head>
+    <title>{{.title}}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Kanit:300&subset=thai' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="/public/css/bootstrap.min.css">
+	  <link rel="stylesheet" type="text/css" href="/public/css/examples.css" />
+    <link rel="shortcut icon" type="image/png" href="/public/img/favicon.png">
+    <link rel="stylesheet" type="text/css" href="/public/css/chaokaset/chaokaset.css" />
+    <link rel="stylesheet" type="text/css" href="/public/css/fullcalendar/fullcalendar.min.css" />
+    <link rel="stylesheet" type="text/css" href="/public/css/fullcalendar/fullcalendar.print.css" />
+    <script src="/public/js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/public/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="http://momentjs.com/downloads/moment.js"></script>
+    <script src="/public/js/fullcalendar/fullcalendar.min.js" type="text/javascript" charset="utf-8"></script>
+    {{range .moreStyles}}
+      <link rel="stylesheet" type="text/css" href="/public/{{.}}">
+    {{end}}
+    {{range .moreScripts}}
+      <script src="/public/{{.}}" type="text/javascript" charset="utf-8"></script>
+    {{end}}
+  </head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top chaokaset-nav">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand nav-brand-chaokaset" href="/"><img alt="Brand" src="/public/img/chaokaset-logo.png"></a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav nav-content">
+            <li><button class="chaokaset-btn-border btn-style-one" onclick="javascript:location.href='/aboutus'">เกี่ยวกับเรา</button></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right nav-content-right">
+            {{ if .user}}
+              {{ if .officer }}
+            <li><button class="chaokaset-btn-border btn-style-two" onclick="javascript:location.href='/management'">จัดการข้อมูลการเกษตร</button></li>
+            <li><a href="/social">สังคมชาวเกษตร<span class="label label-default label-pill pull-xs-right activity-new" id="notification-in-header">14</span></a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ช่วยเหลือ <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/howto/authen">การสมัครสมาชิก</a></li>
+                <li><a href="/howto/crops">การจัดการการเกษตร</a></li>
+                <li><a href="/howto/setting">การตั้งค่าข้อมูลสมาชิก</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="/howto/market">การซื้อ-ขายสินค้าการเกษตร</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog" aria-hidden="true" style="font-size: 20px;"></span></a>
+              <ul class="dropdown-menu">
+                <!--<li><a href="/Auth/edituser">แก้ไขข้อมูล</a></li>-->
+                <li><a href="/setting/user">ตั้งค่า</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="/Auth/Logout">ออกจากระบบ</a></li>
+              </ul>
+            </li>
+              {{ else if .kasetkorn }}
+              <li><button class="chaokaset-btn-border btn-style-two" onclick="javascript:location.href='/crops'">จัดการการเกษตร</button></li>
+              <li><a href="/social">สังคมชาวเกษตร<span class="label label-default label-pill pull-xs-right activity-new" id="notification-in-header">14</span></a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ช่วยเหลือ <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/howto/authen">การสมัครสมาชิก</a></li>
+                  <li><a href="/howto/crops">การจัดการการเกษตร</a></li>
+                  <li><a href="/howto/setting">การตั้งค่าข้อมูลสมาชิก</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="/howto/market">การซื้อ-ขายสินค้าการเกษตร</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog" aria-hidden="true" style="font-size: 20px;"></span></a>
+                <ul class="dropdown-menu">
+                  <!--<li><a href="/Auth/edituser">แก้ไขข้อมูล</a></li>-->
+                  <li><a href="/setting/user">ตั้งค่า</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="/Auth/Logout">ออกจากระบบ</a></li>
+                </ul>
+              </li>
+              {{ else if .userkaset }}
+              <li><button class="chaokaset-btn-border btn-style-two" onclick="javascript:location.href='/crops'">ผลผลิตการเกษตร</button></li>
+              <li><a href="/social">สังคมชาวเกษตร<span class="label label-default label-pill pull-xs-right activity-new" id="notification-in-header">14</span></a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ช่วยเหลือ <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/howto/authen">การสมัครสมาชิก</a></li>
+                  <li><a href="/howto/crops">การจัดการการเกษตร</a></li>
+                  <li><a href="/howto/setting">การตั้งค่าข้อมูลสมาชิก</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="/howto/market">การซื้อ-ขายสินค้าการเกษตร</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog" aria-hidden="true" style="font-size: 20px;"></span></a>
+                <ul class="dropdown-menu">
+                  <!--<li><a href="/Auth/edituser">แก้ไขข้อมูล</a></li>-->
+                  <li><a href="/setting/user">ตั้งค่า</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="/Auth/Logout">ออกจากระบบ</a></li>
+                </ul>
+              </li>
+              {{end}}
+            {{ else }}
+            <li><a href="#">สังคมชาวเกษตร</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ช่วยเหลือ <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">การสมัครสมาชิก</a></li>
+                <li><a href="#">การจัดการการเกษตร</a></li>
+                <li><a href="#">การตั้งค่าข้อมูลสมาชิก</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">การซื้อ-ขายสินค้าการเกษตร</a></li>
+              </ul>
+            </li>
+            <!-- พื้นที่แสดงข้อมูลผู้ใช้ -->
+            <li><button class="chaokaset-btn-border btn-style-two" onclick="javascript:location.href='/register'">สมัครสมาชิก</button></li>
+            <li><a href="/login">เข้าสู่ระบบ</a></li>
+            {{end}}
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
