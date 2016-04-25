@@ -5,7 +5,7 @@ import (
     //"github.com/gocql/gocql"
     //"gopkg.in/mgo.v2"
     //"gopkg.in/mgo.v2/bson"
-	//	"chaokaset-go/app/models"
+	  "chaokaset-go/app/models"
    // "golang.org/x/crypto/bcrypt"
 )
 
@@ -17,11 +17,15 @@ type Sell struct {
 
 
 func (c Sell) IndexSell() revel.Result {
-  return c.Render()
+  //var data *models.Sell
+  data := models.GetSellData()
+  //data := "5555"
+  return c.Render(data)
 }
 
 func (c Sell) ProductDetail() revel.Result {
-  return c.Render()
+  name := "test"
+  return c.Render(name)
 }
 
 func (c Sell) Sell() revel.Result {

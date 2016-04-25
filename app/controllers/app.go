@@ -57,7 +57,7 @@ type Farmer struct {
 
 
 func init() {
-	revel.InterceptFunc(setuser, revel.BEFORE, &App{})
+  revel.InterceptFunc(setuser, revel.BEFORE, &App{})
   revel.InterceptFunc(setuser, revel.BEFORE, &Crops{})
   revel.InterceptFunc(setuser, revel.BEFORE, &Profile{})
   revel.InterceptFunc(setuser, revel.BEFORE, &Howto{})
