@@ -17,6 +17,11 @@ type ResAuth struct {
     Status      bool
     UserData    *models.User
 }
+type ResSellAll struct {
+    Status      bool
+    SellData    []models.Sell
+}
+
 func (c Api) Index() revel.Result {
   var user *models.User
 	user = models.GetUserData("sittipong")
@@ -43,4 +48,16 @@ func (c Api) RegisterUser(Username string,Password string,Prefix string,Name str
   }
   R = &ResAuth{Status: res,UserData: U}
   return  c.RenderJson(R)
+}
+
+func (c Api) ProductSell() revel.Result {
+  var R *ResSellAll
+  var U []models.Sell
+  U = models.GetSellData()
+  if U == nil{
+    R = &ResSellAll{Status: false,SellData: nil}
+    return  c.RenderJson(R)
+  }
+    R = &ResSellAll{Status: true,SellData: U}
+    return  c.RenderJson(R)
 }
