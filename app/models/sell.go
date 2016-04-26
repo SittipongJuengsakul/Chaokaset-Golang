@@ -14,7 +14,7 @@ import (
 type Sell struct{
   Sellid          bson.ObjectId `bson:"_id,omitempty"`
   Name,Category   string
-  Price           string
+  Price           int
 
 }
 
