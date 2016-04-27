@@ -58,6 +58,11 @@ func (c Api) ProductSell() revel.Result {
     R = &ResSellAll{Status: false,SellData: nil}
     return  c.RenderJson(R)
   }
-    R = &ResSellAll{Status: true,SellData: U}
-    return  c.RenderJson(R)
+
+  for i := range U {
+    U[i].SetDistance(5000)
+  }
+  
+  R = &ResSellAll{Status: true,SellData: U}
+  return  c.RenderJson(R)
 }

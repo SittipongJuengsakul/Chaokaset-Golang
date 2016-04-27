@@ -14,8 +14,6 @@ type Sell struct {
   *revel.Controller
 }
 
-
-
 func (c Sell) IndexSell() revel.Result {
   //var data *models.Sell
   data := models.GetSellData()

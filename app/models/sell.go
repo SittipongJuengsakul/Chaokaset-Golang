@@ -14,11 +14,20 @@ import (
 type Sell struct{
   Sellid          bson.ObjectId `bson:"_id,omitempty"`
   Name,Category,Pic   string
-  Price           int
-
+  Price               int
+  Distance            int
+  Address             Address
+}
+type Address struct{
+  Lat       int
+  Long      int
 }
 
 //var Selldb = make(map[string]*Sell)
+
+func (sell *Sell) SetDistance(data int) {
+  sell.Distance = data
+}
 
 //GetSellData
 func GetSellData() []Sell {
@@ -35,7 +44,7 @@ func GetSellData() []Sell {
   data = &Sell{Sellid: result.Sellid,Name: result.Name,Category: result.Category,Price: result.Price}
   return data*/
   var result []Sell
-  qmgo.Find(nil).Sort("name").All(&result)
+  qmgo.Find(nil).Sort("price").All(&result)
 
   //&Sell{Sellid: result.Sellid,Name: result.Name,Category: result.Category,Price: result.Price}
   return result
