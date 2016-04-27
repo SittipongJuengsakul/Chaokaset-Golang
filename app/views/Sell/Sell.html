@@ -49,47 +49,69 @@
     <div class="col-sm-12 container-box-content" >
       <h2 class="color-green">ประกาศขายสินค้า</h2>
       </br>
+      <form method="post" action="{{url "Sell.PostSell"}}">
+      {{with $field := field "sell.Category" .}}
       <div class="form-group">
           <label for="">ประเภทสินค้า</label>
             <select class="form-control" id="sel1">
-            <option>ข้าว</option>
-            <option>ผลไม้</option>
-            <option>พืชผัก</option>
-            <option>พืชไร่</option>
-            <option>พืชสวน</option>
-            <option>สัตว์</option>
-            <option>สินค้าอื่นๆ</option>
+            <option value="ข้าว">ข้าว</option>
+            <option value="ผลไม้">ผลไม้</option>
+            <option value="พืชผัก">พืชผัก</option>
+            <option value="พืชไร่">พืชไร่</option>
+            <option value="พืชสวน">พืชสวน</option>
+            <option value="สัตว์">สัตว์</option>
+            <option value="สินค้าอื่นๆ">สินค้าอื่นๆ</option>
           </select>
       </div>
+      {{end}}
+      {{with $field := field "sell.Name" .}}
       <div class="form-group">
         <label for="">ชื่อสินค้า</label>
-        <input type="text" class="form-control" placeholder="กรอกชื่อสินค้า เช่น ข้าวหอมมะลิ">
+        <input type="text" class="form-control" placeholder="กรอกชื่อสินค้า เช่น ข้าวหอมมะลิ" name="{{$field.Name}}" value="{{$field.Flash}}">
+        <span class="error">{{$field.Error}}</span>
       </div>
+      {{end}}
       <div class="row">
+        {{with $field := field "sell.Price" .}}
         <div  class="col-sm-6">
           <label for="">ราคา (หน่วยเป็นบาท)</label>
-          <input type="text" class="form-control" placeholder="กรอกราคาหน่วยเป็นบาท"> 
+          <input type="text" class="form-control" placeholder="กรอกราคาหน่วยเป็นบาท" name="{{$field.Name}}" value="{{$field.Flash}}"> 
+          <span class="error">{{$field.Error}}</span>
         </div>
+        {{end}}
+        {{with $field := field "sell.Unit" .}}
         <div  class="col-sm-6">
           <label for="">หน่วยสินค้าที่ขาย</label>
-          <input type="text" class="form-control" placeholder="เช่น กิโลกรัม ผล โหล ลัง"> 
+          <input type="text" class="form-control" placeholder="เช่น กิโลกรัม ผล โหล ลัง" name="{{$field.Name}}" value="{{$field.Flash}}"> 
+           <span class="error">{{$field.Error}}</span>
         </div>
+        {{end}}
       </div>
+      {{with $field := field "sell.Pic" .}}
       <div class="form-group" style="padding-top:15px;">
         <label for="">รูปสินค้า</label>
-        <input type="file"  >
+        <input type="file"  name="{{$field.Name}}" value="{{$field.Flash}}">
+        <span class="error">{{$field.Error}}</span>
       </div>
+      {{end}}
+      {{with $field := field "sell.Detail" .}}
       <div class="form-group">
         <label for="">รายละเอียดสินค้า</label>
-        <textarea class="form-control" rows="5" id="comment"></textarea>
+        <textarea class="form-control" rows="5" id="" placeholder="กรอกรายละเอียดสินค้า เช่น สี ขนาด" name="{{$field.Name}}" >{{$field.Flash}}</textarea>
+        <span class="error">{{$field.Error}}</span>
       </div>
+      {{end}}
+      {{with $field := field "sell.Expire" .}}
       <div class="form-group">
         <label for="">วันหมดอายุ/วันปิดการขาย</label>
-        <input type="date" class="form-control"> 
+        <input type="date" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" > 
+        <span class="error">{{$field.Error}}</span>
       </div>
+      {{end}}
       <p class="text-right" >
-        <button type="button" class="btn bg-link">ขายสินค้า</button>
+        <button type="submit" class="btn bg-link">ขายสินค้า</button>
       <p/>
   </div>
+  </form>
 </div>
 {{template "Templates/footer.html" .}}

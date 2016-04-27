@@ -8,15 +8,21 @@ import (
   //  "time"
   //  "math/rand"
     //"fmt"
+    "time"
 )
 
 
 type Sell struct{
   Sellid          bson.ObjectId `bson:"_id,omitempty"`
-  Name,Category,Pic   string
-  Price               int
-  Distance            int
-  Address             Address
+  Name            string
+  Category        string
+  Pic             string
+  Price           int
+  Distance        int
+  Address         Address
+  Unit            string
+  Detail          string
+  Expire          time.Time
 }
 type Address struct{
   Lat       int
