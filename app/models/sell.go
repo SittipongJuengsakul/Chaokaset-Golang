@@ -22,7 +22,8 @@ type Sell struct{
   Address         Address
   Unit            string
   Detail          string
-  Expire          time.Time
+  Expire          string
+  TimeCreate      time.Time
 }
 type Address struct{
   Lat       int
@@ -54,6 +55,24 @@ func GetSellData() []Sell {
 
   //&Sell{Sellid: result.Sellid,Name: result.Name,Category: result.Category,Price: result.Price}
   return result
+}
+
+func AddSellData(name string,category string, price int, unit string, detail string, expire string) (result bool) {
+  session, err := mgo.Dial("127.0.0.1")
+  if err != nil {
+      panic(err)
+  }
+  defer session.Close()
+
+  session.SetMode(mgo.Monotonic, true)
+  qmgo := session.DB("chaokaset").C("sell")
+  err = qmgo.Insert(&Sell{Name: name, Category: category, Price: price,TimeCreate: time.Now(), Detail: detail, Expire: expire, Unit: unit})
+  if err != nil {
+    return false
+  }else{
+    return true
+  }
+
 }
 
 

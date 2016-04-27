@@ -49,11 +49,11 @@
     <div class="col-sm-12 container-box-content" >
       <h2 class="color-green">ประกาศขายสินค้า</h2>
       </br>
-      <form method="post" action="{{url "Sell.PostSell"}}">
+      <form enctype="multipart/form-data" method="post" action="{{url "Sell.PostSell"}}">
       {{with $field := field "sell.Category" .}}
       <div class="form-group">
           <label for="">ประเภทสินค้า</label>
-            <select class="form-control" id="sel1">
+            <select class="form-control" id="sel1" name="{{$field.Name}}">
             <option value="ข้าว">ข้าว</option>
             <option value="ผลไม้">ผลไม้</option>
             <option value="พืชผัก">พืชผัก</option>
