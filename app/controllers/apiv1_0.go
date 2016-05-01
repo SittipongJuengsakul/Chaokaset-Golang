@@ -60,7 +60,8 @@ func (c Api) ProductSell() revel.Result {
   }
 
   for i := range U {
-    U[i].SetDistance(5000)
+
+    U[i].SetDistance(U[i].Address.Lat)
   }
   
   R = &ResSellAll{Status: true,SellData: U}

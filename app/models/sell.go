@@ -18,7 +18,7 @@ type Sell struct{
   Category        string
   Pic             string
   Price           int
-  Distance        int
+  Distance        float64
   Address         Address
   Unit            string
   Detail          string
@@ -26,13 +26,13 @@ type Sell struct{
   TimeCreate      time.Time
 }
 type Address struct{
-  Lat       int
-  Long      int
+  Lat       float64
+  Long      float64
 }
 
 //var Selldb = make(map[string]*Sell)
 
-func (sell *Sell) SetDistance(data int) {
+func (sell *Sell) SetDistance(data float64) {
   sell.Distance = data
 }
 
@@ -54,6 +54,11 @@ func GetSellData() []Sell {
   qmgo.Find(nil).Sort("price").All(&result)
 
   //&Sell{Sellid: result.Sellid,Name: result.Name,Category: result.Category,Price: result.Price}
+   for i := range result {
+    
+    result[i].SetDistance(result[i].Address.Lat)
+  }
+  
   return result
 }
 
