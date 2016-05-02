@@ -59,6 +59,7 @@
       
       </br>
         <div class="row">
+
           {{ range .data }}
             <div class="col-sm-6 col-md-4">
             <div class="thumbnail">
@@ -66,7 +67,7 @@
               <div class="caption">
                 <h2 class="color-blue">{{ .Name }}</h2>
                 <p  style="padding-top:10px;padding-bottom:10px"><img src="/public/img/Coins-48.png" width="30px"> {{ .Price }} บาท/{{ .Unit }}</p>
-                <p style="padding-bottom:15px"><img src="/public/img/Geo-fence-48.png" width="25px"> จ.ชลบุรี</p>
+                <p style="padding-bottom:15px"><img src="/public/img/Geo-fence-48.png" width="25px"> จ.ชลบุรี {{.Distance }}</p>
                 <!--<p><small>ข้าวกล้องปลูกเองพร้อมวิตามินอย่างสูง ปลอกภัยไร้สารพิษ</small></p>-->
                 <a  href="productdetail"><button type="button" class="btn bg-link">รายละเอียดสินค้า</button></a>
               </div>

@@ -21,6 +21,10 @@ type ResSellAll struct {
     Status      bool
     SellData    []models.Sell
 }
+type ResSellDetail struct {
+    Status      bool
+    SellData    *models.SellDetail
+}
 
 func (c Api) Index() revel.Result {
   var user *models.User
@@ -59,11 +63,23 @@ func (c Api) ProductSell() revel.Result {
     return  c.RenderJson(R)
   }
 
-  for i := range U {
+  /*for i := range U {
 
     U[i].SetDistance(U[i].Address.Lat)
-  }
+  }*/
   
   R = &ResSellAll{Status: true,SellData: U}
+  return  c.RenderJson(R)
+}
+
+func (c Api) ProductDetail(Id string) revel.Result{
+  var R *ResSellDetail
+  var U *models.SellDetail
+  U = models.GetSellDetail(Id)
+  if U == nil{
+    R = &ResSellDetail{Status: false,SellData: nil}
+    return  c.RenderJson(R)
+  }
+  R = &ResSellDetail{Status: true,SellData: U}
   return  c.RenderJson(R)
 }
