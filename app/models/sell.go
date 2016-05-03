@@ -33,8 +33,7 @@ type Address struct{
   Long            float64
 }
 type  Owner struct{
-  OwnerName       string
-  OwnerTel        string
+  Name,Lastname,Prefix,Tel       string
 }
 
 type SellDetail struct{
@@ -48,7 +47,8 @@ type SellDetail struct{
   Detail          string
   Expire          string
   TimeCreate      time.Time
-  
+  OwnerId         bson.ObjectId
+  Owner           Owner
 }
 
 
@@ -58,6 +58,21 @@ func (sell *Sell) SetDistance(data float64) {
   sell.Distance = data
 }
 
+func (SellDetail *SellDetail) SetOwnerName(data string) {
+  SellDetail.Owner.Name = data
+}
+
+func (SellDetail *SellDetail) SetOwnerLastname(data string) {
+  SellDetail.Owner.Lastname = data
+}
+
+func (SellDetail *SellDetail) SetOwnerPrefix(data string) {
+  SellDetail.Owner.Prefix = data
+}
+
+func (SellDetail *SellDetail) SetOwnerTel(data string) {
+  SellDetail.Owner.Tel = data
+}
 //GetSellData
 func GetSellData() []Sell {
   session, err := mgo.Dial("127.0.0.1")
@@ -86,7 +101,6 @@ func GetSellData() []Sell {
       dist = math.Acos(dist)
       dist = geolib.Rad2Deg(dist)
       result[i].SetDistance(dist * 60 * 1.1515 * 1.609344)
-     
   }
   
   return result
@@ -123,6 +137,11 @@ func GetSellDetail(Idsell string) *SellDetail {
   var result *SellDetail
   qmgo.Find(bson.M{"_id": bson.ObjectIdHex(Idsell)}).One(&result)
   //user = &SellDetail{Sellid:result.Sellid, Name:result.Name, Category:result.Category, Pic:result.Pic, Price:result.Price, Address.result.Address }
+  data := GetOwnerData(result.OwnerId.Hex())
+  result.SetOwnerName(data.Name)
+  result.SetOwnerLastname(data.Lastname)
+  result.SetOwnerPrefix(data.Prefix)
+  result.SetOwnerTel(data.Tel)
   return result
 }
 
@@ -149,6 +168,20 @@ func GetSearchSell(Name string,Lat float64,Long float64) []Sell {
       dist = geolib.Rad2Deg(dist)
       result[i].SetDistance(dist * 60 * 1.1515 * 1.609344)  
   }
+  return result
+}
+
+func GetOwnerData(id string) *Owner{
+  session, err := mgo.Dial("127.0.0.1")
+  if err != nil {
+      panic(err)
+  }
+  defer session.Close()
+  //id = id.Hex()
+  session.SetMode(mgo.Monotonic, true)
+  qmgo := session.DB("chaokaset").C("users")
+  var result *Owner
+  qmgo.Find(bson.M{"_id": bson.ObjectIdHex(id)}).One(&result)
   return result
 }
 
