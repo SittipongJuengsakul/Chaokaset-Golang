@@ -23,12 +23,15 @@ func (c Sell) IndexSell() revel.Result {
   return c.Render(data)
 }
 
-func (c Sell) ProductDetail() revel.Result {
-  name := "test"
-  return c.Render(name)
+func (c Sell) ProductDetail(id string) revel.Result {
+
+  data := models.GetSellDetail(id)
+  return c.Render(data)
 }
 
 func (c Sell) Sell() revel.Result {
+  
+ // return  c.RenderJson(c.Session["Userid"])
   return c.Render()
 }
 
@@ -46,7 +49,7 @@ func (c Sell) PostSell(sell *models.Sell) revel.Result {
     return c.Redirect(Sell.Sell)
   }
   
-  err := models.AddSellData(sell.Name, sell.Category, sell.Price, sell.Unit, sell.Detail, sell.Expire)
+  err := models.AddSellData(sell.Name, sell.Category, sell.Price, sell.Unit, sell.Detail, sell.Expire, "1233333ddvds")
   if err {
      // c.Flash.Success("สมัครสมาชิกสำเร็จ")
       return  c.Redirect(Sell.IndexSell)

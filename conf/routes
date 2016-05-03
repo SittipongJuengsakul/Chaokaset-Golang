@@ -33,7 +33,7 @@ GET     /plan/managemnet                                                        
 GET     /farmer/management                                                                         Farmer.FarmerManagement
 GET     /farmer/showfarmer                                                                         Farmer.ShowFarmer
 GET		/sell/showproduct																		   Sell.IndexSell
-GET		/sell/productdetail																		   Sell.ProductDetail
+GET		/sell/productdetail/:id																	   Sell.ProductDetail
 GET 	/sell   																				   Sell.Sell
 GET     /template                                                                                  App.Templates
 # Ignore favicon requests

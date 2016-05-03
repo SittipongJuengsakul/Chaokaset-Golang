@@ -4,7 +4,7 @@
 <div class="chaokaset-container-verticle" id="chaokaset-loader" style="display: none;">
   <div class="col-sm-12 varticle-header-box">
     <h1>การซื้อ-ขาย สินค้า</h1>
-    
+    {{ .data }}
   </div>
   <div class="col-sm-3" style="padding: 0px;">
     <div class="container col-sm-12">
@@ -48,10 +48,10 @@
 
   <div class="col-sm-9 container-box">
     <div class="col-sm-12 container-box-content" >
-      <h2 class="color-green">รายละเอียดสินค้า "ข้าวกล้อง"</h2>
+      <h2 class="color-green">รายละเอียดสินค้า "{{.data.Name}}"</h2>
       <div class="row">
         <div class="col-sm-5" style="padding-top:20px;">
-          <img src="/public/img/pic/rice2.jpg" alt="..." width="100%">
+          <img src="/{{.data.Pic}}" alt="..." width="100%">
         </div>
         <div class="col-sm-7" style="padding-top:20px;">
           <div class="row info-plant-show">
@@ -60,11 +60,11 @@
                 <div class="col-sm-6">
                   <fieldset class="form-group col-sm-12">
                     <label for=""><img src="/public/img/Carbohydrates-48.png" width="33px"> ชื่อสินค้า</label>
-                    <p>ข้าวกล้อง</p>
+                    <p>{{.data.Name}}</p>
                   </fieldset>
                   <fieldset class="form-group col-sm-12">
                     <label for=""><img src="/public/img/Coins-48.png" width="30px"> ราคา</label>
-                    <p>5000 บาท/กิโลกรัม</p>
+                    <p>{{.data.Price}} บาท/{{.data.Unit}}</p>
                   </fieldset>
                   <fieldset class="form-group col-sm-12">
                     <label for=""><img src="/public/img/Geo-fence-48.png" width="30px"> ที่อยู่ของสินค้า</label>
@@ -74,7 +74,7 @@
                 <div class="col-sm-6">
                   <fieldset class="form-group col-sm-12">
                     <label for=""><img src="/public/img/View Details-48.png" width="28px"> รายละเอียดสินค้า</label>
-                    <p>ข้าวกล้องปลูกเองพร้อมวิตามินอย่างสูง ปลอกภัยไร้สารพิษ</p>
+                    <p>{{.data.Detail}}</p>
                   </fieldset>
                   <fieldset class="form-group col-sm-12">
                     <label for=""><img src="/public/img/User Menu Male-48.png" width="30px"> ติดต่อ</label>

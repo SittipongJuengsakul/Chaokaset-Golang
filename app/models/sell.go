@@ -26,10 +26,15 @@ type Sell struct{
   Detail          string
   Expire          string
   TimeCreate      time.Time
+  OwnerId         string 
 }
 type Address struct{
-  Lat       float64
-  Long      float64
+  Lat             float64
+  Long            float64
+}
+type  Owner struct{
+  OwnerName       string
+  OwnerTel        string
 }
 
 type SellDetail struct{
@@ -43,6 +48,7 @@ type SellDetail struct{
   Detail          string
   Expire          string
   TimeCreate      time.Time
+  
 }
 
 
@@ -86,7 +92,7 @@ func GetSellData() []Sell {
   return result
 }
 
-func AddSellData(name string,category string, price int, unit string, detail string, expire string) (result bool) {
+func AddSellData(name string,category string, price int, unit string, detail string, expire string,ownerId string) (result bool) {
   session, err := mgo.Dial("127.0.0.1")
   if err != nil {
       panic(err)
@@ -95,7 +101,7 @@ func AddSellData(name string,category string, price int, unit string, detail str
 
   session.SetMode(mgo.Monotonic, true)
   qmgo := session.DB("chaokaset").C("sell")
-  err = qmgo.Insert(&Sell{Name: name, Category: category, Price: price,TimeCreate: time.Now(), Detail: detail, Expire: expire, Unit: unit})
+  err = qmgo.Insert(&Sell{Name: name, Category: category, Price: price,TimeCreate: time.Now(), Detail: detail, Expire: expire, Unit: unit, OwnerId: ownerId})
   if err != nil {
     return false
   }else{
@@ -119,6 +125,7 @@ func GetSellDetail(Idsell string) *SellDetail {
   //user = &SellDetail{Sellid:result.Sellid, Name:result.Name, Category:result.Category, Pic:result.Pic, Price:result.Price, Address.result.Address }
   return result
 }
+
 
 func GetSearchSell(Name string,Lat float64,Long float64) []Sell {
   session, err := mgo.Dial("127.0.0.1")
