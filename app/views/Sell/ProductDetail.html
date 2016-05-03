@@ -78,9 +78,9 @@
                   </fieldset>
                   <fieldset class="form-group col-sm-12">
                     <label for=""><img src="/public/img/User Menu Male-48.png" width="30px"> ติดต่อ</label>
-                    <p>นายนามสมมุติ นามสกุล</p>
-                    <p><img src="/public/img/Phone-48.png" width="15px" > 084-2050940</p>
-                    <p><img src="/public/img/Phone-48.png" width="15px" > 084-2050940</p>
+                    <p>{{.data.Owner.Prefix}}{{.data.Owner.Name}}    {{.data.Owner.Lastname}}</p>
+                    <p><img src="/public/img/Phone-48.png" width="15px" > {{.data.Owner.Tel}}</p>
+                   
                   </fieldset>
                 </div>
               </div>
