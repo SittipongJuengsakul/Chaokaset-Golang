@@ -105,16 +105,6 @@ func AddSellData(name string,category string, price int, unit string, detail str
 }
 
 func GetSellDetail(Idsell string) *SellDetail {
-  /*session, err := mgo.Dial("127.0.0.1")
-  if err != nil {
-      panic(err)
-  }
-  defer session.Close()
-  session.SetMode(mgo.Monotonic, true)
-  qmgo := session.DB("chaokaset").C("sell")
-  var result *Sell
-  qmgo.Find(bson.M{"_id": Idsell}).All(&result)
-  return result*/
   session, err := mgo.Dial("127.0.0.1")
   if err != nil {
       panic(err)
@@ -129,6 +119,33 @@ func GetSellDetail(Idsell string) *SellDetail {
   //user = &SellDetail{Sellid:result.Sellid, Name:result.Name, Category:result.Category, Pic:result.Pic, Price:result.Price, Address.result.Address }
   return result
 }
+
+func GetSearchSell(Name string,Lat float64,Long float64) []Sell {
+  session, err := mgo.Dial("127.0.0.1")
+  if err != nil {
+      panic(err)
+  }
+  defer session.Close()
+  session.SetMode(mgo.Monotonic, true)
+  qmgo := session.DB("chaokaset").C("sell")
+  var result []Sell
+  
+  qmgo.Find(bson.M{"name": bson.RegEx{".*"+Name, "s"}}).All(&result)
+   for i := range result {
+      lat1 := Lat
+      lat2 := 13.286727
+      lon1 := Long
+      lon2 := 100.925619
+      theta := lon1 - lon2
+      dist := math.Sin(geolib.Deg2Rad(lat1)) * math.Sin(geolib.Deg2Rad(lat2)) + math.Cos(geolib.Deg2Rad(lat1)) * math.Cos(geolib.Deg2Rad(lat2)) * math.Cos(geolib.Deg2Rad(theta))
+      dist = math.Acos(dist)
+      dist = geolib.Rad2Deg(dist)
+      result[i].SetDistance(dist * 60 * 1.1515 * 1.609344)  
+  }
+  return result
+}
+
+
 
 
 

@@ -83,3 +83,15 @@ func (c Api) ProductDetail(Id string) revel.Result{
   R = &ResSellDetail{Status: true,SellData: U}
   return  c.RenderJson(R)
 }
+
+func (c Api)  SearchProduct(Name string, Lat float64, Long float64) revel.Result{
+  var R *ResSellAll
+  var U []models.Sell
+  U = models.GetSearchSell(Name,Lat,Long)
+  if U == nil{
+    R = &ResSellAll{Status: false,SellData: nil}
+    return  c.RenderJson(R)
+  }
+  R = &ResSellAll{Status: true,SellData: U}
+  return  c.RenderJson(R)
+}
