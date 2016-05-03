@@ -26,7 +26,7 @@ type Sell struct{
   Detail          string
   Expire          string
   TimeCreate      time.Time
-  OwnerId         string 
+  OwnerId         bson.ObjectId
 }
 type Address struct{
   Lat             float64
@@ -92,7 +92,7 @@ func GetSellData() []Sell {
   return result
 }
 
-func AddSellData(name string,category string, price int, unit string, detail string, expire string,ownerId string) (result bool) {
+func AddSellData(name string,category string, price int, unit string, detail string, expire string, ownerId bson.ObjectId) (result bool) {
   session, err := mgo.Dial("127.0.0.1")
   if err != nil {
       panic(err)
@@ -151,6 +151,8 @@ func GetSearchSell(Name string,Lat float64,Long float64) []Sell {
   }
   return result
 }
+
+
 
 
 

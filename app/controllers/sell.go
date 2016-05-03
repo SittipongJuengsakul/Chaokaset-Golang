@@ -30,8 +30,9 @@ func (c Sell) ProductDetail(id string) revel.Result {
 }
 
 func (c Sell) Sell() revel.Result {
+ /* data := models.GetUserData(c.Session["username"])
   
- // return  c.RenderJson(c.Session["Userid"])
+  return  c.RenderJson(data)*/
   return c.Render()
 }
 
@@ -48,8 +49,10 @@ func (c Sell) PostSell(sell *models.Sell) revel.Result {
     c.FlashParams()
     return c.Redirect(Sell.Sell)
   }
+  data := models.GetUserData(c.Session["username"])
   
-  err := models.AddSellData(sell.Name, sell.Category, sell.Price, sell.Unit, sell.Detail, sell.Expire, "1233333ddvds")
+  //return  c.RenderJson(data.Userid.Hex)
+  err := models.AddSellData(sell.Name, sell.Category, sell.Price, sell.Unit, sell.Detail, sell.Expire, data.Userid)
   if err {
      // c.Flash.Success("สมัครสมาชิกสำเร็จ")
       return  c.Redirect(Sell.IndexSell)
