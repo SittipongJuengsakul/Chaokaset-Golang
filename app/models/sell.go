@@ -115,7 +115,7 @@ func AddSellData(name string,category string, price int, unit string, detail str
 
   session.SetMode(mgo.Monotonic, true)
   qmgo := session.DB("chaokaset").C("sell")
-  err = qmgo.Insert(&Sell{Name: name, Category: category, Price: price,TimeCreate: time.Now(), Detail: detail, Expire: expire, Unit: unit, OwnerId: ownerId})
+  err = qmgo.Insert(&Sell{Name: name, Category: category, Price: price,TimeCreate: time.Now(), Detail: detail, Expire: expire, Unit: unit, OwnerId: ownerId,Pic: "public/img/pic/rice1.jpg"})
   if err != nil {
     return false
   }else{

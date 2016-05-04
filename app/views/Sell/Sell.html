@@ -108,7 +108,16 @@
         <span class="error">{{$field.Error}}</span>
       </div>
       {{end}}
-     
+      {{with $field := field "sell.Address" .}}
+       <div class="form-group">
+          <label for="">ที่อยู่ของสินค้า</label>
+        <div class="form-group">
+          <input type="radio" name="{{$field.Name}}">จุดที่ยืนอยู่
+          <input type="radio" name="{{$field.Name}}">จุดอื่นๆ
+        </div>
+          <span class="error">{{$field.Error}}</span>
+        </div>
+       {{end}}
       <p class="text-right" >
         <button type="submit" class="btn bg-link">ขายสินค้า</button>
       <p/>

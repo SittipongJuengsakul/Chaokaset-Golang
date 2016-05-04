@@ -9,12 +9,14 @@ import (
    // "golang.org/x/crypto/bcrypt"
     //"fmt"
    // "time"
+
 )
 
 //Auth for save Structure of Folder Sell (in views)
 type Sell struct {
   *revel.Controller
 }
+
 
 func (c Sell) IndexSell() revel.Result {
   //var data *models.Sell
@@ -62,3 +64,6 @@ func (c Sell) PostSell(sell *models.Sell) revel.Result {
     }
 
 }
+
+
+
