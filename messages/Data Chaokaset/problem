@@ -20,8 +20,8 @@
      { "id_user": "5708ba6c89f3d4311b896a29","time": ISODate("2016-04-09T08:16:44.420Z"), "status" : 1 }
   ],
   "comment": [ //คำตอบที่มาตอบบนกระทู้
-     { "id_user": "5708ba6c89f3d4311b896a29", "id_company": "5708ba6c89f3d4311b896a29", "time": ISODate("2016-04-09T08:16:44.420Z"), "status" : 1 },
-     { "id_user": "5708ba6c89f3d4311b896a29", "id_company": "5708ba6c89f3d4311b896a29", "time": ISODate("2016-04-09T08:16:44.420Z"), "status" : 1 },
-     { "id_user": "5708ba6c89f3d4311b896a29", "id_company": "5708ba6c89f3d4311b896a29", "time": ISODate("2016-04-09T08:16:44.420Z"), "status" : 1 }
+     { "id_user": "5708ba6c89f3d4311b896a29", "id_company": "5708ba6c89f3d4311b896a29", "time": ISODate("2016-04-09T08:16:44.420Z"), "status" : 1, "like" : 400 },
+     { "id_user": "5708ba6c89f3d4311b896a29", "id_company": "5708ba6c89f3d4311b896a29", "time": ISODate("2016-04-09T08:16:44.420Z"), "status" : 1, "like" : 400 },
+     { "id_user": "5708ba6c89f3d4311b896a29", "id_company": "5708ba6c89f3d4311b896a29", "time": ISODate("2016-04-09T08:16:44.420Z"), "status" : 1, "like" : 400 }
   ],
 }
