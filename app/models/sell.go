@@ -74,7 +74,7 @@ func (SellDetail *SellDetail) SetOwnerTel(data string) {
   SellDetail.Owner.Tel = data
 }
 //GetSellData
-func GetSellData() []Sell {
+func GetSellData(Lat float64, Long float64) []Sell {
   session, err := mgo.Dial("127.0.0.1")
   if err != nil {
       panic(err)
@@ -92,9 +92,9 @@ func GetSellData() []Sell {
   qmgo.Find(nil).Sort("price").All(&result)
   //&Sell{Sellid: result.Sellid,Name: result.Name,Category: result.Category,Price: result.Price}
    for i := range result {
-      lat1 := 13.286164
+      lat1 := Lat
       lat2 := 13.286727
-      lon1 := 100.921252
+      lon1 := Long
       lon2 := 100.925619
       theta := lon1 - lon2
       dist := math.Sin(geolib.Deg2Rad(lat1)) * math.Sin(geolib.Deg2Rad(lat2)) + math.Cos(geolib.Deg2Rad(lat1)) * math.Cos(geolib.Deg2Rad(lat2)) * math.Cos(geolib.Deg2Rad(theta))

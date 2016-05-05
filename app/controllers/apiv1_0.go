@@ -54,10 +54,10 @@ func (c Api) RegisterUser(Username string,Password string,Prefix string,Name str
   return  c.RenderJson(R)
 }
 
-func (c Api) ProductSell() revel.Result {
+func (c Api) ProductSell(Lat float64, Long float64) revel.Result {
   var R *ResSellAll
   var U []models.Sell
-  U = models.GetSellData()
+  U = models.GetSellData(Lat,Long)
   if U == nil{
     R = &ResSellAll{Status: false,SellData: nil}
     return  c.RenderJson(R)

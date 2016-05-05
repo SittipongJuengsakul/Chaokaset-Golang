@@ -9,7 +9,12 @@ import (
    // "golang.org/x/crypto/bcrypt"
     //"fmt"
    // "time"
-
+    "mime/multipart"
+    "os"
+    "net/http"
+    "bytes"
+    "path/filepath"
+    "io"
 )
 
 //Auth for save Structure of Folder Sell (in views)
@@ -20,7 +25,7 @@ type Sell struct {
 
 func (c Sell) IndexSell() revel.Result {
   //var data *models.Sell
-  data := models.GetSellData()
+  data := models.GetSellData(13,100)
   //data := "5555"
   return c.Render(data)
 }
@@ -66,4 +71,28 @@ func (c Sell) PostSell(sell *models.Sell) revel.Result {
 }
 
 
+func newfileUploadRequest(uri string, params map[string]string, paramName, path string) (*http.Request, error){
+  file, err := os.Open(path)
+  if err != nil {
+      return nil, err
+  }
+  defer file.Close()
 
+  body := &bytes.Buffer{}
+  writer := multipart.NewWriter(body)
+  part, err := writer.CreateFormFile(paramName, filepath.Base(path))
+  if err != nil {
+      return nil, err
+  }
+  _, err = io.Copy(part, file)
+
+  for key, val := range params {
+      _ = writer.WriteField(key, val)
+  }
+  err = writer.Close()
+  if err != nil {
+      return nil, err
+  }
+
+  return http.NewRequest("POST", uri, body)
+}
