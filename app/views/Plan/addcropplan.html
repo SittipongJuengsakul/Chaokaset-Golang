@@ -93,10 +93,35 @@
               {{end}}
             </div>
           </div>
+          <div class="col-sm-12 padding-left-no padding-right-no name-header" style="padding-left: 0px;"><h2 class="color-green">ปฎิทินการเพาะปลูก</h2></div>
+          <table class="table col-md-12">
+            <thead class="box-thead-show">
+              <tr>
+                <th width="15%">เริ่มวันที่</th>
+                <th width="15%">สิ้นสุดวันที่</th>
+                <th width="35%">รายละเอียด</th>
+                <th ng-click="remove()">ตัวเลือก</th>
+              </tr>
+            </thead>
+            <tbody class="box-tbody-show">
+              <tr>
+                <td><input type="text" class="form-control" placeholder="เริ่มวันที่ (วัน)" name="" value=""></td>
+                <td><input type="text" class="form-control" placeholder="สิ้นสุดวันที่ (วัน)" name="" value=""></td>
+                <td><input type="text" class="form-control" placeholder="รายละเอียด" name="" value=""></td>
+                <td><button type="submit" class="btn btn-success">เพิ่มข้อมูล</button></td>
+              </tr>
+              <tr ng-repeat="PlanActivity in PlanActivitys">
+                <td ng-bind="PlanActivity.startdate">เริ่มวันที่</td>
+                <td ng-bind="PlanActivity.enddate">สิ้นสุดวันที่</td>
+                <td ng-bind="PlanActivity.details">รายละเอียด</td>
+                <td>คำแนะนำ</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
         <div style="width: 100%;text-align: center;">
-          <button type="submit" class="btn btn-default">ตกลง</button>
-          <button type="submit" class="btn btn-default">ยกเลิก</button>
+          <button type="submit" class="btn btn-success">ตกลง</button>
+          <button type="button" class="btn btn-danger">ยกเลิก</button>
         </div>
       </form>
     </div>
@@ -115,6 +140,32 @@
           $scope.PlanOption = true
           $scope.NewPlanOption = false;
       }
+
+      $scope.PlanActivitys = [
+        {
+            'startdate':'0',
+            'enddate':'20',
+            'details':'เตรียมดิน'
+        },
+        {
+            'startdate':'0',
+            'enddate':'50',
+            'details':'ไส่ปุ๋ย'
+        },
+        {
+            'startdate':'10',
+            'enddate':'20',
+            'details':'ตากดิน'
+        }];
+        $scope.remove = function(){
+            var newDataList=[];
+            angular.forEach($scope.personalDetails, function(selected){
+                if(!selected.selected){
+                    newDataList.push(selected);
+                }
+            });
+            $scope.personalDetails = newDataList;
+        };
   });
 </script>
 {{template "Templates/footer.html" .}}

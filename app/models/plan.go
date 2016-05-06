@@ -68,7 +68,7 @@ func SavePlan(plan *Plan) (result bool) {
 }
 
 //SavePlanLikeLog (POST) เก็บ log ของการกด like
-func SavePlanLikeLog(UserId,CompanyId) (result bool){
+func SavePlanLikeLog(UserId string,CompanyId string) (result bool){
     session, err := mgo.Dial(ip_mgo)
     if err != nil {
         panic(err)
