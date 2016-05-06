@@ -40,12 +40,12 @@ func GetAllPlans() *Plan {
   qmgo := session.DB("chaokaset").C("cropplans")
   result := Plan{}
 	qmgo.Find(bson.M{"status": 1}).One(&result) //คิวรี่จาก status เป็น 1 หรือ แปลงที่ไช้งานอยู่
-  plans = &Plan{PlanId: result.PlanId,Code: result.Code}
+  plans = &Plan{PlanId: result.PlanId}
   return plans
 }
+
 //SavePlan (POST) บันทึกแผนการเพาะปลูก
 func SavePlan(plan *Plan) (result bool) {
-  // connect to the cluster
      session, err := mgo.Dial(ip_mgo)
      if err != nil {
          panic(err)
@@ -53,8 +53,6 @@ func SavePlan(plan *Plan) (result bool) {
      defer session.Close()
      session.SetMode(mgo.Monotonic, true)
      qmgo := session.DB("chaokaset").C("cropplans")
-     //Like := &LogLikePlan{UserId: "44222",CompanyId: "กรมการข้าวสุพรรณ",Status: 1,Created_at: time.Now(),Updated_at: time.Now()}
-     CodePlan := GenString(6);
      if plan.TypePlan == 1{
        err = qmgo.Insert(&Plan{Created_at: time.Now(),Updated_at: time.Now(),PlanName: plan.PlanName,OwnerCompany: plan.OwnerCompany,Owner: plan.Owner,Plant: plan.Plant,Seed: plan.Seed,Duration: plan.Duration,Description: plan.Description,TypePlan: plan.TypePlan,OldPlanId : plan.OldPlanId,Status : 1,ViewNum: 1})
      }else{
@@ -67,4 +65,21 @@ func SavePlan(plan *Plan) (result bool) {
        return true
      }
 
+}
+
+//SavePlanLikeLog (POST) เก็บ log ของการกด like
+func SavePlanLikeLog(UserId,CompanyId) (result bool){
+    session, err := mgo.Dial(ip_mgo)
+    if err != nil {
+        panic(err)
+    }
+    defer session.Close()
+    session.SetMode(mgo.Monotonic, true)
+    qmgo := session.DB("chaokaset").C("logcropplans")
+    err = qmgo.Insert(&LogLikePlan{UserId: UserId,CompanyId: CompanyId,Status: 1,Created_at: time.Now(),Updated_at: time.Now()})
+    if err != nil {
+      return false
+    }else{
+      return true
+    }
 }
