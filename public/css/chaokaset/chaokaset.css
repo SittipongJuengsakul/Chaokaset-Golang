@@ -463,6 +463,8 @@ h1, h2, h3 {
     .chaokaset-container-verticle .container-box-content .info-plant-show p {
       font-size: 18px;
       color: #6b6b6b; }
+    .chaokaset-container-verticle .container-box-content .info-plant-show select {
+      font-size: 15px; }
   .chaokaset-container-verticle .container-box {
     height: 100%;
     margin-bottom: 20px; }

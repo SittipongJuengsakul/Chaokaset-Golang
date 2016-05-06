@@ -5,71 +5,133 @@
   <div class="col-sm-12 varticle-header-box">
     <h1>เพิ่มแผนการเพาะปลูก</h1>
   </div>
-  <div class="col-sm-12 container-box">
+  <div class="col-sm-12 container-box" ng-app="ChaokasetApp" ng-controller="NewShowPlan">
     <div class="col-sm-12 container-box-content" >
-      <div class="col-sm-12 padding-left-no padding-right-no name-header" style="padding-left: 0px;"><h2 class="color-green">แผนการเพาะปลูก</h2></div>
+      <div class="col-sm-12 padding-left-no padding-right-no name-header" style="padding-left: 0px;"><h2 class="color-green">ข้อมูลแผนการเพาะปลูก</h2></div>
       <form method="post" action="{{url "Auth.PostRegister"}}">
         <div class="info-plant-show">
-          {{with $field := field "user.Name" .}}
           <div class="form-grop col-md-12" style="padding: 0px;">
-            <div class="form-group col-md-6 padding-left-no">
-              <label for="exampleInputEmail1">ชนิดพืช</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกชื่อ" name="{{$field.Name}}" value="{{$field.Flash}}">
-              <span class="error">{{$field.Error}}</span>
-            </div>
-            {{end}}
-            {{with $field := field "user.Lastname" .}}
-            <div class="form-group col-md-6 padding-right-no">
-              <label for="exampleInputEmail1">พันธุ์พืช</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกนามสกุล" name="{{$field.Name}}" value="{{$field.Flash}}">
-              <span class="error">{{$field.Error}}</span>
-            </div>
-          </div>
-          {{end}}
-          {{with $field := field "user.Name" .}}
-          <div class="form-grop col-md-12" style="padding: 0px;">
-            <div class="form-group col-md-6 padding-left-no">
+            {{with $field := field "plans.PlanName" .}}
+            <div class="form-group col-md-12 padding-left-no padding-right-no">
               <label for="exampleInputEmail1">ชื่อแผนการเพาะปลูก</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกชื่อ" name="{{$field.Name}}" value="{{$field.Flash}}">
+              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกชื่อแผนการเพาะปลูก" name="{{$field.Name}}" value="{{$field.Flash}}">
               <span class="error">{{$field.Error}}</span>
             </div>
             {{end}}
-            {{with $field := field "user.Lastname" .}}
-            <div class="form-group col-md-6 padding-right-no">
-              <label for="exampleInputEmail1">คำแนะนำเบื้องต้น</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกนามสกุล" name="{{$field.Name}}" value="{{$field.Flash}}">
-              <span class="error">{{$field.Error}}</span>
-            </div>
           </div>
-          {{end}}
-          {{with $field := field "user.Name" .}}
+          {{with $field := field "plans.Plant" .}}
           <div class="form-grop col-md-12" style="padding: 0px;">
             <div class="form-group col-md-4 padding-left-no">
-              <label for="exampleInputEmail1">ระยะเวลาปลูกเพาะปลูก</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกชื่อ" name="{{$field.Name}}" value="{{$field.Flash}}">
-              <span class="error">{{$field.Error}}</span>
+              <label for="exampleInputEmail1">ชนิดพืช</label>
+              <select class="form-control" name="{{$field.Name}}">
+                 <option value="3">ข้าว</option>
+               </select>
             </div>
             {{end}}
-            {{with $field := field "user.Lastname" .}}
+            {{with $field := field "plans.Seed" .}}
             <div class="form-group col-md-4">
-              <label for="exampleInputEmail1">จำนวนผลผลิตต่อไร่</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกนามสกุล" name="{{$field.Name}}" value="{{$field.Flash}}">
-              <span class="error">{{$field.Error}}</span>
+              <label for="exampleInputEmail1">พันธุ์พืช</label>
+              <select class="form-control" name="{{$field.Name}}">
+                 <option value="3">กข. 47</option>
+               </select>
             </div>
             <div class="form-group col-md-4 padding-right-no">
-              <label for="exampleInputEmail1">จำนวนราคาผลผลิตต่อไร่</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกนามสกุล" name="{{$field.Name}}" value="{{$field.Flash}}">
+              <label for="exampleInputEmail1">ระยะเวลาเพาะปลูก (วัน)</label>
+              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกระยะเวลาเพาะปลูก (วัน)" name="{{$field.Name}}" value="{{$field.Flash}}">
               <span class="error">{{$field.Error}}</span>
             </div>
           </div>
           {{end}}
+          <div class="form-grop col-md-12" style="padding: 0px;">
+            {{with $field := field "plans.PlanName" .}}
+            <div class="form-group col-md-12 padding-left-no padding-right-no">
+              <label for="exampleInputEmail1">รายละเอียด</label>
+              <textarea type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกชื่อแผนการเพาะปลูก" name="{{$field.Name}}" style="font-size: 20px;" value="{{$field.Flash}}"></textarea>
+              <span class="error">{{$field.Error}}</span>
+            </div>
+            {{end}}
+          </div>
+          <div class="form-grop col-md-12" style="padding-top: 0px;">
+            {{with $field := field "plans.PlanName" .}}
+            <div class="form-group col-md-12 padding-left-no padding-right-no">
+              <label for="exampleInputEmail1">ประเภทของแผนการเพาะปลูก</label>
+              <div class="radio" style="margin: 0;">
+                <label style="line-height: 45px;"><input type="radio" name="optradio" ng-click="ShowNewPlanOption()" checked>แผนการเพาะปลูกใหม่</label>
+                <label style="margin-left: 15px;line-height: 45px;"><input type="radio" name="optradio" ng-click="ShowPlanOption()">แผนการเพาะปลูกต่อเนื่อง</label>
+              </div>
+            </div>
+            {{end}}
+          </div>
+          <div class="col-sm-12 container-box-content" style="margin-top: 0px;margin-bottom: 10px;" ng-show="NewPlanOption">
+            <div class="col-sm-12 padding-left-no padding-right-no name-header" style="padding-left: 0px;"><h2 class="color-green">ข้อมูลแผนการเพาะปลูกใหม่</h2></div>
+            <div class="form-grop col-md-12" style="padding: 0px;">
+              {{with $field := field "plans.PlanName" .}}
+              <div class="form-group col-md-6 padding-left-no">
+                <label for="exampleInputEmail1">ชื่อเจ้าของแผนการเพาะปลูก</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกชื่อเจ้าของแผนการเพาะปลูก" name="{{$field.Name}}" value="{{$field.Flash}}">
+                <span class="error">{{$field.Error}}</span>
+              </div>
+              {{end}}
+              {{with $field := field "plans.PlanName" .}}
+              <div class="form-group col-md-6 padding-right-no">
+                <label for="exampleInputEmail1">องค์กรเจ้าของแผนการเพาะปลูก</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกชื่อองค์กรเจ้าของแผนการเพาะปลูก" name="{{$field.Name}}" value="{{$field.Flash}}">
+                <span class="error">{{$field.Error}}</span>
+              </div>
+              {{end}}
+            </div>
+          </div>
+          <div class="col-sm-12 container-box-content" style="margin-top: 0px;margin-bottom: 10px;" ng-show="PlanOption">
+            <div class="col-sm-12 padding-left-no padding-right-no name-header" style="padding-left: 0px;"><h2 class="color-green">ข้อมูลแผนการเพาะปลูกต่อเนื่อง</h2></div>
+            <div class="form-grop col-md-12" style="padding: 0px;">
+              {{with $field := field "plans.Owner" .}}
+              <div class="form-group col-md-6 padding-left-no">
+                <label for="exampleInputEmail1">แผนการเพาะปลูกเดิม</label>
+                <select class="form-control" name="{{$field.Name}}">
+                   <option value="3">ข้าวไรซ์เบอร์รี่ ม.เกษตร</option>
+                 </select>
+              </div>
+              {{end}}
+            </div>
+            <div class="form-grop col-md-12" style="padding: 0px;">
+              {{with $field := field "plans.PlanName" .}}
+              <div class="form-group col-md-6 padding-left-no">
+                <label for="exampleInputEmail1">ชื่อเจ้าของแผนการเพาะปลูก</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกชื่อเจ้าของแผนการเพาะปลูก" name="{{$field.Name}}" value="{{$field.Flash}}">
+                <span class="error">{{$field.Error}}</span>
+              </div>
+              {{end}}
+              {{with $field := field "plans.PlanName" .}}
+              <div class="form-group col-md-6 padding-right-no">
+                <label for="exampleInputEmail1">องค์กรเจ้าของแผนการเพาะปลูก</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกชื่อองค์กรเจ้าของแผนการเพาะปลูก" name="{{$field.Name}}" value="{{$field.Flash}}">
+                <span class="error">{{$field.Error}}</span>
+              </div>
+              {{end}}
+            </div>
+          </div>
         </div>
         <div style="width: 100%;text-align: center;">
-          <button type="submit" class="btn btn-default">สมัครสมาชิก</button>
+          <button type="submit" class="btn btn-default">ตกลง</button>
           <button type="submit" class="btn btn-default">ยกเลิก</button>
         </div>
       </form>
     </div>
   </div>
 </div>
+<script type="text/javascript">
+  var app = angular.module('ChaokasetApp', []);
+  app.controller('NewShowPlan', function($scope) {
+      $scope.NewPlanOption = true;
+      $scope.PlanOption = false;
+      $scope.ShowNewPlanOption = function() {
+          $scope.NewPlanOption = true
+          $scope.PlanOption = false;
+      }
+      $scope.ShowPlanOption = function() {
+          $scope.PlanOption = true
+          $scope.NewPlanOption = false;
+      }
+  });
+</script>
 {{template "Templates/footer.html" .}}
