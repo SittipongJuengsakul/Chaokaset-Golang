@@ -123,6 +123,23 @@ func AddSellData(name string,category string, price int, unit string, detail str
   }
 
 }
+func AddSellData2(name string,category string, price int, unit string, detail string, expire string, ownerId string) (result bool) {
+  session, err := mgo.Dial("127.0.0.1")
+  if err != nil {
+      panic(err)
+  }
+  defer session.Close()
+
+  session.SetMode(mgo.Monotonic, true)
+  qmgo := session.DB("chaokaset").C("sell")
+  err = qmgo.Insert(&Sell{Name: name, Category: category, Price: price,TimeCreate: time.Now(), Detail: detail, Expire: expire, Unit: unit, OwnerId: bson.ObjectIdHex(ownerId),Pic: "public/img/pic/rice1.jpg"})
+  if err != nil {
+    return false
+  }else{
+    return true
+  }
+
+}
 
 func GetSellDetail(Idsell string) *SellDetail {
   session, err := mgo.Dial("127.0.0.1")

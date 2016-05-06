@@ -4,7 +4,7 @@ import (
     "github.com/revel/revel"
     //"github.com/gocql/gocql"
     //"gopkg.in/mgo.v2"
-    //"gopkg.in/mgo.v2/bson"
+   // "gopkg.in/mgo.v2/bson"
 		"chaokaset-go/app/models"
     "golang.org/x/crypto/bcrypt"
 )
@@ -94,4 +94,14 @@ func (c Api)  SearchProduct(Name string, Lat float64, Long float64) revel.Result
   }
   R = &ResSellAll{Status: true,SellData: U}
   return  c.RenderJson(R)
+}
+
+func (c Api)  AddProduct(name string,category string, price int, unit string, detail string, expire string, ownerId string) revel.Result {
+  err := models.AddSellData2(name,category,price,unit,detail,expire,ownerId)
+  if err {
+      return  c.RenderJson(true)
+    } else {
+      return  c.RenderJson(false)
+    }
+  
 }
