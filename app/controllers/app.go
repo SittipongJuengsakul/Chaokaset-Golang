@@ -268,7 +268,7 @@ func (c Plan) AddCropPlan() revel.Result {
 }
 //PostAddCropPlan
 func (c Plan) PostAddCropPlan(plan *models.Plan) revel.Result {
-  result := models.SavePlan()
+  result := models.SavePlan(plan)
   if result {
     return c.Redirect(Plan.ShowPlan)
   } else{

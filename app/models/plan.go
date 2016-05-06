@@ -14,12 +14,12 @@ import (
 type Plan struct { //สร้าง Struct ของ Plan
 	PlanId                                    bson.ObjectId `bson:"_id,omitempty"`
   Created_at,Updated_at                     time.Time
-  Code,NamePlan,Plant,Seed                  string
+  PlanName,Plant,Seed,OldPlanId             string
   Description,Owner,OwnerCompany            string
-  Duration,Status                           int
+  Duration,Status,TypePlan                  int //TypePlan คือประเภทของแปลง 0 คือไหม่ 1 คือต่อเนื่องจากอันเดิม
   product,price                             float64
   ConfirmNum,LikeNum,ViewNum,UsedNum        int
-  Like                                     *LogLikePlan
+  //Like                                     *LogLikePlan
 }
 
 type LogLikePlan struct{
@@ -44,7 +44,7 @@ func GetAllPlans() *Plan {
   return plans
 }
 //SavePlan (POST) บันทึกแผนการเพาะปลูก
-func SavePlan() (result bool) {
+func SavePlan(plan *Plan) (result bool) {
   // connect to the cluster
      session, err := mgo.Dial(ip_mgo)
      if err != nil {
@@ -53,8 +53,14 @@ func SavePlan() (result bool) {
      defer session.Close()
      session.SetMode(mgo.Monotonic, true)
      qmgo := session.DB("chaokaset").C("cropplans")
-     Like := &LogLikePlan{UserId: "44222",CompanyId: "กรมการข้าวสุพรรณ",Status: 1,Created_at: time.Now(),Updated_at: time.Now()}
-     err = qmgo.Insert(&Plan{Code : "4aB2CS",Created_at: time.Now(),Updated_at: time.Now(),NamePlan: "ข้าวไรซ์เบอรี่ ม.เกษตร",OwnerCompany: "มหาวิทยาลัยเกษตรศาสตร์",Owner: "นาย สมชัย มีชัย",Like: Like})
+     //Like := &LogLikePlan{UserId: "44222",CompanyId: "กรมการข้าวสุพรรณ",Status: 1,Created_at: time.Now(),Updated_at: time.Now()}
+     CodePlan := GenString(6);
+     if plan.TypePlan == 1{
+       err = qmgo.Insert(&Plan{Created_at: time.Now(),Updated_at: time.Now(),PlanName: plan.PlanName,OwnerCompany: plan.OwnerCompany,Owner: plan.Owner,Plant: plan.Plant,Seed: plan.Seed,Duration: plan.Duration,Description: plan.Description,TypePlan: plan.TypePlan,OldPlanId : plan.OldPlanId,Status : 1,ViewNum: 1})
+     }else{
+       err = qmgo.Insert(&Plan{Created_at: time.Now(),Updated_at: time.Now(),PlanName: plan.PlanName,OwnerCompany: plan.OwnerCompany,Owner: plan.Owner,Plant: plan.Plant,Seed: plan.Seed,Duration: plan.Duration,Description: plan.Description,TypePlan: plan.TypePlan,OldPlanId: "",Status : 1,ViewNum: 1})
+     }
+
      if err != nil {
        return false
      }else{
