@@ -266,6 +266,16 @@ func (c Crops) Board() revel.Result {
 func (c Plan) AddCropPlan() revel.Result {
 	return c.Render()
 }
+//PostAddCropPlan
+func (c Plan) PostAddCropPlan(plan *models.Plan) revel.Result {
+  result := models.SavePlan()
+  if result {
+    return c.Redirect(Plan.ShowPlan)
+  } else{
+    return c.Redirect(Plan.AddCropPlan)
+  }
+	return c.Render()
+}
 //ShowPlan
 func (c Plan) ShowPlan() revel.Result {
 	return c.Render()

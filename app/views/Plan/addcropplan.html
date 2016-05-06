@@ -8,7 +8,7 @@
   <div class="col-sm-12 container-box" ng-app="ChaokasetApp" ng-controller="NewShowPlan">
     <div class="col-sm-12 container-box-content" >
       <div class="col-sm-12 padding-left-no padding-right-no name-header" style="padding-left: 0px;"><h2 class="color-green">ข้อมูลแผนการเพาะปลูก</h2></div>
-      <form method="post" action="{{url "Auth.PostRegister"}}">
+      <form method="post" action="{{url "Plan.PostAddCropPlan"}}">
         <div class="info-plant-show">
           <div class="form-grop col-md-12" style="padding: 0px;">
             {{with $field := field "plans.PlanName" .}}
@@ -35,6 +35,8 @@
                  <option value="3">กข. 47</option>
                </select>
             </div>
+            {{end}}
+            {{with $field := field "plans.Duration" .}}
             <div class="form-group col-md-4 padding-right-no">
               <label for="exampleInputEmail1">ระยะเวลาเพาะปลูก (วัน)</label>
               <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกระยะเวลาเพาะปลูก (วัน)" name="{{$field.Name}}" value="{{$field.Flash}}">
@@ -43,7 +45,7 @@
           </div>
           {{end}}
           <div class="form-grop col-md-12" style="padding: 0px;">
-            {{with $field := field "plans.PlanName" .}}
+            {{with $field := field "plans.Description" .}}
             <div class="form-group col-md-12 padding-left-no padding-right-no">
               <label for="exampleInputEmail1">รายละเอียด</label>
               <textarea type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกชื่อแผนการเพาะปลูก" name="{{$field.Name}}" style="font-size: 20px;" value="{{$field.Flash}}"></textarea>
@@ -52,7 +54,7 @@
             {{end}}
           </div>
           <div class="form-grop col-md-12" style="padding: 0px;">
-            {{with $field := field "plans.PlanName" .}}
+            {{with $field := field "plans.TypePlanOption" .}}
             <div class="form-group col-md-12 padding-left-no padding-right-no">
               <label for="exampleInputEmail1">ประเภทของแผนการเพาะปลูก</label>
               <div class="radio" style="margin: 0;">
@@ -65,14 +67,14 @@
           <div class="col-sm-12 container-box-content" style="margin-top: 0px;margin-bottom: 10px;" ng-show="NewPlanOption">
             <div class="col-sm-12 padding-left-no padding-right-no name-header" style="padding-left: 0px;"><h2 class="color-green">ข้อมูลแผนการเพาะปลูกใหม่</h2></div>
             <div class="form-grop col-md-12" style="padding: 0px;">
-              {{with $field := field "plans.PlanName" .}}
+              {{with $field := field "plans.Owner" .}}
               <div class="form-group col-md-6 padding-left-no">
                 <label for="exampleInputEmail1">ชื่อเจ้าของแผนการเพาะปลูก</label>
                 <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกชื่อเจ้าของแผนการเพาะปลูก" name="{{$field.Name}}" value="{{$field.Flash}}">
                 <span class="error">{{$field.Error}}</span>
               </div>
               {{end}}
-              {{with $field := field "plans.PlanName" .}}
+              {{with $field := field "plans.OwnerCompany" .}}
               <div class="form-group col-md-6 padding-right-no">
                 <label for="exampleInputEmail1">องค์กรเจ้าของแผนการเพาะปลูก</label>
                 <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกชื่อองค์กรเจ้าของแผนการเพาะปลูก" name="{{$field.Name}}" value="{{$field.Flash}}">
@@ -84,7 +86,7 @@
           <div class="col-sm-12 container-box-content" style="margin-top: 0px;margin-bottom: 10px;" ng-show="PlanOption">
             <div class="col-sm-12 padding-left-no padding-right-no name-header" style="padding-left: 0px;"><h2 class="color-green">ข้อมูลแผนการเพาะปลูกต่อเนื่อง</h2></div>
             <div class="form-grop col-md-12" style="padding: 0px;">
-              {{with $field := field "plans.Owner" .}}
+              {{with $field := field "plans.PlanOld" .}}
               <div class="form-group col-md-6 padding-left-no">
                 <label for="exampleInputEmail1">แผนการเพาะปลูกเดิม</label>
                 <select class="form-control" name="{{$field.Name}}">
@@ -94,14 +96,14 @@
               {{end}}
             </div>
             <div class="form-grop col-md-12" style="padding: 0px;">
-              {{with $field := field "plans.PlanName" .}}
+              {{with $field := field "plans.Owner" .}}
               <div class="form-group col-md-6 padding-left-no">
                 <label for="exampleInputEmail1">ชื่อเจ้าของแผนการเพาะปลูก</label>
                 <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกชื่อเจ้าของแผนการเพาะปลูก" name="{{$field.Name}}" value="{{$field.Flash}}">
                 <span class="error">{{$field.Error}}</span>
               </div>
               {{end}}
-              {{with $field := field "plans.PlanName" .}}
+              {{with $field := field "plans.OwnerCompany" .}}
               <div class="form-group col-md-6 padding-right-no">
                 <label for="exampleInputEmail1">องค์กรเจ้าของแผนการเพาะปลูก</label>
                 <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกชื่อองค์กรเจ้าของแผนการเพาะปลูก" name="{{$field.Name}}" value="{{$field.Flash}}">
