@@ -21,8 +21,8 @@ type Plan struct { //สร้าง Struct ของ Plan
   ConfirmNum,LikeNum,ViewNum,UsedNum        int
 }
 
-//Plans (GET) ฟังก์ชั่นสำหรับเรียกข้อมูลแผนการเพาะปลูกทั้งหมด
-func Plans() *Plan {
+//GetAllPlans (GET) ฟังก์ชั่นสำหรับเรียกข้อมูลแผนการเพาะปลูกทั้งหมด
+func GetAllPlans() *Plan {
   session, err := mgo.Dial(ip_mgo)
   if err != nil {
       panic(err)
