@@ -26,11 +26,11 @@
       </thead>
       <tbody class="box-tbody-show">
         <tr ng-repeat="plan in filterPlans  = (plans | filter:searchPlanText)">
-          <td ng-bind="plan.PlanName"></td>
-          <td ng-bind="plan.OwnerCompany"></td>
-          <td ng-bind="plan.Plant"></td>
-          <td ng-bind="plan.Seed"></td>
-          <td ng-bind="plan.UsedNum" style="text-align: center;"></td>
+          <td ng-bind-html="plan.PlanName | searchfilter:searchPlanText"></td>
+          <td ng-bind-html="plan.OwnerCompany | searchfilter:searchPlanText"></td>
+          <td ng-bind-html="plan.Plant | searchfilter:searchPlanText"></td>
+          <td ng-bind-html="plan.Seed | searchfilter:searchPlanText"></td>
+          <td ng-bind-html="plan.UsedNum" style="text-align: center;"></td>
           <td class="color-green">
             <div class="dropdown">
               <a href="#" class="dropdown-toggle option-crops"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ดูเพิ่มเติม <span class="caret"></span></a>
@@ -70,15 +70,22 @@
   </div>
 </div>
 <script type="text/javascript">
-  var app = angular.module('ChaokasetApp', []);
+  var app = angular.module('ChaokasetApp', ['ngSanitize']);
   app.controller('searchShowPlan', function($scope, $http) {
       $http.get(site_url+"/apiv1_0/plan/0")
       .then(function(response) {
         $scope.plans = response.data;
       });
-      if( $scope.plans == {}){
-        alert("ไม่มีข้อมูล");
-      }
+  })
+  .filter('searchfilter', function() {
+        return function (input, query) {
+            if(query == ""){
+            return input;
+          }else{
+            return input.replace(RegExp('('+ query + ')', 'g'), '<span class="semetic-value">$1</span>');
+          }
+
+        }
   });
   //Modal Script
   $('#myModal').on('shown.bs.modal', function () {
