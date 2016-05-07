@@ -67,6 +67,7 @@ func init() {
   revel.InterceptFunc(setuser, revel.BEFORE, &Plan{})
   revel.InterceptFunc(setuser, revel.BEFORE, &Management{})
   revel.InterceptFunc(setuser, revel.BEFORE, &Farmer{})
+  revel.InterceptFunc(setuser, revel.BEFORE, &Plant{})
   revel.InterceptFunc(checksetuser, revel.BEFORE, &Crops{})
   revel.InterceptFunc(checksetuser, revel.BEFORE, &Profile{})
 }
@@ -294,6 +295,14 @@ func (c Plant) ShowPlant() revel.Result {
 func (c Plant) AddPlant() revel.Result {
 	return c.Render()
 }
+//ShowSeed
+func (c Plant) ShowSeed() revel.Result {
+	return c.Render()
+}
+//AddSeed
+func (c Plant) AddSeed() revel.Result {
+	return c.Render()
+}
 //SavePlant
 func (c Plant) PostAddPlant(plant *models.Plant) revel.Result {
     resPlantData := models.GetPlant(plant.PlantName)
@@ -312,7 +321,7 @@ func (c Plant) PostAddPlant(plant *models.Plant) revel.Result {
       }
     }
 }
-//ShowPlan
+//AddPlanActivity
 func (c Plan) AddPlanActivity() revel.Result {
 	return c.Render()
 }
