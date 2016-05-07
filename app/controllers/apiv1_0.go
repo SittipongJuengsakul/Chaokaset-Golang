@@ -61,6 +61,15 @@ func (c Api) Plans(skip int,word string) revel.Result {
 }
 
 //------------------ พืชและพันธุ์พืช -------------------
+//Plan (GET)
+func (c Api) Plants(skip int,word string) revel.Result {
+  Result,err := models.GetAllPlants(skip)
+  if err == true{
+    return  c.RenderJson(Result)
+  }else{
+    return c.RenderJson(Result)
+  }
+}
 //Plants (Post)
 func (c Api) SavePlantData(PlantName string) revel.Result {
   Result := models.SavePlant(PlantName);

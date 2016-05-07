@@ -295,8 +295,8 @@ func (c Plant) AddPlant() revel.Result {
 	return c.Render()
 }
 //SavePlant
-func (c Plant) SavePlant(Plant *models.Plant) revel.Result {
-  Result := models.SavePlant(Plant.PlantName);
+func (c Plant) SavePlant(plant *models.Plant) revel.Result {
+  Result := models.SavePlant(plant.PlantName);
   if Result {
     return c.Redirect(Plant.AddPlant)
   } else{
