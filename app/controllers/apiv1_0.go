@@ -61,14 +61,19 @@ func (c Api) Plans(skip int,word string) revel.Result {
 }
 
 //------------------ พืชและพันธุ์พืช -------------------
-//Plan (GET)
+//Plants (GET)
 func (c Api) Plants(skip int,word string) revel.Result {
   Result,err := models.GetAllPlants(skip)
-  if err == true{
+  if err == nil{
     return  c.RenderJson(Result)
   }else{
     return c.RenderJson(Result)
   }
+}
+//Plant (GET)
+func (c Api) Plant(word string) revel.Result {
+  Result := models.GetPlant(word)
+    return  c.RenderJson(Result)
 }
 //Plants (Post)
 func (c Api) SavePlantData(PlantName string) revel.Result {

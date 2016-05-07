@@ -1,94 +1,95 @@
-{{set . "title" "แสดงพืช"}}
+{{set . "title" "เพิ่มพืช"}}
 {{template "Templates/header.html" .}}
-
 {{template "Templates/preloader.html" .}}
 <div class="chaokaset-container-verticle" id="chaokaset-loader" style="display: none;">
   <div class="col-sm-12 varticle-header-box">
-    <h1>แสดงพืช</h1>
+    <h1>เพิ่มพืช</h1>
   </div>
-  <div class="col-sm-12 container-box"  ng-app="ChaokasetApp" ng-controller="searchShowPlan" style="margin-top: 20px;">
-    <div class="col-sm-2" style="padding: 0px;">
-      <button type="button" name="button" class="btn btn-success" style="width: 90%;" onclick="javascript:location.href='/plan/addcropplan'">เพิ่มข้อมูล</button>
-    </div>
-    <div class="col-sm-10" style="padding: 0px;">
-      <input type="text" name="SearchCrops" class="form-control" placeholder="ค้นหาแผนการเพาะปลูก" ng-model="searchPlanText" ng-change="setPlanFilter()">
-    </div>
-    <table class="table col-md-12">
-      <thead class="box-thead-show">
-        <tr>
-          <th>ชื่อแผนการเพาะปลูก</th>
-          <th>หน่วยงาน</th>
-          <th>ชนิดพืช</th>
-          <th>พันธุ์พืช</th>
-          <th>ผู้ใช้งาน</th>
-          <th>ตัวเลือก</th>
-        </tr>
-      </thead>
-      <tbody class="box-tbody-show">
-        <tr ng-repeat="plan in filterPlans  = (plans | filter:searchPlanText)">
-          <td ng-bind-html="plan.PlanName | searchfilter:searchPlanText"></td>
-          <td ng-bind-html="plan.OwnerCompany | searchfilter:searchPlanText"></td>
-          <td ng-bind-html="plan.Plant | searchfilter:searchPlanText"></td>
-          <td ng-bind-html="plan.Seed | searchfilter:searchPlanText"></td>
-          <td ng-bind-html="plan.UsedNum" style="text-align: center;"></td>
-          <td class="color-green">
-            <div class="dropdown">
-              <a href="#" class="dropdown-toggle option-crops"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ดูเพิ่มเติม <span class="caret"></span></a>
-              </button>
-              <ul class="dropdown-menu dd-menu" aria-labelledby="dropdownMenu1">
-                <li><a data-toggle="modal" data-target="#myModal">รายละเอียด</a></li>
-                <li><a href="#">แก้ไขรายการ</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#" class="color-red">ลบรายการ</a></li>
-              </ul>
+  <div class="col-sm-12 container-box" ng-app="ChaokasetApp" ng-controller="NewShowPlan">
+    <div class="col-sm-12 container-box-content" >
+      <div class="col-sm-12 padding-left-no padding-right-no name-header" style="padding-left: 0px;"><h2 class="color-green">ข้อมูลพืช</h2></div>
+      <form method="post" action="{{url "Plant.PostAddPlant"}}">
+        <div class="info-plant-show">
+          <div class="form-grop col-md-12" style="padding: 0px;">
+            {{with $field := field "plant.PlantName" .}}
+            <div class="form-group col-md-12 padding-left-no padding-right-no">
+              <label>ชื่อพืช</label>
+              <input type="text" class="form-control" placeholder="กรอกชื่อพืช" name="{{$field.Name}}" value="{{$field.Flash}}">
+              <span class="error">{{$field.Error}}</span>
             </div>
-          </td>
-        </tr>
-        <tr ng-show="!filterPlans.length" style="text-align: center;">
-            <td colspan="6">ไม่มีข้อมูล</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-<!-- Modal -->
-<div class="modal fade container-box" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog container-box-content" role="document">
-    <div class="modal-content">
-      <div class="modal-header name-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="color-green" id="NameDetailLabel">แผนการเพาะปลูก</h4>
-      </div>
-      <div class="modal-body info-plant-show">
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+            {{end}}
+          </div>
+        </div>
+        <div style="width: 100%;text-align: center;">
+          <button type="submit" class="btn btn-success">ตกลง</button>
+          <button type="button" class="btn btn-danger">ยกเลิก</button>
+        </div>
+        </form>
     </div>
   </div>
 </div>
 <script type="text/javascript">
-  var app = angular.module('ChaokasetApp', ['ngSanitize']);
-  app.controller('searchShowPlan', function($scope, $http) {
-      $http.get(site_url+"/apiv1_0/plan/0")
-      .then(function(response) {
-        $scope.plans = response.data;
-      });
-  })
-  .filter('searchfilter', function() {
-        return function (input, query) {
-            if(query == ""){
-            return input;
-          }else{
-            return input.replace(RegExp('('+ query + ')', 'g'), '<span class="semetic-value">$1</span>');
+  var app = angular.module('ChaokasetApp', []);
+  app.controller('NewShowPlan', function($scope) {
+      $scope.NewPlanOption = true;
+      $scope.PlanOption = false;
+      $scope.ShowNewPlanOption = function() {
+          $scope.NewPlanOption = true
+          $scope.PlanOption = false;
+      }
+      $scope.ShowPlanOption = function() {
+          $scope.PlanOption = true
+          $scope.NewPlanOption = false;
+      }
+
+      $scope.PlanActivitys = [
+        {
+            'Id' : 'a1',
+            'startdate': 0,
+            'enddate': 20,
+            'details':'เตรียมดิน'
+        },
+        {
+            'Id' : 'a2',
+            'startdate':10,
+            'enddate':200,
+            'details':'ตากดิน'
+        },
+        {
+            'Id' : 'a3',
+            'startdate':5000,
+            'enddate':200,
+            'details':'ตากดิน'
+        }
+        ];
+
+        $scope.SaveNewActivity= function(PlanActivitys){
+          if(PlanActivitys.startdate > PlanActivitys.enddate){
+            alert('วันที่สิ้นสุดน้อยกว่าวันที่เริ่มต้น !')
+            return 0;
+          }
+          else{
+              $scope.PlanActivitys.push({
+                  'Id': '2222aaa',
+                  'startdate': PlanActivitys.startdate,
+                  'enddate': PlanActivitys.enddate,
+                  'details': PlanActivitys.details,
+              });
+              document.getElementById("IdStartDate").value = "";
+              document.getElementById("IdEndDate").value = "";
+              document.getElementById("IdDetails").value = "";
+              $scope.PD = {};
+              $scope.orderOptions = $scope.PlanActivitys.startdate;
           }
         }
+        $scope.remove = function(IdRemover){
+            //$scope.PlanActivitys.splice(1, 1);
+            for (var i = 0; i < $scope.PlanActivitys.length; i++)
+            if ($scope.PlanActivitys[i].Id && $scope.PlanActivitys[i].Id === IdRemover) {
+                $scope.PlanActivitys.splice(i, 1);
+                break;
+            }
+        };
   });
-  //Modal Script
-  $('#myModal').on('shown.bs.modal', function () {
-    $('#myInput').focus()
-  })
 </script>
 {{template "Templates/footer.html" .}}

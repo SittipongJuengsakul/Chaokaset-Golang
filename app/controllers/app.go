@@ -295,13 +295,22 @@ func (c Plant) AddPlant() revel.Result {
 	return c.Render()
 }
 //SavePlant
-func (c Plant) SavePlant(plant *models.Plant) revel.Result {
-  Result := models.SavePlant(plant.PlantName);
-  if Result {
-    return c.Redirect(Plant.AddPlant)
-  } else{
-    return c.Redirect(Plant.SavePlant)
-  }
+func (c Plant) PostAddPlant(plant *models.Plant) revel.Result {
+    resPlantData := models.GetPlant(plant.PlantName)
+    c.Validation.Required(plant.PlantName).Message("กรุณากรอกข้อมูลชื่อพืช")
+    c.Validation.Required(plant.PlantName != resPlantData.PlantName).Message(" \""+plant.PlantName+"\" มีอยู่บนระบบแล้วกรุณาตรวจสอบ")
+    if c.Validation.HasErrors() {
+  		c.Validation.Keep()
+  		c.FlashParams()
+  		return c.Redirect(Plant.AddPlant)
+  	} else{
+      Result := models.SavePlant(plant.PlantName);
+      if Result {
+        return c.Redirect(Plant.ShowPlant)
+      } else{
+        return c.Redirect(Plant.AddPlant)
+      }
+    }
 }
 //ShowPlan
 func (c Plan) AddPlanActivity() revel.Result {

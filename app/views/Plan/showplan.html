@@ -72,7 +72,7 @@
 <script type="text/javascript">
   var app = angular.module('ChaokasetApp', ['ngSanitize']);
   app.controller('searchShowPlan', function($scope, $http) {
-      $http.get(site_url+"/apiv1_0/plan/0")
+      $http.get(site_url+"/apiv1_0/plans/0")
       .then(function(response) {
         $scope.plans = response.data;
       });

@@ -8,7 +8,7 @@
   </div>
   <div class="col-sm-12 container-box"  ng-app="ChaokasetApp" ng-controller="searchShowPlant" style="margin-top: 20px;">
     <div class="col-sm-2" style="padding: 0px;">
-      <button type="button" name="button" class="btn btn-success" style="width: 90%;" onclick="javascript:location.href='/plan/addcropplan'">เพิ่มข้อมูล</button>
+      <button type="button" name="button" class="btn btn-success" style="width: 90%;" onclick="javascript:location.href='/plant/addplant'">เพิ่มพืช</button>
     </div>
     <div class="col-sm-10" style="padding: 0px;">
       <input type="text" name="SearchCrops" class="form-control" placeholder="ค้นหาพืช" ng-model="searchPlant">
@@ -17,14 +17,17 @@
       <thead class="box-thead-show">
         <tr>
           <th width="60%">ชื่อพืช</th>
-          <th>จำนวนผู้ปลูก</th>
+          <th style="text-align: center;">จำนวนผู้ปลูก</th>
           <th>ตัวเลือก</th>
         </tr>
       </thead>
       <tbody class="box-tbody-show">
         <tr ng-repeat="plant in filterPlans  = (plants | filter:searchPlant)">
           <td ng-bind-html="plant.PlantName | searchfilter:searchPlant"></td>
-          <td ng-bind-html="plant.Used | searchfilter:searchPlant"></td>
+          <!--<td ng-bind-html="plant.Used | searchfilter:searchPlant"></td> -->
+          <td style="text-align: center;">
+            3
+          </td>
           <td class="color-green">
             <div class="dropdown">
               <a href="#" class="dropdown-toggle option-crops"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ดูเพิ่มเติม <span class="caret"></span></a>
@@ -66,7 +69,7 @@
 <script type="text/javascript">
   var app = angular.module('ChaokasetApp', ['ngSanitize']);
   app.controller('searchShowPlant', function($scope, $http) {
-      $http.get(site_url+"/apiv1_0/plant/0")
+      $http.get(site_url+"/apiv1_0/plants/0")
       .then(function(response) {
         $scope.plants = response.data;
       });
