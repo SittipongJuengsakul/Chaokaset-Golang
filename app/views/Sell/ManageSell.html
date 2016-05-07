@@ -1,0 +1,120 @@
+{{set . "title" "การซื้อ-ขาย สินค้า"}}
+{{template "Templates/header.html" .}}
+{{template "Templates/preloader.html" .}}
+<div class="chaokaset-container-verticle" id="chaokaset-loader" style="display: none;">
+  <div class="col-sm-12 varticle-header-box">
+    <h1>จัดการการสินค้า</h1>
+  </div>
+  <div class="col-sm-3" style="padding: 0px;">
+    <div class="container col-sm-12">
+        <ul class="nav bd-sidenav" >
+          <p class="text-bold " style="padding-top: 20px;font-size:20px">แสดงรายการสินค้า</p>
+            <li class="active bd-sidenav-active">
+                <a href="/sell/showproduct">ข้าว</a>
+            </li>
+            <li class="">
+              <a href="/sell/showproduct">ผลไม้</a>
+            </li>
+            <li class="">
+              <a href="/sell/showproduct">พืชผัก</a>
+            </li>
+            <li class="">
+              <a href="/sell/showproduct">พืชไร่</a>
+            </li>
+            <li class="">
+              <a href="/sell/showproduct">พืชสวน</a>
+            </li>
+            <li class="">
+              <a href="/sell/showproduct">สัตว์</a>
+            </li>
+            <li class="">
+              <a href="/sell/showproduct">สินค้าอื่นๆ</a>
+            </li>
+        </ul>
+        
+        <ul class="nav bd-sidenav" >
+          <p class="text-bold " style="padding-top: 5px;font-size:20px">ประกาศขายสินค้า</p>
+            <li class="">
+                <a href="/sell/showproduct">ขายสินค้า</a>
+            </li>
+            <li class="">
+              <a href="/setting/security">จัดการสินค้า</a>
+            </li>
+        </ul>
+ 
+    </div>
+  </div>
+
+  <div class="col-sm-9 container-box">
+    <div class="col-sm-12 container-box-content" >
+ 
+      <div class="col-sm-8 name-header"> 
+        <h2 class="color-green">จัดการสินค้า</h2>
+      </div>
+
+          <div class="col-sm-12 container-box">
+      <table class="table">
+        <thead class="box-thead-show">
+          <tr>
+            <th width="10%">สถานะ</th>
+            <th width="35%">ชื่อแปลง</th>
+            <th width="15%">วันเริ่มต้น</th>
+            <th width="15%">วันเก็บเกี่ยว</th>
+            <th width="10%">ผู้สนใจ</th>
+            <th width="10%">ตัวเลือก</th>
+          </tr>
+        </thead>
+        <tbody class="box-tbody-show">
+          <tr>
+            <td class="color-yellow"><span class="status-ball bg-green"></span></td>
+            <td class="color-green"><a href="/crops/management" class="name-crops">ไร่หน้าหมู่บ้าน (นายดำรง นะจ้ะ)</a></td>
+            <td>3 มีนาคม 2559</td>
+            <td>12 สิงหาคม 2559</td>
+            <td>12 คน</td>
+            <td class="color-green">
+              <div class="dropdown">
+                <a href="#" class="dropdown-toggle option-crops"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ดูเพิ่มเติม <span class="caret"></span></a>
+                </button>
+                <ul class="dropdown-menu dd-menu" aria-labelledby="dropdownMenu1">
+                  <li><a href="#">ดูข้อมูล</a></li>
+                  <li><a href="#">ผู้สนใจ</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="#" class="color-red">ลบแปลงนี้</a></li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="color-yellow"><span class="status-ball bg-yellow"></span></td>
+            <td class="color-green"><a href="#ไร่ดอยคำ" class="name-crops">ไร่ดอยคำ (นายดำรง นะจ้ะ)</a></td>
+            <td>15 มีนาคม 2559</td>
+            <td>15 สิงหาคม 2559</td>
+            <td>28 คน</td>
+            <td class="color-green">
+              <div class="dropdown">
+                <a href="#" class="dropdown-toggle option-crops"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ดูเพิ่มเติม <span class="caret"></span></a>
+                </button>
+                <ul class="dropdown-menu dd-menu" aria-labelledby="dropdownMenu1">
+                  <li><a href="#">ดูข้อมูล</a></li>
+                  <li><a href="#">ผู้สนใจ</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="#" class="color-red">ลบแปลงนี้</a></li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+   
+
+
+
+  
+      
+    </div>
+
+  </div>
+</div>
+{{template "Templates/footer.html" .}}

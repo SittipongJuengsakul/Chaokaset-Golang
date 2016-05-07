@@ -35,6 +35,7 @@ GET     /farmer/showfarmer                                                      
 GET		/sell/showproduct																		   Sell.IndexSell
 GET		/sell/productdetail/:id																	   Sell.ProductDetail
 GET 	/sell   																				   Sell.Sell
+GET		/sell/managesell																		   Sell.ManageSell
 GET     /template                                                                                  App.Templates
 # Ignore favicon requests
 GET     /favicon.ico                                                                               404
