@@ -63,6 +63,6 @@ func (c Api) Plans(skip int,word string) revel.Result {
 //------------------ พืชและพันธุ์พืช -------------------
 //Plants (Post)
 func (c Api) SavePlantData(PlantName string) revel.Result {
-  Result := *models.SavePlant("ข้าว");
+  Result := models.SavePlant(PlantName);
   return c.RenderJson(Result)
 }

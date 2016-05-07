@@ -42,6 +42,10 @@ type Howto struct {
 type Plan struct {
 	*revel.Controller
 }
+//Plant
+type Plant struct {
+	*revel.Controller
+}
 //Crops
 type Crops struct {
 	*revel.Controller
@@ -281,6 +285,23 @@ func (c Plan) PostAddCropPlan(plan *models.Plan) revel.Result {
     return c.Redirect(Plan.AddCropPlan)
   }
 	return c.Render()
+}
+//ShowPlant
+func (c Plant) ShowPlant() revel.Result {
+	return c.Render()
+}
+//AddPlant
+func (c Plant) AddPlant() revel.Result {
+	return c.Render()
+}
+//SavePlant
+func (c Plant) SavePlant(Plant *models.Plant) revel.Result {
+  Result := models.SavePlant(Plant.PlantName);
+  if Result {
+    return c.Redirect(Plant.AddPlant)
+  } else{
+    return c.Redirect(Plant.SavePlant)
+  }
 }
 //ShowPlan
 func (c Plan) AddPlanActivity() revel.Result {

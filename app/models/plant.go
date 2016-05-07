@@ -5,12 +5,12 @@ package models
 import (
     "gopkg.in/mgo.v2"
     "gopkg.in/mgo.v2/bson"
-    "github.com/revel/revel"
+    //"github.com/revel/revel"
     //"regexp"
     "time"
 )
 
-type Plant struct { //สร้าง Struct ของ Plan
+type Plant struct { //สร้าง Struct ของ Plant
 	Plant                                     bson.ObjectId `bson:"_id,omitempty"`
   Created_at,Updated_at                     time.Time
   PlantName                                 string
