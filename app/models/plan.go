@@ -21,6 +21,7 @@ type Plan struct { //สร้าง Struct ของ Plan
   ConfirmNum,LikeNum,ViewNum,UsedNum        int
   //Like                                     *LogLikePlan
 }
+type Plans []Plan
 
 type LogLikePlan struct{
   UserId,CompanyId                          string
@@ -29,7 +30,22 @@ type LogLikePlan struct{
 }
 
 //GetAllPlans (GET) ฟังก์ชั่นสำหรับเรียกข้อมูลแผนการเพาะปลูกทั้งหมด
-func GetAllPlans() *Plan {
+func GetAllPlans(skip int) (results []Plan,error bool) {
+  session, err := mgo.Dial(ip_mgo)
+  if err != nil {
+      panic(err)
+  }
+  defer session.Close()
+  //var plans *Plan
+  session.SetMode(mgo.Monotonic, true)
+  qmgo := session.DB("chaokaset").C("cropplans")
+	qmgo.Find(bson.M{"status": 1}).Limit(10).Skip(skip).Sort("-updated_at").All(&results) //คิวรี่จาก status เป็น 1 หรือ แปลงที่ไช้งานอยู่
+  //plans = &Plan{PlanId: result.PlanId,Created_at: result.Created_at,Updated_at: result.Updated_at,PlanName: result.PlanName,Plant: result.Plant,Seed: result.Seed,OldPlanId: result.OldPlanId,Description: result.Description,Owner: result.Owner,OwnerCompany: result.OwnerCompany,Duration: result.Duration,TypePlan : result.TypePlan,ConfirmNum: result.ConfirmNum,LikeNum: result.LikeNum,ViewNum: result.ViewNum,UsedNum: result.UsedNum}
+  return results,true
+}
+
+//GetPlans (GET) ฟังก์ชั่นสำหรับเรียกข้อมูลแผนการเพาะปลูก
+func GetPlans(PlanId string) *Plan {
   session, err := mgo.Dial(ip_mgo)
   if err != nil {
       panic(err)
@@ -40,9 +56,10 @@ func GetAllPlans() *Plan {
   qmgo := session.DB("chaokaset").C("cropplans")
   result := Plan{}
 	qmgo.Find(bson.M{"status": 1}).One(&result) //คิวรี่จาก status เป็น 1 หรือ แปลงที่ไช้งานอยู่
-  plans = &Plan{PlanId: result.PlanId}
+  plans = &Plan{PlanId: result.PlanId,Created_at: result.Created_at,Updated_at: result.Updated_at,PlanName: result.PlanName,Plant: result.Plant,Seed: result.Seed,OldPlanId: result.OldPlanId,Description: result.Description,Owner: result.Owner,OwnerCompany: result.OwnerCompany,Duration: result.Duration,TypePlan : result.TypePlan,ConfirmNum: result.ConfirmNum,LikeNum: result.LikeNum,ViewNum: result.ViewNum,UsedNum: result.UsedNum}
   return plans
 }
+
 //ส่วน Validation CheckSavePlan Form
 func (plan *Plan) CheckSavePlan(v *revel.Validation) {
   v.Required(plan.PlanName).Message("จำเป็นต้องกรอก ชื่อแผน")

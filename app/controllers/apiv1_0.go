@@ -17,6 +17,10 @@ type ResAuth struct {
     Status      bool
     UserData    *models.User
 }
+type ResPlan struct {
+    Status      bool
+    PlanData    *models.Plan
+}
 func (c Api) Index() revel.Result {
   var user *models.User
 	user = models.GetUserData("sittipong")
@@ -43,4 +47,16 @@ func (c Api) RegisterUser(Username string,Password string,Prefix string,Name str
   }
   R = &ResAuth{Status: res,UserData: U}
   return  c.RenderJson(R)
+}
+
+//------------------ API แผนการเพาะปลูก -------------------
+//Plan (GET)
+func (c Api) Plans(skip int) revel.Result {
+  Result,err := models.GetAllPlans(skip)
+  if err == true{
+    return  c.RenderJson(Result)
+  }else{
+    return c.RenderJson(Result)
+  }
+
 }

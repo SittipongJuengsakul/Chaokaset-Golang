@@ -40,6 +40,7 @@ GET     /favicon.ico                                                            
 GET     /apiv1_0                                                                                   Api.Index
 GET     /apiv1_0/login/:Username/:Password                                                         Api.CheckLogin
 GET     /apiv1_0/register/:Username/:Password/:Prefix/:Name/:Lname/:Tel                            Api.RegisterUser
+GET     /apiv1_0/plan/:skip                                                                        Api.Plans
 
 
 
