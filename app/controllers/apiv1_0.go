@@ -49,7 +49,18 @@ func (c Api) RegisterUser(Username string,Password string,Prefix string,Name str
   return  c.RenderJson(R)
 }
 
-//------------------ API แผนการเพาะปลูก -------------------
+//------------------ แผนการเพาะปลูก -------------------
+//Plan (GET)
+func (c Api) Plans(skip int,word string) revel.Result {
+  Result,err := models.GetAllPlans(skip)
+  if err == true{
+    return  c.RenderJson(Result)
+  }else{
+    return c.RenderJson(Result)
+  }
+}
+
+//------------------ พืชและพันธุ์พืช -------------------
 //Plan (GET)
 func (c Api) Plans(skip int,word string) revel.Result {
   Result,err := models.GetAllPlans(skip)
