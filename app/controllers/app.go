@@ -270,10 +270,14 @@ func (c Plan) AddCropPlan() revel.Result {
 func (c Plan) PostAddCropPlan(plan *models.Plan) revel.Result {
   result := models.SavePlan(plan)
   if result {
-    return c.Redirect(Plan.ShowPlan)
+    return c.Redirect(Plan.AddPlanActivity)
   } else{
     return c.Redirect(Plan.AddCropPlan)
   }
+	return c.Render()
+}
+//ShowPlan
+func (c Plan) AddPlanActivity() revel.Result {
 	return c.Render()
 }
 //ShowPlan

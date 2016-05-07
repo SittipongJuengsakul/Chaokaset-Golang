@@ -93,37 +93,12 @@
               {{end}}
             </div>
           </div>
-          <div class="col-sm-12 padding-left-no padding-right-no name-header" style="padding-left: 0px;"><h2 class="color-green">แนะนำกิจกรรมการเพาะปลูก</h2></div>
-          <table class="table col-md-12">
-            <thead class="box-thead-show">
-              <tr>
-                <th width="15%">เริ่มวันที่</th>
-                <th width="15%">สิ้นสุดวันที่</th>
-                <th width="35%">รายละเอียด</th>
-                <th ng-click="remove()">ตัวเลือก</th>
-              </tr>
-            </thead>
-            <tbody class="box-tbody-show">
-              <tr>
-                <td><input type="text" class="form-control" placeholder="เริ่มวันที่ (วัน)" name="" value=""></td>
-                <td><input type="text" class="form-control" placeholder="สิ้นสุดวันที่ (วัน)" name="" value=""></td>
-                <td><input type="text" class="form-control" placeholder="รายละเอียด" name="" value=""></td>
-                <td><button type="submit" class="btn btn-success">เพิ่มข้อมูล</button></td>
-              </tr>
-              <tr ng-repeat="PlanActivity in PlanActivitys">
-                <td ng-bind="PlanActivity.startdate">เริ่มวันที่</td>
-                <td ng-bind="PlanActivity.enddate">สิ้นสุดวันที่</td>
-                <td ng-bind="PlanActivity.details">รายละเอียด</td>
-                <td>คำแนะนำ</td>
-              </tr>
-            </tbody>
-          </table>
         </div>
         <div style="width: 100%;text-align: center;">
           <button type="submit" class="btn btn-success">ตกลง</button>
           <button type="button" class="btn btn-danger">ยกเลิก</button>
         </div>
-      </form>
+        </form>
     </div>
   </div>
 </div>
@@ -143,28 +118,51 @@
 
       $scope.PlanActivitys = [
         {
-            'startdate':'0',
-            'enddate':'20',
+            'Id' : 'a1',
+            'startdate': 0,
+            'enddate': 20,
             'details':'เตรียมดิน'
         },
         {
-            'startdate':'0',
-            'enddate':'50',
-            'details':'ไส่ปุ๋ย'
+            'Id' : 'a2',
+            'startdate':10,
+            'enddate':200,
+            'details':'ตากดิน'
         },
         {
-            'startdate':'10',
-            'enddate':'20',
+            'Id' : 'a3',
+            'startdate':5000,
+            'enddate':200,
             'details':'ตากดิน'
-        }];
-        $scope.remove = function(){
-            var newDataList=[];
-            angular.forEach($scope.personalDetails, function(selected){
-                if(!selected.selected){
-                    newDataList.push(selected);
-                }
-            });
-            $scope.personalDetails = newDataList;
+        }
+        ];
+
+        $scope.SaveNewActivity= function(PlanActivitys){
+          if(PlanActivitys.startdate > PlanActivitys.enddate){
+            alert('วันที่สิ้นสุดน้อยกว่าวันที่เริ่มต้น !')
+            return 0;
+          }
+          else{
+            $scope.PlanActivitys.push({
+                  'Id': '2222aaa',
+                  'startdate': PlanActivitys.startdate,
+                  'enddate': PlanActivitys.enddate,
+                  'details': PlanActivitys.details,
+              });
+              document.getElementById("IdStartDate").value = "";
+              document.getElementById("IdEndDate").value = "";
+              document.getElementById("IdDetails").value = "";
+              $scope.PD = {};
+              $scope.orderOptions = $scope.PlanActivitys.startdate;
+          }
+        }
+        $scope.remove = function(IdRemover){
+            //$scope.PlanActivitys.splice(1, 1);
+            for (var i = 0; i < $scope.PlanActivitys.length; i++)
+            if ($scope.PlanActivitys[i].Id && $scope.PlanActivitys[i].Id === IdRemover) {
+                $scope.PlanActivitys.splice(i, 1);
+                break;
+            }
         };
   });
 </script>
