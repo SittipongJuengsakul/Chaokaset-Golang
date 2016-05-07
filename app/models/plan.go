@@ -5,7 +5,7 @@ package models
 import (
     "gopkg.in/mgo.v2"
     "gopkg.in/mgo.v2/bson"
-    //"github.com/revel/revel"
+    "github.com/revel/revel"
     //"regexp"
     "time"
     //"math/rand"
@@ -43,7 +43,14 @@ func GetAllPlans() *Plan {
   plans = &Plan{PlanId: result.PlanId}
   return plans
 }
-
+//ส่วน Validation CheckSavePlan Form
+func (plan *Plan) CheckSavePlan(v *revel.Validation) {
+  v.Required(plan.PlanName).Message("จำเป็นต้องกรอก ชื่อแผน")
+  v.Required(plan.Duration).Message("จำเป็นต้องกรอก ระยะเวลาการเพาะปลูก (จำนวนวัน)")
+  v.Min(plan.Duration, 0).Message("ตัวเลขมากกว่า 0 เท่านั้น")
+  v.Required(plan.Description).Message("จำเป็นต้องกรอก รายละเอียด")
+  v.Required(plan.Owner).Message("จำเป็นต้องกรอก ชื่อเจ้าของแผนการเพาะปลูก")
+}
 //SavePlan (POST) บันทึกแผนการเพาะปลูก
 func SavePlan(plan *Plan) (result bool) {
      session, err := mgo.Dial(ip_mgo)
@@ -58,7 +65,6 @@ func SavePlan(plan *Plan) (result bool) {
      }else{
        err = qmgo.Insert(&Plan{Created_at: time.Now(),Updated_at: time.Now(),PlanName: plan.PlanName,OwnerCompany: plan.OwnerCompany,Owner: plan.Owner,Plant: plan.Plant,Seed: plan.Seed,Duration: plan.Duration,Description: plan.Description,TypePlan: plan.TypePlan,OldPlanId: "",Status : 1,ViewNum: 1})
      }
-
      if err != nil {
        return false
      }else{

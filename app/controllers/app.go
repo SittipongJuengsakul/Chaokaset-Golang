@@ -268,6 +268,12 @@ func (c Plan) AddCropPlan() revel.Result {
 }
 //PostAddCropPlan
 func (c Plan) PostAddCropPlan(plan *models.Plan) revel.Result {
+  plan.CheckSavePlan(c.Validation)
+  if c.Validation.HasErrors() {
+		c.Validation.Keep()
+		c.FlashParams()
+		return c.Redirect(Plan.AddCropPlan)
+  }
   result := models.SavePlan(plan)
   if result {
     return c.Redirect(Plan.AddPlanActivity)
