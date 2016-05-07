@@ -11,7 +11,7 @@
       <button type="button" name="button" class="btn btn-success" style="width: 90%;" onclick="javascript:location.href='/plan/addcropplan'">เพิ่มข้อมูล</button>
     </div>
     <div class="col-sm-10" style="padding: 0px;">
-      <input type="text" name="SearchCrops" class="form-control" placeholder="ค้นหาแผนการเพาะปลูก" ng-model="searchPlanText">
+      <input type="text" name="SearchCrops" class="form-control" placeholder="ค้นหาแผนการเพาะปลูก" ng-model="searchPlanText" ng-change="setPlanFilter()">
     </div>
     <table class="table col-md-12">
       <thead class="box-thead-show">
@@ -25,18 +25,18 @@
         </tr>
       </thead>
       <tbody class="box-tbody-show">
-        <tr ng-repeat="plan in plans | filter:searchPlanText">
-          <td ng-bind="plan.nameplan"></td>
-          <td ng-bind="plan.company"></td>
-          <td ng-bind="plan.plant"></td>
-          <td ng-bind="plan.seed"></td>
-          <td ng-bind="plan.used" style="text-align: center;"></td>
+        <tr ng-repeat="plan in filterPlans  = (plans | filter:searchPlanText)">
+          <td ng-bind="plan.PlanName"></td>
+          <td ng-bind="plan.OwnerCompany"></td>
+          <td ng-bind="plan.Plant"></td>
+          <td ng-bind="plan.Seed"></td>
+          <td ng-bind="plan.UsedNum" style="text-align: center;"></td>
           <td class="color-green">
             <div class="dropdown">
               <a href="#" class="dropdown-toggle option-crops"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ดูเพิ่มเติม <span class="caret"></span></a>
               </button>
               <ul class="dropdown-menu dd-menu" aria-labelledby="dropdownMenu1">
-                <li><a href="#">รายละเอียด</a></li>
+                <li><a data-toggle="modal" data-target="#myModal">รายละเอียด</a></li>
                 <li><a href="#">แก้ไขรายการ</a></li>
                 <li role="separator" class="divider"></li>
                 <li><a href="#" class="color-red">ลบรายการ</a></li>
@@ -44,15 +44,45 @@
             </div>
           </td>
         </tr>
+        <tr ng-show="!filterPlans.length" style="text-align: center;">
+            <td colspan="6">ไม่มีข้อมูล</td>
+        </tr>
       </tbody>
     </table>
   </div>
 </div>
+<!-- Modal -->
+<div class="modal fade container-box" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog container-box-content" role="document">
+    <div class="modal-content">
+      <div class="modal-header name-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="color-green" id="NameDetailLabel">แผนการเพาะปลูก</h4>
+      </div>
+      <div class="modal-body info-plant-show">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 <script type="text/javascript">
   var app = angular.module('ChaokasetApp', []);
-  app.controller('searchShowPlan', function($scope) {
-      $scope.message = "ข้อความ";
-      $scope.plans = [{nameplan:'กข.47 ใช้น้ำน้อย', company:'ศูนย์ข้าวจังหวัดกำแพงเพชร',plant: 'ข้าว',seed: 'กข.47',used: '10'},{nameplan:'ไรซ์เบอรี่ ม.เกษตรศาสตร์', company:'ม.เกษตรศาสตร์',plant: 'ข้าว',seed: 'ไรซ์เบอรี่',used: '20'}];
+  app.controller('searchShowPlan', function($scope, $http) {
+      $http.get(site_url+"/apiv1_0/plan/0")
+      .then(function(response) {
+        $scope.plans = response.data;
+      });
+      if( $scope.plans == {}){
+        alert("ไม่มีข้อมูล");
+      }
   });
+  //Modal Script
+  $('#myModal').on('shown.bs.modal', function () {
+    $('#myInput').focus()
+  })
 </script>
 {{template "Templates/footer.html" .}}

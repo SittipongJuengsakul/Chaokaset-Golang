@@ -20,7 +20,9 @@
       <script src="/public/{{.}}" type="text/javascript" charset="utf-8"></script>
     {{end}}
   </head>
-
+  <script type="text/javascript">
+      var site_url = "http://localhost:9000";
+  </script>
   <body>
     <nav class="navbar navbar-default navbar-fixed-top chaokaset-nav">
       <div class="container-fluid">
@@ -44,7 +46,7 @@
             {{ if .user}}
               {{ if .officer }}
             <li><button class="chaokaset-btn-border btn-style-two" onclick="javascript:location.href='/management'">จัดการข้อมูลการเกษตร</button></li>
-            <li><a href="/social">สังคมชาวเกษตร<span class="label label-default label-pill pull-xs-right activity-new" id="notification-in-header">14</span></a></li>
+            <li><a href="/social">สังคมชาวเกษตร<span class="label label-default label-pill pull-xs-right activity-new" id="notification-in-header" style="margin-left: 5px;">14</span></a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ช่วยเหลือ <span class="caret"></span></a>
               <ul class="dropdown-menu">

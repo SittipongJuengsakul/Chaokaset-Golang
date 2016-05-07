@@ -604,6 +604,7 @@ h1,h2,h3{
         font-size: 18px ;
         color: #505050;
         .status-ball{
+          cursor: pointer;
           margin-left: 18px;
           margin-top: 6px;
           width: 18px;
@@ -612,6 +613,7 @@ h1,h2,h3{
           border-radius: 50%;
         }
         a.name-crops{
+          cursor: pointer;
           font-size: 18px;
           color: $green;
           text-decoration:none;
@@ -620,6 +622,7 @@ h1,h2,h3{
           }
         }
         a.option-crops{
+          cursor: pointer;
           font-size: 18px;
           color: $blue;
           text-decoration:none;
@@ -628,6 +631,7 @@ h1,h2,h3{
           }
         }
         a.option-dd{
+          cursor: pointer;
           font-size: 15px;
           color: #6F6F6F;
           text-align: center;
@@ -639,6 +643,7 @@ h1,h2,h3{
         }
         .dd-menu{
           a{
+            cursor: pointer;
             text-align: center;
           }
         }
