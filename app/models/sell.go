@@ -19,6 +19,7 @@ type Sell struct{
   Name            string
   Category        string
   Pic             string
+  PicUp           []byte
   Price           int
   Distance        float64
   Address         Address

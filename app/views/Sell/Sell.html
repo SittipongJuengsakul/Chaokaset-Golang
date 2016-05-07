@@ -49,7 +49,7 @@
     <div class="col-sm-12 container-box-content" >
       <h2 class="color-green">ประกาศขายสินค้า</h2>
       </br>
-      <form enctype="multipart/form-data" method="post" action="{{url "Sell.PostSell"}}">
+      <form method="post" action="{{url "Sell.PostSell"}}" enctype="multipart/form-data" >
       {{with $field := field "sell.Category" .}}
       <div class="form-group">
           <label for="">ประเภทสินค้า</label>
@@ -87,10 +87,11 @@
         </div>
         {{end}}
       </div>
-      {{with $field := field "sell.Pic" .}}
+      {{with $field := field "sell.PicUp" .}}
       <div class="form-group" style="padding-top:15px;">
         <label for="">รูปสินค้า</label>
-        <input type="file"  name="{{$field.Name}}" value="{{$field.Flash}}">
+        <input type="file"  name="{{$field.Name}}" accept="image/png">
+
         <span class="error">{{$field.Error}}</span>
       </div>
       {{end}}
