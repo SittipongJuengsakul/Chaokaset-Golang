@@ -9,7 +9,7 @@
     </div>
     <div class="col-md-6 col-md-offset-3 example">
       <h2>Register</h2>
-      <p>GET     /apiv1_0/register/:Username/:Password/:Prefix/:Name/:Lname/:Tel      Return {Status boolean,Username string}</p>
+      <p>POST     /apiv1_0/register/:Username/:Password/:Prefix/:Name/:Lname/:Tel      Return {Status boolean,Username string}</p>
     </div>
     <div class="col-md-6 col-md-offset-3 example">
       <h2>พืช ทั้งหมด Plant</h2>
@@ -30,7 +30,7 @@
   </div>
   <div class="col-md-6 col-md-offset-3 example">
     <h2>ลบพันธุ์พืช ชนิดเดียว  (Seed)</h2>
-    <p>GET     /apiv1_0/removeseed/:idseed       Return JSON</p>
+    <p>POST     /apiv1_0/removeseed/:idseed       Return JSON</p>
   </div>
 </div>
 {{template "Templates/footer.html" .}}
