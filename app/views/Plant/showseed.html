@@ -38,7 +38,7 @@
                 <li><a data-toggle="modal" data-target="#myModal">รายละเอียด</a></li>
                 <li><a href="#">แก้ไขรายการ</a></li>
                 <li role="separator" class="divider"></li>
-                <li><a href="#" class="color-red">ลบรายการ</a></li>
+                <li><a ng-click="RemoveSeed(plant.SeedId,$index)" class="color-red">ลบรายการ</a></li>
               </ul>
             </div>
           </td>
@@ -75,6 +75,15 @@
       .then(function(response) {
         $scope.plants = response.data;
       });
+      $scope.RemoveSeed = function(removeid,at) {
+        $scope.plants.splice(at, 1);
+        $http.post(site_url+"apiv1_0/removeseed/"+removeid)
+        .then(function(response) {
+          alert(response);
+        },function(response) {
+          alert("fail");
+      });
+      }
   })
   .filter('searchfilter', function() {
         return function (input, query) {

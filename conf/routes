@@ -31,6 +31,7 @@ GET     /plant/showplant                                                        
 GET     /plant/addplant                                                                            Plant.AddPlant
 GET     /plant/showseed                                                                            Plant.ShowSeed
 GET     /plant/addseed                                                                             Plant.AddSeed
+POST    /plant/removeseed/:idseed                                                                  Plant.RemoveSeed
 GET     /management                                                                                Management.IndexManagement
 GET     /plan/addplan                                                                              Plan.AddCropPlan
 GET     /plan/addplanactivity                                                                      Plan.AddPlanActivity
@@ -51,6 +52,7 @@ GET     /apiv1_0/plant/:word                                                    
 GET     /apiv1_0/seed/:skip/:plantname/:seedname                                                   Api.Seed
 GET     /apiv1_0/seed/:skip/:plantname                                                             Api.Seed
 GET     /apiv1_0/seeds/:skip                                                                       Api.Seeds
+POST     /apiv1_0/removeseed/:idseed                                                               Api.RemoveSeed
 
 
 

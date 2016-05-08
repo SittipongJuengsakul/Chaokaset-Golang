@@ -303,6 +303,15 @@ func (c Plant) ShowSeed() revel.Result {
 func (c Plant) AddSeed() revel.Result {
 	return c.Render()
 }
+//RemoveSeed (DELETE)
+func (c Plant) RemoveSeed(idseed string) revel.Result {
+  result := models.RemoveSeed(idseed);
+  if(result){
+    return c.Redirect(Plant.ShowSeed)
+  }else{
+    return c.Redirect(Plant.ShowSeed)
+  }
+}
 //SavePlant
 func (c Plant) PostAddPlant(plant *models.Plant) revel.Result {
     resPlantData := models.GetPlant(plant.PlantName)

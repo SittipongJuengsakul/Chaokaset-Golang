@@ -138,3 +138,20 @@ func SaveSeed(seedname string,plantid string,plantname string) (result bool){
       return true
     }
 }
+
+//RemoveSeed (GET)
+func RemoveSeed(idseed string) (result bool) {
+  session, err := mgo.Dial(ip_mgo)
+  if err != nil {
+      panic(err)
+  }
+  defer session.Close()
+  session.SetMode(mgo.Monotonic, true)
+  qmgo := session.DB("chaokaset").C("seeds")
+  if idseed == ""{
+    return false
+  } else{
+    qmgo.Remove(bson.M{"_id": bson.ObjectIdHex(idseed)})
+    return true
+  }
+}
