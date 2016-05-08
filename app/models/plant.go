@@ -75,7 +75,7 @@ func SavePlant(PlantName string) (result bool){
 }
 
 //GetAllSeeds (GET) ฟังก์ชั่นสำหรับเรียกข้อมูลพืชทั้งหมด
-func GetAllSeeds(skips int) (results []Plant) {
+func GetAllSeeds(skips int) (results []Seed) {
   session, err := mgo.Dial(ip_mgo)
   if err != nil {
       panic(err)

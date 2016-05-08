@@ -64,6 +64,19 @@ func (c Api) Plans(skip int,word string) revel.Result {
   }
 }
 
+//------------------ แผนการเพาะปลูก -------------------
+//Plan (GET)
+func (c Api) Plan(idplan string) revel.Result {
+  Result := models.GetPlans(idplan)
+  var Res *ResPlan
+  if(Result.PlanId == ""){
+    Res = &ResPlan{Status: false}
+  }else{
+    Res = &ResPlan{Status: true,PlanData: Result}
+  }
+  return  c.RenderJson(Res)
+}
+
 //------------------ พืชและพันธุ์พืช -------------------
 //Plants (GET)
 func (c Api) Plants(skip int,word string) revel.Result {

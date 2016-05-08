@@ -45,7 +45,7 @@ func GetAllPlans(skip int) (results []Plan,error bool) {
 }
 
 //GetPlans (GET) ฟังก์ชั่นสำหรับเรียกข้อมูลแผนการเพาะปลูก
-func GetPlans(PlanId string) *Plan {
+func GetPlans(idplan string) *Plan {
   session, err := mgo.Dial(ip_mgo)
   if err != nil {
       panic(err)
@@ -55,7 +55,7 @@ func GetPlans(PlanId string) *Plan {
   session.SetMode(mgo.Monotonic, true)
   qmgo := session.DB("chaokaset").C("cropplans")
   result := Plan{}
-	qmgo.Find(bson.M{"status": 1}).One(&result) //คิวรี่จาก status เป็น 1 หรือ แปลงที่ไช้งานอยู่
+	qmgo.Find(bson.M{"status": 1,"_id": bson.ObjectIdHex(idplan)}).One(&result) //คิวรี่จาก status เป็น 1 หรือ แปลงที่ไช้งานอยู่
   plans = &Plan{PlanId: result.PlanId,Created_at: result.Created_at,Updated_at: result.Updated_at,PlanName: result.PlanName,Plant: result.Plant,Seed: result.Seed,OldPlanId: result.OldPlanId,Description: result.Description,Owner: result.Owner,OwnerCompany: result.OwnerCompany,Duration: result.Duration,TypePlan : result.TypePlan,ConfirmNum: result.ConfirmNum,LikeNum: result.LikeNum,ViewNum: result.ViewNum,UsedNum: result.UsedNum}
   return plans
 }

@@ -16,13 +16,15 @@
     <table class="table col-md-12">
       <thead class="box-thead-show">
         <tr>
-          <th width="60%">ชื่อเพิ่มพันธุ์พืช</th>
+          <th width="40%">ชื่อพันธุ์พืช</th>
+          <th>ชื่อพืช</th>
           <th style="text-align: center;">จำนวนผู้ปลูก</th>
           <th>ตัวเลือก</th>
         </tr>
       </thead>
       <tbody class="box-tbody-show">
         <tr ng-repeat="plant in filterPlans  = (plants | filter:searchPlant)">
+          <td ng-bind-html="plant.SeedName | searchfilter:searchPlant"></td>
           <td ng-bind-html="plant.PlantName | searchfilter:searchPlant"></td>
           <!--<td ng-bind-html="plant.Used | searchfilter:searchPlant"></td> -->
           <td style="text-align: center;">
@@ -69,7 +71,7 @@
 <script type="text/javascript">
   var app = angular.module('ChaokasetApp', ['ngSanitize']);
   app.controller('searchShowPlant', function($scope, $http) {
-      $http.get(site_url+"/apiv1_0/seeds/0/ข้าว")
+      $http.get(site_url+"/apiv1_0/seeds/0")
       .then(function(response) {
         $scope.plants = response.data;
       });
