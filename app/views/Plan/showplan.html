@@ -30,7 +30,7 @@
           <td ng-bind-html="plan.OwnerCompany | searchfilter:searchPlanText"></td>
           <td ng-bind-html="plan.Plant | searchfilter:searchPlanText"></td>
           <td ng-bind-html="plan.Seed | searchfilter:searchPlanText"></td>
-          <td ng-bind-html="plan.UsedNum" style="text-align: center;"></td>
+          <td ng-bind-html="plan.UsedNum | currency" style="text-align: center;"></td>
           <td class="color-green">
             <div class="dropdown">
               <a href="#" class="dropdown-toggle option-crops"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ดูเพิ่มเติม <span class="caret"></span></a>
