@@ -39,7 +39,7 @@
             {{with $field := field "plan.Duration" .}}
             <div class="form-group col-md-4 padding-right-no">
               <label>ระยะเวลาเพาะปลูก (วัน)</label>
-              <input type="number" min="0" class="form-control" placeholder="กรอกระยะเวลาเพาะปลูก (วัน)" name="{{$field.Name}}" value="{{$field.Flash}}" format="number" pattern="(\d{3})([\.])(\d{2})">
+              <input type="number" min="0" class="form-control" placeholder="กรอกระยะเวลาเพาะปลูก (วัน)" name="{{$field.Name}}" value="{{$field.Flash}}" pattern="(\d{3})([\.])(\d{2})">
               <span class="error">{{$field.Error}}</span>
             </div>
           </div>
