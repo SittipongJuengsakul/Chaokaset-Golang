@@ -3,7 +3,7 @@ package controllers
 import (
     "github.com/revel/revel"
     //"github.com/gocql/gocql"
-    //"gopkg.in/mgo.v2"
+   // "gopkg.in/mgo.v2"
     //"gopkg.in/mgo.v2/bson"
 	  "chaokaset-go/app/models"
    // "golang.org/x/crypto/bcrypt"
@@ -80,7 +80,13 @@ return c.RenderJson(e)
 }
 
 func (c Sell) ManageSell() revel.Result {
-  return c.Render()
+  //id := c.Session["username"]
+ // data := models.GetManageSell(id)
+  userid := c.Session["username"]
+  id := models.GetUserid(userid)
+  data := models.GetManageSell(id.Userid.Hex())
+  return c.Render(data)
+ // return c.RenderJson(data)
 }
 
 

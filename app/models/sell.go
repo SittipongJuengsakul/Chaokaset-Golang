@@ -52,6 +52,10 @@ type SellDetail struct{
   Owner           Owner
 }
 
+type UserId struct{
+  Userid          bson.ObjectId `bson:"_id,omitempty"`
+}
+
 
 //var Selldb = make(map[string]*Sell)
 
@@ -213,8 +217,24 @@ func GetManageSell(id string) []Sell {
   qmgo := session.DB("chaokaset").C("sell")
   var result []Sell
   
-  qmgo.Find(bson.M{"_id": bson.ObjectIdHex(id)}}).All(&result)
+  qmgo.Find(bson.M{"ownerid": bson.ObjectIdHex(id)}).Sort("TimeCreate").All(&result)
 
+  return result
+}
+
+func GetUserid(username string) *UserId {
+  session, err := mgo.Dial("127.0.0.1")
+  if err != nil {
+      panic(err)
+  }
+  defer session.Close()
+ // var user *SellDetail
+  session.SetMode(mgo.Monotonic, true)
+  qmgo := session.DB("chaokaset").C("users")
+  //result := SellDetail{}
+  var result *UserId
+  qmgo.Find(bson.M{"username": username}).One(&result)
+  //user = &SellDetail{Sellid:result.Sellid, Name:result.Name, Category:result.Category, Pic:result.Pic, Price:result.Price, Address.result.Address }
   return result
 }
 

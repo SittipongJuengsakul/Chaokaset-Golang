@@ -64,11 +64,12 @@
           </tr>
         </thead>
         <tbody class="box-tbody-show">
+          {{ range .data }}
           <tr>
             <td class="color-yellow"><span class="status-ball bg-green"></span></td>
-            <td class="color-green"><a href="/crops/management" class="name-crops">ไร่หน้าหมู่บ้าน (นายดำรง นะจ้ะ)</a></td>
-            <td>3 มีนาคม 2559</td>
-            <td>12 สิงหาคม 2559</td>
+            <td class="color-green"><a href="/crops/management" class="name-crops">{{.Name}}</a></td>
+            <td>{{.TimeCreate}}</td>
+            <td>{{.Expire}}</td>
      
             <td class="color-green">
               <div class="dropdown">
@@ -83,7 +84,7 @@
               </div>
             </td>
           </tr>
- 
+          {{ end }}
         </tbody>
       </table>
     </div>
