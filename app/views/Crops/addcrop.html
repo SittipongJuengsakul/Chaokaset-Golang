@@ -1,96 +1,161 @@
-{{set . "title" "เพิ่มข้อมูลการเพาะปลูก"}}
+{{set . "title" "เพิ่มแปลงเพาะปลูก"}}
 {{template "Templates/header.html" .}}
 {{template "Templates/preloader.html" .}}
 <div class="chaokaset-container-verticle" id="chaokaset-loader" style="display: none;">
   <div class="col-sm-12 varticle-header-box">
-    <h1>เพิ่มข้อมูลการเพาะปลูก</h1>
+    <h1>เพิ่มแปลงเพาะปลูก</h1>
   </div>
-  <div class="col-sm-12 container-box">
+  <div class="col-sm-12 container-box" ng-app="ChaokasetApp" ng-controller="NewCrop">
     <div class="col-sm-12 container-box-content" >
-      <div class="col-sm-12 padding-left-no padding-right-no name-header" style="padding-left: 0px;"><h2 class="color-green">บัญชีการเพาะปลูก</h2></div>
-      <form method="post" action="{{url "Auth.PostRegister"}}">
+      <div class="col-sm-12 padding-left-no padding-right-no name-header" style="padding-left: 0px;"><h2 class="color-green">ข้อมูลแผนการเพาะปลูก</h2></div>
+      <form method="post" action="{{url "Plan.PostAddCropPlan"}}">
         <div class="info-plant-show">
-          {{with $field := field "user.Name" .}}
           <div class="form-grop col-md-12" style="padding: 0px;">
-            <div class="form-group col-md-6 padding-left-no">
-              <label for="exampleInputEmail1">ชนิดพืช</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกชื่อ" name="{{$field.Name}}" value="{{$field.Flash}}">
+            {{with $field := field "plan.PlanName" .}}
+            <div class="form-group col-md-12 padding-left-no padding-right-no">
+              <label>ชื่อแปลงเพาะปลูก</label>
+              <input type="text" class="form-control" placeholder="กรอกชื่อแปลงเพาะปลูก" name="{{$field.Name}}" value="{{$field.Flash}}">
               <span class="error">{{$field.Error}}</span>
             </div>
             {{end}}
-            {{with $field := field "user.Lastname" .}}
-            <div class="form-group col-md-6 padding-right-no">
-              <label for="exampleInputEmail1">พันธุ์พืช</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกนามสกุล" name="{{$field.Name}}" value="{{$field.Flash}}">
-              <span class="error">{{$field.Error}}</span>
-            </div>
           </div>
-          {{end}}
-          {{with $field := field "user.Name" .}}
+          {{with $field := field "plan.Plant" .}}
           <div class="form-grop col-md-12" style="padding: 0px;">
             <div class="form-group col-md-4 padding-left-no">
-              <label for="exampleInputEmail1">แผนการเพาะปลูก</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกชื่อ" name="{{$field.Name}}" value="{{$field.Flash}}">
-              <span class="error">{{$field.Error}}</span>
+              <label>แผนการเพาะปลูก</label>
+              <select class="form-control" name="{{$field.Name}}">
+                 <option value="ข้าว">ข้าว</option>
+               </select>
             </div>
             {{end}}
-            {{with $field := field "user.Lastname" .}}
+            {{with $field := field "plan.Seed" .}}
             <div class="form-group col-md-4">
-              <label for="exampleInputEmail1">ระยะเวลาปลูกเพาะปลูก</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกนามสกุล" name="{{$field.Name}}" value="{{$field.Flash}}">
-              <span class="error">{{$field.Error}}</span>
+              <label>พืช</label>
+              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" disabled>
             </div>
+            {{end}}
+            {{with $field := field "plan.Seed" .}}
             <div class="form-group col-md-4 padding-right-no">
-              <label for="exampleInputEmail1">จำนวนผลผลิตต่อไร่</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกนามสกุล" name="{{$field.Name}}" value="{{$field.Flash}}">
-              <span class="error">{{$field.Error}}</span>
+              <label>พันธุ์พืช</label>
+              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" disabled>
             </div>
-          </div>
-          {{end}}
-          {{with $field := field "user.Name" .}}
+            {{end}}
           <div class="form-grop col-md-12" style="padding: 0px;">
+            {{with $field := field "plan.TypePlanOption" .}}
             <div class="form-group col-md-4 padding-left-no">
-              <label for="exampleInputEmail1">ขนาดพื้นที่</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกชื่อ" name="{{$field.Name}}" value="{{$field.Flash}}">
-              <span class="error">{{$field.Error}}</span>
+              <label>ประเภทของแผนการเพาะปลูก</label>
+              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" disabled>
             </div>
             {{end}}
-            {{with $field := field "user.Lastname" .}}
+            {{with $field := field "plan.TypePlanOption" .}}
             <div class="form-group col-md-4">
-              <label for="exampleInputEmail1">วันที่เริ่ม</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกนามสกุล" name="{{$field.Name}}" value="{{$field.Flash}}">
-              <span class="error">{{$field.Error}}</span>
-            </div>
-            <div class="form-group col-md-4 padding-right-no">
-              <label for="exampleInputEmail1">วันที่สิ้นสุด</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกนามสกุล" name="{{$field.Name}}" value="{{$field.Flash}}">
-              <span class="error">{{$field.Error}}</span>
-            </div>
-          </div>
-          {{end}}
-          {{with $field := field "user.Name" .}}
-          <div class="form-grop col-md-12" style="padding: 0px;">
-            <div class="form-group col-md-6 padding-left-no">
-              <label for="exampleInputEmail1">จำนวนผลผลิตต่อไร่</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกชื่อ" name="{{$field.Name}}" value="{{$field.Flash}}">
-              <span class="error">{{$field.Error}}</span>
+              <label>เริ่มต้นวันที่</label>
+              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}">
             </div>
             {{end}}
-            {{with $field := field "user.Lastname" .}}
-            <div class="form-group col-md-6 padding-right-no">
-              <label for="exampleInputEmail1">ประมาณผลผลิตทั้งหมด</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกนามสกุล" name="{{$field.Name}}" value="{{$field.Flash}}">
-              <span class="error">{{$field.Error}}</span>
+            {{with $field := field "plan.TypePlanOption" .}}
+            <div class="form-group col-md-4 padding-right-no">
+              <label>สิ้นสุดวันที่ (ตามแผน)</label>
+              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" disabled>
             </div>
+            {{end}}
           </div>
-          {{end}}
+          <div class="form-grop col-md-12" style="padding: 0px;">
+            {{with $field := field "plan.TypePlanOption" .}}
+            <div class="form-group col-md-4 padding-left-no">
+              <label>จำนวนผลผลิต ต่อ ไร</label>
+              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}">
+            </div>
+            {{end}}
+            {{with $field := field "plan.TypePlanOption" .}}
+            <div class="form-group col-md-4">
+              <label>ราคาผลผลิต ต่อ กิโลกรัม</label>
+              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}">
+            </div>
+            {{end}}
+            {{with $field := field "plan.TypePlanOption" .}}
+            <div class="form-group col-md-4 padding-right-no">
+              <label>จำนวนผลผลิต ต่อ ไร่</label>
+              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}">
+            </div>
+            {{end}}
+          </div>
+          <div class="form-grop col-md-12" style="padding: 0px;">
+            {{with $field := field "plan.TypePlanOption" .}}
+            <div class="form-group col-md-8 padding-left-no">
+              <label>ที่อยู่แปลงเพาะปลูก</label>
+              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}">
+            </div>
+            {{end}}
+            {{with $field := field "plan.TypePlanOption" .}}
+            <div class="form-group col-md-4 padding-right-no">
+              <label>ตำบล</label>
+              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}">
+            </div>
+            {{end}}
+          </div>
+          <div class="form-grop col-md-12" style="padding: 0px;">
+            {{with $field := field "plan.TypePlanOption" .}}
+            <div class="form-group col-md-6 padding-left-no">
+              <label>อำเภอ</label>
+              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}">
+            </div>
+            {{end}}
+            {{with $field := field "plan.TypePlanOption" .}}
+            <div class="form-group col-md-6 padding-right-no">
+              <label>จังหวัด</label>
+              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}">
+            </div>
+            {{end}}
+          </div>
         </div>
         <div style="width: 100%;text-align: center;">
-          <button type="submit" class="btn btn-default">สมัครสมาชิก</button>
-          <button type="submit" class="btn btn-default">ยกเลิก</button>
+          <button type="submit" class="btn btn-success">ตกลง</button>
+          <button type="button" class="btn btn-danger">ยกเลิก</button>
         </div>
-      </form>
+        </form>
     </div>
   </div>
 </div>
+<script type="text/javascript">
+  var app = angular.module('ChaokasetApp', []);
+  app.controller('NewCrop', function($scope) {
+     $scope.durationsplan = 0;
+      $scope.NewPlanOption = true;
+      $scope.PlanOption = false;
+      $scope.ShowNewPlanOption = function() {
+          $scope.NewPlanOption = true
+          $scope.PlanOption = false;
+      }
+      $scope.ShowPlanOption = function() {
+          $scope.PlanOption = true
+          $scope.NewPlanOption = false;
+      }
+  });
+  app.directive('format', ['$filter', function ($filter) {
+      return {
+          require: '?ngModel',
+          link: function (scope, elem, attrs, ctrl) {
+              if (!ctrl) return;
+
+
+              ctrl.$formatters.unshift(function (a) {
+                  return $filter(attrs.format)(ctrl.$modelValue)
+              });
+
+
+              ctrl.$parsers.unshift(function (viewValue) {
+
+            elem.priceFormat({
+              prefix: '',
+              centsSeparator: '.',
+              thousandsSeparator: ','
+          });
+
+                  return elem[0].value;
+              });
+          }
+      };
+  }]);
+</script>
 {{template "Templates/footer.html" .}}
