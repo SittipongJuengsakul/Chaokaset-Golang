@@ -323,19 +323,19 @@ func (c Plant) PostAddPlant(plant *models.Plant) revel.Result {
 }
 //PostAddSeed
 func (c Plant) PostAddSeed(seed *models.Seed,plant *models.Plant) revel.Result {
-    resPlantData := models.GetPlant(plant.PlantName)
+    //resSeedData := models.GetSeed(0,seed.SeedName,plant.PlantName)
     c.Validation.Required(plant.PlantName).Message("กรุณากรอกข้อมูลชื่อพืช")
-    c.Validation.Required(plant.PlantName != resPlantData.PlantName).Message(" \""+plant.PlantName+"\" มีอยู่บนระบบแล้วกรุณาตรวจสอบ")
+    //c.Validation.Required(seed.SeedName != resPlantData.PlantName).Message(" \""+plant.PlantName+"\" มีอยู่บนระบบแล้วกรุณาตรวจสอบ")
     if c.Validation.HasErrors() {
   		c.Validation.Keep()
   		c.FlashParams()
-  		return c.Redirect(Plant.AddPlant)
+  		return c.Redirect(Plant.AddSeed)
   	} else{
       Result := models.SaveSeed(seed.SeedName,plant.PlantName);
       if Result {
-        return c.Redirect(Plant.ShowPlant)
+        return c.Redirect(Plant.ShowSeed)
       } else{
-        return c.Redirect(Plant.AddPlant)
+        return c.Redirect(Plant.AddSeed)
       }
     }
 }
