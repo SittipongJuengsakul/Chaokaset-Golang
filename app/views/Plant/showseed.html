@@ -75,13 +75,14 @@
       .then(function(response) {
         $scope.plants = response.data;
       });
+      $scope.urlremove = site_url+"/apiv1_0/removeseed/";
       $scope.RemoveSeed = function(removeid,at) {
         $scope.plants.splice(at, 1);
-        $http.post(site_url+"apiv1_0/removeseed/"+removeid)
-        .then(function(response) {
-          alert(response);
+        $http({
+          method: 'POST',
+          url: $scope.urlremove+removeid
+        }).then(function(response) {
         },function(response) {
-          alert("fail");
       });
       }
   })
