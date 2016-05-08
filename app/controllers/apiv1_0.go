@@ -89,6 +89,7 @@ func (c Api) Plants(skip int,word string) revel.Result {
 }
 //Plant (GET)
 func (c Api) Plant(word string) revel.Result {
+  //Result := models.GetPlantId("572dfeede3890226904ecba9")
   Result := models.GetPlant(word)
     return  c.RenderJson(Result)
 }

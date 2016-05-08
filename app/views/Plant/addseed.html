@@ -14,8 +14,9 @@
             {{with $field := field "plant.PlantName" .}}
             <div class="form-group col-md-12 padding-left-no padding-right-no">
               <label>พืช</label>
-              <input type="text" class="form-control" placeholder="กรอกชื่อพันธุ์พืช" name="{{$field.Name}}" value="{{$field.Flash}}">
-              <span class="error">{{$field.Error}}</span>
+              <select class="form-control" name="{{$field.Name}}" id="testdata">
+                 <option ng-repeat="plant in plants" ng-bind="plant.PlantName" ng-value="plant.PlantId"></option>
+              </select>
             </div>
             {{end}}
           </div>
@@ -39,8 +40,11 @@
 </div>
 <script type="text/javascript">
   var app = angular.module('ChaokasetApp', []);
-  app.controller('NewShowPlan', function($scope) {
-      $scope.NewPlanOption = true;
+  app.controller('NewShowPlan', function($scope, $http) {
+    $http.get(site_url+"/apiv1_0/plants/0")
+    .then(function(response) {
+      $scope.plants = response.data;
+    });
   });
 </script>
 {{template "Templates/footer.html" .}}

@@ -56,6 +56,21 @@ func GetPlant(word string) *Plant {
   plant = &Plant{PlantName: result.PlantName,PlantId: result.PlantId,Created_at: result.Created_at,Updated_at: result.Updated_at}
   return plant
 }
+//GetPlantId (GET) ฟังก์ชั่นสำหรับเรียกข้อมูลพืชทั้งหมด
+func GetPlantId(idplant string) *Plant {
+  session, err := mgo.Dial(ip_mgo)
+  if err != nil {
+      panic(err)
+  }
+  defer session.Close()
+  var plant *Plant
+  session.SetMode(mgo.Monotonic, true)
+  qmgo := session.DB("chaokaset").C("plants")
+  result := Plant{}
+	qmgo.Find(bson.M{"_id": bson.ObjectIdHex(idplant)}).One(&result)
+  plant = &Plant{PlantName: result.PlantName,PlantId: result.PlantId,Created_at: result.Created_at,Updated_at: result.Updated_at}
+  return plant
+}
 
 //SavePlanLikeLog (POST) เก็บ log ของการกด like
 func SavePlant(PlantName string) (result bool){
@@ -97,13 +112,17 @@ func GetSeed(skips int,plantname string,seedname string) *Seed {
   session.SetMode(mgo.Monotonic, true)
   qmgo := session.DB("chaokaset").C("seeds")
   result := Seed{}
-	qmgo.Find(bson.M{"plantname": plantname}).One(&result)
-  seed = &Seed{PlantName: result.PlantName,PlantId: result.PlantId,Created_at: result.Created_at,Updated_at: result.Updated_at}
+  if seedname == ""{
+    qmgo.Find(bson.M{"plantname": plantname}).One(&result)
+  } else{
+    qmgo.Find(bson.M{"plantname": plantname,"seedname": seedname}).One(&result)
+  }
+  seed = &Seed{SeedId: result.SeedId,SeedName: result.SeedName,PlantName: result.PlantName,PlantId: result.PlantId,Created_at: result.Created_at,Updated_at: result.Updated_at}
   return seed
 }
 
 //SaveSeed (POST)
-func SaveSeed(seedname string,plantname string) (result bool){
+func SaveSeed(seedname string,plantid string,plantname string) (result bool){
     session, err := mgo.Dial(ip_mgo)
     if err != nil {
         panic(err)
@@ -112,7 +131,7 @@ func SaveSeed(seedname string,plantname string) (result bool){
     session.SetMode(mgo.Monotonic, true)
     qmgo := session.DB("chaokaset").C("seeds")
     var ownerCompany *OwnerCompany
-    err = qmgo.Insert(&Seed{SeedName: seedname,PlantName: plantname,OwnerCompany: ownerCompany,Created_at: time.Now(),Updated_at: time.Now()})
+    err = qmgo.Insert(&Seed{SeedName: seedname,PlantName: plantname,PlantId: plantid,OwnerCompany: ownerCompany,Created_at: time.Now(),Updated_at: time.Now()})
     if err != nil {
       return false
     }else{
