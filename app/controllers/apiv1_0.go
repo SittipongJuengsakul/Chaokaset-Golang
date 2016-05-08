@@ -105,3 +105,21 @@ func (c Api)  AddProduct(name string,category string, price int, unit string, de
     }
   
 }
+
+func (c Api) ManageSell(idUser string) revel.Result {
+  var R *ResSellAll
+  var U []models.Sell
+  U = models.GetManageSell(idUser)
+  if U == nil{
+    R = &ResSellAll{Status: false,SellData: nil}
+    return  c.RenderJson(R)
+  }
+
+  /*for i := range U {
+
+    U[i].SetDistance(U[i].Address.Lat)
+  }*/
+  
+  R = &ResSellAll{Status: true,SellData: U}
+  return  c.RenderJson(R)
+}
