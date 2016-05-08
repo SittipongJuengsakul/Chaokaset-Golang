@@ -1,22 +1,22 @@
-{{set . "title" "แสดงพืช"}}
+{{set . "title" "แสดงเพิ่มพันธุ์พืช"}}
 {{template "Templates/header.html" .}}
 
 {{template "Templates/preloader.html" .}}
 <div class="chaokaset-container-verticle" id="chaokaset-loader" style="display: none;">
   <div class="col-sm-12 varticle-header-box">
-    <h1>แสดงพืช</h1>
+    <h1>แสดงเพิ่มพันธุ์พืช</h1>
   </div>
   <div class="col-sm-12 container-box"  ng-app="ChaokasetApp" ng-controller="searchShowPlant" style="margin-top: 20px;">
     <div class="col-sm-2" style="padding: 0px;">
-      <button type="button" name="button" class="btn btn-success" style="width: 90%;" onclick="javascript:location.href='/plant/addplant'">เพิ่มพืช</button>
+      <button type="button" name="button" class="btn btn-success" style="width: 90%;" onclick="javascript:location.href='/plant/addseed'">เพิ่มเพิ่มพันธุ์พืช</button>
     </div>
     <div class="col-sm-10" style="padding: 0px;">
-      <input type="text" name="SearchCrops" class="form-control" placeholder="ค้นหาพืช" ng-model="searchPlant">
+      <input type="text" name="SearchCrops" class="form-control" placeholder="ค้นหาเพิ่มพันธุ์พืช" ng-model="searchPlant">
     </div>
     <table class="table col-md-12">
       <thead class="box-thead-show">
         <tr>
-          <th width="60%">ชื่อพืช</th>
+          <th width="60%">ชื่อเพิ่มพันธุ์พืช</th>
           <th style="text-align: center;">จำนวนผู้ปลูก</th>
           <th>ตัวเลือก</th>
         </tr>

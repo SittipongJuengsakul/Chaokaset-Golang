@@ -1,20 +1,20 @@
-{{set . "title" "เพิ่มพืช"}}
+{{set . "title" "เพิ่มพันธุ์พืช"}}
 {{template "Templates/header.html" .}}
 {{template "Templates/preloader.html" .}}
 <div class="chaokaset-container-verticle" id="chaokaset-loader" style="display: none;">
   <div class="col-sm-12 varticle-header-box">
-    <h1>เพิ่มพืช</h1>
+    <h1>เพิ่มพันธุ์พืช</h1>
   </div>
   <div class="col-sm-12 container-box" ng-app="ChaokasetApp" ng-controller="NewShowPlan">
     <div class="col-sm-12 container-box-content" >
-      <div class="col-sm-12 padding-left-no padding-right-no name-header" style="padding-left: 0px;"><h2 class="color-green">ข้อมูลพืช</h2></div>
+      <div class="col-sm-12 padding-left-no padding-right-no name-header" style="padding-left: 0px;"><h2 class="color-green">ข้อมูลพันธุ์พืช</h2></div>
       <form method="post" action="{{url "Plant.PostAddPlant"}}">
         <div class="info-plant-show">
           <div class="form-grop col-md-12" style="padding: 0px;">
-            {{with $field := field "plant.PlantName" .}}
+            {{with $field := field "seed.SeedName" .}}
             <div class="form-group col-md-12 padding-left-no padding-right-no">
-              <label>ชื่อพืช</label>
-              <input type="text" class="form-control" placeholder="กรอกชื่อพืช" name="{{$field.Name}}" value="{{$field.Flash}}">
+              <label>ชื่อพันธุ์พืช</label>
+              <input type="text" class="form-control" placeholder="กรอกชื่อพันธุ์พืช" name="{{$field.Name}}" value="{{$field.Flash}}">
               <span class="error">{{$field.Error}}</span>
             </div>
             {{end}}

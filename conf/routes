@@ -29,6 +29,8 @@ GET     /crops/product                                                          
 GET     /crops/board                                                                               Crops.Board
 GET     /plant/showplant                                                                           Plant.ShowPlant
 GET     /plant/addplant                                                                            Plant.AddPlant
+GET     /plant/showseed                                                                            Plant.ShowSeed
+GET     /plant/addseed                                                                             Plant.AddSeed
 GET     /management                                                                                Management.IndexManagement
 GET     /plan/addplan                                                                              Plan.AddCropPlan
 GET     /plan/addplanactivity                                                                      Plan.AddPlanActivity
