@@ -21,6 +21,10 @@ type ResPlan struct {
     Status      bool
     PlanData    *models.Plan
 }
+type ResSeed struct {
+    Status      bool
+    SeedData    *models.Seed
+}
 func (c Api) Index() revel.Result {
   var user *models.User
 	user = models.GetUserData("sittipong")
@@ -79,4 +83,20 @@ func (c Api) Plant(word string) revel.Result {
 func (c Api) SavePlantData(PlantName string) revel.Result {
   Result := models.SavePlant(PlantName);
   return c.RenderJson(Result)
+}
+
+//Seed (GET)
+func (c Api) Seed(skips int,plantname string,seedname string) revel.Result {
+    Result := models.GetSeed(skips,plantname,seedname)
+    var Res *ResSeed
+    if(Result.SeedId == ""){
+      Res = &ResSeed{Status: false}
+    }else{
+      Res = &ResSeed{Status: true,SeedData: Result}
+    }
+    return  c.RenderJson(Res)
+}
+//Seed (GET)
+func (c Api) Seeds(skips int) revel.Result {
+    return  c.RenderJson(models.GetAllSeeds(skips))
 }

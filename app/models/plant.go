@@ -20,6 +20,13 @@ type Seed struct { //สร้าง Struct ของ Seed
 	SeedId                                    bson.ObjectId `bson:"_id,omitempty"`
   Created_at,Updated_at                     time.Time
   PlantName,PlantId,SeedName                string
+  OwnerCompany                              *OwnerCompany
+}
+
+type OwnerCompany struct {
+  CompanyId                                 bson.ObjectId `bson:"_id"`
+  CompanyName,OwnerName                     string
+  Created_at,Updated_at                     time.Time
 }
 
 //GetAllPlants (GET) ฟังก์ชั่นสำหรับเรียกข้อมูลพืชทั้งหมด
@@ -68,7 +75,7 @@ func SavePlant(PlantName string) (result bool){
 }
 
 //GetAllSeeds (GET) ฟังก์ชั่นสำหรับเรียกข้อมูลพืชทั้งหมด
-func GetAllSeeds(skip int,plantname string) (results []Plant,err_query error) {
+func GetAllSeeds(skips int) (results []Plant) {
   session, err := mgo.Dial(ip_mgo)
   if err != nil {
       panic(err)
@@ -76,11 +83,11 @@ func GetAllSeeds(skip int,plantname string) (results []Plant,err_query error) {
   defer session.Close()
   session.SetMode(mgo.Monotonic, true)
   qmgo := session.DB("chaokaset").C("seeds")
-	err_query = qmgo.Find(bson.M{}).Limit(10).Skip(skip).Sort("-updated_at").All(&results) //คิวรี่จาก status เป็น 1 หรือ แปลงที่ไช้งานอยู่
-  return results,err_query
+	qmgo.Find(bson.M{}).Limit(10).Skip(skips).All(&results) //คิวรี่จาก status เป็น 1 หรือ แปลงที่ไช้งานอยู่
+  return results
 }
 //GetSeed (GET) ฟังก์ชั่นสำหรับเรียกข้อมูลพืชทั้งหมด
-func GetSeed(word string,plantname string) *Seed {
+func GetSeed(skips int,plantname string,seedname string) *Seed {
   session, err := mgo.Dial(ip_mgo)
   if err != nil {
       panic(err)
@@ -90,13 +97,13 @@ func GetSeed(word string,plantname string) *Seed {
   session.SetMode(mgo.Monotonic, true)
   qmgo := session.DB("chaokaset").C("seeds")
   result := Seed{}
-	qmgo.Find(bson.M{"plantname": word}).One(&result)
+	qmgo.Find(bson.M{"plantname": plantname}).One(&result)
   seed = &Seed{PlantName: result.PlantName,PlantId: result.PlantId,Created_at: result.Created_at,Updated_at: result.Updated_at}
   return seed
 }
 
 //SaveSeed (POST)
-func SaveSeed(Seed string) (result bool){
+func SaveSeed(seedname string,plantname string) (result bool){
     session, err := mgo.Dial(ip_mgo)
     if err != nil {
         panic(err)
@@ -104,8 +111,8 @@ func SaveSeed(Seed string) (result bool){
     defer session.Close()
     session.SetMode(mgo.Monotonic, true)
     qmgo := session.DB("chaokaset").C("seeds")
-    err = qmgo.Insert(&Seed{})
-    //err = qmgo.Insert(&Seed{SeedName: "กข. 47",Created_at: time.Now(),Updated_at: time.Now()})
+    var ownerCompany *OwnerCompany
+    err = qmgo.Insert(&Seed{SeedName: seedname,PlantName: plantname,OwnerCompany: ownerCompany,Created_at: time.Now(),Updated_at: time.Now()})
     if err != nil {
       return false
     }else{

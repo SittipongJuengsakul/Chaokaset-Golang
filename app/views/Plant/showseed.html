@@ -69,7 +69,7 @@
 <script type="text/javascript">
   var app = angular.module('ChaokasetApp', ['ngSanitize']);
   app.controller('searchShowPlant', function($scope, $http) {
-      $http.get(site_url+"/apiv1_0/plants/0")
+      $http.get(site_url+"/apiv1_0/seeds/0/ข้าว")
       .then(function(response) {
         $scope.plants = response.data;
       });

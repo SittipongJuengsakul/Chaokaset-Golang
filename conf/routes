@@ -47,6 +47,8 @@ GET     /apiv1_0/register/:Username/:Password/:Prefix/:Name/:Lname/:Tel         
 GET     /apiv1_0/plans/:skip                                                                       Api.Plans
 GET     /apiv1_0/plants/:skip                                                                      Api.Plants
 GET     /apiv1_0/plant/:word                                                                       Api.Plant
+GET     /apiv1_0/seed/:skip/:plantname/:seedname                                                   Api.Seed
+GET     /apiv1_0/seeds/:skip                                                                       Api.Seeds
 
 
 
