@@ -8,8 +8,17 @@
   <div class="col-sm-12 container-box" ng-app="ChaokasetApp" ng-controller="NewShowPlan">
     <div class="col-sm-12 container-box-content" >
       <div class="col-sm-12 padding-left-no padding-right-no name-header" style="padding-left: 0px;"><h2 class="color-green">ข้อมูลพันธุ์พืช</h2></div>
-      <form method="post" action="{{url "Plant.PostAddPlant"}}">
+      <form method="post" action="{{url "Plant.PostAddSeed"}}">
         <div class="info-plant-show">
+          <div class="form-grop col-md-12" style="padding: 0px;">
+            {{with $field := field "plant.PlantName" .}}
+            <div class="form-group col-md-12 padding-left-no padding-right-no">
+              <label>พืช</label>
+              <input type="text" class="form-control" placeholder="กรอกชื่อพันธุ์พืช" name="{{$field.Name}}" value="{{$field.Flash}}">
+              <span class="error">{{$field.Error}}</span>
+            </div>
+            {{end}}
+          </div>
           <div class="form-grop col-md-12" style="padding: 0px;">
             {{with $field := field "seed.SeedName" .}}
             <div class="form-group col-md-12 padding-left-no padding-right-no">
