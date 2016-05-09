@@ -138,3 +138,14 @@ func (c Api) RemoveSeed(idseed string) revel.Result {
 func (c Api) Province(provinceid string) revel.Result {
     return  c.RenderJson(models.GetProvinces(provinceid))
 }
+
+//------------------ แผนการเพาะปลูก -------------------
+//Crop (GET)
+func (c Api) AllCrops(skip int) revel.Result {
+  Result,err := models.GetAllCrops(0)
+  if err == true{
+    return  c.RenderJson(Result)
+  }else{
+    return c.RenderJson(Result)
+  }
+}

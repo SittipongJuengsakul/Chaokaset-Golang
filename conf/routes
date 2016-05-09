@@ -55,6 +55,7 @@ GET     /apiv1_0/seeds/:skip/:plantid                                           
 GET     /apiv1_0/seeds/:skip                                                                       Api.Seeds
 POST    /apiv1_0/removeseed/:idseed                                                                Api.RemoveSeed
 GET     /apiv1_0/province/:idprovince                                                              Api.Province
+GET     /apiv1_0/allcrops/:skip                                                                    Api.AllCrops
 
 
 

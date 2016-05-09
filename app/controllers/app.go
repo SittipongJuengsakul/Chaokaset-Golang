@@ -255,6 +255,16 @@ func (c Crops) Account() revel.Result {
 func (c Crops) AddCrop() revel.Result {
 	return c.Render()
 }
+//PostAddCrop เพิ่มข้อมูลการเพาะปลูก
+func (c Crops) PostAddCrop(crop *models.Crop) revel.Result {
+  user := models.GetUserData(c.Session["username"])
+  result := models.SaveCrop(crop,user.Userid)
+  if result {
+    return c.Redirect(Crops.IndexCrops)
+  } else{
+    return c.Redirect(Crops.AddCrop)
+  }
+}
 //Problem แสดงข้อมูลการเพาะปลูก
 func (c Crops) Problem() revel.Result {
 	return c.Render()

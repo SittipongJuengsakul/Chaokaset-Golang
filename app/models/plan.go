@@ -20,7 +20,6 @@ type Plan struct { //สร้าง Struct ของ Plan
   Duration,Status,TypePlan                  int //TypePlan คือประเภทของแปลง 0 คือไหม่ 1 คือต่อเนื่องจากอันเดิม
   product,price                             float64
   ConfirmNum,LikeNum,ViewNum,UsedNum        int
-  //Like                                     *LogLikePlan
 }
 type Plans []Plan
 
