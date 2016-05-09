@@ -20,9 +20,10 @@ GET     /setting/user                                                           
 GET     /setting/security                                                                          Profile.SettingSecurity
 GET     /searchplant                                                                               Search.SearchPlant
 GET     /crops                                                                                     Crops.IndexCrops
+GET     /crops/disbled/:idcrop                                                                     Crops.DisbleCrop
 GET     /crops/add                                                                                 Crops.AddCrop
 GET     /crops/calendar                                                                            Crops.Calendar
-GET     /crops/management                                                                          Crops.Management
+GET     /crops/management/:idcrop                                                                  Crops.Management
 GET     /crops/account                                                                             Crops.Account
 GET     /crops/problem                                                                             Crops.Problem
 GET     /crops/product                                                                             Crops.Product

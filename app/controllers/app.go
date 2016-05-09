@@ -236,12 +236,28 @@ func (c Profile) SettingSecurity() revel.Result {
 }
 //IndexCrops หน้าหลักของการจัดการการเพาะปลูก
 func (c Crops) IndexCrops() revel.Result {
-	return c.Render()
+  user := models.GetUserData(c.Session["username"])
+  allcrops,_ := models.GetAllCrops(0,user.Userid.Hex())
+	return c.Render(allcrops)
+}
+
+//IndexCrops หน้าหลักของการจัดการการเพาะปลูก
+func (c Crops) DisbleCrop(idcrop string) revel.Result {
+  str := models.DisableOneCrops(idcrop)
+  if str == true{
+    return c.Redirect(Crops.IndexCrops)
+  }else{
+    return c.Redirect(App.Index)
+  }
+
 }
 
 //Management แสดงข้อมูลการเพาะปลูก
-func (c Crops) Management() revel.Result {
-	return c.Render()
+func (c Crops) Management(idcrop string) revel.Result {
+  cropdata := models.GetOneCrops(idcrop)
+  plandata := models.GetPlans(cropdata.PlanId)
+  cropdataproduct := cropdata.Product*20.5
+	return c.Render(cropdata,plandata,cropdataproduct)
 }
 //Carlendar
 func (c Crops) Calendar() revel.Result {

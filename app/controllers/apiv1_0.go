@@ -154,3 +154,9 @@ func (c Api) OneCrop(cropid string) revel.Result {
   Result := models.GetOneCrops(cropid)
     return c.RenderJson(Result)
 }
+
+//OneCrop (GET)
+func (c Api) DisabledOneCrop(cropid string) revel.Result {
+  Result := models.DisableOneCrops(cropid)
+    return c.RenderJson(Result)
+}

@@ -71,3 +71,22 @@ func SaveCrop(crop *Crop,userid string) (result bool) {
        return true
      }
 }
+//SaveCrop (POST) บันทึกการเพาะปลูก
+func DisableOneCrops(idcrop string) (result bool) {
+     session, err := mgo.Dial(ip_mgo)
+     if err != nil {
+         panic(err)
+     }
+     defer session.Close()
+     session.SetMode(mgo.Monotonic, true)
+     //cropqry := bson.ObjectIdHex(cropid)
+     qmgo := session.DB("chaokaset").C("crops")
+    colQuerier := bson.M{"_id": bson.ObjectIdHex(idcrop)}
+    change := bson.M{"$set": bson.M{"status": 0, "Updated_at": time.Now()}}
+    err = qmgo.Update(colQuerier, change)
+     if err != nil {
+       return false
+     }else{
+       return true
+     }
+}
