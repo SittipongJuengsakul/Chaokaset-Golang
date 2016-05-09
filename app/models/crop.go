@@ -37,6 +37,22 @@ func GetAllCrops(skip int,userid string) (results []Crop,error bool) {
   return results,true
 }
 
+//GetPlans (GET) ฟังก์ชั่นสำหรับเรียกข้อมูลแผนการเพาะปลูก
+func GetOneCrops(cropid string) *Crop {
+  session, err := mgo.Dial(ip_mgo)
+  if err != nil {
+      panic(err)
+  }
+  defer session.Close()
+  var crop *Crop
+  session.SetMode(mgo.Monotonic, true)
+  qmgo := session.DB("chaokaset").C("crops")
+  result := Crop{}
+	qmgo.Find(bson.M{"status": 1,"_id": bson.ObjectIdHex(cropid)}).One(&result)
+  crop = &Crop{CropId: result.CropId,Status: result.Status,CropName: result.CropName,PlantId: result.PlantId,SeedId: result.SeedId,PlanId: result.PlanId,Plant: result.Plant,Seed: result.Seed,StartDate: result.StartDate,EndDate: result.EndDate,Duration: result.Duration,Province: result.Province,Aumphur: result.Aumphur,Tumbon: result.Tumbon,Product: result.Product,Price: result.Price,Address : result.Address}
+  return crop
+}
+
 //SaveCrop (POST) บันทึกการเพาะปลูก
 func SaveCrop(crop *Crop,userid string) (result bool) {
      session, err := mgo.Dial(ip_mgo)
