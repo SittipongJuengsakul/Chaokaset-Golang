@@ -111,12 +111,17 @@ func (c Api) Seed(skips int,plantname string,seedname string) revel.Result {
     return  c.RenderJson(Res)
 }
 //Seed (GET)
-func (c Api) Seeds(skips int) revel.Result {
-    return  c.RenderJson(models.GetAllSeeds(skips))
+func (c Api) Seeds(skips int,plantid string) revel.Result {
+    if plantid != ""{
+      return  c.RenderJson(models.GetAllSeeds(skips,plantid))
+    }else{
+      return  c.RenderJson(plantid)
+    }
+
 }
 
 //RemoveSeed (GET)
 func (c Api) RemoveSeed(idseed string) revel.Result {
   models.RemoveSeed(idseed);
-  return c.RenderJson(models.GetAllSeeds(0))
+  return c.RenderJson(models.GetAllSeeds(0,""))
 }

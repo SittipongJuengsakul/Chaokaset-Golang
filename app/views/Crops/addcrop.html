@@ -19,32 +19,36 @@
             </div>
             {{end}}
           </div>
-          {{with $field := field "plan.Plant" .}}
           <div class="form-grop col-md-12" style="padding: 0px;">
-            <div class="form-group col-md-4 padding-left-no">
-              <label>แผนการเพาะปลูก</label>
-              <select class="form-control" name="{{$field.Name}}">
-                 <option value="ข้าว">ข้าว</option>
-               </select>
-            </div>
-            {{end}}
             {{with $field := field "plan.Seed" .}}
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-4 padding-left-no">
               <label>พืช</label>
-              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" disabled>
+              <select class="form-control" name="{{$field.Name}}" ng-change="chooseplant(plant,plant.PlantName)" ng-model="modplant">
+                 <option ng-repeat="plant in plants" ng-bind="plant.PlantName" ng-value="plant.PlantId"></option>
+              </select>
             </div>
             {{end}}
             {{with $field := field "plan.Seed" .}}
             <div class="form-group col-md-4 padding-right-no">
               <label>พันธุ์พืช</label>
-              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" disabled>
+              <select class="form-control" name="{{$field.Name}}" ng-change="chooseseed(seed)" ng-model="modseed">
+                 <option ng-repeat="seed in seeds" ng-bind="seed.SeedName" ng-value="seed.SeedId"></option>
+              </select>
+            </div>
+            {{end}}
+            {{with $field := field "plan.Plant" .}}
+            <div class="form-group col-md-4">
+              <label>แผนการเพาะปลูก</label>
+              <select class="form-control" name="{{$field.Name}}" ng-change="chooseplan(plan)" ng-model="modplan">
+                 <option ng-repeat="plan in plans" ng-bind="plan.PlanName" ng-value="plan.PlanId"></option>
+              </select>
             </div>
             {{end}}
           <div class="form-grop col-md-12" style="padding: 0px;">
             {{with $field := field "plan.TypePlanOption" .}}
             <div class="form-group col-md-4 padding-left-no">
               <label>ประเภทของแผนการเพาะปลูก</label>
-              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" disabled>
+              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" disabled ng-model="modtypeplanname">
             </div>
             {{end}}
             {{with $field := field "plan.TypePlanOption" .}}
@@ -63,7 +67,7 @@
           <div class="form-grop col-md-12" style="padding: 0px;">
             {{with $field := field "plan.TypePlanOption" .}}
             <div class="form-group col-md-4 padding-left-no">
-              <label>จำนวนผลผลิต ต่อ ไร</label>
+              <label>จำนวนผลผลิต ต่อ ไร่</label>
               <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}">
             </div>
             {{end}}
@@ -119,10 +123,23 @@
 </div>
 <script type="text/javascript">
   var app = angular.module('ChaokasetApp', []);
-  app.controller('NewCrop', function($scope) {
+  app.controller('NewCrop', function($scope,$http) {
      $scope.durationsplan = 0;
       $scope.NewPlanOption = true;
       $scope.PlanOption = false;
+      $http.get(site_url+"/apiv1_0/plants/0")
+      .then(function(response) {
+        $scope.plants = response.data;
+        $http.get(site_url+"/apiv1_0/seeds/0")
+        .then(function(response) {
+          $scope.seeds = {};
+          $scope.seeds = response.data;
+          $http.get(site_url+"/apiv1_0/plans/0")
+          .then(function(response) {
+            $scope.plans = response.data;
+          });
+        });
+      });
       $scope.ShowNewPlanOption = function() {
           $scope.NewPlanOption = true
           $scope.PlanOption = false;
@@ -130,6 +147,18 @@
       $scope.ShowPlanOption = function() {
           $scope.PlanOption = true
           $scope.NewPlanOption = false;
+      }
+      $scope.chooseplant = function(id,at) {
+        $http.get("http://localhost:9000"+"/apiv1_0/seeds/0/"+$scope.modplant)
+        .then(function(response) {
+          $scope.seeds = response.data;
+        });
+      }
+      $scope.chooseseed = function(id) {
+
+      }
+      $scope.chooseplan = function(id) {
+
       }
   });
   app.directive('format', ['$filter', function ($filter) {

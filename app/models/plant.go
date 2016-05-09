@@ -90,7 +90,7 @@ func SavePlant(PlantName string) (result bool){
 }
 
 //GetAllSeeds (GET) ฟังก์ชั่นสำหรับเรียกข้อมูลพืชทั้งหมด
-func GetAllSeeds(skips int) (results []Seed) {
+func GetAllSeeds(skips int,plantid string) (results []Seed) {
   session, err := mgo.Dial(ip_mgo)
   if err != nil {
       panic(err)
@@ -98,7 +98,12 @@ func GetAllSeeds(skips int) (results []Seed) {
   defer session.Close()
   session.SetMode(mgo.Monotonic, true)
   qmgo := session.DB("chaokaset").C("seeds")
-	qmgo.Find(bson.M{}).Limit(10).Skip(skips).All(&results) //คิวรี่จาก status เป็น 1 หรือ แปลงที่ไช้งานอยู่
+  if plantid == ""{
+    qmgo.Find(bson.M{}).Limit(10).Skip(skips).All(&results)
+  }else{
+    qmgo.Find(bson.M{"plantid": plantid}).Limit(10).Skip(skips).All(&results)
+  }
+
   return results
 }
 //GetSeed (GET) ฟังก์ชั่นสำหรับเรียกข้อมูลพืชทั้งหมด

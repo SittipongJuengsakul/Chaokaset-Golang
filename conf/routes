@@ -50,7 +50,7 @@ GET     /apiv1_0/plan/:idplan                                                   
 GET     /apiv1_0/plants/:skip                                                                      Api.Plants
 GET     /apiv1_0/plant/:word                                                                       Api.Plant
 GET     /apiv1_0/seed/:skip/:plantname/:seedname                                                   Api.Seed
-GET     /apiv1_0/seed/:skip/:plantname                                                             Api.Seed
+GET     /apiv1_0/seeds/:skip/:plantid                                                              Api.Seeds
 GET     /apiv1_0/seeds/:skip                                                                       Api.Seeds
 POST    /apiv1_0/removeseed/:idseed                                                                Api.RemoveSeed
 
