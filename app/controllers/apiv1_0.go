@@ -63,6 +63,15 @@ func (c Api) Plans(skip int,word string) revel.Result {
     return c.RenderJson(Result)
   }
 }
+//Plan (GET)
+func (c Api) PlansAllPlants(skip int,idplant string,idseed string) revel.Result {
+  Result,err := models.GetAllPlansPlants(skip,idplant,idseed)
+  if err == true{
+    return  c.RenderJson(Result)
+  }else{
+    return c.RenderJson(Result)
+  }
+}
 
 //------------------ แผนการเพาะปลูก -------------------
 //Plan (GET)
