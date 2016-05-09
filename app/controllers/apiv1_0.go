@@ -126,11 +126,15 @@ func (c Api) Seeds(skips int,plantid string) revel.Result {
     }else{
       return  c.RenderJson(plantid)
     }
-
 }
 
 //RemoveSeed (GET)
 func (c Api) RemoveSeed(idseed string) revel.Result {
   models.RemoveSeed(idseed);
   return c.RenderJson(models.GetAllSeeds(0,""))
+}
+
+//Get District Province ProvinceId (GET)
+func (c Api) Province(provinceid string) revel.Result {
+    return  c.RenderJson(models.GetProvinces(provinceid))
 }

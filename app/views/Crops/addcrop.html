@@ -8,7 +8,7 @@
   <div class="col-sm-12 container-box" ng-app="ChaokasetApp" ng-controller="NewCrop">
     <div class="col-sm-12 container-box-content" >
       <div class="col-sm-12 padding-left-no padding-right-no name-header" style="padding-left: 0px;"><h2 class="color-green">ข้อมูลแผนการเพาะปลูก</h2></div>
-      <form method="post" action="{{url "Plan.PostAddCropPlan"}}">
+      <form method="post" action="{{url "Crops.PostAddCrop"}}">
         <div class="info-plant-show">
           <div class="form-grop col-md-12" style="padding: 0px;">
             {{with $field := field "plan.PlanName" .}}
@@ -51,33 +51,33 @@
               <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" disabled ng-model="modtypeplanname">
             </div>
             {{end}}
-            {{with $field := field "plan.TypePlanOption" .}}
+            {{with $field := field "plan.StartDate" .}}
             <div class="form-group col-md-4">
               <label>เริ่มต้นวันที่</label>
               <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="modstartdate">
             </div>
             {{end}}
-            {{with $field := field "plan.TypePlanOption" .}}
+            {{with $field := field "plan.EndDate" .}}
             <div class="form-group col-md-4 padding-right-no">
               <label>สิ้นสุดวันที่ (ตามแผน)</label>
-              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" disabled ng-model="modenddate">
+              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="modenddate">
             </div>
             {{end}}
           </div>
           <div class="form-grop col-md-12" style="padding: 0px;">
-            {{with $field := field "plan.TypePlanOption" .}}
+            {{with $field := field "plan.Duration" .}}
             <div class="form-group col-md-4 padding-left-no">
               <label>ระยะเวลาทำการเพาะปลูก</label>
               <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="modduration">
             </div>
             {{end}}
-            {{with $field := field "plan.TypePlanOption" .}}
+            {{with $field := field "plan.Price" .}}
             <div class="form-group col-md-4">
               <label>ราคาผลผลิต ต่อ กิโลกรัม</label>
               <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="modprice">
             </div>
             {{end}}
-            {{with $field := field "plan.TypePlanOption" .}}
+            {{with $field := field "plan.Product" .}}
             <div class="form-group col-md-4 padding-right-no">
               <label>จำนวนผลผลิต ต่อ ไร่</label>
               <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="modproduct">
@@ -85,35 +85,35 @@
             {{end}}
           </div>
           <div class="form-grop col-md-12" style="padding: 0px;">
-            {{with $field := field "plan.TypePlanOption" .}}
+            {{with $field := field "plan.Address" .}}
             <div class="form-group col-md-8 padding-left-no">
               <label>ที่อยู่แปลงเพาะปลูก</label>
               <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}">
             </div>
             {{end}}
-            {{with $field := field "plan.TypePlanOption" .}}
+            {{with $field := field "plan.Province" .}}
             <div class="form-group col-md-4 padding-right-no">
               <label>จังหวัด</label>
-              <select class="form-control" name="{{$field.Name}}" ng-change="chooseplan(plan)" ng-model="modplan">
-                 <option ng-repeat="plan in plans" ng-bind="plan.PlanName" ng-value="plan.PlanId"></option>
+              <select class="form-control" name="{{$field.Name}}">
+                 <option value="ชลบุรี">ชลบุรี</option>
               </select>
             </div>
             {{end}}
           </div>
           <div class="form-grop col-md-12" style="padding: 0px;">
-            {{with $field := field "plan.TypePlanOption" .}}
+            {{with $field := field "plan.Aumphur" .}}
             <div class="form-group col-md-6 padding-left-no">
               <label>อำเภอ</label>
-              <select class="form-control" name="{{$field.Name}}" ng-change="chooseplan(plan)" ng-model="modplan">
-                 <option ng-repeat="plan in plans" ng-bind="plan.PlanName" ng-value="plan.PlanId"></option>
+              <select class="form-control" name="{{$field.Name}}">
+                 <option value="เมือง">เมือง</option>
               </select>
             </div>
             {{end}}
-            {{with $field := field "plan.TypePlanOption" .}}
+            {{with $field := field "plan.Tumbon" .}}
             <div class="form-group col-md-6 padding-right-no">
               <label>ตำบล</label>
-              <select class="form-control" name="{{$field.Name}}" ng-change="chooseplan(plan)" ng-model="modplan">
-                 <option ng-repeat="plan in plans" ng-bind="plan.PlanName" ng-value="plan.PlanId"></option>
+              <select class="form-control" name="{{$field.Name}}">
+                 <option value="แสนสุข">แสนสุข</option>
               </select>
             </div>
             {{end}}
@@ -172,8 +172,6 @@
           $http.get(url)
           .then(function(response) {
             $scope.plandata = response.data;
-            console.log(response.data);
-            console.log($scope.plandata[0].PlanName);
             $scope.modtypeplanname = $scope.plandata[0].PlanName;
             $scope.modduration = $scope.plandata[0].Duration;
             $scope.modproduct = $scope.plandata[0].Product;
@@ -194,8 +192,6 @@
             $scope.modproduct = "";
             $scope.modprice = "";
             $scope.plandata = response.data;
-            console.log(response.data);
-            console.log($scope.plandata[0].PlanName);
             $scope.modtypeplanname = $scope.plandata[0].PlanName;
             $scope.modduration = $scope.plandata[0].Duration;
             $scope.modproduct = $scope.plandata[0].Product;
@@ -204,22 +200,16 @@
         });
       }
       $scope.chooseplan = function(id) {
-        alert($scope.modplan);
-        var url = site_url+"/apiv1_0/planid/0/"+$scope.modplan;
-        alert(url);
+        var url = "http://localhost:9000"+"/apiv1_0/planid/"+$scope.modplan;
         $http.get(url)
         .then(function(response) {
           $scope.modtypeplanname = "";
           $scope.modduration = "";
           $scope.modproduct = "";
           $scope.modprice = "";
-          $scope.plandata = response.data;
-          console.log(response.data);
-          console.log($scope.plandata[0].PlanName);
-          $scope.modtypeplanname = $scope.plandata[0].PlanName;
-          $scope.modduration = $scope.plandata[0].Duration;
-          $scope.modproduct = $scope.plandata[0].Product;
-          $scope.modprice = $scope.plandata[0].Price;
+          $scope.plandata = response.PlanData;
+          console.log(response);
+          console.log($scope.plandata.PlanName);
         });
       }
   });
