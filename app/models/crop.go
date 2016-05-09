@@ -64,7 +64,7 @@ func SaveCrop(crop *Crop,userid string) (result bool) {
      qmgo := session.DB("chaokaset").C("crops")
      plantnames := GetPlantId(crop.PlantId)
      seednames := GetSeedId(crop.SeedId)
-     err = qmgo.Insert(&Crop{UserId : userid,Status: 1,CropName: crop.CropName,PlantId: crop.PlantId,SeedId: crop.SeedId,PlanId: crop.PlanId,Plant: plantnames.PlantName,Seed: seednames.SeedName,StartDate: crop.StartDate,EndDate: crop.EndDate,Duration: crop.Duration,Province: crop.Province,Aumphur: crop.Aumphur,Tumbon: crop.Tumbon,Product: crop.Product,Price: crop.Price,Address : crop.Address})
+     err = qmgo.Insert(&Crop{Created_at: time.Now(),Updated_at: time.Now(),UserId : userid,Status: 1,CropName: crop.CropName,PlantId: crop.PlantId,SeedId: crop.SeedId,PlanId: crop.PlanId,Plant: plantnames.PlantName,Seed: seednames.SeedName,StartDate: crop.StartDate,EndDate: crop.EndDate,Duration: crop.Duration,Province: crop.Province,Aumphur: crop.Aumphur,Tumbon: crop.Tumbon,Product: crop.Product,Price: crop.Price,Address : crop.Address})
      if err != nil {
        return false
      }else{

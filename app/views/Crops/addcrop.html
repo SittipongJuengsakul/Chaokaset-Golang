@@ -1,6 +1,10 @@
 {{set . "title" "เพิ่มแปลงเพาะปลูก"}}
 {{template "Templates/header.html" .}}
 {{template "Templates/preloader.html" .}}
+<!-- Include Date Range Picker -->
+<script src="/public/js/moment.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
 <div class="chaokaset-container-verticle" id="chaokaset-loader" style="display: none;">
   <div class="col-sm-12 varticle-header-box">
     <h1>เพิ่มแปลงเพาะปลูก</h1>
@@ -51,6 +55,28 @@
               <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" disabled ng-model="modtypeplanname">
             </div>
             {{end}}
+            <script type="text/javascript">
+            $(function() {
+              $('input[name="crop.StartDate"]').daterangepicker({
+                   locale: {
+                        format: 'DD MMMM YYYY',
+
+                    },
+                   singleDatePicker: true,
+                   showDropdowns: true
+               });
+
+               $('input[name="crop.EndDate"]').daterangepicker({
+                    startDate: moment().add(120, 'days'),
+                    locale: {
+                         format: 'DD MMMM YYYY',
+
+                     },
+                    singleDatePicker: true,
+                    showDropdowns: true
+                });
+            });
+            </script>
             {{with $field := field "crop.StartDate" .}}
             <div class="form-group col-md-4">
               <label>เริ่มต้นวันที่</label>
