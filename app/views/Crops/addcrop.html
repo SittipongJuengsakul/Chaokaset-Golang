@@ -142,6 +142,17 @@
           $http.get(site_url+"/apiv1_0/plan/"+$scope.plants[0].PlantId+"/"+$scope.seeds[0].SeedId)
           .then(function(response) {
             $scope.plans = response.data;
+            var url = site_url+"/apiv1_0/plan/0/"+$scope.seeds[0].SeedId;
+            $http.get(url)
+            .then(function(response) {
+              $scope.plandata = response.data;
+              console.log(response.data);
+              console.log($scope.plandata[0].PlanName);
+              $scope.modtypeplanname = $scope.plandata[0].PlanName;
+              $scope.modduration = $scope.plandata[0].Duration;
+              $scope.modproduct = $scope.plandata[0].Product;
+              $scope.modprice = $scope.plandata[0].Price;
+            });
           });
         });
       });
@@ -157,23 +168,59 @@
         $http.get(site_url+"/apiv1_0/seeds/0/"+$scope.modplant)
         .then(function(response) {
           $scope.seeds = response.data;
-          var url = site_url+"/apiv1_0/plan/"+$scope.modplant+"/"+$scope.seeds[0].SeedId;
+          var url = site_url+"/apiv1_0/plan/0/"+$scope.modseed;
           $http.get(url)
           .then(function(response) {
-            $scope.plans = response.data;
+            $scope.plandata = response.data;
+            console.log(response.data);
+            console.log($scope.plandata[0].PlanName);
+            $scope.modtypeplanname = $scope.plandata[0].PlanName;
+            $scope.modduration = $scope.plandata[0].Duration;
+            $scope.modproduct = $scope.plandata[0].Product;
+            $scope.modprice = $scope.plandata[0].Price;
           });
         });
       }
       $scope.chooseseed = function(id) {
         var url = site_url+"/apiv1_0/plan/"+$scope.modplant+"/"+$scope.modseed;
-        alert(url);
         $http.get(url)
         .then(function(response) {
           $scope.plans = response.data;
+          var url = site_url+"/apiv1_0/plan/0/"+$scope.modseed;
+          $http.get(url)
+          .then(function(response) {
+            $scope.modtypeplanname = "";
+            $scope.modduration = "";
+            $scope.modproduct = "";
+            $scope.modprice = "";
+            $scope.plandata = response.data;
+            console.log(response.data);
+            console.log($scope.plandata[0].PlanName);
+            $scope.modtypeplanname = $scope.plandata[0].PlanName;
+            $scope.modduration = $scope.plandata[0].Duration;
+            $scope.modproduct = $scope.plandata[0].Product;
+            $scope.modprice = $scope.plandata[0].Price;
+          });
         });
       }
       $scope.chooseplan = function(id) {
-
+        alert($scope.modplan);
+        var url = site_url+"/apiv1_0/planid/0/"+$scope.modplan;
+        alert(url);
+        $http.get(url)
+        .then(function(response) {
+          $scope.modtypeplanname = "";
+          $scope.modduration = "";
+          $scope.modproduct = "";
+          $scope.modprice = "";
+          $scope.plandata = response.data;
+          console.log(response.data);
+          console.log($scope.plandata[0].PlanName);
+          $scope.modtypeplanname = $scope.plandata[0].PlanName;
+          $scope.modduration = $scope.plandata[0].Duration;
+          $scope.modproduct = $scope.plandata[0].Product;
+          $scope.modprice = $scope.plandata[0].Price;
+        });
       }
   });
   app.directive('format', ['$filter', function ($filter) {
