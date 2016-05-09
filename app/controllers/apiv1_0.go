@@ -141,8 +141,8 @@ func (c Api) Province(provinceid string) revel.Result {
 
 //------------------ แผนการเพาะปลูก -------------------
 //Crop (GET)
-func (c Api) AllCrops(skip int) revel.Result {
-  Result,err := models.GetAllCrops(0)
+func (c Api) AllCrops(skip int,userid string) revel.Result {
+  Result,err := models.GetAllCrops(0,userid)
   if err == true{
     return  c.RenderJson(Result)
   }else{

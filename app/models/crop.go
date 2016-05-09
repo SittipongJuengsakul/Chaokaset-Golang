@@ -25,7 +25,7 @@ type Crop struct {
 }
 
 //GetAllCrops (GET) ฟังก์ชั่นสำหรับเรียกข้อมูลแผนการเพาะปลูกทั้งหมด
-func GetAllCrops(skip int) (results []Crop,error bool) {
+func GetAllCrops(skip int,userid string) (results []Crop,error bool) {
   session, err := mgo.Dial(ip_mgo)
   if err != nil {
       panic(err)
@@ -33,7 +33,7 @@ func GetAllCrops(skip int) (results []Crop,error bool) {
   defer session.Close()
   session.SetMode(mgo.Monotonic, true)
   qmgo := session.DB("chaokaset").C("crops")
-	qmgo.Find(bson.M{"status": 1}).Skip(skip).Sort("-updated_at").All(&results) //คิวรี่จาก status เป็น 1 หรือ แปลงที่ไช้งานอยู่
+	qmgo.Find(bson.M{"status": 1,"userid": userid}).Skip(skip).All(&results) //คิวรี่จาก status เป็น 1 หรือ แปลงที่ไช้งานอยู่
   return results,true
 }
 

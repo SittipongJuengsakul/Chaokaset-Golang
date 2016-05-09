@@ -258,7 +258,7 @@ func (c Crops) AddCrop() revel.Result {
 //PostAddCrop เพิ่มข้อมูลการเพาะปลูก
 func (c Crops) PostAddCrop(crop *models.Crop) revel.Result {
   user := models.GetUserData(c.Session["username"])
-  result := models.SaveCrop(crop,user.Userid)
+  result := models.SaveCrop(crop,user.Userid.Hex())
   if result {
     return c.Redirect(Crops.IndexCrops)
   } else{
