@@ -25,6 +25,10 @@ type ResSellDetail struct {
     Status      bool
     SellData    *models.SellDetail
 }
+type Address2 struct{
+  Lat             float64
+  Long            float64
+}
 
 func (c Api) Index() revel.Result {
   var user *models.User
@@ -96,13 +100,16 @@ func (c Api)  SearchProduct(Name string, Lat float64, Long float64) revel.Result
   return  c.RenderJson(R)
 }
 
-func (c Api)  AddProduct(name string,category string, price int, unit string, detail string, expire string, ownerId string) revel.Result {
-  err := models.AddSellData2(name,category,price,unit,detail,expire,ownerId)
+func (c Api)  AddProduct(name string,category string, price int, unit string, detail string, expire string, ownerId string, lat float64, long float64) revel.Result {
+ err := models.AddSellData2(name,category,price,unit,detail,expire,ownerId,lat,long)
   if err {
       return  c.RenderJson(true)
     } else {
       return  c.RenderJson(false)
     }
+   /*  var A *Address2
+  A = &Address2{Lat: lat,Long: long}
+    return c.RenderJson(A)*/
   
 }
 

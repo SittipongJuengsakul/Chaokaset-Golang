@@ -22,17 +22,14 @@ type Sell struct{
   PicUp           []byte
   Price           int
   Distance        float64
-  Address         Address
+  Address         *Address
   Unit            string
   Detail          string
   Expire          string
   TimeCreate      time.Time
   OwnerId         bson.ObjectId
 }
-type Address struct{
-  Lat             float64
-  Long            float64
-}
+
 type  Owner struct{
   Name,Lastname,Prefix,Tel       string
 }
@@ -43,7 +40,7 @@ type SellDetail struct{
   Category        string
   Pic             string
   Price           int
-  Address         Address
+  Address         *Address
   Unit            string
   Detail          string
   Expire          string
@@ -51,7 +48,10 @@ type SellDetail struct{
   OwnerId         bson.ObjectId
   Owner           Owner
 }
-
+type Address struct{
+  Lat             float64
+  Long            float64
+}
 type UserId struct{
   Userid          bson.ObjectId `bson:"_id,omitempty"`
 }
@@ -94,7 +94,7 @@ func GetSellData(Lat float64, Long float64) []Sell {
   return data*/
   var result []Sell
   
-  qmgo.Find(nil).Sort("price").All(&result)
+  qmgo.Find(nil).Sort("TimeCreate").All(&result)
   //&Sell{Sellid: result.Sellid,Name: result.Name,Category: result.Category,Price: result.Price}
    for i := range result {
       lat1 := Lat
@@ -121,6 +121,11 @@ func AddSellData(name string,category string, price int, unit string, detail str
   session.SetMode(mgo.Monotonic, true)
   qmgo := session.DB("chaokaset").C("sell")
   err = qmgo.Insert(&Sell{Name: name, Category: category, Price: price,TimeCreate: time.Now(), Detail: detail, Expire: expire, Unit: unit, OwnerId: ownerId,Pic: "public/img/pic/rice1.jpg"})
+ 
+  /*query := bson.M{"name": name, "category": category, "price": price,"TimeCreate": time.Now(), "detail": detail, "expire": expire, "unit": unit, "ownerId": ownerId, "pic": "public/img/pic/rice1.jpg"}
+  update := bson.M{"$push": bson.M{"address": bsonM.{"name": "cubs-killeen", "location": "some other Place"} }}
+
+  err = qmgo.Update(query, update)*/
   if err != nil {
     return false
   }else{
@@ -128,16 +133,25 @@ func AddSellData(name string,category string, price int, unit string, detail str
   }
 
 }
-func AddSellData2(name string,category string, price int, unit string, detail string, expire string, ownerId string) (result bool) {
+func AddSellData2(name string,category string, price int, unit string, detail string, expire string, ownerId string, lat float64, long float64) (result bool) {
   session, err := mgo.Dial("127.0.0.1")
   if err != nil {
       panic(err)
   }
   defer session.Close()
+  var  A *Address
+  A = &Address{Lat: lat,Long: long}
 
   session.SetMode(mgo.Monotonic, true)
   qmgo := session.DB("chaokaset").C("sell")
-  err = qmgo.Insert(&Sell{Name: name, Category: category, Price: price,TimeCreate: time.Now(), Detail: detail, Expire: expire, Unit: unit, OwnerId: bson.ObjectIdHex(ownerId),Pic: "public/img/pic/rice1.jpg"})
+
+  err = qmgo.Insert(&Sell{Name: name, Category: category, Price: price,TimeCreate: time.Now(), Detail: detail, Expire: expire, Unit: unit, OwnerId: bson.ObjectIdHex(ownerId), Pic: "public/img/pic/rice1.jpg",Address: A})
+  
+  /*query := bson.M{"name": name, "ownerid": bson.ObjectIdHex(ownerId),"price":price}
+  update := bson.M{"$push": bson.M{"address": bsonM.{"lat": lat,"long": long} }}
+  
+  err = qmgo.Update(query, update)*/
+ 
   if err != nil {
     return false
   }else{
@@ -237,6 +251,8 @@ func GetUserid(username string) *UserId {
   //user = &SellDetail{Sellid:result.Sellid, Name:result.Name, Category:result.Category, Pic:result.Pic, Price:result.Price, Address.result.Address }
   return result
 }
+
+
 
 
 
