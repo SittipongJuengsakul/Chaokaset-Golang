@@ -157,10 +157,17 @@
         $http.get(site_url+"/apiv1_0/seeds/0/"+$scope.modplant)
         .then(function(response) {
           $scope.seeds = response.data;
+          var url = site_url+"/apiv1_0/plan/"+$scope.modplant+"/"+$scope.seeds[0].SeedId;
+          $http.get(url)
+          .then(function(response) {
+            $scope.plans = response.data;
+          });
         });
       }
       $scope.chooseseed = function(id) {
-        $http.get(site_url+"/apiv1_0/plan/"+$scope.modplant+"/"+$scope.modseed)
+        var url = site_url+"/apiv1_0/plan/"+$scope.modplant+"/"+$scope.modseed;
+        alert(url);
+        $http.get(url)
         .then(function(response) {
           $scope.plans = response.data;
         });

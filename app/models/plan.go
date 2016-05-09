@@ -54,7 +54,7 @@ func GetAllPlansPlants(skip int,plantid string,seedid string) (results []Plan,er
   //var plans *Plan
   session.SetMode(mgo.Monotonic, true)
   qmgo := session.DB("chaokaset").C("cropplans")
-	qmgo.Find(bson.M{"status": 1,"plantid" : plantid,"seedid" : seedid}).Sort("-updated_at").All(&results) //คิวรี่จาก status เป็น 1 หรือ แปลงที่ไช้งานอยู่
+	qmgo.Find(bson.M{"status": 1,"seedid" : seedid}).Sort("-updated_at").All(&results) //คิวรี่จาก status เป็น 1 หรือ แปลงที่ไช้งานอยู่
   //plans = &Plan{PlanId: result.PlanId,Created_at: result.Created_at,Updated_at: result.Updated_at,PlanName: result.PlanName,Plant: result.Plant,Seed: result.Seed,OldPlanId: result.OldPlanId,Description: result.Description,Owner: result.Owner,OwnerCompany: result.OwnerCompany,Duration: result.Duration,TypePlan : result.TypePlan,ConfirmNum: result.ConfirmNum,LikeNum: result.LikeNum,ViewNum: result.ViewNum,UsedNum: result.UsedNum}
   return results,true
 }
