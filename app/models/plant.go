@@ -126,6 +126,22 @@ func GetSeed(skips int,plantname string,seedname string) *Seed {
   return seed
 }
 
+//GetSeed (GET) ฟังก์ชั่นสำหรับเรียกข้อมูลพืชทั้งหมด
+func GetSeedId(seedid string) *Seed {
+  session, err := mgo.Dial(ip_mgo)
+  if err != nil {
+      panic(err)
+  }
+  defer session.Close()
+  var seed *Seed
+  session.SetMode(mgo.Monotonic, true)
+  qmgo := session.DB("chaokaset").C("seeds")
+  result := Seed{}
+  qmgo.Find(bson.M{"_id": bson.ObjectIdHex(seedid)}).One(&result)
+  seed = &Seed{SeedId: result.SeedId,SeedName: result.SeedName,PlantName: result.PlantName,PlantId: result.PlantId,Created_at: result.Created_at,Updated_at: result.Updated_at}
+  return seed
+}
+
 //SaveSeed (POST)
 func SaveSeed(seedname string,plantid string,plantname string) (result bool){
     session, err := mgo.Dial(ip_mgo)

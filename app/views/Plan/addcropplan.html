@@ -19,21 +19,21 @@
             </div>
             {{end}}
           </div>
-          {{with $field := field "plan.Plant" .}}
+          {{with $field := field "plan.PlantId" .}}
           <div class="form-grop col-md-12" style="padding: 0px;">
             <div class="form-group col-md-4 padding-left-no">
               <label>ชนิดพืช</label>
-              <select class="form-control" name="{{$field.Name}}">
-                 <option value="ข้าว">ข้าว</option>
-               </select>
+              <select class="form-control" name="{{$field.Name}}" ng-change="chooseplant(plant,plant.PlantName)" ng-model="modplant">
+                 <option ng-repeat="plant in plants" ng-bind="plant.PlantName" ng-value="plant.PlantId"></option>
+              </select>
             </div>
             {{end}}
-            {{with $field := field "plan.Seed" .}}
+            {{with $field := field "plan.SeedId" .}}
             <div class="form-group col-md-4">
               <label>พันธุ์พืช</label>
-              <select class="form-control" name="{{$field.Name}}">
-                 <option value="กข. 47">กข. 47</option>
-               </select>
+              <select class="form-control" name="{{$field.Name}}" ng-change="chooseseed(seed)" ng-model="modseed">
+                 <option ng-repeat="seed in seeds" ng-bind="seed.SeedName" ng-value="seed.SeedId"></option>
+              </select>
             </div>
             {{end}}
             {{with $field := field "plan.Duration" .}}
@@ -104,7 +104,7 @@
 </div>
 <script type="text/javascript">
   var app = angular.module('ChaokasetApp', []);
-  app.controller('NewShowPlan', function($scope) {
+  app.controller('NewShowPlan', function($scope,$http) {
      $scope.durationsplan = 0;
       $scope.NewPlanOption = true;
       $scope.PlanOption = false;
@@ -115,6 +115,20 @@
       $scope.ShowPlanOption = function() {
           $scope.PlanOption = true
           $scope.NewPlanOption = false;
+      }
+      $http.get(site_url+"/apiv1_0/plants/0")
+      .then(function(response) {
+        $scope.plants = response.data;
+        $http.get(site_url+"/apiv1_0/seeds/0")
+        .then(function(response) {
+          $scope.seeds = response.data;
+        });
+      });
+      $scope.chooseplant = function(id,at) {
+        $http.get("http://localhost:9000"+"/apiv1_0/seeds/0/"+$scope.modplant)
+        .then(function(response) {
+          $scope.seeds = response.data;
+        });
       }
   });
   app.directive('format', ['$filter', function ($filter) {

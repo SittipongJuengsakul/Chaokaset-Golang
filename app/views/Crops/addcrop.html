@@ -54,33 +54,33 @@
             {{with $field := field "plan.TypePlanOption" .}}
             <div class="form-group col-md-4">
               <label>เริ่มต้นวันที่</label>
-              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}">
+              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="modstartdate">
             </div>
             {{end}}
             {{with $field := field "plan.TypePlanOption" .}}
             <div class="form-group col-md-4 padding-right-no">
               <label>สิ้นสุดวันที่ (ตามแผน)</label>
-              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" disabled>
+              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" disabled ng-model="modenddate">
             </div>
             {{end}}
           </div>
           <div class="form-grop col-md-12" style="padding: 0px;">
             {{with $field := field "plan.TypePlanOption" .}}
             <div class="form-group col-md-4 padding-left-no">
-              <label>จำนวนผลผลิต ต่อ ไร่</label>
-              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}">
+              <label>ระยะเวลาทำการเพาะปลูก</label>
+              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="modduration">
             </div>
             {{end}}
             {{with $field := field "plan.TypePlanOption" .}}
             <div class="form-group col-md-4">
               <label>ราคาผลผลิต ต่อ กิโลกรัม</label>
-              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}">
+              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="modprice">
             </div>
             {{end}}
             {{with $field := field "plan.TypePlanOption" .}}
             <div class="form-group col-md-4 padding-right-no">
               <label>จำนวนผลผลิต ต่อ ไร่</label>
-              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}">
+              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="modproduct">
             </div>
             {{end}}
           </div>
@@ -93,8 +93,10 @@
             {{end}}
             {{with $field := field "plan.TypePlanOption" .}}
             <div class="form-group col-md-4 padding-right-no">
-              <label>ตำบล</label>
-              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}">
+              <label>จังหวัด</label>
+              <select class="form-control" name="{{$field.Name}}" ng-change="chooseplan(plan)" ng-model="modplan">
+                 <option ng-repeat="plan in plans" ng-bind="plan.PlanName" ng-value="plan.PlanId"></option>
+              </select>
             </div>
             {{end}}
           </div>
@@ -102,13 +104,17 @@
             {{with $field := field "plan.TypePlanOption" .}}
             <div class="form-group col-md-6 padding-left-no">
               <label>อำเภอ</label>
-              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}">
+              <select class="form-control" name="{{$field.Name}}" ng-change="chooseplan(plan)" ng-model="modplan">
+                 <option ng-repeat="plan in plans" ng-bind="plan.PlanName" ng-value="plan.PlanId"></option>
+              </select>
             </div>
             {{end}}
             {{with $field := field "plan.TypePlanOption" .}}
             <div class="form-group col-md-6 padding-right-no">
-              <label>จังหวัด</label>
-              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}">
+              <label>ตำบล</label>
+              <select class="form-control" name="{{$field.Name}}" ng-change="chooseplan(plan)" ng-model="modplan">
+                 <option ng-repeat="plan in plans" ng-bind="plan.PlanName" ng-value="plan.PlanId"></option>
+              </select>
             </div>
             {{end}}
           </div>
@@ -132,7 +138,6 @@
         $scope.plants = response.data;
         $http.get(site_url+"/apiv1_0/seeds/0")
         .then(function(response) {
-          $scope.seeds = {};
           $scope.seeds = response.data;
           $http.get(site_url+"/apiv1_0/plans/0")
           .then(function(response) {
@@ -155,7 +160,10 @@
         });
       }
       $scope.chooseseed = function(id) {
-
+        $http.get("http://localhost:9000"+"/apiv1_0/plans/"+$scope.modplant+"/"+$scope.modseed)
+        .then(function(response) {
+          $scope.plans = response.data;
+        });
       }
       $scope.chooseplan = function(id) {
 

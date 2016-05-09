@@ -15,6 +15,7 @@ type Plan struct { //สร้าง Struct ของ Plan
 	PlanId                                    bson.ObjectId `bson:"_id,omitempty"`
   Created_at,Updated_at                     time.Time
   PlanName,Plant,Seed,OldPlanId             string
+  PlantId,SeedId                            string
   Description,Owner,OwnerCompany            string
   Duration,Status,TypePlan                  int //TypePlan คือประเภทของแปลง 0 คือไหม่ 1 คือต่อเนื่องจากอันเดิม
   product,price                             float64
@@ -91,10 +92,12 @@ func SavePlan(plan *Plan) (result bool) {
      defer session.Close()
      session.SetMode(mgo.Monotonic, true)
      qmgo := session.DB("chaokaset").C("cropplans")
+     plantnames := GetPlantId(plan.PlantId)
+     seednames := GetSeedId(plan.SeedId)
      if plan.TypePlan == 1{
-       err = qmgo.Insert(&Plan{Created_at: time.Now(),Updated_at: time.Now(),PlanName: plan.PlanName,OwnerCompany: plan.OwnerCompany,Owner: plan.Owner,Plant: plan.Plant,Seed: plan.Seed,Duration: plan.Duration,Description: plan.Description,TypePlan: plan.TypePlan,OldPlanId : plan.OldPlanId,Status : 1,ViewNum: 1})
+       err = qmgo.Insert(&Plan{Created_at: time.Now(),Updated_at: time.Now(),PlantId: plan.PlantId,SeedId: plan.SeedId,PlanName: plan.PlanName,OwnerCompany: plan.OwnerCompany,Owner: plan.Owner,Plant: plantnames.PlantName,Seed: seednames.SeedName,Duration: plan.Duration,Description: plan.Description,TypePlan: plan.TypePlan,OldPlanId : plan.OldPlanId,Status : 1,ViewNum: 1})
      }else{
-       err = qmgo.Insert(&Plan{Created_at: time.Now(),Updated_at: time.Now(),PlanName: plan.PlanName,OwnerCompany: plan.OwnerCompany,Owner: plan.Owner,Plant: plan.Plant,Seed: plan.Seed,Duration: plan.Duration,Description: plan.Description,TypePlan: plan.TypePlan,OldPlanId: "",Status : 1,ViewNum: 1})
+       err = qmgo.Insert(&Plan{Created_at: time.Now(),Updated_at: time.Now(),PlantId: plan.PlantId,SeedId: plan.SeedId,PlanName: plan.PlanName,OwnerCompany: plan.OwnerCompany,Owner: plan.Owner,Plant: plantnames.PlantName,Seed: seednames.SeedName,Duration: plan.Duration,Description: plan.Description,TypePlan: plan.TypePlan,OldPlanId: "",Status : 1,ViewNum: 1})
      }
      if err != nil {
        return false
