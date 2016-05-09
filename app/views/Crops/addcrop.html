@@ -139,7 +139,7 @@
         $http.get(site_url+"/apiv1_0/seeds/0/"+$scope.plants[0].PlantId)
         .then(function(response) {
           $scope.seeds = response.data;
-          $http.get(site_url+"/apiv1_0/plans/0/"+$scope.plants[0].PlantId+$scope.seeds[0].SeedId)
+          $http.get(site_url+"/apiv1_0/plan/"+$scope.plants[0].PlantId+"/"+$scope.seeds[0].SeedId)
           .then(function(response) {
             $scope.plans = response.data;
           });
@@ -160,7 +160,7 @@
         });
       }
       $scope.chooseseed = function(id) {
-        $http.get(site_url+"/apiv1_0/plans/"+$scope.modplant+"/"+$scope.modseed)
+        $http.get(site_url+"/apiv1_0/plan/"+$scope.modplant+"/"+$scope.modseed)
         .then(function(response) {
           $scope.plans = response.data;
         });
