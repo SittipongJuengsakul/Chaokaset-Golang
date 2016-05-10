@@ -121,11 +121,7 @@ func (c Api) Seed(skips int,plantname string,seedname string) revel.Result {
 }
 //Seed (GET)
 func (c Api) Seeds(skips int,plantid string) revel.Result {
-    if plantid != ""{
-      return  c.RenderJson(models.GetAllSeeds(skips,plantid))
-    }else{
-      return  c.RenderJson(plantid)
-    }
+    return  c.RenderJson(models.GetAllSeeds(skips,plantid))
 }
 
 //RemoveSeed (GET)

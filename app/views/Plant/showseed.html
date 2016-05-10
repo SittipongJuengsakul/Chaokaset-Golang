@@ -70,9 +70,10 @@
 <script type="text/javascript">
   var app = angular.module('ChaokasetApp', ['ngSanitize']);
   app.controller('searchShowPlant', function($scope, $http) {
-      $scope.used = 100000000000.446;
-      $http.get(site_url+"/apiv1_0/seeds/0")
+      $scope.used = 0;
+      $http.get(site_url+"/apiv1_0/seeds/0/")
       .then(function(response) {
+        console.log(response.data);
         $scope.plants = response.data;
       });
       $scope.urlremove = site_url+"/apiv1_0/removeseed/";
