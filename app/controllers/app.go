@@ -254,6 +254,9 @@ func (c Crops) DisbleCrop(idcrop string) revel.Result {
 
 //Management แสดงข้อมูลการเพาะปลูก
 func (c Crops) Management(idcrop string) revel.Result {
+  if idcrop == ""{
+    return c.Redirect(Crops.IndexCrops)
+  }
   cropdata := models.GetOneCrops(idcrop)
   plandata := models.GetPlans(cropdata.PlanId)
   cropdataproduct := cropdata.Product*20.5
@@ -261,23 +264,48 @@ func (c Crops) Management(idcrop string) revel.Result {
 }
 //Carlendar
 func (c Crops) Calendar(idcrop string) revel.Result {
-	return c.Render()
+  if idcrop == ""{
+    return c.Redirect(Crops.IndexCrops)
+  }
+  cropdata := models.GetOneCrops(idcrop)
+  plandata := models.GetPlans(cropdata.PlanId)
+	return c.Render(cropdata,plandata)
 }
 //Account แสดงข้อมูลการเพาะปลูก
 func (c Crops) Account(idcrop string) revel.Result {
-	return c.Render()
+  if idcrop == ""{
+    return c.Redirect(Crops.IndexCrops)
+  }
+  cropdata := models.GetOneCrops(idcrop)
+  plandata := models.GetPlans(cropdata.PlanId)
+	return c.Render(cropdata,plandata)
 }
 //Problem แสดงข้อมูลการเพาะปลูก
 func (c Crops) Problem(idcrop string) revel.Result {
-	return c.Render()
+  if idcrop == ""{
+    return c.Redirect(Crops.IndexCrops)
+  }
+  cropdata := models.GetOneCrops(idcrop)
+  plandata := models.GetPlans(cropdata.PlanId)
+	return c.Render(cropdata,plandata)
 }
 //Problem แสดงข้อมูลการเพาะปลูก
 func (c Crops) Product(idcrop string) revel.Result {
-	return c.Render()
+  if idcrop == ""{
+    return c.Redirect(Crops.IndexCrops)
+  }
+  cropdata := models.GetOneCrops(idcrop)
+  plandata := models.GetPlans(cropdata.PlanId)
+	return c.Render(cropdata,plandata)
 }
 //Board แสดงข้อมูลการเพาะปลูก
 func (c Crops) Board(idcrop string) revel.Result {
-	return c.Render()
+  if idcrop == ""{
+    return c.Redirect(Crops.IndexCrops)
+  }
+  cropdata := models.GetOneCrops(idcrop)
+  plandata := models.GetPlans(cropdata.PlanId)
+	return c.Render(cropdata,plandata)
 }
 //AddCrop เพิ่มข้อมูลการเพาะปลูก
 func (c Crops) AddCrop() revel.Result {

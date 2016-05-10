@@ -22,7 +22,7 @@ GET     /searchplant                                                            
 GET     /crops                                                                                     Crops.IndexCrops
 GET     /crops/disbled/:idcrop                                                                     Crops.DisbleCrop
 GET     /crops/add                                                                                 Crops.AddCrop
-GET     /crops/calendar                                                                            Crops.Calendar
+GET     /crops/calendar/:idcrop                                                                    Crops.Calendar
 GET     /crops/management/:idcrop                                                                  Crops.Management
 GET     /crops/account/:idcrop                                                                     Crops.Account
 GET     /crops/problem/:idcrop                                                                     Crops.Problem
