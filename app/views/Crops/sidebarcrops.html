@@ -1,22 +1,22 @@
 <div class="col-sm-3" style="padding: 0px;">
   <ul class="nav bd-sidenav" style="padding-top: 20px;">
       <li class="active bd-sidenav-active">
-        <a href="/crops/management">จัดการการเพาะปลูก</a>
+        <a href="/crops/management/{{.cropdata.CropId.Hex}}">จัดการการเพาะปลูก</a>
       </li>
       <li class="">
-        <a href="/crops/calendar">ปฎิทินเพาะปลูก</a>
+        <a href="/crops/calendar/{{.cropdata.CropId.Hex}}">ปฎิทินเพาะปลูก</a>
       </li>
       <li class="">
-        <a href="/crops/account">บัญชีการเพาะปลูก</a>
+        <a href="/crops/account/{{.cropdata.CropId.Hex}}">บัญชีการเพาะปลูก</a>
       </li>
       <li class="">
-        <a href="/crops/problem">ปัญหาการเพาะปลูก</a>
+        <a href="/crops/problem/{{.cropdata.CropId.Hex}}">ปัญหาการเพาะปลูก</a>
       </li>
       <li class="">
-        <a href="/crops/product">จัดการผลผลิต</a>
+        <a href="/crops/product/{{.cropdata.CropId.Hex}}">จัดการผลผลิต</a>
       </li>
       <li class="">
-        <a href="/crops/board">กระดานข้อความ</a>
+        <a href="/crops/board/{{.cropdata.CropId.Hex}}">กระดานข้อความ</a>
       </li>
   </ul>
 </div>

@@ -24,10 +24,10 @@ GET     /crops/disbled/:idcrop                                                  
 GET     /crops/add                                                                                 Crops.AddCrop
 GET     /crops/calendar                                                                            Crops.Calendar
 GET     /crops/management/:idcrop                                                                  Crops.Management
-GET     /crops/account                                                                             Crops.Account
-GET     /crops/problem                                                                             Crops.Problem
-GET     /crops/product                                                                             Crops.Product
-GET     /crops/board                                                                               Crops.Board
+GET     /crops/account/:idcrop                                                                     Crops.Account
+GET     /crops/problem/:idcrop                                                                     Crops.Problem
+GET     /crops/product/:idcrop                                                                     Crops.Product
+GET     /crops/board/:idcrop                                                                       Crops.Board
 GET     /plant/showplant                                                                           Plant.ShowPlant
 GET     /plant/addplant                                                                            Plant.AddPlant
 GET     /plant/showseed                                                                            Plant.ShowSeed

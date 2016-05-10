@@ -260,11 +260,23 @@ func (c Crops) Management(idcrop string) revel.Result {
 	return c.Render(cropdata,plandata,cropdataproduct)
 }
 //Carlendar
-func (c Crops) Calendar() revel.Result {
+func (c Crops) Calendar(idcrop string) revel.Result {
 	return c.Render()
 }
 //Account แสดงข้อมูลการเพาะปลูก
-func (c Crops) Account() revel.Result {
+func (c Crops) Account(idcrop string) revel.Result {
+	return c.Render()
+}
+//Problem แสดงข้อมูลการเพาะปลูก
+func (c Crops) Problem(idcrop string) revel.Result {
+	return c.Render()
+}
+//Problem แสดงข้อมูลการเพาะปลูก
+func (c Crops) Product(idcrop string) revel.Result {
+	return c.Render()
+}
+//Board แสดงข้อมูลการเพาะปลูก
+func (c Crops) Board(idcrop string) revel.Result {
 	return c.Render()
 }
 //AddCrop เพิ่มข้อมูลการเพาะปลูก
@@ -280,18 +292,6 @@ func (c Crops) PostAddCrop(crop *models.Crop) revel.Result {
   } else{
     return c.Redirect(Crops.AddCrop)
   }
-}
-//Problem แสดงข้อมูลการเพาะปลูก
-func (c Crops) Problem() revel.Result {
-	return c.Render()
-}
-//Problem แสดงข้อมูลการเพาะปลูก
-func (c Crops) Product() revel.Result {
-	return c.Render()
-}
-//Board แสดงข้อมูลการเพาะปลูก
-func (c Crops) Board() revel.Result {
-	return c.Render()
 }
 //AddCropPlan เพิ่มข้อมูลแผนการเพาะปลูก
 func (c Plan) AddCropPlan() revel.Result {
