@@ -80,7 +80,7 @@ func (SellDetail *SellDetail) SetOwnerTel(data string) {
 }
 //GetSellData
 func GetSellData(Lat float64, Long float64) []Sell {
-  session, err := mgo.Dial("127.0.0.1")
+  session, err := mgo.Dial(ip_mgo)
   if err != nil {
       panic(err)
   }
@@ -112,7 +112,7 @@ func GetSellData(Lat float64, Long float64) []Sell {
 }
 
 func AddSellData(name string,category string, price int, unit string, detail string, expire string, ownerId bson.ObjectId) (result bool) {
-  session, err := mgo.Dial("127.0.0.1")
+  session, err := mgo.Dial(ip_mgo)
   if err != nil {
       panic(err)
   }
@@ -134,7 +134,7 @@ func AddSellData(name string,category string, price int, unit string, detail str
 
 }
 func AddSellData2(name string,category string, price int, unit string, detail string, expire string, ownerId string, lat float64, long float64) (result bool) {
-  session, err := mgo.Dial("127.0.0.1")
+  session, err := mgo.Dial(ip_mgo)
   if err != nil {
       panic(err)
   }
@@ -161,7 +161,7 @@ func AddSellData2(name string,category string, price int, unit string, detail st
 }
 
 func GetSellDetail(Idsell string) *SellDetail {
-  session, err := mgo.Dial("127.0.0.1")
+  session, err := mgo.Dial(ip_mgo)
   if err != nil {
       panic(err)
   }
@@ -183,7 +183,7 @@ func GetSellDetail(Idsell string) *SellDetail {
 
 
 func GetSearchSell(Name string,Lat float64,Long float64) []Sell {
-  session, err := mgo.Dial("127.0.0.1")
+  session, err := mgo.Dial(ip_mgo)
   if err != nil {
       panic(err)
   }
@@ -208,7 +208,7 @@ func GetSearchSell(Name string,Lat float64,Long float64) []Sell {
 }
 
 func GetOwnerData(id string) *Owner{
-  session, err := mgo.Dial("127.0.0.1")
+  session, err := mgo.Dial(ip_mgo)
   if err != nil {
       panic(err)
   }
@@ -222,7 +222,7 @@ func GetOwnerData(id string) *Owner{
 }
 
 func GetManageSell(id string) []Sell {
-  session, err := mgo.Dial("127.0.0.1")
+  session, err := mgo.Dial(ip_mgo)
   if err != nil {
       panic(err)
   }
@@ -237,7 +237,7 @@ func GetManageSell(id string) []Sell {
 }
 
 func GetUserid(username string) *UserId {
-  session, err := mgo.Dial("127.0.0.1")
+  session, err := mgo.Dial(ip_mgo)
   if err != nil {
       panic(err)
   }
