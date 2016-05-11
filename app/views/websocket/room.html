@@ -1,21 +1,12 @@
 {{set . "title" "ชุมชนชาวเกษตร"}}
-<!DOCTYPE html>
-
-<html>
-  <head>
-    <title>{{.title}}</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <link rel="stylesheet" type="text/css" media="screen" href="/public/stylesheets/main.css">
-    <link rel="shortcut icon" type="image/png" href="/public/images/favicon.png">
-    <script src="/public/javascripts/jquery-1.5.min.js" type="text/javascript" charset="utf-8"></script>
-    <script src="/public/javascripts/templating.js" type="text/javascript" charset="utf-8"></script>
-    <script src="/public/javascripts/jquery.scrollTo-min.js" type="text/javascript" charset="utf-8"></script>
-  </head>
-  <body>
-<h1>ห้องสนทนารวม {{.user}}
-  <a href="/">ออกจากห้องสนทนา</a></h1>
-
-<div id="thread">
+{{template "Templates/header.html" .}}
+{{template "Templates/preloader.html" .}}
+<script src="/public/js/templating.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/jquery.scrollTo-min.js" type="text/javascript" charset="utf-8"></script>
+<div id="chatroom" class="col-sm-12">
+  <div class="chaokaset-container-verticle" id="chaokaset-loader" style="display: none;">
+    <h1>ห้องสนทนารวม {{.user}}
+      <a href="/">ออกจากห้องสนทนา</a></h1>
   <script type="text/html" id="message_tmpl">
     <% if(event.Type == 'message') { %>
       <div class="message <%= event.User == '{{.user}}' ? 'you' : '' %>">
@@ -50,6 +41,7 @@
       </div>
     <% } %>
   </script>
+  </div>
 </div>
 
 <div id="newMessage">
@@ -63,8 +55,8 @@
   console.log(socket.url);
   // Display a message
   var display = function(event) {
-    $('#thread').append(tmpl('message_tmpl', {event: event}));
-    $('#thread').scrollTo('max')
+    $('#chatroom').append(tmpl('message_tmpl', {event: event}));
+    $('#chatroom').scrollTo('max')
   }
   // Message received on the socket
   socket.onmessage = function(event) {
@@ -82,5 +74,3 @@
     }
   })
 </script>
-</body>
-</html>
