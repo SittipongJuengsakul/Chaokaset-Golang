@@ -60,7 +60,7 @@
       </div>
       <script type="text/javascript">
         // Create a socket
-        var socket = new WebSocket('ws://'+'localhost:9000'+'/websocket/room/socket?user={{.user.Username}}')
+        var socket = new WebSocket('ws://'+window.location.host+'/websocket/room/socket?user={{.user.Username}}')
         // Display a message
         var display = function(event) {
           $('#chatroom').append(tmpl('message_tmpl', {event: event}));
