@@ -21,6 +21,10 @@ type ResPlan struct {
     Status      bool
     PlanData    *models.Plan
 }
+type ResPlans struct {
+    Status      bool
+    PlanData    []models.Plan
+}
 type ResSeed struct {
     Status      bool
     SeedData    *models.Seed
