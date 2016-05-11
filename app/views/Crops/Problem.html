@@ -1,23 +1,76 @@
 {{set . "title" "ปัญหาการเพาะปลูก"}}
 {{template "Templates/header.html" .}}
 {{template "Templates/preloader.html" .}}
+<script type="text/javascript">
+  $('#myModal').on('shown.bs.modal', function () {
+  $('#myInput').focus()
+})
+</script>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h2 class="color-green">เพิ่มปัญหาการเพาะปลูก</h2>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+        <div class="col-sm-12 container-box">
+          <div class="col-sm-12 container-box-content" >
+            <form method="post" action="{{url "Plant.PostAddSeed"}}">
+              <div class="info-plant-show">
+                <div class="form-grop col-md-12" style="padding: 0px;">
+                  {{with $field := field "Problem.TypeProblem" .}}
+                  <div class="form-group col-md-12 padding-left-no padding-right-no">
+                    <label>ประเภทปัญหา</label>
+                    <select class="form-control" name="{{$field.Name}}" id="testdata">
+                       <option value="1">ดิน</option>
+                       <option value="2">โรคพืช</option>
+                       <option value="3">ศัตรูพืช</option>
+                    </select>
+                  </div>
+                  {{end}}
+                </div>
+                <div class="form-grop col-md-12" style="padding: 0px;">
+                  {{with $field := field "Problem.Details" .}}
+                  <div class="form-group col-md-12 padding-left-no padding-right-no">
+                    <label>ชื่อรายการ</label>
+                    <input type="text" class="form-control" placeholder="กรอกชื่อพันธุ์พืช" name="{{$field.Name}}" value="{{$field.Flash}}">
+                    <span class="error">{{$field.Error}}</span>
+                  </div>
+                  {{end}}
+                </div>
+              </div>
+          </div>
+        </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-success">บันทึก</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="chaokaset-container-verticle" id="chaokaset-loader" style="display: none;">
   <div class="col-sm-12 varticle-header-box">
-    <h1>ไร่หน้าหมู่บ้าน (นายดำรง นะจ้ะ)</h1>
-    <h2 style="color: grey; font-size: 16px;">ระยะเวลาปลูก 180 วัน / ผลผลิต 800 ต่อ 1 ไร่ / สิ้นสุด 18 สิงหาคม 2559</h2>
+    <h1>{{.cropdata.CropName}} ({{.user.Username}})</h1>
+    <h2 style="color: grey; font-size: 16px;">ระยะเวลาปลูก {{.cropdata.Duration}} วัน / ผลผลิต {{.cropdata.Product}} ต่อ 1 ไร่ / สิ้นสุด {{.cropdata.EndDate}}</h2>
   </div>
-    <div class="col-sm-12 report-data">
-      <div class="col-sm-3"><p>ชนิดพืช : <small>ข้าว (ไรซ์เบอร์รี่)</small></p></div>
-      <div class="col-sm-5"><p>วันที่เริ่ม - วันที่สิ้นสุด : <small>3 มีนาคม 2559 - 18 สิงหาคม 2559</small></p></div>
-      <div class="col-sm-4"><p>ขนาดแปลงปลูก : <small>20 ไร่ 2 งาน 3 ตาราง</small></p></div>
-    </div>
+  <div class="col-sm-12 report-data">
+    <div class="col-sm-3"><p>ชนิดพืช : <small>{{.cropdata.Plant}} ({{.cropdata.Seed}})</small></p></div>
+    <div class="col-sm-5"><p>วันที่เริ่ม - วันที่สิ้นสุด : <small>{{.cropdata.StartDate}} - {{.cropdata.EndDate}}</small></p></div>
+    <div class="col-sm-4"><p>ขนาดแปลงปลูก : <small>20 ไร่ 2 งาน 3 ตาราง</small></p></div>
+  </div>
 {{template "Crops/sidebarcrops.html" .}}
   <div class="col-sm-9 container-box">
     <div class="col-sm-12 container-box-content">
       <div class="col-sm-5 name-header padding-left-no padding-right-no"><h2 class="color-green">ปัญหาการเพาะปลูก</h2></div>
       <div class="col-sm-7 name-header padding-left-no padding-right-no">
         <div class="col-sm-4">
-          <button type="button" name="button" class="btn btn-success">เพิ่มปัญหา</button>
+          <button type="button" name="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">เพิ่มปัญหา</button>
         </div>
         <div class="col-sm-8" style="padding: 0px;">
           <input type="text" name="SearchCrops" class="form-control" placeholder="ค้นหาปัญหา">
@@ -57,8 +110,8 @@
       <nav>
         <!-- แสดง 10 รายการ -->
         <ul class="pager">
-          <li class="pager-prev disabled"><a href="#">< ย้อนกลับ</a></li>
-          <li class="pager-next"><a href="#" style="width: 110px">ต่อไป ></a></li>
+          <li class="pager-prev disabled"><a href="#previous">< ย้อนกลับ</a></li>
+          <li class="pager-next"><a href="#next" style="width: 110px">ต่อไป ></a></li>
         </ul>
       </nav>
     </div>

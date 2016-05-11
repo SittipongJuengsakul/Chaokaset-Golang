@@ -1,0 +1,107 @@
+{{set . "title" "เพิ่มแผนการเพาะปลูก"}}
+{{template "Templates/header.html" .}}
+{{template "Templates/preloader.html" .}}
+<div class="chaokaset-container-verticle" id="chaokaset-loader" style="display: none;">
+  <div class="col-sm-12 varticle-header-box">
+    <h1>จัดการกิจกรรมการเพาะปลูก</h1>
+  </div>
+  <div class="col-sm-12 container-box" ng-app="ChaokasetApp" ng-controller="NewShowPlan">
+          <div class="col-sm-12 padding-left-no padding-right-no name-header" style="padding-left: 0px;"><h2 class="color-green">กิจกรรมการเพาะปลูก : แผนการเพาะปลูก A</h2></div>
+          <table class="table col-md-12">
+            <thead class="box-thead-show">
+              <tr>
+                <th width="15%">เริ่มวันที่</th>
+                <th width="15%">สิ้นสุดวันที่</th>
+                <th width="55%">รายละเอียด</th>
+                <th>ตัวเลือก</th>
+              </tr>
+            </thead>
+            <tbody class="box-tbody-show">
+              <tr>
+                <form ng-submit="SaveNewActivity(PlanActivitys)">
+                <td><input type="number" min="0" class="form-control" placeholder="เริ่มวันที่ (วัน)" ng-model="PlanActivitys.startdate" value="" id="IdStartDate" required></td>
+                <td><input type="number" min="0" class="form-control" placeholder="สิ้นสุดวันที่ (วัน)" ng-model="PlanActivitys.enddate" value="" id="IdEndDate" required></td>
+                <td><input type="text" class="form-control" placeholder="รายละเอียด" ng-model="PlanActivitys.details" value="" id="IdDetails" required></td>
+                <td><button type="submit" class="btn btn-success">เพิ่มข้อมูล</button></td>
+                </form>
+              </tr>
+              <tr ng-repeat="PlanActivity in PlanActivitys | orderBy:'startdate'">
+                <td ng-bind="PlanActivity.startdate">เริ่มวันที่</td>
+                <td ng-bind="PlanActivity.enddate">สิ้นสุดวันที่</td>
+                <td ng-bind="PlanActivity.details">รายละเอียด</td>
+                <td><button type="button" name="button" class="btn btn-warning" style="margin-right: 5px;" ng-click="">ข้อมูล</button><button type="button" name="button" class="btn btn-danger" ng-click="remove(PlanActivity.Id)">ลบ</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="width: 100%;text-align: center;">
+          <button type="button" class="btn btn-success col-sm-4 col-sm-offset-4">ตกลง</button>
+        </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  var app = angular.module('ChaokasetApp', []);
+  app.controller('NewShowPlan', function($scope) {
+      $scope.NewPlanOption = true;
+      $scope.PlanOption = false;
+      $scope.ShowNewPlanOption = function() {
+          $scope.NewPlanOption = true
+          $scope.PlanOption = false;
+      }
+      $scope.ShowPlanOption = function() {
+          $scope.PlanOption = true
+          $scope.NewPlanOption = false;
+      }
+
+      $scope.PlanActivitys = [
+        {
+            'Id' : 'a1',
+            'startdate': 0,
+            'enddate': 20,
+            'details':'เตรียมดิน'
+        },
+        {
+            'Id' : 'a2',
+            'startdate':10,
+            'enddate':200,
+            'details':'ตากดิน'
+        },
+        {
+            'Id' : 'a3',
+            'startdate':5000,
+            'enddate':200,
+            'details':'ตากดิน'
+        }
+        ];
+
+        $scope.SaveNewActivity= function(PlanActivitys){
+          if(PlanActivitys.startdate > PlanActivitys.enddate){
+            alert('วันที่สิ้นสุดน้อยกว่าวันที่เริ่มต้น !')
+            return 0;
+          }
+          else{
+            $scope.PlanActivitys.push({
+                  'Id': '2222aaa',
+                  'startdate': PlanActivitys.startdate,
+                  'enddate': PlanActivitys.enddate,
+                  'details': PlanActivitys.details,
+              });
+              document.getElementById("IdStartDate").value = "";
+              document.getElementById("IdEndDate").value = "";
+              document.getElementById("IdDetails").value = "";
+              $scope.PD = {};
+              $scope.orderOptions = $scope.PlanActivitys.startdate;
+          }
+        }
+        $scope.remove = function(IdRemover){
+            //$scope.PlanActivitys.splice(1, 1);
+            for (var i = 0; i < $scope.PlanActivitys.length; i++)
+            if ($scope.PlanActivitys[i].Id && $scope.PlanActivitys[i].Id === IdRemover) {
+                $scope.PlanActivitys.splice(i, 1);
+                break;
+            }
+        };
+  });
+</script>
+{{template "Templates/footer.html" .}}

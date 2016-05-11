@@ -59,6 +59,13 @@
           <span class="error">{{$field.Error}}</span>
         </div>
         {{end}}
+        {{with $field := field "user.Email" .}}
+        <div class="form-group">
+          <label>อีเมล</label>
+          <input type="text" class="form-control" placeholder="กรอกอีเมล์ เช่น sample@gmail.com" name="{{$field.Name}}" value="{{$field.Flash}}">
+          <span class="error">{{$field.Error}}</span>
+        </div>
+        {{end}}
         {{with $field := field "user.Role" .}}
         <div class="form-group">
           <label>คุณคือ</label>

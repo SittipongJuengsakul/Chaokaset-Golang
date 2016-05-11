@@ -42,6 +42,10 @@ type Howto struct {
 type Plan struct {
 	*revel.Controller
 }
+//Plant
+type Plant struct {
+	*revel.Controller
+}
 //Crops
 type Crops struct {
 	*revel.Controller
@@ -64,6 +68,7 @@ func init() {
   revel.InterceptFunc(setuser, revel.BEFORE, &Plan{})
   revel.InterceptFunc(setuser, revel.BEFORE, &Management{})
   revel.InterceptFunc(setuser, revel.BEFORE, &Farmer{})
+  revel.InterceptFunc(setuser, revel.BEFORE, &Plant{})
   revel.InterceptFunc(checksetuser, revel.BEFORE, &Crops{})
   revel.InterceptFunc(checksetuser, revel.BEFORE, &Profile{})
 }
@@ -185,7 +190,7 @@ func (c Auth) PostRegister(user *models.User,Validpassword string) revel.Result 
 	} else{
     user.HashedPassword, _ = bcrypt.GenerateFromPassword(
   		[]byte(user.Password), bcrypt.DefaultCost)
-    err := models.RegisterUserChaokaset(user.Username ,user.HashedPassword,user.Prefix ,user.Name ,user.Lastname ,user.Tel,user.Role);
+    err := models.RegisterUserChaokaset(user.Username ,user.HashedPassword,user.Prefix ,user.Name ,user.Lastname ,user.Tel,user.Role,user.Email);
     if err {
       c.Flash.Success("สมัครสมาชิกสำเร็จ")
       c.Session["username"] = user.Username
@@ -205,12 +210,23 @@ func (c Profile) ChangePassword() revel.Result {
 //EditUser for Create routing Page Register
 func (c Profile) EditUser() revel.Result {
   var user *models.UserData
-  user = models.GetEditUserData("sittipong")
+  user = models.GetEditUserData(c.Session["username"])
 	return c.Render(user)
 }
 //PostEditUser for Create routing Page Register
-func (c Profile) PostEditUser() revel.Result {
-	return c.Render()
+func (c Profile) PostEditUser(user *models.UserData) revel.Result {
+	user.ValidateUserData(c.Validation)
+  if c.Validation.HasErrors() {
+		c.Validation.Keep()
+		c.FlashParams()
+		return c.Redirect(Profile.EditUser)
+  }
+  result := models.EditUserData(c.Session["username"],user.Prefix,user.Name,user.Lastname,user.Tel,user.Email,user.Province,user.Tumbon,user.Aumphur,user.Zipcode,user.Address)
+  if result {
+    return c.Redirect(App.Index)
+  } else{
+    return c.Redirect(Profile.EditUser)
+  }
 }
 //SettingUser for Create routing Page Register
 func (c Profile) SettingUser() revel.Result {
@@ -222,35 +238,176 @@ func (c Profile) SettingSecurity() revel.Result {
 }
 //IndexCrops หน้าหลักของการจัดการการเพาะปลูก
 func (c Crops) IndexCrops() revel.Result {
-	return c.Render()
+  user := models.GetUserData(c.Session["username"])
+  allcrops,_ := models.GetAllCrops(0,user.Userid.Hex())
+	return c.Render(allcrops)
+}
+
+//IndexCrops หน้าหลักของการจัดการการเพาะปลูก
+func (c Crops) DisbleCrop(idcrop string) revel.Result {
+  str := models.DisableOneCrops(idcrop)
+  if str == true{
+    return c.Redirect(Crops.IndexCrops)
+  }else{
+    return c.Redirect(App.Index)
+  }
+
 }
 
 //Management แสดงข้อมูลการเพาะปลูก
-func (c Crops) Management() revel.Result {
-	return c.Render()
+func (c Crops) Management(idcrop string) revel.Result {
+  if idcrop == ""{
+    return c.Redirect(Crops.IndexCrops)
+  }
+  cropdata := models.GetOneCrops(idcrop)
+  plandata := models.GetPlans(cropdata.PlanId)
+  cropdataproduct := cropdata.Product*20.5
+	return c.Render(cropdata,plandata,cropdataproduct)
+}
+//Carlendar
+func (c Crops) Calendar(idcrop string) revel.Result {
+  if idcrop == ""{
+    return c.Redirect(Crops.IndexCrops)
+  }
+  cropdata := models.GetOneCrops(idcrop)
+  plandata := models.GetPlans(cropdata.PlanId)
+	return c.Render(cropdata,plandata)
 }
 //Account แสดงข้อมูลการเพาะปลูก
-func (c Crops) Account() revel.Result {
-	return c.Render()
+func (c Crops) Account(idcrop string) revel.Result {
+  if idcrop == ""{
+    return c.Redirect(Crops.IndexCrops)
+  }
+  cropdata := models.GetOneCrops(idcrop)
+  plandata := models.GetPlans(cropdata.PlanId)
+	return c.Render(cropdata,plandata)
+}
+//Problem แสดงข้อมูลการเพาะปลูก
+func (c Crops) Problem(idcrop string) revel.Result {
+  if idcrop == ""{
+    return c.Redirect(Crops.IndexCrops)
+  }
+  cropdata := models.GetOneCrops(idcrop)
+  plandata := models.GetPlans(cropdata.PlanId)
+	return c.Render(cropdata,plandata)
+}
+//Problem แสดงข้อมูลการเพาะปลูก
+func (c Crops) Product(idcrop string) revel.Result {
+  if idcrop == ""{
+    return c.Redirect(Crops.IndexCrops)
+  }
+  cropdata := models.GetOneCrops(idcrop)
+  plandata := models.GetPlans(cropdata.PlanId)
+	return c.Render(cropdata,plandata)
+}
+//Board แสดงข้อมูลการเพาะปลูก
+func (c Crops) Board(idcrop string) revel.Result {
+  if idcrop == ""{
+    return c.Redirect(Crops.IndexCrops)
+  }
+  cropdata := models.GetOneCrops(idcrop)
+  plandata := models.GetPlans(cropdata.PlanId)
+	return c.Render(cropdata,plandata)
 }
 //AddCrop เพิ่มข้อมูลการเพาะปลูก
 func (c Crops) AddCrop() revel.Result {
 	return c.Render()
 }
-//Problem แสดงข้อมูลการเพาะปลูก
-func (c Crops) Problem() revel.Result {
-	return c.Render()
-}
-//Problem แสดงข้อมูลการเพาะปลูก
-func (c Crops) Product() revel.Result {
-	return c.Render()
-}
-//Board แสดงข้อมูลการเพาะปลูก
-func (c Crops) Board() revel.Result {
-	return c.Render()
+//PostAddCrop เพิ่มข้อมูลการเพาะปลูก
+func (c Crops) PostAddCrop(crop *models.Crop) revel.Result {
+  user := models.GetUserData(c.Session["username"])
+  result := models.SaveCrop(crop,user.Userid.Hex())
+  if result {
+    return c.Redirect(Crops.IndexCrops)
+  } else{
+    return c.Redirect(Crops.AddCrop)
+  }
 }
 //AddCropPlan เพิ่มข้อมูลแผนการเพาะปลูก
 func (c Plan) AddCropPlan() revel.Result {
+	return c.Render()
+}
+//PostAddCropPlan
+func (c Plan) PostAddCropPlan(plan *models.Plan) revel.Result {
+  plan.CheckSavePlan(c.Validation)
+  if c.Validation.HasErrors() {
+		c.Validation.Keep()
+		c.FlashParams()
+		return c.Redirect(Plan.AddCropPlan)
+  }
+  result := models.SavePlan(plan)
+  if result {
+    return c.Redirect(Plan.AddPlanActivity)
+  } else{
+    return c.Redirect(Plan.AddCropPlan)
+  }
+	return c.Render()
+}
+//ShowPlant
+func (c Plant) ShowPlant() revel.Result {
+	return c.Render()
+}
+//AddPlant
+func (c Plant) AddPlant() revel.Result {
+	return c.Render()
+}
+//ShowSeed
+func (c Plant) ShowSeed() revel.Result {
+	return c.Render()
+}
+//AddSeed
+func (c Plant) AddSeed() revel.Result {
+	return c.Render()
+}
+//RemoveSeed (DELETE)
+func (c Plant) RemoveSeed(idseed string) revel.Result {
+  result := models.RemoveSeed(idseed);
+  if(result){
+    return c.Redirect(Plant.ShowSeed)
+  }else{
+    return c.Redirect(Plant.ShowSeed)
+  }
+}
+//SavePlant
+func (c Plant) PostAddPlant(plant *models.Plant) revel.Result {
+    resPlantData := models.GetPlant(plant.PlantName)
+    c.Validation.Required(plant.PlantName).Message("กรุณากรอกข้อมูลชื่อพืช")
+    c.Validation.Required(plant.PlantName != resPlantData.PlantName).Message(" \""+plant.PlantName+"\" มีอยู่บนระบบแล้วกรุณาตรวจสอบ")
+    if c.Validation.HasErrors() {
+  		c.Validation.Keep()
+  		c.FlashParams()
+  		return c.Redirect(Plant.AddPlant)
+  	} else{
+      Result := models.SavePlant(plant.PlantName);
+      if Result {
+        return c.Redirect(Plant.ShowPlant)
+      } else{
+        return c.Redirect(Plant.AddPlant)
+      }
+    }
+}
+//PostAddSeed
+func (c Plant) PostAddSeed(seed *models.Seed,plant *models.Plant) revel.Result {
+    var plantdata *models.Plant
+    plantdata = models.GetPlantId(plant.PlantName)
+    resSeedData := models.GetSeed(0,plantdata.PlantName,seed.SeedName)
+    c.Validation.Required(seed.SeedName).Message("กรุณากรอกข้อมูลชื่อพันธุ์พืช")
+    c.Validation.Required(seed.SeedName != resSeedData.SeedName).Message(" \""+seed.SeedName+"\" มีอยู่บนระบบแล้วกรุณาตรวจสอบ")
+    if c.Validation.HasErrors() {
+  		c.Validation.Keep()
+  		c.FlashParams()
+  		return c.Redirect(Plant.AddSeed)
+  	} else{
+      Result := models.SaveSeed(seed.SeedName,plant.PlantName,plantdata.PlantName);
+      if Result {
+        return c.Redirect(Plant.ShowSeed)
+      } else{
+        return c.Redirect(Plant.AddSeed)
+      }
+    }
+}
+//AddPlanActivity
+func (c Plan) AddPlanActivity() revel.Result {
 	return c.Render()
 }
 //ShowPlan

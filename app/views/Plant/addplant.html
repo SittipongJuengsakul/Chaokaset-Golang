@@ -1,0 +1,95 @@
+{{set . "title" "เพิ่มพืช"}}
+{{template "Templates/header.html" .}}
+{{template "Templates/preloader.html" .}}
+<div class="chaokaset-container-verticle" id="chaokaset-loader" style="display: none;">
+  <div class="col-sm-12 varticle-header-box">
+    <h1>เพิ่มพืช</h1>
+  </div>
+  <div class="col-sm-12 container-box" ng-app="ChaokasetApp" ng-controller="NewShowPlan">
+    <div class="col-sm-12 container-box-content" >
+      <div class="col-sm-12 padding-left-no padding-right-no name-header" style="padding-left: 0px;"><h2 class="color-green">ข้อมูลพืช</h2></div>
+      <form method="post" action="{{url "Plant.PostAddPlant"}}">
+        <div class="info-plant-show">
+          <div class="form-grop col-md-12" style="padding: 0px;">
+            {{with $field := field "plant.PlantName" .}}
+            <div class="form-group col-md-12 padding-left-no padding-right-no">
+              <label>ชื่อพืช</label>
+              <input type="text" class="form-control" placeholder="กรอกชื่อพืช" name="{{$field.Name}}" value="{{$field.Flash}}">
+              <span class="error">{{$field.Error}}</span>
+            </div>
+            {{end}}
+          </div>
+        </div>
+        <div style="width: 100%;text-align: center;">
+          <button type="submit" class="btn btn-success">ตกลง</button>
+          <button type="button" class="btn btn-danger">ยกเลิก</button>
+        </div>
+        </form>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  var app = angular.module('ChaokasetApp', []);
+  app.controller('NewShowPlan', function($scope) {
+      $scope.NewPlanOption = true;
+      $scope.PlanOption = false;
+      $scope.ShowNewPlanOption = function() {
+          $scope.NewPlanOption = true
+          $scope.PlanOption = false;
+      }
+      $scope.ShowPlanOption = function() {
+          $scope.PlanOption = true
+          $scope.NewPlanOption = false;
+      }
+
+      $scope.PlanActivitys = [
+        {
+            'Id' : 'a1',
+            'startdate': 0,
+            'enddate': 20,
+            'details':'เตรียมดิน'
+        },
+        {
+            'Id' : 'a2',
+            'startdate':10,
+            'enddate':200,
+            'details':'ตากดิน'
+        },
+        {
+            'Id' : 'a3',
+            'startdate':5000,
+            'enddate':200,
+            'details':'ตากดิน'
+        }
+        ];
+
+        $scope.SaveNewActivity= function(PlanActivitys){
+          if(PlanActivitys.startdate > PlanActivitys.enddate){
+            alert('วันที่สิ้นสุดน้อยกว่าวันที่เริ่มต้น !')
+            return 0;
+          }
+          else{
+              $scope.PlanActivitys.push({
+                  'Id': '2222aaa',
+                  'startdate': PlanActivitys.startdate,
+                  'enddate': PlanActivitys.enddate,
+                  'details': PlanActivitys.details,
+              });
+              document.getElementById("IdStartDate").value = "";
+              document.getElementById("IdEndDate").value = "";
+              document.getElementById("IdDetails").value = "";
+              $scope.PD = {};
+              $scope.orderOptions = $scope.PlanActivitys.startdate;
+          }
+        }
+        $scope.remove = function(IdRemover){
+            //$scope.PlanActivitys.splice(1, 1);
+            for (var i = 0; i < $scope.PlanActivitys.length; i++)
+            if ($scope.PlanActivitys[i].Id && $scope.PlanActivitys[i].Id === IdRemover) {
+                $scope.PlanActivitys.splice(i, 1);
+                break;
+            }
+        };
+  });
+</script>
+{{template "Templates/footer.html" .}}

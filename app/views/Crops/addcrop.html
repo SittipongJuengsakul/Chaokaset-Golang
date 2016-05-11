@@ -1,96 +1,268 @@
-{{set . "title" "เพิ่มข้อมูลการเพาะปลูก"}}
+{{set . "title" "เพิ่มแปลงเพาะปลูก"}}
 {{template "Templates/header.html" .}}
 {{template "Templates/preloader.html" .}}
+<!-- Include Date Range Picker -->
+<script src="/public/js/moment.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
 <div class="chaokaset-container-verticle" id="chaokaset-loader" style="display: none;">
   <div class="col-sm-12 varticle-header-box">
-    <h1>เพิ่มข้อมูลการเพาะปลูก</h1>
+    <h1>เพิ่มแปลงเพาะปลูก</h1>
   </div>
-  <div class="col-sm-12 container-box">
+  <div class="col-sm-12 container-box" ng-app="ChaokasetApp" ng-controller="NewCrop">
     <div class="col-sm-12 container-box-content" >
-      <div class="col-sm-12 padding-left-no padding-right-no name-header" style="padding-left: 0px;"><h2 class="color-green">บัญชีการเพาะปลูก</h2></div>
-      <form method="post" action="{{url "Auth.PostRegister"}}">
+      <div class="col-sm-12 padding-left-no padding-right-no name-header" style="padding-left: 0px;"><h2 class="color-green">ข้อมูลแผนการเพาะปลูก</h2></div>
+      <form method="post" action="{{url "Crops.PostAddCrop"}}">
         <div class="info-plant-show">
-          {{with $field := field "user.Name" .}}
           <div class="form-grop col-md-12" style="padding: 0px;">
-            <div class="form-group col-md-6 padding-left-no">
-              <label for="exampleInputEmail1">ชนิดพืช</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกชื่อ" name="{{$field.Name}}" value="{{$field.Flash}}">
+            {{with $field := field "crop.CropName" .}}
+            <div class="form-group col-md-12 padding-left-no padding-right-no">
+              <label>ชื่อแปลงเพาะปลูก</label>
+              <input type="text" class="form-control" placeholder="กรอกชื่อแปลงเพาะปลูก" name="{{$field.Name}}" value="{{$field.Flash}}">
               <span class="error">{{$field.Error}}</span>
             </div>
             {{end}}
-            {{with $field := field "user.Lastname" .}}
-            <div class="form-group col-md-6 padding-right-no">
-              <label for="exampleInputEmail1">พันธุ์พืช</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกนามสกุล" name="{{$field.Name}}" value="{{$field.Flash}}">
-              <span class="error">{{$field.Error}}</span>
-            </div>
           </div>
-          {{end}}
-          {{with $field := field "user.Name" .}}
           <div class="form-grop col-md-12" style="padding: 0px;">
+            {{with $field := field "crop.PlantId" .}}
             <div class="form-group col-md-4 padding-left-no">
-              <label for="exampleInputEmail1">แผนการเพาะปลูก</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกชื่อ" name="{{$field.Name}}" value="{{$field.Flash}}">
-              <span class="error">{{$field.Error}}</span>
+              <label>พืช</label>
+              <select class="form-control" name="{{$field.Name}}" ng-change="chooseplant(plant,plant.PlantName)" ng-model="modplant">
+                 <option ng-repeat="plant in plants" ng-bind="plant.PlantName" ng-value="plant.PlantId"></option>
+              </select>
             </div>
             {{end}}
-            {{with $field := field "user.Lastname" .}}
-            <div class="form-group col-md-4">
-              <label for="exampleInputEmail1">ระยะเวลาปลูกเพาะปลูก</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกนามสกุล" name="{{$field.Name}}" value="{{$field.Flash}}">
-              <span class="error">{{$field.Error}}</span>
-            </div>
+            {{with $field := field "crop.SeedId" .}}
             <div class="form-group col-md-4 padding-right-no">
-              <label for="exampleInputEmail1">จำนวนผลผลิตต่อไร่</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกนามสกุล" name="{{$field.Name}}" value="{{$field.Flash}}">
-              <span class="error">{{$field.Error}}</span>
+              <label>พันธุ์พืช</label>
+              <select class="form-control" name="{{$field.Name}}" ng-change="chooseseed(seed)" ng-model="modseed">
+                 <option ng-repeat="seed in seeds" ng-bind="seed.SeedName" ng-value="seed.SeedId"></option>
+              </select>
             </div>
-          </div>
-          {{end}}
-          {{with $field := field "user.Name" .}}
+            {{end}}
+            {{with $field := field "crop.PlanId" .}}
+            <div class="form-group col-md-4">
+              <label>แผนการเพาะปลูก</label>
+              <select class="form-control" name="{{$field.Name}}" ng-change="chooseplan(plan)" ng-model="modplan">
+                 <option ng-repeat="plan in plans" ng-bind="plan.PlanName" ng-value="plan.PlanId"></option>
+              </select>
+            </div>
+            {{end}}
           <div class="form-grop col-md-12" style="padding: 0px;">
+            {{with $field := field "crop.TypePlanOption" .}}
             <div class="form-group col-md-4 padding-left-no">
-              <label for="exampleInputEmail1">ขนาดพื้นที่</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกชื่อ" name="{{$field.Name}}" value="{{$field.Flash}}">
-              <span class="error">{{$field.Error}}</span>
+              <label>ประเภทของแผนการเพาะปลูก</label>
+              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" disabled ng-model="modtypeplanname">
             </div>
             {{end}}
-            {{with $field := field "user.Lastname" .}}
+            <script type="text/javascript">
+            $(function() {
+              $('input[name="crop.StartDate"]').daterangepicker({
+                   locale: {
+                        format: 'DD MMMM YYYY',
+
+                    },
+                   singleDatePicker: true,
+                   showDropdowns: true
+               });
+
+               $('input[name="crop.EndDate"]').daterangepicker({
+                    startDate: moment().add(120, 'days'),
+                    locale: {
+                         format: 'DD MMMM YYYY',
+
+                     },
+                    singleDatePicker: true,
+                    showDropdowns: true
+                });
+            });
+            </script>
+            {{with $field := field "crop.StartDate" .}}
             <div class="form-group col-md-4">
-              <label for="exampleInputEmail1">วันที่เริ่ม</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกนามสกุล" name="{{$field.Name}}" value="{{$field.Flash}}">
-              <span class="error">{{$field.Error}}</span>
-            </div>
-            <div class="form-group col-md-4 padding-right-no">
-              <label for="exampleInputEmail1">วันที่สิ้นสุด</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกนามสกุล" name="{{$field.Name}}" value="{{$field.Flash}}">
-              <span class="error">{{$field.Error}}</span>
-            </div>
-          </div>
-          {{end}}
-          {{with $field := field "user.Name" .}}
-          <div class="form-grop col-md-12" style="padding: 0px;">
-            <div class="form-group col-md-6 padding-left-no">
-              <label for="exampleInputEmail1">จำนวนผลผลิตต่อไร่</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกชื่อ" name="{{$field.Name}}" value="{{$field.Flash}}">
-              <span class="error">{{$field.Error}}</span>
+              <label>เริ่มต้นวันที่</label>
+              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="modstartdate">
             </div>
             {{end}}
-            {{with $field := field "user.Lastname" .}}
-            <div class="form-group col-md-6 padding-right-no">
-              <label for="exampleInputEmail1">ประมาณผลผลิตทั้งหมด</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="กรอกนามสกุล" name="{{$field.Name}}" value="{{$field.Flash}}">
-              <span class="error">{{$field.Error}}</span>
+            {{with $field := field "crop.EndDate" .}}
+            <div class="form-group col-md-4 padding-right-no">
+              <label>สิ้นสุดวันที่ (ตามแผน)</label>
+              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="modenddate">
             </div>
+            {{end}}
           </div>
-          {{end}}
+          <div class="form-grop col-md-12" style="padding: 0px;">
+            {{with $field := field "crop.Duration" .}}
+            <div class="form-group col-md-4 padding-left-no">
+              <label>ระยะเวลาทำการเพาะปลูก</label>
+              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="modduration">
+            </div>
+            {{end}}
+            {{with $field := field "crop.Price" .}}
+            <div class="form-group col-md-4">
+              <label>ราคาผลผลิต ต่อ กิโลกรัม</label>
+              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="modprice">
+            </div>
+            {{end}}
+            {{with $field := field "crop.Product" .}}
+            <div class="form-group col-md-4 padding-right-no">
+              <label>จำนวนผลผลิต ต่อ ไร่</label>
+              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="modproduct">
+            </div>
+            {{end}}
+          </div>
+          <div class="form-grop col-md-12" style="padding: 0px;">
+            {{with $field := field "crop.Address" .}}
+            <div class="form-group col-md-8 padding-left-no">
+              <label>ที่อยู่แปลงเพาะปลูก</label>
+              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}">
+            </div>
+            {{end}}
+            {{with $field := field "crop.Province" .}}
+            <div class="form-group col-md-4 padding-right-no">
+              <label>จังหวัด</label>
+              <select class="form-control" name="{{$field.Name}}">
+                 <option value="ชลบุรี">ชลบุรี</option>
+              </select>
+            </div>
+            {{end}}
+          </div>
+          <div class="form-grop col-md-12" style="padding: 0px;">
+            {{with $field := field "crop.Aumphur" .}}
+            <div class="form-group col-md-6 padding-left-no">
+              <label>อำเภอ</label>
+              <select class="form-control" name="{{$field.Name}}">
+                 <option value="เมือง">เมือง</option>
+              </select>
+            </div>
+            {{end}}
+            {{with $field := field "crop.Tumbon" .}}
+            <div class="form-group col-md-6 padding-right-no">
+              <label>ตำบล</label>
+              <select class="form-control" name="{{$field.Name}}">
+                 <option value="แสนสุข">แสนสุข</option>
+              </select>
+            </div>
+            {{end}}
+          </div>
         </div>
         <div style="width: 100%;text-align: center;">
-          <button type="submit" class="btn btn-default">สมัครสมาชิก</button>
-          <button type="submit" class="btn btn-default">ยกเลิก</button>
+          <button type="submit" class="btn btn-success">ตกลง</button>
+          <button type="button" class="btn btn-danger">ยกเลิก</button>
         </div>
-      </form>
+        </form>
     </div>
   </div>
 </div>
+<script type="text/javascript">
+  var app = angular.module('ChaokasetApp', []);
+  app.controller('NewCrop', function($scope,$http) {
+     $scope.durationsplan = 0;
+      $scope.NewPlanOption = true;
+      $scope.PlanOption = false;
+      $http.get(site_url+"/apiv1_0/plants/0")
+      .then(function(response) {
+        $scope.plants = response.data;
+        $http.get(site_url+"/apiv1_0/seeds/0/"+$scope.plants[0].PlantId)
+        .then(function(response) {
+          $scope.seeds = response.data;
+          $http.get(site_url+"/apiv1_0/plan/"+$scope.plants[0].PlantId+"/"+$scope.seeds[0].SeedId)
+          .then(function(response) {
+            $scope.plans = response.data;
+            var url = site_url+"/apiv1_0/plan/0/"+$scope.seeds[0].SeedId;
+            $http.get(url)
+            .then(function(response) {
+              $scope.plandata = response.data;
+              console.log(response.data);
+              console.log($scope.plandata[0].PlanName);
+              $scope.modtypeplanname = $scope.plandata[0].PlanName;
+              $scope.modduration = $scope.plandata[0].Duration;
+              $scope.modproduct = $scope.plandata[0].Product;
+              $scope.modprice = $scope.plandata[0].Price;
+            });
+          });
+        });
+      });
+      $scope.ShowNewPlanOption = function() {
+          $scope.NewPlanOption = true
+          $scope.PlanOption = false;
+      }
+      $scope.ShowPlanOption = function() {
+          $scope.PlanOption = true
+          $scope.NewPlanOption = false;
+      }
+      $scope.chooseplant = function(id,at) {
+        $http.get(site_url+"/apiv1_0/seeds/0/"+$scope.modplant)
+        .then(function(response) {
+          $scope.seeds = response.data;
+          var url = site_url+"/apiv1_0/plan/0/"+$scope.modseed;
+          $http.get(url)
+          .then(function(response) {
+            $scope.plandata = response.data;
+            $scope.modtypeplanname = $scope.plandata[0].PlanName;
+            $scope.modduration = $scope.plandata[0].Duration;
+            $scope.modproduct = $scope.plandata[0].Product;
+            $scope.modprice = $scope.plandata[0].Price;
+          });
+        });
+      }
+      $scope.chooseseed = function(id) {
+        var url = site_url+"/apiv1_0/plan/"+$scope.modplant+"/"+$scope.modseed;
+        $http.get(url)
+        .then(function(response) {
+          $scope.plans = response.data;
+          var url = site_url+"/apiv1_0/plan/0/"+$scope.modseed;
+          $http.get(url)
+          .then(function(response) {
+            $scope.modtypeplanname = "";
+            $scope.modduration = "";
+            $scope.modproduct = "";
+            $scope.modprice = "";
+            $scope.plandata = response.data;
+            $scope.modtypeplanname = $scope.plandata[0].PlanName;
+            $scope.modduration = $scope.plandata[0].Duration;
+            $scope.modproduct = $scope.plandata[0].Product;
+            $scope.modprice = $scope.plandata[0].Price;
+          });
+        });
+      }
+      $scope.chooseplan = function(id) {
+        var url = "http://localhost:9000"+"/apiv1_0/planid/"+$scope.modplan;
+        $http.get(url)
+        .then(function(response) {
+          $scope.modtypeplanname = "";
+          $scope.modduration = "";
+          $scope.modproduct = "";
+          $scope.modprice = "";
+          $scope.plandata = response.PlanData;
+          console.log(response);
+          console.log($scope.plandata.PlanName);
+        });
+      }
+  });
+  app.directive('format', ['$filter', function ($filter) {
+      return {
+          require: '?ngModel',
+          link: function (scope, elem, attrs, ctrl) {
+              if (!ctrl) return;
+
+
+              ctrl.$formatters.unshift(function (a) {
+                  return $filter(attrs.format)(ctrl.$modelValue)
+              });
+
+
+              ctrl.$parsers.unshift(function (viewValue) {
+
+            elem.priceFormat({
+              prefix: '',
+              centsSeparator: '.',
+              thousandsSeparator: ','
+          });
+
+                  return elem[0].value;
+              });
+          }
+      };
+  }]);
+</script>
 {{template "Templates/footer.html" .}}

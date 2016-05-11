@@ -1,0 +1,28 @@
+@author : Sittipong Jungsakul,Kitaya
+ชื่อฐานข้อมูล chaokaset
+//--------------------------------------------------------------//
+ชื่อตาราง topic  //กระทู้การเกษตร
+{ "_id" : ObjectId("5708ba6c89f3d4811b896a29"), //ไอดี
+  "status" : 1, //สถานะ 1 คือไช้อยู่ 0 คือลบไปแล้ว
+  "topictype" : 1, //ปัญหาคือ 1 , สอบถาม 2,
+  "tag" : "ดิน", // ประเภทปัญหาการเพาะปลูก
+  "detail" : "ดินแข็ง", //รายละเอียดปัญหา
+  "timestamp" : ISODate("2016-04-09T08:16:44.420Z"), //เวลาสร้าง
+  "updatestamp" : ISODate("2016-04-09T08:16:44.420Z"), //เวลาอัพเดท
+  "idcrop" : ObjectId("5708ba6c89f3d4811b896a29"), //ไอดี ของ crop
+  "views": [ //จำนวนคนดูข้อมูล
+     { "id_user": "5708ba6c89f3d4311b896a29","time": ISODate("2016-04-09T08:16:44.420Z"), "status" : 1 },
+     { "id_user": "5708ba6c89f3d4311b896a29","time": ISODate("2016-04-09T08:16:44.420Z"), "status" : 1 },
+     { "id_user": "5708ba6c89f3d4311b896a29","time": ISODate("2016-04-09T08:16:44.420Z"), "status" : 1 }
+  ],
+  "like": [ //จำนวนคนชอบกระทู้
+     { "id_user": "5708ba6c89f3d4311b896a29","time": ISODate("2016-04-09T08:16:44.420Z"), "status" : 1 },
+     { "id_user": "5708ba6c89f3d4311b896a29","time": ISODate("2016-04-09T08:16:44.420Z"), "status" : 1 },
+     { "id_user": "5708ba6c89f3d4311b896a29","time": ISODate("2016-04-09T08:16:44.420Z"), "status" : 1 }
+  ],
+  "comment": [ //คำตอบที่มาตอบบนกระทู้
+     { "id_user": "5708ba6c89f3d4311b896a29", "id_company": "5708ba6c89f3d4311b896a29", "time": ISODate("2016-04-09T08:16:44.420Z"), "status" : 1, "like" : 400 },
+     { "id_user": "5708ba6c89f3d4311b896a29", "id_company": "5708ba6c89f3d4311b896a29", "time": ISODate("2016-04-09T08:16:44.420Z"), "status" : 1, "like" : 400 },
+     { "id_user": "5708ba6c89f3d4311b896a29", "id_company": "5708ba6c89f3d4311b896a29", "time": ISODate("2016-04-09T08:16:44.420Z"), "status" : 1, "like" : 400 }
+  ],
+}

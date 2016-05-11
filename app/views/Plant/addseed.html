@@ -1,0 +1,50 @@
+{{set . "title" "เพิ่มพันธุ์พืช"}}
+{{template "Templates/header.html" .}}
+{{template "Templates/preloader.html" .}}
+<div class="chaokaset-container-verticle" id="chaokaset-loader" style="display: none;">
+  <div class="col-sm-12 varticle-header-box">
+    <h1>เพิ่มพันธุ์พืช</h1>
+  </div>
+  <div class="col-sm-12 container-box" ng-app="ChaokasetApp" ng-controller="NewShowPlan">
+    <div class="col-sm-12 container-box-content" >
+      <div class="col-sm-12 padding-left-no padding-right-no name-header" style="padding-left: 0px;"><h2 class="color-green">ข้อมูลพันธุ์พืช</h2></div>
+      <form method="post" action="{{url "Plant.PostAddSeed"}}">
+        <div class="info-plant-show">
+          <div class="form-grop col-md-12" style="padding: 0px;">
+            {{with $field := field "plant.PlantName" .}}
+            <div class="form-group col-md-12 padding-left-no padding-right-no">
+              <label>พืช</label>
+              <select class="form-control" name="{{$field.Name}}" id="testdata">
+                 <option ng-repeat="plant in plants" ng-bind="plant.PlantName" ng-value="plant.PlantId"></option>
+              </select>
+            </div>
+            {{end}}
+          </div>
+          <div class="form-grop col-md-12" style="padding: 0px;">
+            {{with $field := field "seed.SeedName" .}}
+            <div class="form-group col-md-12 padding-left-no padding-right-no">
+              <label>ชื่อพันธุ์พืช</label>
+              <input type="text" class="form-control" placeholder="กรอกชื่อพันธุ์พืช" name="{{$field.Name}}" value="{{$field.Flash}}">
+              <span class="error">{{$field.Error}}</span>
+            </div>
+            {{end}}
+          </div>
+        </div>
+        <div style="width: 100%;text-align: center;">
+          <button type="submit" class="btn btn-success">ตกลง</button>
+          <button type="button" class="btn btn-danger">ยกเลิก</button>
+        </div>
+        </form>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  var app = angular.module('ChaokasetApp', []);
+  app.controller('NewShowPlan', function($scope, $http) {
+    $http.get(site_url+"/apiv1_0/plants/0")
+    .then(function(response) {
+      $scope.plants = response.data;
+    });
+  });
+</script>
+{{template "Templates/footer.html" .}}

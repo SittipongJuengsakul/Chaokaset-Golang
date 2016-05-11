@@ -20,14 +20,22 @@ GET     /setting/user                                                           
 GET     /setting/security                                                                          Profile.SettingSecurity
 GET     /searchplant                                                                               Search.SearchPlant
 GET     /crops                                                                                     Crops.IndexCrops
+GET     /crops/disbled/:idcrop                                                                     Crops.DisbleCrop
 GET     /crops/add                                                                                 Crops.AddCrop
-GET     /crops/management                                                                          Crops.Management
-GET     /crops/account                                                                             Crops.Account
-GET     /crops/problem                                                                             Crops.Problem
-GET     /crops/product                                                                             Crops.Product
-GET     /crops/board                                                                               Crops.Board
+GET     /crops/calendar/:idcrop                                                                    Crops.Calendar
+GET     /crops/management/:idcrop                                                                  Crops.Management
+GET     /crops/account/:idcrop                                                                     Crops.Account
+GET     /crops/problem/:idcrop                                                                     Crops.Problem
+GET     /crops/product/:idcrop                                                                     Crops.Product
+GET     /crops/board/:idcrop                                                                       Crops.Board
+GET     /plant/showplant                                                                           Plant.ShowPlant
+GET     /plant/addplant                                                                            Plant.AddPlant
+GET     /plant/showseed                                                                            Plant.ShowSeed
+GET     /plant/addseed                                                                             Plant.AddSeed
+POST    /plant/removeseed/:idseed                                                                  Plant.RemoveSeed
 GET     /management                                                                                Management.IndexManagement
 GET     /plan/addplan                                                                              Plan.AddCropPlan
+GET     /plan/addplanactivity                                                                      Plan.AddPlanActivity
 GET     /plan/showplan                                                                             Plan.ShowPlan
 GET     /plan/managemnet                                                                           Plan.PlanManagement
 GET     /farmer/management                                                                         Farmer.FarmerManagement
@@ -42,11 +50,30 @@ GET     /favicon.ico                                                            
 GET     /apiv1_0                                                                                   Api.Index
 GET     /apiv1_0/login/:Username/:Password                                                         Api.CheckLogin
 GET     /apiv1_0/register/:Username/:Password/:Prefix/:Name/:Lname/:Tel                            Api.RegisterUser
+<<<<<<< HEAD
 GET		/apiv1_0/product/:Lat/:Long 														   Api.ProductSell 
 GET		/apiv1_0/detail/:Id																		   Api.ProductDetail
 GET		/apiv1_0/SearchProduct/:Name/:Lat/:long													   Api.SearchProduct
 GET		/apiv1_0/AddProduct/:name/:category/:price/:unit/:detail/:expire/:ownerId/:lat/:long	   Api.AddProduct
 GET		/apiv1_0/ManageSell/:idUser																   Api.ManageSell
+=======
+GET     /apiv1_0/plans/:skip                                                                       Api.Plans
+GET     /apiv1_0/planid/:idplan                                                                    Api.Plan
+GET     /apiv1_0/plan/:idplant/:idseed                                                             Api.PlansAllPlants
+GET     /apiv1_0/plants/:skip                                                                      Api.Plants
+GET     /apiv1_0/plant/:word                                                                       Api.Plant
+GET     /apiv1_0/seed/:skip/:plantname/:seedname                                                   Api.Seed
+GET     /apiv1_0/seeds/:skip/:plantid                                                              Api.Seeds
+GET     /apiv1_0/seeds/:skip                                                                       Api.Seeds
+POST    /apiv1_0/removeseed/:idseed                                                                Api.RemoveSeed
+GET     /apiv1_0/province/:idprovince                                                              Api.Province
+GET     /apiv1_0/allcrops/:skip/:userid                                                            Api.AllCrops
+GET     /apiv1_0/onecrop/:cropid                                                                   Api.OneCrop
+
+# WebSocket demo
+GET     /websocket/room                                                                            WebSocket.Room
+WS      /websocket/room/socket                                                                     WebSocket.RoomSocket
+>>>>>>> origin/DevManagementCrops
 
 
 
