@@ -1,15 +1,10 @@
-package controllers
+package chatroom
 
 import (
-    //"github.com/revel/revel"
-    "container/list"
-    "time"
-    //"github.com/gocql/gocql"
-    //"gopkg.in/mgo.v2"
-    //"gopkg.in/mgo.v2/bson"
-		//"chaokaset-go/app/models"
-    //"golang.org/x/crypto/bcrypt"
+	"container/list"
+	"time"
 )
+
 type Event struct {
 	Type      string // "join", "leave", or "message"
 	User      string

@@ -60,8 +60,8 @@ GET     /apiv1_0/allcrops/:skip/:userid                                         
 GET     /apiv1_0/onecrop/:cropid                                                                   Api.OneCrop
 
 # WebSocket demo
-GET     /websocket/room                         WebSocket.Room
-WS      /websocket/room/socket                  WebSocket.RoomSocket
+GET     /websocket/room                                                                            WebSocket.Room
+WS      /websocket/room/socket                                                                     WebSocket.RoomSocket
 
 
 

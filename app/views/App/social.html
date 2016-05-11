@@ -2,10 +2,96 @@
 {{template "Templates/header.html" .}}
 {{template "Templates/preloader.html" .}}
 <div class="chaokaset-container-verticle" id="chaokaset-loader" style="display: none;">
-  {{template "Templates/notification.html" .}}
-  <div class="col-sm-12 varticle-header-box">
-    <h1>ชุมชนชาวเกษตร</h1>
+  <div class="col-sm-9 container-box">
+    <div class="col-sm-12 container-box-content">
+      <div class="col-sm-5 name-header padding-left-no padding-right-no"><h2 class="color-green">ปัญหาการเพาะปลูก</h2></div>
+      <div class="col-sm-7 name-header padding-left-no padding-right-no">
+        <div class="col-sm-4">
+          <button type="button" name="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">เพิ่มปัญหา</button>
+        </div>
+        <div class="col-sm-8" style="padding: 0px;">
+          <input type="text" name="SearchCrops" class="form-control" placeholder="ค้นหาปัญหา">
+        </div>
+      </div>
+      <h1>WebSocket — You are now chatting as {{.user.Username}}
+        <a href="/">Leave the chat room</a></h1>
+
+      <div id="thread">
+        <script type="text/html" id="message_tmpl">
+          <% if(event.Type == 'message') { %>
+            <div class="message <%= event.User == '{{.user.Username}}' ? 'you' : '' %>">
+              <h2><%= event.User %></h2>
+              <p>
+                <%= event.Text %>
+              </p>
+            </div>
+          <% } %>
+          <% if(event.Type == 'join') { %>
+            <div class="message notice">
+              <h2></h2>
+              <p>
+                <%= event.User %> joined the room
+              </p>
+            </div>
+          <% } %>
+          <% if(event.Type == 'leave') { %>
+            <div class="message notice">
+              <h2></h2>
+              <p>
+                <%= event.User %> left the room
+              </p>
+            </div>
+          <% } %>
+          <% if(event.Type == 'quit') { %>
+            <div class="message important">
+              <h2></h2>
+              <p>
+                You are now disconnected!
+              </p>
+            </div>
+          <% } %>
+        </script>
+      </div>
+
+      <div id="newMessage">
+        <input type="text" id="message" autocomplete="off" autofocus>
+        <input type="submit" value="send" id="send">
+      </div>
+
+      <script type="text/javascript">
+        // Create a socket
+        var socket = new WebSocket('ws://'+'localhost:9000'+'/websocket/room/socket?user={{.user.Username}}')
+        // Display a message
+        var display = function(event) {
+          $('#thread').append(tmpl('message_tmpl', {event: event}));
+          $('#thread').scrollTo('max')
+        }
+        // Message received on the socket
+        socket.onmessage = function(event) {
+          display(JSON.parse(event.data))
+        }
+        $('#send').click(function(e) {
+          var message = $('#message').val()
+          $('#message').val('')
+          socket.send(message)
+        });
+        $('#message').keypress(function(e) {
+          if(e.charCode == 13 || e.keyCode == 13) {
+            $('#send').click()
+            e.preventDefault()
+          }
+        })
+      </script>
+      <nav>
+        <!-- แสดง 10 รายการ -->
+        <ul class="pager">
+          <li class="pager-prev disabled"><a href="#previous">< ย้อนกลับ</a></li>
+          <li class="pager-next"><a href="#next" style="width: 110px">ต่อไป ></a></li>
+        </ul>
+      </nav>
+    </div>
   </div>
+</div>
 </div>
 <script>
 $( document ).ready(function() {
