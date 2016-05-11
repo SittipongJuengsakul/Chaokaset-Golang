@@ -94,7 +94,7 @@ func GetSellData(Lat float64, Long float64) []Sell {
   return data*/
   var result []Sell
   
-  qmgo.Find(nil).Sort("TimeCreate").All(&result)
+  qmgo.Find(nil).Sort("-TimeCreate").All(&result)
   //&Sell{Sellid: result.Sellid,Name: result.Name,Category: result.Category,Price: result.Price}
    for i := range result {
       lat1 := Lat
