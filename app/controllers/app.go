@@ -59,8 +59,9 @@ type Farmer struct {
 	*revel.Controller
 }
 
+
 func init() {
-	revel.InterceptFunc(setuser, revel.BEFORE, &App{})
+  revel.InterceptFunc(setuser, revel.BEFORE, &App{})
   revel.InterceptFunc(setuser, revel.BEFORE, &Crops{})
   revel.InterceptFunc(setuser, revel.BEFORE, &Profile{})
   revel.InterceptFunc(setuser, revel.BEFORE, &Howto{})
@@ -154,6 +155,7 @@ func (c Auth) PostLogin(user *models.User) revel.Result {
     c.Session["username"] = user.Username
     user = models.GetUserData(user.Username)
     c.RenderArgs["user"] = user
+    //c.Session["userid"] = user.Userid 
     c.Flash.Success("เข้าสู่ระบบสำเร็จ")
     return c.Redirect(App.Index)
   } else {
@@ -443,3 +445,5 @@ func (c Howto) HowtoMarket() revel.Result {
 func (c Management) IndexManagement() revel.Result {
 	return c.Render()
 }
+
+

@@ -1,0 +1,121 @@
+{{set . "title" "การซื้อ-ขาย สินค้า"}}
+{{template "Templates/header.html" .}}
+{{template "Templates/preloader.html" .}}
+
+
+
+<div class="chaokaset-container-verticle" id="chaokaset-loader" style="display: none;">
+  <div class="col-sm-12 varticle-header-box">
+    <h1>การซื้อ-ขาย สินค้า</h1>
+  </div>
+  <div class="col-sm-3" style="padding: 0px;">
+    <div class="container col-sm-12">
+        <ul class="nav bd-sidenav" >
+          <p class="text-bold " style="padding-top: 20px;font-size:20px">แสดงรายการสินค้า</p>
+            <li class="active bd-sidenav-active">
+                <a href="/sell/showproduct">ข้าว</a>
+            </li>
+            <li class="">
+              <a href="/sell/showproduct">ผลไม้</a>
+            </li>
+            <li class="">
+              <a href="/sell/showproduct">พืชผัก</a>
+            </li>
+            <li class="">
+              <a href="/sell/showproduct">พืชไร่</a>
+            </li>
+            <li class="">
+              <a href="/sell/showproduct">พืชสวน</a>
+            </li>
+            <li class="">
+              <a href="/sell/showproduct">สัตว์</a>
+            </li>
+            <li class="">
+              <a href="/sell/showproduct">สินค้าอื่นๆ</a>
+            </li>
+        </ul>
+        
+        <ul class="nav bd-sidenav" >
+          <p class="text-bold " style="padding-top: 5px;font-size:20px">ประกาศขายสินค้า</p>
+            <li class="">
+                <a href="/sell/showproduct">ขายสินค้า</a>
+            </li>
+            <li class="">
+              <a href="/sell/managesell">จัดการสินค้า</a>
+            </li>
+        </ul>
+ 
+    </div>
+  </div>
+
+  <div class="col-sm-9 container-box"  ng-app="ChaokasetApp" ng-controller="searchShowProduct">
+    <div class="col-sm-12 container-box-content" >
+      <div class="row">
+      <div class="col-sm-8 name-header"> 
+        <h2 class="color-green">รายการสินค้า</h2>
+      </div>
+      <div class="col-sm-4" style="padding: 5px;">
+          <input type="text" name="SearchProduct" class="form-control" placeholder="ค้นหาสินค้า" ng-model="searchProduct">
+      </div>
+      </div>
+
+      
+      </br>
+        <div class="row" >
+        <!--  {{ range .data }}
+            <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+              <img src="/{{ .Pic }}" alt="..." width="100%">
+              <div class="caption">
+                <h2 class="color-blue">{{ .Name }}</h2>
+                <p  style="padding-top:10px;padding-bottom:10px"><img src="/public/img/Coins-48.png" width="30px"> {{ .Price }} บาท/{{ .Unit }}</p>
+                <p style="padding-bottom:15px"><img src="/public/img/Geo-fence-48.png" width="25px"> จ.ชลบุรี {{.Distance }}</p>
+               
+                {{.Sellid.Hex}}
+                <a  href="productdetail/{{.Sellid.Hex}}"><button type="button" class="btn btn-success">รายละเอียดสินค้า</button></a>
+              </div>
+            </div>
+          </div>
+          {{ end }}  -->
+
+          <div class="col-sm-6 col-md-4" ng-repeat="product in filterProducts  = (products | filter:searchProduct)">
+            <div class="thumbnail">
+              <img src="/" alt="..." width="100%">
+              <div class="caption">
+                <h2 class="color-blue" ng-bind-html="product.Name | searchfilter:searchProduct"></h2>
+                <p  style="padding-top:10px;padding-bottom:10px"><img src="/public/img/Coins-48.png" width="30px"><p ></p></p>
+                <p style="padding-bottom:15px"><img src="/public/img/Geo-fence-48.png" width="25px"> จ.ชลบุรี </p>
+                <a  href="productdetail/"><button type="button" class="btn btn-success">รายละเอียดสินค้า</button></a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      
+    </div>
+
+  </div>
+</div>
+
+<script type="text/javascript">
+  var app = angular.module('ChaokasetApp', ['ngSanitize']);
+  app.controller('searchShowProduct', function($scope, $http) {
+      $http.get(site_url+"/apiv1_0/product/13/100")
+      .then(function(response) {
+        //console.log(response);
+        $scope.products = response.data["SellData"];
+      });
+     
+  })
+  .filter('searchfilter', function() {
+        return function (input, query) {
+            if(query == ""){
+            return input;
+          }else{
+            return input.replace(RegExp('('+ query + ')', 'g'), '<span style="color:red;">$1</span>');
+          }
+        }
+  });
+
+</script>
+{{template "Templates/footer.html" .}}
