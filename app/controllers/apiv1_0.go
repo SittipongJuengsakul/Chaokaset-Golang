@@ -172,7 +172,7 @@ func (c Api) OneCrop(cropid string) revel.Result {
 func (c Api) DisabledOneCrop(cropid string) revel.Result {
   Result := models.DisableOneCrops(cropid)
     return c.RenderJson(Result)
-
+}
 func (c Api) ProductSell(Lat float64, Long float64) revel.Result {
   var R *ResSellAll
   var U []models.Sell
