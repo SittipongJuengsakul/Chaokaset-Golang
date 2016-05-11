@@ -80,10 +80,17 @@
 
           <div class="col-sm-6 col-md-4" ng-repeat="product in filterProducts  = (products | filter:searchProduct)">
             <div class="thumbnail">
-              <img src="/" alt="..." width="100%">
+              <img src="" alt="..." width="100%" >
               <div class="caption">
                 <h2 class="color-blue" ng-bind-html="product.Name | searchfilter:searchProduct"></h2>
-                <p  style="padding-top:10px;padding-bottom:10px"><img src="/public/img/Coins-48.png" width="30px"><p ></p></p>
+                <div class = "row" style="padding-top:10px;padding-bottom:10px">
+                  <img src="/public/img/Coins-48.png">
+                  <div ng-bind-html="product.Price"></div>
+                  <div ng-bind-html="product.Unit"></div>
+                
+          
+                  </div>
+                </div>
                 <p style="padding-bottom:15px"><img src="/public/img/Geo-fence-48.png" width="25px"> จ.ชลบุรี </p>
                 <a  href="productdetail/"><button type="button" class="btn btn-success">รายละเอียดสินค้า</button></a>
               </div>
@@ -102,8 +109,9 @@
   app.controller('searchShowProduct', function($scope, $http) {
       $http.get(site_url+"/apiv1_0/product/13/100")
       .then(function(response) {
-        //console.log(response);
+        //console.log(response.data["SellData"][0]);
         $scope.products = response.data["SellData"];
+       // $scope.productsDiv = response.data["SellData"][0]["Name"];
       });
      
   })
