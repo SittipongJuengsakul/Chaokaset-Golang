@@ -79,6 +79,8 @@ func (SellDetail *SellDetail) SetOwnerTel(data string) {
   SellDetail.Owner.Tel = data
 }
 //GetSellData
+var ip_mgo = "188.166.230.170"
+
 func GetSellData(Lat float64, Long float64) []Sell {
   session, err := mgo.Dial(ip_mgo)
   if err != nil {
