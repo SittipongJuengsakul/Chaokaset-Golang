@@ -1,34 +1,31 @@
 package controllers
-
 import (
     "github.com/revel/revel"
     //"github.com/gocql/gocql"
     //"gopkg.in/mgo.v2"
    // "gopkg.in/mgo.v2/bson"
-		"chaokaset-go/app/models"
+		"chaokaset-master/app/models"
     "golang.org/x/crypto/bcrypt"
+   // "time"
 )
 
-//Auth for save Structure of Folder Authen (in views)
 type Api struct {
 	*revel.Controller
 }
+
 type ResAuth struct {
     Status      bool
     UserData    *models.User
 }
 type ResSellAll struct {
-    Status      bool
-    SellData    []models.Sell
+    Status        bool
+    SellData      []models.Sell
 }
 type ResSellDetail struct {
     Status      bool
     SellData    *models.SellDetail
 }
-type Address2 struct{
-  Lat             float64
-  Long            float64
-}
+
 type ResPlan struct {
     Status      bool
     PlanData    *models.Plan
@@ -41,6 +38,8 @@ type ResSeed struct {
     Status      bool
     SeedData    *models.Seed
 }
+
+
 func (c Api) Index() revel.Result {
   var user *models.User
 	user = models.GetUserData("sittipong")
@@ -77,9 +76,7 @@ func (c Api) ProductSell(Lat float64, Long float64) revel.Result {
     R = &ResSellAll{Status: false,SellData: nil}
     return  c.RenderJson(R)
   }
-  /*if check == 0{
-    return  c.RenderJson(U)
-  }*/
+
   R = &ResSellAll{Status: true,SellData: U}
   return  c.RenderJson(R)
 }
@@ -97,7 +94,7 @@ func (c Api) ProductDetail(Id string) revel.Result{
 }
 
 func (c Api)  SearchProduct(Name string, Lat float64, Long float64) revel.Result{
-  var R *ResSellAll
+ var R *ResSellAll
   var U []models.Sell
   U = models.GetSearchSell(Name,Lat,Long)
   if U == nil{
@@ -115,14 +112,13 @@ func (c Api)  AddProduct(name string,category string, price int, unit string, de
     } else {
       return  c.RenderJson(false)
     }
-   /*  var A *Address2
-  A = &Address2{Lat: lat,Long: long}
-    return c.RenderJson(A)*/
+
+    //return c.RenderJson(A)
 
 }
 
 func (c Api) ManageSell(idUser string) revel.Result {
-  var R *ResSellAll
+ var R *ResSellAll
   var U []models.Sell
   U = models.GetManageSell(idUser)
   if U == nil{
@@ -130,14 +126,12 @@ func (c Api) ManageSell(idUser string) revel.Result {
     return  c.RenderJson(R)
   }
 
-  /*for i := range U {
 
-    U[i].SetDistance(U[i].Address.Lat)
-  }*/
 
   R = &ResSellAll{Status: true,SellData: U}
   return  c.RenderJson(R)
 }
+
 //------------------ แผนการเพาะปลูก -------------------
 //Plan (GET)
 func (c Api) Plans(skip int,word string) revel.Result {

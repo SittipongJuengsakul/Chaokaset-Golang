@@ -5,7 +5,7 @@ import (
     //"github.com/gocql/gocql"
    // "gopkg.in/mgo.v2"
     //"gopkg.in/mgo.v2/bson"
-	  "chaokaset-go/app/models"
+	  "chaokaset-master/app/models"
    // "golang.org/x/crypto/bcrypt"
     //"fmt"
    // "time"
@@ -34,7 +34,6 @@ func (c Sell) IndexSell() revel.Result {
 }
 
 func (c Sell) ProductDetail(id string) revel.Result {
-
   data := models.GetSellDetail(id)
   return c.Render(data)
 }

@@ -445,5 +445,3 @@ func (c Howto) HowtoMarket() revel.Result {
 func (c Management) IndexManagement() revel.Result {
 	return c.Render()
 }
-
-
