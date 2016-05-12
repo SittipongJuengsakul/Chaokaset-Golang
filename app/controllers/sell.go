@@ -5,7 +5,7 @@ import (
     //"github.com/gocql/gocql"
    // "gopkg.in/mgo.v2"
     //"gopkg.in/mgo.v2/bson"
-	  "chaokaset-master/app/models"
+	  "chaokaset-go/app/models"
    // "golang.org/x/crypto/bcrypt"
     //"fmt"
    // "time"
