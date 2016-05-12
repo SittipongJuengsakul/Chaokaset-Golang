@@ -3,14 +3,8 @@ package models
 import (
     "gopkg.in/mgo.v2"
     "gopkg.in/mgo.v2/bson"
-   // "golang.org/x/crypto/bcrypt"
-  //  "github.com/revel/revel"
-  //  "regexp"
-  //  "time"
-  //  "math/rand"
-    //"fmt"
     "time"
-   "github.com/alouche/go-geolib"
+    "github.com/alouche/go-geolib"
     "math"
 )
 
@@ -57,9 +51,6 @@ type UserId struct{
   Userid          bson.ObjectId `bson:"_id,omitempty"`
 }
 
-
-//var Selldb = make(map[string]*Sell)
-
 func (sell *Sell) SetDistance(data float64) {
   sell.Distance = data
 }
@@ -79,8 +70,6 @@ func (SellDetail *SellDetail) SetOwnerPrefix(data string) {
 func (SellDetail *SellDetail) SetOwnerTel(data string) {
   SellDetail.Owner.Tel = data
 }
-//GetSellData
-//var ip_mgo = "188.166.230.170"
 
 func GetSellData(Lat float64, Long float64) []Sell {
   session, err := mgo.Dial("127.0.0.1")
@@ -88,17 +77,14 @@ func GetSellData(Lat float64, Long float64) []Sell {
       panic(err)
   }
   defer session.Close()
-  //var data *Sell
+
   session.SetMode(mgo.Monotonic, true)
   qmgo := session.DB("chaokaset").C("sell")
-  /*result := Sell{}
-  qmgo.Find(nil).All(&result)
-  data = &Sell{Sellid: result.Sellid,Name: result.Name,Category: result.Category,Price: result.Price}
-  return data*/
+
   var result []Sell
   
   qmgo.Find(nil).Sort("-TimeCreate").All(&result)
-  //&Sell{Sellid: result.Sellid,Name: result.Name,Category: result.Category,Price: result.Price}
+
    for i := range result {
       lat1 := Lat
       lat2 := 13.286727
@@ -144,6 +130,7 @@ func AddSellData(name string,category string, price int, unit string, detail str
   }
 
 }
+
 func AddSellData2(name string,category string, price int, unit string, detail string, expire string, ownerId string, lat float64, long float64) (result bool) {
   session, err := mgo.Dial("127.0.0.1")
   if err != nil {
@@ -185,18 +172,19 @@ func GetSellDetail(Idsell string) *SellDetail {
       panic(err)
   }
   defer session.Close()
- // var user *SellDetail
   session.SetMode(mgo.Monotonic, true)
   qmgo := session.DB("chaokaset").C("sell")
-  //result := SellDetail{}
+  //ประกาศตัวแปร
   var result *SellDetail
+  //คิวลี่ข้อมูลการขายโดยกำหนดเลข id การขาย
   qmgo.Find(bson.M{"_id": bson.ObjectIdHex(Idsell)}).One(&result)
-  //user = &SellDetail{Sellid:result.Sellid, Name:result.Name, Category:result.Category, Pic:result.Pic, Price:result.Price, Address.result.Address }
+  //เพิ่มข้อมูลของเจ้าของสินค้า
   data := GetOwnerData(result.OwnerId.Hex())
   result.SetOwnerName(data.Name)
   result.SetOwnerLastname(data.Lastname)
   result.SetOwnerPrefix(data.Prefix)
   result.SetOwnerTel(data.Tel)
+  
   return result
 }
 
@@ -261,11 +249,30 @@ func GetUserid(username string) *UserId {
       panic(err)
   }
   defer session.Close()
- // var user *SellDetail
   session.SetMode(mgo.Monotonic, true)
   qmgo := session.DB("chaokaset").C("users")
   var result *UserId
   qmgo.Find(bson.M{"username": username}).One(&result)
-  //user = &SellDetail{Sellid:result.Sellid, Name:result.Name, Category:result.Category, Pic:result.Pic, Price:result.Price, Address.result.Address }
   return result
+}
+
+func UpdateStatusSell(idSell string,status int) (result bool) {
+  session, err := mgo.Dial("127.0.0.1")
+  if err != nil {
+      panic(err)
+  }
+  defer session.Close()
+  session.SetMode(mgo.Monotonic, true)
+  qmgo := session.DB("chaokaset").C("sell")
+
+  colQuerier := bson.M{"_id": bson.ObjectIdHex(idSell)}
+  change := bson.M{"$set": bson.M{"status": status}}
+  
+  err = c.Update(colQuerier, change)
+
+  if err != nil {
+    return false
+  }else{
+    return true
+  }
 }
