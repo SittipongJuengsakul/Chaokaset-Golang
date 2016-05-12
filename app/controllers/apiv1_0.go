@@ -235,3 +235,13 @@ func (c Api) DisabledOneCrop(cropid string) revel.Result {
   Result := models.DisableOneCrops(cropid)
     return c.RenderJson(Result)
 }
+
+func (c Api) SetStatusSell(idSell string,status int) revel.Result {
+
+  err := models.UpdateStatusSell(idSell,status)
+  if err {
+    return  c.RenderJson(true)
+  } else {
+    return  c.RenderJson(false)
+  }
+}

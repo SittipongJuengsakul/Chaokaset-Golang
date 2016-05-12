@@ -265,10 +265,10 @@ func UpdateStatusSell(idSell string,status int) (result bool) {
   session.SetMode(mgo.Monotonic, true)
   qmgo := session.DB("chaokaset").C("sell")
 
-  colQuerier := bson.M{"_id": bson.ObjectIdHex(idSell)}
+  colQuerier := bson.M{ "_id": bson.ObjectIdHex(idSell) }
   change := bson.M{"$set": bson.M{"status": status}}
   
-  err = c.Update(colQuerier, change)
+  err = qmgo.Update(colQuerier, change)
 
   if err != nil {
     return false

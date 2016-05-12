@@ -67,6 +67,7 @@ POST    /apiv1_0/removeseed/:idseed                                             
 GET     /apiv1_0/province/:idprovince                                                              Api.Province
 GET     /apiv1_0/allcrops/:skip/:userid                                                            Api.AllCrops
 GET     /apiv1_0/onecrop/:cropid                                                                   Api.OneCrop
+GET     /apiv1_0/setStatus/:idSell/:status                                                         Api.SetStatusSell
 
 # WebSocket chat
 GET     /websocket/room                                                                            WebSocket.Room
