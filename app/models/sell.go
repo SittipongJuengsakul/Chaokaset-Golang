@@ -264,7 +264,6 @@ func GetUserid(username string) *UserId {
  // var user *SellDetail
   session.SetMode(mgo.Monotonic, true)
   qmgo := session.DB("chaokaset").C("users")
-  //result := SellDetail{}
   var result *UserId
   qmgo.Find(bson.M{"username": username}).One(&result)
   //user = &SellDetail{Sellid:result.Sellid, Name:result.Name, Category:result.Category, Pic:result.Pic, Price:result.Price, Address.result.Address }

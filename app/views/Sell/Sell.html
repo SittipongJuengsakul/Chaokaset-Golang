@@ -79,6 +79,9 @@
           <span class="error">{{$field.Error}}</span>
         </div>
        {{end}}
+       {{with $field := field "sell.UserId" .}}
+          <input type="text" class="form-control"  name="{{$field.Name}}" value=""> 
+       {{end}}
       <p class="text-right" >
         <button type="submit" class="btn bg-link">ขายสินค้า</button>
       <p/>
