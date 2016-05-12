@@ -308,7 +308,7 @@ func (c Api)  AddProduct(name string,category string, price int, unit string, de
    /*  var A *Address2
   A = &Address2{Lat: lat,Long: long}
     return c.RenderJson(A)*/
-  
+
 }
 
 func (c Api) ManageSell(idUser string) revel.Result {
@@ -324,7 +324,7 @@ func (c Api) ManageSell(idUser string) revel.Result {
 
     U[i].SetDistance(U[i].Address.Lat)
   }*/
-  
+
   R = &ResSellAll{Status: true,SellData: U}
   return  c.RenderJson(R)
 
