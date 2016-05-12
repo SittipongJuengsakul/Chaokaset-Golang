@@ -2,22 +2,7 @@ package controllers
 
 import (
     "github.com/revel/revel"
-    //"github.com/gocql/gocql"
-   // "gopkg.in/mgo.v2"
-    //"gopkg.in/mgo.v2/bson"
 	  "chaokaset-go/app/models"
-   // "golang.org/x/crypto/bcrypt"
-    //"fmt"
-   // "time"
-  /*  "mime/multipart"
-    "os"
-    "net/http"
-    "bytes"
-    "path/filepath"
-    "io"*/
-//"net/http"
- //"mime/multipart"
- 
 )
 
 //Auth for save Structure of Folder Sell (in views)
@@ -40,7 +25,7 @@ func (c Sell) ProductDetail(id string) revel.Result {
 
 func (c Sell) Sell() revel.Result {
  /* data := models.GetUserData(c.Session["username"])
-  
+
   return  c.RenderJson(data)*/
   return c.Render()
 }
@@ -60,7 +45,7 @@ func (c Sell) PostSell(sell *models.Sell) revel.Result {
   }
 
   data := models.GetUserid(c.Session["username"])
-  
+
   err := models.AddSellData(sell.Name, sell.Category, sell.Price, sell.Unit, sell.Detail, sell.Expire, data.Userid)
   if err {
      // c.Flash.Success("สมัครสมาชิกสำเร็จ")
@@ -78,12 +63,3 @@ func (c Sell) ManageSell() revel.Result {
   data := models.GetManageSell(id.Userid.Hex())
   return c.Render(data)
 }
-
-
-
-
-
-
-
-
-

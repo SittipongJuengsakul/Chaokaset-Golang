@@ -1,12 +1,8 @@
 package controllers
 import (
     "github.com/revel/revel"
-    //"github.com/gocql/gocql"
-    //"gopkg.in/mgo.v2"
-   // "gopkg.in/mgo.v2/bson"
 		"chaokaset-go/app/models"
     "golang.org/x/crypto/bcrypt"
-   // "time"
 )
 
 type Api struct {
@@ -17,8 +13,6 @@ type ResAuth struct {
     Status      bool
     UserData    *models.User
 }
-<<<<<<< HEAD
-=======
 type ResSellAll struct {
     Status        bool
     SellData      []models.Sell
@@ -27,7 +21,6 @@ type ResSellDetail struct {
     Status      bool
     SellData    *models.SellDetail
 }
->>>>>>> remotes/origin/DevManagementSell
 
 type ResPlan struct {
     Status      bool
@@ -42,7 +35,6 @@ type ResSeed struct {
     SeedData    *models.Seed
 }
 
-<<<<<<< HEAD
 type ResSellAll struct {
     Status      bool
     SellData    []models.Sell
@@ -55,10 +47,6 @@ type Address2 struct{
   Lat             float64
   Long            float64
 }
-
-=======
->>>>>>> remotes/origin/DevManagementSell
-
 func (c Api) Index() revel.Result {
   var user *models.User
 	user = models.GetUserData("sittipong")
@@ -87,9 +75,6 @@ func (c Api) RegisterUser(Username string,Password string,Prefix string,Name str
   return  c.RenderJson(R)
 }
 
-<<<<<<< HEAD
-
-=======
 func (c Api) ProductSell(Lat float64, Long float64) revel.Result {
   var R *ResSellAll
   var U []models.Sell
@@ -153,8 +138,6 @@ func (c Api) ManageSell(idUser string) revel.Result {
   R = &ResSellAll{Status: true,SellData: U}
   return  c.RenderJson(R)
 }
-
->>>>>>> remotes/origin/DevManagementSell
 //------------------ แผนการเพาะปลูก -------------------
 //Plan (GET)
 func (c Api) Plans(skip int,word string) revel.Result {
@@ -258,7 +241,6 @@ func (c Api) DisabledOneCrop(cropid string) revel.Result {
   Result := models.DisableOneCrops(cropid)
     return c.RenderJson(Result)
 }
-<<<<<<< HEAD
 func (c Api) ProductSell(Lat float64, Long float64) revel.Result {
   var R *ResSellAll
   var U []models.Sell
@@ -327,8 +309,7 @@ func (c Api) ManageSell(idUser string) revel.Result {
 
   R = &ResSellAll{Status: true,SellData: U}
   return  c.RenderJson(R)
-
-=======
+}
 
 func (c Api) SetStatusSell(idSell string,status int) revel.Result {
   err := models.UpdateStatusSell(idSell,status)
@@ -337,5 +318,4 @@ func (c Api) SetStatusSell(idSell string,status int) revel.Result {
   } else {
     return  c.RenderJson(false)
   }
->>>>>>> remotes/origin/DevManagementSell
 }
