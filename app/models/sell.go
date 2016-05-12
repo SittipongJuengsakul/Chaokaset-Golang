@@ -276,3 +276,32 @@ func UpdateStatusSell(idSell string,status int) (result bool) {
     return true
   }
 }
+
+func EditProductSell(idSell string, name string, category string, price int,detail string,expire string,unit string) (result bool) {
+  session, err := mgo.Dial("127.0.0.1")
+  if err != nil {
+      panic(err)
+  }
+  defer session.Close()
+  session.SetMode(mgo.Monotonic, true)
+  qmgo := session.DB("chaokaset").C("sell")
+
+  colQuerier := bson.M{ "_id": bson.ObjectIdHex(idSell) }
+  
+  change := bson.M{"$set": bson.M{
+    "name": name, 
+    "category": category, 
+    "price": price,
+    "detail": detail, 
+    "expire": expire, 
+    "unit": unit, 
+  }}
+  
+  err = qmgo.Update(colQuerier, change)
+
+  if err != nil {
+    return false
+  }else{
+    return true
+  }
+}

@@ -4,7 +4,7 @@ import (
     //"github.com/gocql/gocql"
     //"gopkg.in/mgo.v2"
    // "gopkg.in/mgo.v2/bson"
-		"chaokaset-master/app/models"
+		"chaokaset-go/app/models"
     "golang.org/x/crypto/bcrypt"
    // "time"
 )
@@ -331,7 +331,6 @@ func (c Api) ManageSell(idUser string) revel.Result {
 =======
 
 func (c Api) SetStatusSell(idSell string,status int) revel.Result {
-
   err := models.UpdateStatusSell(idSell,status)
   if err {
     return  c.RenderJson(true)
