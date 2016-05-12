@@ -5,7 +5,7 @@ import (
     //"github.com/gocql/gocql"
    // "gopkg.in/mgo.v2"
     //"gopkg.in/mgo.v2/bson"
-	  "chaokaset-go/app/models"
+	  "chaokaset-master/app/models"
    // "golang.org/x/crypto/bcrypt"
     //"fmt"
    // "time"
@@ -34,7 +34,6 @@ func (c Sell) IndexSell() revel.Result {
 }
 
 func (c Sell) ProductDetail(id string) revel.Result {
-
   data := models.GetSellDetail(id)
   return c.Render(data)
 }
@@ -60,14 +59,8 @@ func (c Sell) PostSell(sell *models.Sell) revel.Result {
     return c.Redirect(Sell.Sell)
   }
 
-  //return c.RenderJson(c.Params.Files[sell.PicUp].Filename)
- //  m := c.Request.MultipartForm
-   //e := m.File["sell.PicUp"]
-
-//return c.RenderJson(m)
-   data := models.GetUserData(c.Session["username"])
+  data := models.GetUserid(c.Session["username"])
   
-  //return  c.RenderJson(data.Userid.Hex)
   err := models.AddSellData(sell.Name, sell.Category, sell.Price, sell.Unit, sell.Detail, sell.Expire, data.Userid)
   if err {
      // c.Flash.Success("สมัครสมาชิกสำเร็จ")
@@ -80,13 +73,10 @@ func (c Sell) PostSell(sell *models.Sell) revel.Result {
 }
 
 func (c Sell) ManageSell() revel.Result {
-  //id := c.Session["username"]
- // data := models.GetManageSell(id)
   userid := c.Session["username"]
   id := models.GetUserid(userid)
   data := models.GetManageSell(id.Userid.Hex())
   return c.Render(data)
- // return c.RenderJson(data)
 }
 
 

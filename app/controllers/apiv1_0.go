@@ -1,22 +1,33 @@
 package controllers
-
 import (
     "github.com/revel/revel"
     //"github.com/gocql/gocql"
     //"gopkg.in/mgo.v2"
    // "gopkg.in/mgo.v2/bson"
-		"chaokaset-go/app/models"
+		"chaokaset-master/app/models"
     "golang.org/x/crypto/bcrypt"
+   // "time"
 )
 
-//Auth for save Structure of Folder Authen (in views)
 type Api struct {
 	*revel.Controller
 }
+
 type ResAuth struct {
     Status      bool
     UserData    *models.User
 }
+<<<<<<< HEAD
+=======
+type ResSellAll struct {
+    Status        bool
+    SellData      []models.Sell
+}
+type ResSellDetail struct {
+    Status      bool
+    SellData    *models.SellDetail
+}
+>>>>>>> remotes/origin/DevManagementSell
 
 type ResPlan struct {
     Status      bool
@@ -31,6 +42,7 @@ type ResSeed struct {
     SeedData    *models.Seed
 }
 
+<<<<<<< HEAD
 type ResSellAll struct {
     Status      bool
     SellData    []models.Sell
@@ -44,6 +56,8 @@ type Address2 struct{
   Long            float64
 }
 
+=======
+>>>>>>> remotes/origin/DevManagementSell
 
 func (c Api) Index() revel.Result {
   var user *models.User
@@ -73,7 +87,74 @@ func (c Api) RegisterUser(Username string,Password string,Prefix string,Name str
   return  c.RenderJson(R)
 }
 
+<<<<<<< HEAD
 
+=======
+func (c Api) ProductSell(Lat float64, Long float64) revel.Result {
+  var R *ResSellAll
+  var U []models.Sell
+  U = models.GetSellData(Lat,Long)
+  if U == nil{
+    R = &ResSellAll{Status: false,SellData: nil}
+    return  c.RenderJson(R)
+  }
+
+  R = &ResSellAll{Status: true,SellData: U}
+  return  c.RenderJson(R)
+}
+
+func (c Api) ProductDetail(Id string) revel.Result{
+  var R *ResSellDetail
+  var U *models.SellDetail
+  U = models.GetSellDetail(Id)
+  if U == nil{
+    R = &ResSellDetail{Status: false,SellData: nil}
+    return  c.RenderJson(R)
+  }
+  R = &ResSellDetail{Status: true,SellData: U}
+  return  c.RenderJson(R)
+}
+
+func (c Api)  SearchProduct(Name string, Lat float64, Long float64) revel.Result{
+ var R *ResSellAll
+  var U []models.Sell
+  U = models.GetSearchSell(Name,Lat,Long)
+  if U == nil{
+    R = &ResSellAll{Status: false,SellData: nil}
+    return  c.RenderJson(R)
+  }
+  R = &ResSellAll{Status: true,SellData: U}
+  return  c.RenderJson(R)
+}
+
+func (c Api)  AddProduct(name string,category string, price int, unit string, detail string, expire string, ownerId string, lat float64, long float64) revel.Result {
+ err := models.AddSellData2(name,category,price,unit,detail,expire,ownerId,lat,long)
+  if err {
+      return  c.RenderJson(true)
+    } else {
+      return  c.RenderJson(false)
+    }
+
+    //return c.RenderJson(A)
+
+}
+
+func (c Api) ManageSell(idUser string) revel.Result {
+ var R *ResSellAll
+  var U []models.Sell
+  U = models.GetManageSell(idUser)
+  if U == nil{
+    R = &ResSellAll{Status: false,SellData: nil}
+    return  c.RenderJson(R)
+  }
+
+
+
+  R = &ResSellAll{Status: true,SellData: U}
+  return  c.RenderJson(R)
+}
+
+>>>>>>> remotes/origin/DevManagementSell
 //------------------ แผนการเพาะปลูก -------------------
 //Plan (GET)
 func (c Api) Plans(skip int,word string) revel.Result {
@@ -177,6 +258,7 @@ func (c Api) DisabledOneCrop(cropid string) revel.Result {
   Result := models.DisableOneCrops(cropid)
     return c.RenderJson(Result)
 }
+<<<<<<< HEAD
 func (c Api) ProductSell(Lat float64, Long float64) revel.Result {
   var R *ResSellAll
   var U []models.Sell
@@ -246,4 +328,15 @@ func (c Api) ManageSell(idUser string) revel.Result {
   R = &ResSellAll{Status: true,SellData: U}
   return  c.RenderJson(R)
 
+=======
+
+func (c Api) SetStatusSell(idSell string,status int) revel.Result {
+
+  err := models.UpdateStatusSell(idSell,status)
+  if err {
+    return  c.RenderJson(true)
+  } else {
+    return  c.RenderJson(false)
+  }
+>>>>>>> remotes/origin/DevManagementSell
 }

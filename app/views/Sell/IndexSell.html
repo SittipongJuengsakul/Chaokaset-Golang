@@ -5,48 +5,8 @@
 
 
 <div class="chaokaset-container-verticle" id="chaokaset-loader" style="display: none;">
-  <div class="col-sm-12 varticle-header-box">
-    <h1>การซื้อ-ขาย สินค้า</h1>
-  </div>
-  <div class="col-sm-3" style="padding: 0px;">
-    <div class="container col-sm-12">
-        <ul class="nav bd-sidenav" >
-          <p class="text-bold " style="padding-top: 20px;font-size:20px">แสดงรายการสินค้า</p>
-            <li class="active bd-sidenav-active">
-                <a href="/sell/showproduct">ข้าว</a>
-            </li>
-            <li class="">
-              <a href="/sell/showproduct">ผลไม้</a>
-            </li>
-            <li class="">
-              <a href="/sell/showproduct">พืชผัก</a>
-            </li>
-            <li class="">
-              <a href="/sell/showproduct">พืชไร่</a>
-            </li>
-            <li class="">
-              <a href="/sell/showproduct">พืชสวน</a>
-            </li>
-            <li class="">
-              <a href="/sell/showproduct">สัตว์</a>
-            </li>
-            <li class="">
-              <a href="/sell/showproduct">สินค้าอื่นๆ</a>
-            </li>
-        </ul>
-        
-        <ul class="nav bd-sidenav" >
-          <p class="text-bold " style="padding-top: 5px;font-size:20px">ประกาศขายสินค้า</p>
-            <li class="">
-                <a href="/sell/showproduct">ขายสินค้า</a>
-            </li>
-            <li class="">
-              <a href="/sell/managesell">จัดการสินค้า</a>
-            </li>
-        </ul>
- 
-    </div>
-  </div>
+
+  {{template "Templates/menuSell.html" .}}
 
   <div class="col-sm-9 container-box"  ng-app="ChaokasetApp" ng-controller="searchShowProduct">
     <div class="col-sm-12 container-box-content" >
@@ -80,10 +40,17 @@
 
           <div class="col-sm-6 col-md-4" ng-repeat="product in filterProducts  = (products | filter:searchProduct)">
             <div class="thumbnail">
-              <img src="/" alt="..." width="100%">
+              <img src="" alt="..." width="100%" >
               <div class="caption">
                 <h2 class="color-blue" ng-bind-html="product.Name | searchfilter:searchProduct"></h2>
-                <p  style="padding-top:10px;padding-bottom:10px"><img src="/public/img/Coins-48.png" width="30px"><p ></p></p>
+                <div class = "row" style="padding-top:10px;padding-bottom:10px">
+                  <img src="/public/img/Coins-48.png">
+                  <div ng-bind-html="product.Price"></div>
+                  <div ng-bind-html="product.Unit"></div>
+                
+          
+                  </div>
+                </div>
                 <p style="padding-bottom:15px"><img src="/public/img/Geo-fence-48.png" width="25px"> จ.ชลบุรี </p>
                 <a  href="productdetail/"><button type="button" class="btn btn-success">รายละเอียดสินค้า</button></a>
               </div>
@@ -102,8 +69,9 @@
   app.controller('searchShowProduct', function($scope, $http) {
       $http.get(site_url+"/apiv1_0/product/13/100")
       .then(function(response) {
-        //console.log(response);
+        //console.log(response.data["SellData"][0]);
         $scope.products = response.data["SellData"];
+       // $scope.productsDiv = response.data["SellData"][0]["Name"];
       });
      
   })
