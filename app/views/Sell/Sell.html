@@ -1,0 +1,128 @@
+{{set . "title" "การซื้อ-ขาย สินค้า"}}
+{{template "Templates/header.html" .}}
+{{template "Templates/preloader.html" .}}
+<div class="chaokaset-container-verticle" id="chaokaset-loader" style="display: none;">
+  <div class="col-sm-12 varticle-header-box">
+    <h1>การซื้อ-ขาย สินค้า</h1>
+  </div>
+  <div class="col-sm-3" style="padding: 0px;">
+    <div class="container col-sm-12">
+        <ul class="nav bd-sidenav" >
+          <p class="text-bold " style="padding-top: 20px;font-size:20px">แสดงรายการสินค้า</p>
+            <li class="active bd-sidenav-active">
+                <a href="/sell/showproduct">ข้าว</a>
+            </li>
+            <li class="">
+              <a href="/sell/showproduct">ผลไม้</a>
+            </li>
+            <li class="">
+              <a href="/sell/showproduct">พืชผัก</a>
+            </li>
+            <li class="">
+              <a href="/sell/showproduct">พืชไร่</a>
+            </li>
+            <li class="">
+              <a href="/sell/showproduct">พืชสวน</a>
+            </li>
+            <li class="">
+              <a href="/sell/showproduct">สัตว์</a>
+            </li>
+            <li class="">
+              <a href="/sell/showproduct">สินค้าอื่นๆ</a>
+            </li>
+        </ul>
+        
+        <ul class="nav bd-sidenav" >
+          <p class="text-bold " style="padding-top: 5px;font-size:20px">ประกาศขายสินค้า</p>
+            <li class="">
+                <a href="/sell">ขายสินค้า</a>
+            </li>
+            <li class="">
+              <a href="/sell/managesell">จัดการสินค้า</a>
+            </li>
+        </ul>
+ 
+    </div>
+  </div>
+
+  <div class="col-sm-9">
+    <div class="col-sm-12 container-box-content" >
+      <h2 class="color-green">ประกาศขายสินค้า</h2>
+      </br>
+      <form method="post" action="{{url "Sell.PostSell"}}" enctype="multipart/form-data" >
+      {{with $field := field "sell.Category" .}}
+      <div class="form-group">
+          <label for="">ประเภทสินค้า</label>
+            <select class="form-control" id="sel1" name="{{$field.Name}}">
+            <option value="ข้าว">ข้าว</option>
+            <option value="ผลไม้">ผลไม้</option>
+            <option value="พืชผัก">พืชผัก</option>
+            <option value="พืชไร่">พืชไร่</option>
+            <option value="พืชสวน">พืชสวน</option>
+            <option value="สัตว์">สัตว์</option>
+            <option value="สินค้าอื่นๆ">สินค้าอื่นๆ</option>
+          </select>
+      </div>
+      {{end}}
+      {{with $field := field "sell.Name" .}}
+      <div class="form-group">
+        <label for="">ชื่อสินค้า</label>
+        <input type="text" class="form-control" placeholder="กรอกชื่อสินค้า เช่น ข้าวหอมมะลิ" name="{{$field.Name}}" value="{{$field.Flash}}">
+        <span class="error">{{$field.Error}}</span>
+      </div>
+      {{end}}
+      <div class="row">
+        {{with $field := field "sell.Price" .}}
+        <div  class="col-sm-6">
+          <label for="">ราคา (หน่วยเป็นบาท)</label>
+          <input type="text" class="form-control" placeholder="กรอกราคาหน่วยเป็นบาท" name="{{$field.Name}}" value="{{$field.Flash}}"> 
+          <span class="error">{{$field.Error}}</span>
+        </div>
+        {{end}}
+        {{with $field := field "sell.Unit" .}}
+        <div  class="col-sm-6">
+          <label for="">หน่วยสินค้าที่ขาย</label>
+          <input type="text" class="form-control" placeholder="เช่น กิโลกรัม ผล โหล ลัง" name="{{$field.Name}}" value="{{$field.Flash}}"> 
+           <span class="error">{{$field.Error}}</span>
+        </div>
+        {{end}}
+      </div>
+      {{with $field := field "sell.PicUp" .}}
+      <div class="form-group" style="padding-top:15px;">
+        <label for="">รูปสินค้า</label>
+        <input type="file"  name="{{$field.Name}}" accept="image/png">
+
+        <span class="error">{{$field.Error}}</span>
+      </div>
+      {{end}}
+      {{with $field := field "sell.Detail" .}}
+      <div class="form-group">
+        <label for="">รายละเอียดสินค้า</label>
+        <textarea class="form-control" rows="5" id="" placeholder="กรอกรายละเอียดสินค้า เช่น สี ขนาด" name="{{$field.Name}}" >{{$field.Flash}}</textarea>
+        <span class="error">{{$field.Error}}</span>
+      </div>
+      {{end}}
+      {{with $field := field "sell.Expire" .}}
+      <div class="form-group">
+        <label for="">วันหมดอายุ/วันปิดการขาย</label>
+        <input type="date" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" > 
+        <span class="error">{{$field.Error}}</span>
+      </div>
+      {{end}}
+      {{with $field := field "sell.Address" .}}
+       <div class="form-group">
+          <label for="">ที่อยู่ของสินค้า</label>
+        <div class="form-group">
+          <input type="radio" name="{{$field.Name}}">จุดที่ยืนอยู่
+          <input type="radio" name="{{$field.Name}}">จุดอื่นๆ
+        </div>
+          <span class="error">{{$field.Error}}</span>
+        </div>
+       {{end}}
+      <p class="text-right" >
+        <button type="submit" class="btn bg-link">ขายสินค้า</button>
+      <p/>
+  </div>
+  </form>
+</div>
+{{template "Templates/footer.html" .}}

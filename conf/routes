@@ -40,12 +40,17 @@ GET     /plan/showplan                                                          
 GET     /plan/managemnet                                                                           Plan.PlanManagement
 GET     /farmer/management                                                                         Farmer.FarmerManagement
 GET     /farmer/showfarmer                                                                         Farmer.ShowFarmer
+GET		/sell/showproduct																		   Sell.IndexSell
+GET		/sell/productdetail/:id																	   Sell.ProductDetail
+GET 	/sell   																				   Sell.Sell
+GET		/sell/managesell																		   Sell.ManageSell
 GET     /template                                                                                  App.Templates
 # Ignore favicon requests
 GET     /favicon.ico                                                                               404
 GET     /apiv1_0                                                                                   Api.Index
 GET     /apiv1_0/login/:Username/:Password                                                         Api.CheckLogin
 GET     /apiv1_0/register/:Username/:Password/:Prefix/:Name/:Lname/:Tel                            Api.RegisterUser
+
 GET     /apiv1_0/plans/:skip                                                                       Api.Plans
 GET     /apiv1_0/planid/:idplan                                                                    Api.Plan
 GET     /apiv1_0/plan/:idplant/:idseed                                                             Api.PlansAllPlants
@@ -62,6 +67,13 @@ GET     /apiv1_0/onecrop/:cropid                                                
 # WebSocket demo
 GET     /websocket/room                                                                            WebSocket.Room
 WS      /websocket/room/socket                                                                     WebSocket.RoomSocket
+
+GET		/apiv1_0/product/:Lat/:Long 														   Api.ProductSell 
+GET		/apiv1_0/detail/:Id																		   Api.ProductDetail
+GET		/apiv1_0/SearchProduct/:Name/:Lat/:long													   Api.SearchProduct
+GET		/apiv1_0/AddProduct/:name/:category/:price/:unit/:detail/:expire/:ownerId/:lat/:long	   Api.AddProduct
+GET		/apiv1_0/ManageSell/:idUser																   Api.ManageSell
+
 
 
 
