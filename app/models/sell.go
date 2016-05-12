@@ -28,6 +28,7 @@ type Sell struct{
   Expire          string
   TimeCreate      time.Time
   OwnerId         bson.ObjectId
+  Status          int
 }
 
 type  Owner struct{
@@ -122,12 +123,20 @@ func AddSellData(name string,category string, price int, unit string, detail str
 
   session.SetMode(mgo.Monotonic, true)
   qmgo := session.DB("chaokaset").C("sell")
-  err = qmgo.Insert(&Sell{Name: name, Category: category, Price: price,TimeCreate: time.Now(), Detail: detail, Expire: expire, Unit: unit, OwnerId: ownerId,Pic: "public/img/pic/rice1.jpg"})
- 
-  /*query := bson.M{"name": name, "category": category, "price": price,"TimeCreate": time.Now(), "detail": detail, "expire": expire, "unit": unit, "ownerId": ownerId, "pic": "public/img/pic/rice1.jpg"}
-  update := bson.M{"$push": bson.M{"address": bsonM.{"name": "cubs-killeen", "location": "some other Place"} }}
 
-  err = qmgo.Update(query, update)*/
+  err = qmgo.Insert(&Sell{
+    Name: name, 
+    Category: category, 
+    Price: price,
+    TimeCreate: time.Now(), 
+    Detail: detail, 
+    Expire: expire, 
+    Unit: unit, 
+    OwnerId: ownerId,
+    Pic: "public/img/pic/rice1.jpg",
+    Status: 1,
+  })
+
   if err != nil {
     return false
   }else{
@@ -142,18 +151,26 @@ func AddSellData2(name string,category string, price int, unit string, detail st
   }
   defer session.Close()
   var  A *Address
+
   A = &Address{Lat: lat,Long: long}
 
   session.SetMode(mgo.Monotonic, true)
   qmgo := session.DB("chaokaset").C("sell")
 
-  err = qmgo.Insert(&Sell{Name: name, Category: category, Price: price,TimeCreate: time.Now(), Detail: detail, Expire: expire, Unit: unit, OwnerId: bson.ObjectIdHex(ownerId), Pic: "public/img/pic/rice1.jpg",Address: A})
-  
-  /*query := bson.M{"name": name, "ownerid": bson.ObjectIdHex(ownerId),"price":price}
-  update := bson.M{"$push": bson.M{"address": bsonM.{"lat": lat,"long": long} }}
-  
-  err = qmgo.Update(query, update)*/
- 
+  err = qmgo.Insert(&Sell{
+    Name: name, 
+    Category: category, 
+    Price: price,
+    TimeCreate: time.Now(), 
+    Detail: detail, 
+    Expire: expire, 
+    Unit: unit, 
+    OwnerId: bson.ObjectIdHex(ownerId), 
+    Pic: "public/img/pic/rice1.jpg",
+    Address: A ,
+    Status: 1,
+  })
+
   if err != nil {
     return false
   }else{
