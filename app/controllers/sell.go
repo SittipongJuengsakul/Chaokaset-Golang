@@ -46,7 +46,7 @@ func (c Sell) PostSell(sell *models.Sell) revel.Result {
 
   data := models.GetUserid(c.Session["username"])
 
-  err := models.AddSellData(sell.Name, sell.Category, sell.Price, sell.Unit, sell.Detail, sell.Expire, data.Userid)
+  err := models.AddSellData(sell.Name, sell.Category, sell.Price, sell.Unit, sell.Detail, sell.Expire, data.Userid,13.258,100.255)
   if err {
      // c.Flash.Success("สมัครสมาชิกสำเร็จ")
    // return c.RenderJson(sell.PicUp)

@@ -25,6 +25,21 @@ type Sell struct{
   Status          int
 }
 
+type SellInsert struct{
+  Sellid          bson.ObjectId `bson:"_id,omitempty"`
+  Name            string
+  Category        string
+  Pic             string
+  Price           int
+  Address         *Address
+  Unit            string
+  Detail          string
+  Expire          string
+  TimeCreate      time.Time
+  OwnerId         bson.ObjectId
+  Status          int
+}
+
 type  Owner struct{
   Name,Lastname,Prefix,Tel       string
 }
@@ -43,6 +58,7 @@ type SellDetail struct{
   OwnerId         bson.ObjectId
   Owner           Owner
 }
+
 type Address struct{
   Lat             float64
   Long            float64
@@ -100,7 +116,7 @@ func GetSellData(Lat float64, Long float64) []Sell {
   return result
 }
 
-func AddSellData(name string,category string, price int, unit string, detail string, expire string, ownerId bson.ObjectId) (result bool) {
+func AddSellData(name string,category string, price int, unit string, detail string, expire string, ownerId bson.ObjectId, lat float64, long float64) (result bool) {
   session, err := mgo.Dial("127.0.0.1")
   if err != nil {
       panic(err)
@@ -109,8 +125,11 @@ func AddSellData(name string,category string, price int, unit string, detail str
 
   session.SetMode(mgo.Monotonic, true)
   qmgo := session.DB("chaokaset").C("sell")
-
-  err = qmgo.Insert(&Sell{
+  
+  var  A *Address
+  A = &Address{Lat: lat,Long: long}
+  
+  err = qmgo.Insert(&SellInsert{
     Name: name, 
     Category: category, 
     Price: price,
@@ -120,6 +139,7 @@ func AddSellData(name string,category string, price int, unit string, detail str
     Unit: unit, 
     OwnerId: ownerId,
     Pic: "public/img/pic/rice1.jpg",
+    Address: A ,
     Status: 1,
   })
 
@@ -137,14 +157,14 @@ func AddSellData2(name string,category string, price int, unit string, detail st
       panic(err)
   }
   defer session.Close()
+  
   var  A *Address
-
   A = &Address{Lat: lat,Long: long}
 
   session.SetMode(mgo.Monotonic, true)
   qmgo := session.DB("chaokaset").C("sell")
 
-  err = qmgo.Insert(&Sell{
+  err = qmgo.Insert(&SellInsert{
     Name: name, 
     Category: category, 
     Price: price,
