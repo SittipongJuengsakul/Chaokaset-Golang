@@ -23,21 +23,7 @@ type Sell struct{
   TimeCreate      time.Time
   OwnerId         bson.ObjectId
   Status          int
-}
-
-type SellInsert struct{
-  Sellid          bson.ObjectId `bson:"_id,omitempty"`
-  Name            string
-  Category        string
-  Pic             string
-  Price           int
-  Address         *Address
-  Unit            string
-  Detail          string
-  Expire          string
-  TimeCreate      time.Time
-  OwnerId         bson.ObjectId
-  Status          int
+  SellType        int
 }
 
 type  Owner struct{
@@ -57,6 +43,8 @@ type SellDetail struct{
   TimeCreate      time.Time
   OwnerId         bson.ObjectId
   Owner           Owner
+   Status          int
+  SellType        int
 }
 
 type Address struct{
@@ -116,7 +104,7 @@ func GetSellData(Lat float64, Long float64) []Sell {
   return result
 }
 
-func AddSellData(name string,category string, price int, unit string, detail string, expire string, ownerId bson.ObjectId, lat float64, long float64) (result bool) {
+func AddSellData(name string,category string, price int, unit string, detail string, expire string, ownerId bson.ObjectId) (result bool) {
   session, err := mgo.Dial("127.0.0.1")
   if err != nil {
       panic(err)
@@ -127,9 +115,9 @@ func AddSellData(name string,category string, price int, unit string, detail str
   qmgo := session.DB("chaokaset").C("sell")
   
   var  A *Address
-  A = &Address{Lat: lat,Long: long}
+  A = &Address{Lat: 13.00,Long: 100.00}
   
-  err = qmgo.Insert(&SellInsert{
+  err = qmgo.Insert(&Sell{
     Name: name, 
     Category: category, 
     Price: price,
@@ -141,6 +129,7 @@ func AddSellData(name string,category string, price int, unit string, detail str
     Pic: "public/img/pic/rice1.jpg",
     Address: A ,
     Status: 1,
+    SellType: 2,
   })
 
   if err != nil {
@@ -164,7 +153,7 @@ func AddSellData2(name string,category string, price int, unit string, detail st
   session.SetMode(mgo.Monotonic, true)
   qmgo := session.DB("chaokaset").C("sell")
 
-  err = qmgo.Insert(&SellInsert{
+  err = qmgo.Insert(&Sell{
     Name: name, 
     Category: category, 
     Price: price,
@@ -176,6 +165,7 @@ func AddSellData2(name string,category string, price int, unit string, detail st
     Pic: "public/img/pic/rice1.jpg",
     Address: A ,
     Status: 1,
+    SellType: 2,
   })
 
   if err != nil {

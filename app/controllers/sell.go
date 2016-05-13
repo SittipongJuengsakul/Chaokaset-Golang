@@ -31,7 +31,7 @@ func (c Sell) Sell() revel.Result {
 }
 
 func (c Sell) PostSell(sell *models.Sell) revel.Result {
- c.Validation.Required(sell.Name).Message("จำเป็นต้องกรอก ชื่อสินค้า")
+  c.Validation.Required(sell.Name).Message("จำเป็นต้องกรอก ชื่อสินค้า")
   c.Validation.Required(sell.Price).Message("จำเป็นต้องกรอก ราคาสินค้าเป็นตัวเลข")
   c.Validation.Required(sell.Unit).Message("จำเป็นต้องกรอก หน่วยสินค้า")
   //c.Validation.Required(sell.Pic).Message("จำเป็นต้องกรอก รูปสินค้า")
@@ -46,10 +46,8 @@ func (c Sell) PostSell(sell *models.Sell) revel.Result {
 
   data := models.GetUserid(c.Session["username"])
 
-  err := models.AddSellData(sell.Name, sell.Category, sell.Price, sell.Unit, sell.Detail, sell.Expire, data.Userid,13.258,100.255)
+  err := models.AddSellData(sell.Name, sell.Category, sell.Price, sell.Unit, sell.Detail, sell.Expire, data.Userid)
   if err {
-     // c.Flash.Success("สมัครสมาชิกสำเร็จ")
-   // return c.RenderJson(sell.PicUp)
       return  c.Redirect(Sell.IndexSell)
     } else {
       c.Flash.Error("เกิดข้อผิดพลาดไม่สามารถขายสินค้าได้ กรุณากรอกข้อมูลใหม่!!")
