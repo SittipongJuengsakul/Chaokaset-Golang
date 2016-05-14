@@ -244,3 +244,12 @@ func (c Api) SetStatusSell(idSell string,status int) revel.Result {
     return  c.RenderJson(false)
   }
 }
+
+func (c Api) EditProduct(idSell string, name string, category string, price int,detail string,expire string,unit string,lat float64,long float64) revel.Result {
+  err := models.EditProductSell(idSell,name,category,price,detail,expire,unit,lat,long)
+  if err {
+    return  c.RenderJson(true)
+  } else {
+    return  c.RenderJson(false)
+  }
+}

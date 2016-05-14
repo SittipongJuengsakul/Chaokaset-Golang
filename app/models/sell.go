@@ -286,7 +286,7 @@ func UpdateStatusSell(idSell string,status int) (result bool) {
   }
 }
 
-func EditProductSell(idSell string, name string, category string, price int,detail string,expire string,unit string) (result bool) {
+func EditProductSell(idSell string, name string, category string, price int,detail string,expire string,unit string,lat float64,long float64) (result bool) {
   session, err := mgo.Dial("127.0.0.1")
   if err != nil {
       panic(err)
@@ -295,6 +295,9 @@ func EditProductSell(idSell string, name string, category string, price int,deta
   session.SetMode(mgo.Monotonic, true)
   qmgo := session.DB("chaokaset").C("sell")
 
+  var  A *Address
+  A = &Address{Lat: lat,Long: long}
+  
   colQuerier := bson.M{ "_id": bson.ObjectIdHex(idSell) }
   
   change := bson.M{"$set": bson.M{
@@ -304,6 +307,7 @@ func EditProductSell(idSell string, name string, category string, price int,deta
     "detail": detail, 
     "expire": expire, 
     "unit": unit, 
+    "address": A,
   }}
   
   err = qmgo.Update(colQuerier, change)
