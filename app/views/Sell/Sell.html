@@ -47,7 +47,7 @@
         </div>
         {{end}}
       </div>
-      {{with $field := field "sell.PicUp" .}}
+      {{with $field := field "sell.Pic" .}}
       <div class="form-group" style="padding-top:15px;">
         <label for="">รูปสินค้า</label>
         <input type="file"  name="{{$field.Name}}" accept="image/png">
@@ -69,7 +69,8 @@
         <span class="error">{{$field.Error}}</span>
       </div>
       {{end}}
-      {{with $field := field "sell.Address" .}}
+     
+     <!-- {{with $field := field "sell.Address" .}}
        <div class="form-group">
           <label for="">ที่อยู่ของสินค้า</label>
         <div class="form-group">
@@ -78,7 +79,7 @@
         </div>
           <span class="error">{{$field.Error}}</span>
         </div>
-       {{end}}
+       {{end}}-->
 
       <p class="text-right" >
         <button type="submit" class="btn bg-link">ขายสินค้า</button>

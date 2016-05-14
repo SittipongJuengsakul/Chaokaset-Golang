@@ -19,7 +19,7 @@ type ResAuth struct {
 }
 type ResSellAll struct {
     Status        bool
-    SellData      []models.Sell
+    SellData      []models.Sells
 }
 type ResSellDetail struct {
     Status      bool
@@ -70,7 +70,7 @@ func (c Api) RegisterUser(Username string,Password string,Prefix string,Name str
 
 func (c Api) ProductSell(Lat float64, Long float64) revel.Result {
   var R *ResSellAll
-  var U []models.Sell
+  var U []models.Sells
   U = models.GetSellData(Lat,Long)
   if U == nil{
     R = &ResSellAll{Status: false,SellData: nil}
@@ -93,9 +93,9 @@ func (c Api) ProductDetail(Id string) revel.Result{
   return  c.RenderJson(R)
 }
 
-func (c Api)  SearchProduct(Name string, Lat float64, Long float64) revel.Result{
+func (c Api) SearchProduct(Name string, Lat float64, Long float64) revel.Result{
  var R *ResSellAll
-  var U []models.Sell
+  var U []models.Sells
   U = models.GetSearchSell(Name,Lat,Long)
   if U == nil{
     R = &ResSellAll{Status: false,SellData: nil}
@@ -105,7 +105,7 @@ func (c Api)  SearchProduct(Name string, Lat float64, Long float64) revel.Result
   return  c.RenderJson(R)
 }
 
-func (c Api)  AddProduct(name string,category string, price int, unit string, detail string, expire string, ownerId string, lat float64, long float64) revel.Result {
+func (c Api) AddProduct(name string,category string, price int, unit string, detail string, expire string, ownerId string, lat float64, long float64) revel.Result {
  err := models.AddSellData2(name,category,price,unit,detail,expire,ownerId,lat,long)
   if err {
       return  c.RenderJson(true)
@@ -119,7 +119,7 @@ func (c Api)  AddProduct(name string,category string, price int, unit string, de
 
 func (c Api) ManageSell(idUser string) revel.Result {
  var R *ResSellAll
-  var U []models.Sell
+  var U []models.Sells
   U = models.GetManageSell(idUser)
   if U == nil{
     R = &ResSellAll{Status: false,SellData: nil}

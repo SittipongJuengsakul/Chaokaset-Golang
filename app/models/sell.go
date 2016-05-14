@@ -8,7 +8,7 @@ import (
     "math"
 )
 
-type Sell struct{
+type Sells struct{
   Sellid          bson.ObjectId `bson:"_id,omitempty"`
   Name            string
   Category        string
@@ -55,7 +55,7 @@ type UserId struct{
   Userid          bson.ObjectId `bson:"_id,omitempty"`
 }
 
-func (sell *Sell) SetDistance(data float64) {
+func (sell *Sells) SetDistance(data float64) {
   sell.Distance = data
 }
 
@@ -75,7 +75,7 @@ func (SellDetail *SellDetail) SetOwnerTel(data string) {
   SellDetail.Owner.Tel = data
 }
 
-func GetSellData(Lat float64, Long float64) []Sell {
+func GetSellData(Lat float64, Long float64) []Sells {
   session, err := mgo.Dial("127.0.0.1")
   if err != nil {
       panic(err)
@@ -85,7 +85,7 @@ func GetSellData(Lat float64, Long float64) []Sell {
   session.SetMode(mgo.Monotonic, true)
   qmgo := session.DB("chaokaset").C("sell")
 
-  var result []Sell
+  var result []Sells
   
   qmgo.Find(nil).Sort("-TimeCreate").All(&result)
 
@@ -114,10 +114,10 @@ func AddSellData(name string,category string, price int, unit string, detail str
   session.SetMode(mgo.Monotonic, true)
   qmgo := session.DB("chaokaset").C("sell")
   
-  var  A *Address
-  A = &Address{Lat: 13.00,Long: 100.00}
+ // var  A *Address
+ // A = &Address{Lat: 13.00,Long: 100.00}
   
-  err = qmgo.Insert(&Sell{
+  err = qmgo.Insert(&Sells{
     Name: name, 
     Category: category, 
     Price: price,
@@ -127,7 +127,6 @@ func AddSellData(name string,category string, price int, unit string, detail str
     Unit: unit, 
     OwnerId: ownerId,
     Pic: "public/img/pic/rice1.jpg",
-    Address: A ,
     Status: 1,
     SellType: 2,
   })
@@ -153,7 +152,7 @@ func AddSellData2(name string,category string, price int, unit string, detail st
   session.SetMode(mgo.Monotonic, true)
   qmgo := session.DB("chaokaset").C("sell")
 
-  err = qmgo.Insert(&Sell{
+  err = qmgo.Insert(&Sells{
     Name: name, 
     Category: category, 
     Price: price,
@@ -199,7 +198,7 @@ func GetSellDetail(Idsell string) *SellDetail {
 }
 
 
-func GetSearchSell(Name string,Lat float64,Long float64) []Sell {
+func GetSearchSell(Name string,Lat float64,Long float64) []Sells {
   session, err := mgo.Dial("127.0.0.1")
   if err != nil {
       panic(err)
@@ -207,7 +206,7 @@ func GetSearchSell(Name string,Lat float64,Long float64) []Sell {
   defer session.Close()
   session.SetMode(mgo.Monotonic, true)
   qmgo := session.DB("chaokaset").C("sell")
-  var result []Sell
+  var result []Sells
   
   qmgo.Find(bson.M{"name": bson.RegEx{".*"+Name, "s"}}).All(&result)
    for i := range result {
@@ -238,7 +237,7 @@ func GetOwnerData(id string) *Owner{
   return result
 }
 
-func GetManageSell(id string) []Sell {
+func GetManageSell(id string) []Sells {
   session, err := mgo.Dial("127.0.0.1")
   if err != nil {
       panic(err)
@@ -246,7 +245,7 @@ func GetManageSell(id string) []Sell {
   defer session.Close()
   session.SetMode(mgo.Monotonic, true)
   qmgo := session.DB("chaokaset").C("sell")
-  var result []Sell
+  var result []Sells
   
   qmgo.Find(bson.M{"ownerid": bson.ObjectIdHex(id)}).Sort("TimeCreate").All(&result)
 
