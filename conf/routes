@@ -56,7 +56,7 @@ GET     /apiv1_0/register/:Username/:Password/:Prefix/:Name/:Lname/:Tel         
 GET		/apiv1_0/product/:Lat/:Long 														   Api.ProductSell
 GET		/apiv1_0/detail/:Id																		   Api.ProductDetail
 GET		/apiv1_0/SearchProduct/:Name/:Lat/:long													   Api.SearchProduct
-GET		/apiv1_0/AddProduct/:name/:category/:price/:unit/:detail/:expire/:ownerId/:lat/:long	   Api.AddProduct
+GET		/apiv1_0/AddProduct/:name/:category/:price/:unit/:detail/:expire/:ownerId/:lat/:long/:sellType	   Api.AddProduct
 GET		/apiv1_0/ManageSell/:idUser																   Api.ManageSell
 
 GET     /apiv1_0/plans/:skip                                                                       Api.Plans

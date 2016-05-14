@@ -105,8 +105,8 @@ func (c Api) SearchProduct(Name string, Lat float64, Long float64) revel.Result{
   return  c.RenderJson(R)
 }
 
-func (c Api) AddProduct(name string,category string, price int, unit string, detail string, expire string, ownerId string, lat float64, long float64) revel.Result {
- err := models.AddSellData2(name,category,price,unit,detail,expire,ownerId,lat,long)
+func (c Api) AddProduct(name string,category string, price int, unit string, detail string, expire string, ownerId string, lat float64, long float64,sellType int) revel.Result {
+ err := models.AddSellData2(name,category,price,unit,detail,expire,ownerId,lat,long,sellType)
   if err {
       return  c.RenderJson(true)
     } else {

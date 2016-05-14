@@ -5,6 +5,12 @@ import (
 	  "chaokaset-go/app/models"
     //"net/http"
     "io"
+    "bytes"
+    "mime/multipart"
+    "fmt"
+    "os"
+    "net/http"
+    "io/ioutil"
 
 )
 
@@ -17,7 +23,7 @@ type Sell struct {
 type PostSell struct{
   Name            string
   Category        string
-  Pic             io.Reader
+  Pic             []byte
   Price           int
   Unit            string
   Detail          string
@@ -57,23 +63,29 @@ func (c Sell) PostSell(sell PostSell) revel.Result {
     return c.Redirect(Sell.Sell)
   }*/
  // headers := c.Params.Files["sell.Pic"]
-   headers := c.Params.Files["sell.Pic"]
+
+ headers := c.Params.Files["sell.Pic"]
+
+   // target_url := "http://188.166.245.68:9000/public/img/pic"
+    //filename := "./astaxie.pdf"
+    //postFile(headers, target_url)
   //out io.Writer 
   //out := "/public/img/sell/555.jpg" 
   //out := os.OpenFile("./public/img/sell/555.jpg", 0666)
-  //err := io.Copy()
+  //io.Copy(fileWriter,fn)
   
   return c.RenderJson(headers)
   
  /* data := models.GetUserid(c.Session["username"])
   
-  err := models.AddSellData2(sell.Name,sell.Category,sell.Price,sell.Unit,sell.Detail,sell.Expire,data.Userid.Hex(),13,100)
+  err := models.AddSellData2(sell.Name,sell.Category,sell.Price,sell.Unit,sell.Detail,sell.Expire,data.Userid.Hex(),13,100,2)
   if err {
       return  c.Redirect(Sell.IndexSell)
     } else {
       c.Flash.Error("เกิดข้อผิดพลาดไม่สามารถขายสินค้าได้ กรุณากรอกข้อมูลใหม่!!")
       return c.Redirect(Sell.Sell)
     }*/
+
 }
 
 func (c Sell) ManageSell() revel.Result {
@@ -81,5 +93,46 @@ func (c Sell) ManageSell() revel.Result {
   id := models.GetUserid(userid)
   data := models.GetManageSell(id.Userid.Hex())
   return c.Render(data)
+}
+
+func postFile(filename string, targetUrl string) error {
+    bodyBuf := &bytes.Buffer{}
+    bodyWriter := multipart.NewWriter(bodyBuf)
+
+    // this step is very important
+    fileWriter, err := bodyWriter.CreateFormFile("uploadfile", filename)
+    if err != nil {
+        fmt.Println("error writing to buffer")
+        return err
+    }
+
+    // open file handle
+    fh, err := os.Open(filename)
+    if err != nil {
+        fmt.Println("error opening file")
+        return err
+    }
+
+    //iocopy
+    _, err = io.Copy(fileWriter, fh)
+    if err != nil {
+        return err
+    }
+
+    contentType := bodyWriter.FormDataContentType()
+    bodyWriter.Close()
+
+    resp, err := http.Post(targetUrl, contentType, bodyBuf)
+    if err != nil {
+        return err
+    }
+    defer resp.Body.Close()
+    resp_body, err := ioutil.ReadAll(resp.Body)
+    if err != nil {
+        return err
+    }
+    fmt.Println(resp.Status)
+    fmt.Println(string(resp_body))
+    return nil
 }
 

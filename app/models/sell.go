@@ -139,7 +139,7 @@ func AddSellData(name string,category string, price int, unit string, detail str
 
 }
 
-func AddSellData2(name string,category string, price int, unit string, detail string, expire string, ownerId string, lat float64, long float64) (result bool) {
+func AddSellData2(name string,category string, price int, unit string, detail string, expire string, ownerId string, lat float64, long float64,sellType int) (result bool) {
   session, err := mgo.Dial("127.0.0.1")
   if err != nil {
       panic(err)
@@ -164,7 +164,7 @@ func AddSellData2(name string,category string, price int, unit string, detail st
     Pic: "public/img/pic/rice1.jpg",
     Address: A ,
     Status: 1,
-    SellType: 2,
+    SellType: sellType,
   })
 
   if err != nil {
