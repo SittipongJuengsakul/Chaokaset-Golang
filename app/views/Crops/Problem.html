@@ -55,15 +55,7 @@
   </div>
 </div>
 <div class="chaokaset-container-verticle" id="chaokaset-loader" style="display: none;">
-  <div class="col-sm-12 varticle-header-box">
-    <h1>{{.cropdata.CropName}} ({{.user.Username}})</h1>
-    <h2 style="color: grey; font-size: 16px;">ระยะเวลาปลูก {{.cropdata.Duration}} วัน / ผลผลิต {{.cropdata.Product}} ต่อ 1 ไร่ / สิ้นสุด {{.cropdata.EndDate}}</h2>
-  </div>
-  <div class="col-sm-12 report-data">
-    <div class="col-sm-3"><p>ชนิดพืช : <small>{{.cropdata.Plant}} ({{.cropdata.Seed}})</small></p></div>
-    <div class="col-sm-5"><p>วันที่เริ่ม - วันที่สิ้นสุด : <small>{{.cropdata.StartDate}} - {{.cropdata.EndDate}}</small></p></div>
-    <div class="col-sm-4"><p>ขนาดแปลงปลูก : <small>20 ไร่ 2 งาน 3 ตาราง</small></p></div>
-  </div>
+  {{template "Crops/headerCrop.html" .}}
 {{template "Crops/sidebarcrops.html" .}}
   <div class="col-sm-9 container-box">
     <div class="col-sm-12 container-box-content">
