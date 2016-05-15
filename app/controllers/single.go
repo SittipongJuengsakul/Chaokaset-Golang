@@ -26,9 +26,10 @@ const (
 	GB
 )
 
+/* คอมเม้น เพราะพังตรงนี้
 type Single struct {
 	App
-}
+}*/
 
 func (c *Single) Upload() revel.Result {
 	return c.Render()
