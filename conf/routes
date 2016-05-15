@@ -10,7 +10,6 @@ GET     /aboutus                                                                
 GET     /social                                                                                    App.Social
 GET     /login                                                                                     Auth.Login
 GET     /register                                                                                  Auth.Register
-POST    /Auth/PostRegister                                                                         Auth.PostRegister
 GET     /howto/authen                                                                              Howto.HowtoRegister
 GET     /howto/crops                                                                               Howto.HowtoCrops
 GET     /howto/setting                                                                             Howto.HowtoSetting
@@ -61,6 +60,7 @@ GET		/apiv1_0/AddProduct/:name/:category/:price/:unit/:detail/:expire/:ownerId/:
 GET		/apiv1_0/ManageSell/:idUser																   Api.ManageSell
 
 GET     /apiv1_0/plans/:skip                                                                       Api.Plans
+POST    /apiv1.0/PostRegister                                                                      Api.PostRegisterUser
 GET     /apiv1_0/planid/:idplan                                                                    Api.Plan
 GET     /apiv1_0/plan/:idplant/:idseed                                                             Api.PlansAllPlants
 GET     /apiv1_0/plants/:skip                                                                      Api.Plants

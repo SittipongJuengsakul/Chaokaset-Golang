@@ -4,7 +4,7 @@
   <div class="row">
     <div class="col-md-6 col-md-offset-3 example">
       <h2>สมัครสมาชิก <span style="color:red;font-size: 15px;">{{.flash.error}}</span></h2>
-      <form method="post" action="{{url "/Auth/PostRegister"}}">
+      <form method="post" action="http://localhost:9000/apiv1.0/PostRegister">
         {{with $field := field "user.Username" .}}
         <div class="form-group">
           <label for="exampleInputEmail1">ชื่อผู้ใช้งาน</label>
