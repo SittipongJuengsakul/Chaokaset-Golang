@@ -1,0 +1,84 @@
+{{set . "title" "การซื้อ-ขาย สินค้า"}}
+{{template "Templates/header.html" .}}
+{{template "Templates/preloader.html" .}}
+<div class="chaokaset-container-verticle" id="chaokaset-loader" style="display: none;">
+ 
+  {{template "Templates/menuSell.html" .}}
+
+  <div class="col-sm-9">
+    <div class="col-sm-12 container-box-content" >
+      <h2 class="color-green">แก้ไขรายละเอียดสินค้า "{{.data.Name}}"</h2>
+      </br>
+      <form method="post" action="{{url "Sell.PostEditSell"}}" enctype="multipart/form-data" >
+      
+      <div class="form-group">
+          <label for="">ประเภทสินค้า</label>
+            <select class="form-control" id="sel1" name="Category">
+            <option value="{{.data.Category}}" selected>{{.data.Category}}</option>
+            <option value="ข้าว">ข้าว</option>
+            <option value="ผลไม้">ผลไม้</option>
+            <option value="พืชผัก">พืชผัก</option>
+            <option value="พืชไร่">พืชไร่</option>
+            <option value="พืชสวน">พืชสวน</option>
+            <option value="สัตว์">สัตว์</option>
+            <option value="สินค้าอื่นๆ">สินค้าอื่นๆ</option>
+          </select>
+      </div>
+   
+      <div class="form-group">
+        <label for="">ชื่อสินค้า</label>
+        <input type="text" class="form-control" placeholder="กรอกชื่อสินค้า เช่น ข้าวหอมมะลิ" name="Name" value="{{.data.Name}}">
+      </div>
+
+      <div class="row">
+      
+        <div  class="col-sm-6">
+          <label for="">ราคา (หน่วยเป็นบาท)</label>
+          <input type="text" class="form-control" placeholder="กรอกราคาหน่วยเป็นบาท" name="Price" value="{{.data.Price}}"> 
+        </div>
+   
+        
+        <div  class="col-sm-6">
+          <label for="">หน่วยสินค้าที่ขาย</label>
+          <input type="text" class="form-control" placeholder="เช่น กิโลกรัม ผล โหล ลัง" name="Unit" value="{{.data.Unit}}">
+        </div>
+      </div>
+     
+      <div class="form-group" style="padding-top:15px;">
+        <label for="">รูปสินค้า</label>
+        <input type="file"  name="file" accept="image/png">
+
+      </div>
+  
+     
+      <div class="form-group">
+        <label for="">รายละเอียดสินค้า</label>
+        <textarea class="form-control" rows="5" id="" placeholder="กรอกรายละเอียดสินค้า เช่น สี ขนาด" name="Detail" >{{.data.Detail}}</textarea>
+     
+      </div>
+
+
+      <div class="form-group">
+        <label for="">วันหมดอายุ/วันปิดการขาย</label>
+        <input type="date" class="form-control" name="Expire" value="{{.data.Expire}}" > 
+      </div>
+ 
+     
+     <!-- {{with $field := field "sell.Address" .}}
+       <div class="form-group">
+          <label for="">ที่อยู่ของสินค้า</label>
+        <div class="form-group">
+          <input type="radio" name="{{$field.Name}}">จุดที่ยืนอยู่
+          <input type="radio" name="{{$field.Name}}">จุดอื่นๆ
+        </div>
+          <span class="error">{{$field.Error}}</span>
+        </div>
+       {{end}}-->
+
+      <p class="text-right" >
+        <button type="submit" class="btn bg-link">แก้ไขรายละเอียดสินค้า</button>
+      <p/>
+  </div>
+  </form>
+</div>
+{{template "Templates/footer.html" .}}

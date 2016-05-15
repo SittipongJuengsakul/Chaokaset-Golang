@@ -44,6 +44,9 @@ GET		/sell/showproduct																		   Sell.IndexSell
 GET		/sell/productdetail/:id																	   Sell.ProductDetail
 GET 	/sell   																				   Sell.Sell
 GET		/sell/managesell																		   Sell.ManageSell
+GET		/sell/editproduct/:idSell																   Sell.EditProductSell
+GET		/sell/closeproduct/:idSell																   Sell.CloseSell
+GET		/sell/openproduct/:idSell																   Sell.OpenSell
 GET     /template                                                                                  App.Templates
 # Ignore favicon requests
 GET     /favicon.ico                                                                               404
