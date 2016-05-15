@@ -273,16 +273,27 @@ func (c Api) OneCrop(cropid string) revel.Result {
     return c.RenderJson(Result)
 }
 
-//OneCrop (GET)
+//AddCrop (POST)
 func (c Api) AddCrop(cropid string) revel.Result {
   Result := models.GetOneCrops(cropid)
     return c.RenderJson(Result)
 }
 
-//OneCrop (GET)
+//DisabledOneCrop (GET)
 func (c Api) DisabledOneCrop(cropid string) revel.Result {
   Result := models.DisableOneCrops(cropid)
     return c.RenderJson(Result)
+}
+
+//------------------ บัญชีการเพาะปลูก -------------------
+//AllAccount (GET)
+func (c Api) AllAccount(idcrop string,skip int) revel.Result {
+  Result,err := models.GetAllAccounts(idcrop,skip)
+  if err == true{
+    return  c.RenderJson(Result)
+  }else{
+    return c.RenderJson(Result)
+  }
 }
 
 func (c Api) SetStatusSell(idSell string,status int) revel.Result {

@@ -22,8 +22,48 @@ type Crop struct {
   Duration,Status                           int
   Product,Price                             float64
   UserId                                    string
+  Rai,Ngarn,Wah                             float64
 }
 
+type Account struct {
+	AccountId                                 bson.ObjectId `bson:"_id,omitempty"`
+  Detail                                    string
+  Status,TypeAccount                        int
+  Price                                     float64
+  Created_at,Updated_at                     time.Time
+  CropId                                    string
+}
+
+//GetAllAccounts (GET) ฟังก์ชั่นสำหรับเรียกข้อมูลแผนการเพาะปลูกทั้งหมด
+func GetAllAccounts(idcrop string,skip int) (results []Account,error bool) {
+  session, err := mgo.Dial(ip_mgo)
+  if err != nil {
+      panic(err)
+  }
+  defer session.Close()
+  session.SetMode(mgo.Monotonic, true)
+  qmgo := session.DB("chaokaset").C("accounts")
+	qmgo.Find(bson.M{"status": 1,"cropid": idcrop}).Skip(skip).Limit(10).All(&results) //คิวรี่จาก status เป็น 1 หรือ แปลงที่ไช้งานอยู่
+  return results,true
+}
+//SaveAccount (POST)
+func SaveAccount(account *Account,idcrop string) (result bool) {
+     session, err := mgo.Dial(ip_mgo)
+     if err != nil {
+         panic(err)
+     }
+     defer session.Close()
+     session.SetMode(mgo.Monotonic, true)
+     qmgo := session.DB("chaokaset").C("accounts")
+     //plantnames := GetPlantId(crop.PlantId)
+     //seednames := GetSeedId(crop.SeedId)
+     err = qmgo.Insert(&Account{CropId: idcrop,Created_at: time.Now(),Updated_at: time.Now(),Status: 1,TypeAccount: account.TypeAccount,Price: account.TypeAccount,Detail: account.Detail})
+     if err != nil {
+       return false
+     }else{
+       return true
+     }
+}
 //GetAllCrops (GET) ฟังก์ชั่นสำหรับเรียกข้อมูลแผนการเพาะปลูกทั้งหมด
 func GetAllCrops(skip int,userid string) (results []Crop,error bool) {
   session, err := mgo.Dial(ip_mgo)
