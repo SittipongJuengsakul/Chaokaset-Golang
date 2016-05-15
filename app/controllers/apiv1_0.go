@@ -68,19 +68,20 @@ func (c Api) ApiGetUserData(Username string) revel.Result {
     return  c.RenderJson(R)
 }
 //PostRegister หน้าที่ไช้สำหรับรับค่าจากฟอร์ม Register
-func (c Api) PostRegisterUser(user *models.User,Validpassword string) revel.Result {
+func (c Api) PostRegisterUser(Username string,Password string,Prefix string,Name string,Lastname string,Tel string,Email string,Validpassword string) revel.Result {
   //resUserData := models.GetUserData(user.Username)
     var R *ResAuth
     var U *models.User
-    user.HashedPassword, _ = bcrypt.GenerateFromPassword(
-  		[]byte(user.Password), bcrypt.DefaultCost)
-    err := models.RegisterUserChaokaset(user.Username ,user.HashedPassword,user.Prefix ,user.Name ,user.Lastname ,user.Tel,user.Role,user.Email);
+    HashedPassword, _ := bcrypt.GenerateFromPassword(
+  		[]byte(Password), bcrypt.DefaultCost)
+    Role := 3 //เกษตรกร
+    err := models.RegisterUserChaokaset(Username,HashedPassword,Prefix ,Name ,Lastname ,Tel,Role,Email);
     if err {
-      U = models.GetUserData(user.Username)
-      R = &ResAuth{Status: err,UserData: U}
+      U = models.GetUserData(Username)
+      R = &ResAuth{Status: true,UserData: U}
       return c.RenderJson(R)
     } else {
-      R = &ResAuth{Status: err}
+      R = &ResAuth{Status: false}
       return c.RenderJson(R)
     }
 }
