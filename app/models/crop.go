@@ -57,7 +57,7 @@ func SaveAccount(account *Account,idcrop string) (result bool) {
      qmgo := session.DB("chaokaset").C("accounts")
      //plantnames := GetPlantId(crop.PlantId)
      //seednames := GetSeedId(crop.SeedId)
-     err = qmgo.Insert(&Account{CropId: idcrop,Created_at: time.Now(),Updated_at: time.Now(),Status: 1,TypeAccount: account.TypeAccount,Price: account.TypeAccount,Detail: account.Detail})
+     err = qmgo.Insert(&Account{CropId: idcrop,Created_at: time.Now(),Updated_at: time.Now(),Status: 1,TypeAccount: account.TypeAccount,Price: account.Price,Detail: account.Detail})
      if err != nil {
        return false
      }else{
