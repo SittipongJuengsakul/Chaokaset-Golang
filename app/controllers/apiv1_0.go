@@ -55,6 +55,14 @@ func (c Api) CheckLogin(Username string,Password string) revel.Result {
     R = &ResAuth{Status: res,UserData: U}
     return  c.RenderJson(R)
 }
+
+func (c Api) ApiGetUserData(Username string) revel.Result {
+    var R *ResAuth
+    var U *models.User
+    U = models.GetUserData(Username)
+    R = &ResAuth{Status: true,UserData: U}
+    return  c.RenderJson(R)
+}
 //PostRegister หน้าที่ไช้สำหรับรับค่าจากฟอร์ม Register
 func (c Api) PostRegisterUser(user *models.User,Validpassword string) revel.Result {
   //resUserData := models.GetUserData(user.Username)

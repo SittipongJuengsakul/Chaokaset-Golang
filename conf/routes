@@ -60,6 +60,7 @@ GET		/apiv1_0/AddProduct/:name/:category/:price/:unit/:detail/:expire/:ownerId/:
 GET		/apiv1_0/ManageSell/:idUser																   Api.ManageSell
 
 GET     /apiv1_0/plans/:skip                                                                       Api.Plans
+GET     /apiv1_0/userdata/:Username                                                                Api.ApiGetUserData
 POST    /apiv1.0/PostRegister                                                                      Api.PostRegisterUser
 GET     /apiv1_0/planid/:idplan                                                                    Api.Plan
 GET     /apiv1_0/plan/:idplant/:idseed                                                             Api.PlansAllPlants

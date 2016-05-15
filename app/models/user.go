@@ -110,7 +110,7 @@ func GetUserData(Uusername string) *User {
   qmgo := session.DB("chaokaset").C("users")
   result := User{}
 	qmgo.Find(bson.M{"username": Uusername}).One(&result)
-  user = &User{Userid: result.Userid,Username: result.Username,Name: result.Name,Lastname: result.Lastname,Pic: result.Pic,Role: result.Role,Tel: result.Tel,Prefix : result.Prefix}
+  user = &User{Userid: result.Userid,Username: result.Username,Email: result.Email,Name: result.Name,Lastname: result.Lastname,Pic: result.Pic,Role: result.Role,Tel: result.Tel,Prefix : result.Prefix}
   return user
 }
 //GetEditUserData สำหรับเรียกข้อมูลแก้ไขผู้ใช้งาน
