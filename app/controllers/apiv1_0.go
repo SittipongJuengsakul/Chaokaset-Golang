@@ -60,7 +60,11 @@ func (c Api) ApiGetUserData(Username string) revel.Result {
     var R *ResAuth
     var U *models.User
     U = models.GetUserData(Username)
-    R = &ResAuth{Status: true,UserData: U}
+    if U.Username != ""{
+      R = &ResAuth{Status: true,UserData: U}
+    }else{
+      R = &ResAuth{Status: false}
+    }
     return  c.RenderJson(R)
 }
 //PostRegister หน้าที่ไช้สำหรับรับค่าจากฟอร์ม Register
@@ -79,6 +83,20 @@ func (c Api) PostRegisterUser(user *models.User,Validpassword string) revel.Resu
       R = &ResAuth{Status: err}
       return c.RenderJson(R)
     }
+}
+//PostEditUser for Create routing Page
+func (c Api) PostEditUser(user *models.UserData) revel.Result {
+  var R *ResAuth
+  var U *models.User
+  err := models.EditUserData(user.Username,user.Prefix,user.Name,user.Lastname,user.Tel,user.Email,user.Province,user.Tumbon,user.Aumphur,user.Zipcode,user.Address)
+  if err {
+    U = models.GetUserData(user.Username)
+    R = &ResAuth{Status: err,UserData: U}
+    return c.RenderJson(R)
+  } else {
+    R = &ResAuth{Status: err}
+    return c.RenderJson(R)
+  }
 }
 func (c Api) RegisterUser(Username string,Password string,Prefix string,Name string,Lname string,Tel string,Role_user int,Email string) revel.Result {
   var R *ResAuth
