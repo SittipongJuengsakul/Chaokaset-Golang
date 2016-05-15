@@ -13,9 +13,7 @@ type Sell struct {
   *revel.Controller
 }
 
-type Single struct {
-  App
-}
+
 type PostSell struct{
   Name            string
   Category        string
