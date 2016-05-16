@@ -3,8 +3,11 @@ package controllers
 import (
     "github.com/revel/revel"
 	  "chaokaset-go/app/models"
-    //"net/http"
     "io"
+    "fmt"
+    "log"
+    "os"
+    "time"
 
 )
 
@@ -12,7 +15,6 @@ import (
 type Sell struct {
   *revel.Controller
 }
-
 
 type PostSell struct{
   Name            string
@@ -44,7 +46,8 @@ func (c Sell) Sell() revel.Result {
 }
 
 func (c Sell) PostSell(sell PostSell) revel.Result {
-  /*c.Validation.Required(sell.Name).Message("จำเป็นต้องกรอก ชื่อสินค้า")
+    
+  c.Validation.Required(sell.Name).Message("จำเป็นต้องกรอก ชื่อสินค้า")
   c.Validation.Required(sell.Price).Message("จำเป็นต้องกรอก ราคาสินค้าเป็นตัวเลข")
   c.Validation.Required(sell.Unit).Message("จำเป็นต้องกรอก หน่วยสินค้า")
   //c.Validation.Required(sell.Pic).Message("จำเป็นต้องกรอก รูปสินค้า")
@@ -55,25 +58,57 @@ func (c Sell) PostSell(sell PostSell) revel.Result {
     c.Validation.Keep()
     c.FlashParams()
     return c.Redirect(Sell.Sell)
-  }*/
- // headers := c.Params.Files["sell.Pic"]
-   headers := c.Params.Files["sell.Pic"]
-  //out io.Writer 
-  //out := "/public/img/sell/555.jpg" 
-  //out := os.OpenFile("./public/img/sell/555.jpg", 0666)
-  //err := io.Copy()
+  }
+    
+  data := models.GetUserid(c.Session["username"])
+
   
-  return c.RenderJson(headers)
+  selling := models.AddSellData2(sell.Name,sell.Category,sell.Price,sell.Unit,sell.Detail,sell.Expire,data.Userid.Hex(),13,100,2)
+
+  fmt.Printf("%+v\n", selling.SellId)
   
- /* data := models.GetUserid(c.Session["username"])
+  upload_dir := "/var/home/goserver/src/chaokaset-go/public/uploads/" 
+  m := c.Request.MultipartForm
+    //var msg string
+  for fname, _ := range m.File {
+
+  fheaders := m.File[fname]
+    for i, _ := range fheaders {
+      //for each fileheader, get a handle to the actual file
+      file, err := fheaders[i].Open()
+      defer file.Close() //close the source file handle on function return
+      if err != nil {
+         log.Print(err)
+       //  msg = "upload failed.."
+      }
+      //create destination file making sure the path is writeable.
+      t := time.Now()
+      file_name_db := c.Session["username"] + "-" + t.Format("20060102150405") + "-" +  fheaders[i].Filename
+      
+      fmt.Printf("%+v\n", file_name_db)
+
+      models.UpdatePic(selling.SellId,file_name_db)
+      
+      dst_path := upload_dir + file_name_db
+      dst, err := os.Create(dst_path)
+      defer dst.Close() //close the destination file handle on function return
+      defer os.Chmod(dst_path, (os.FileMode)(0644)) //limit access restrictions
+      if err != nil {
+        log.Print(err)
+       // msg = "upload failed.."
+      }
+      //copy the uploaded file to the destination file
+      if _, err := io.Copy(dst, file); err != nil {
+        log.Print(err)
+       // msg = "upload failed.."
+      }
+    }
+  }
+   
+  //return  c.RenderJson(555)
   
-  err := models.AddSellData2(sell.Name,sell.Category,sell.Price,sell.Unit,sell.Detail,sell.Expire,data.Userid.Hex(),13,100)
-  if err {
-      return  c.Redirect(Sell.IndexSell)
-    } else {
-      c.Flash.Error("เกิดข้อผิดพลาดไม่สามารถขายสินค้าได้ กรุณากรอกข้อมูลใหม่!!")
-      return c.Redirect(Sell.Sell)
-    }*/
+  return  c.Redirect(Sell.IndexSell)
+
 }
 
 func (c Sell) ManageSell() revel.Result {
@@ -100,3 +135,4 @@ func (c Sell) OpenSell(idSell string) revel.Result {
   models.UpdateStatusSell(idSell,1)
   return  c.Redirect(Sell.ManageSell)
 }
+

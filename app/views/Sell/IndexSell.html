@@ -40,14 +40,15 @@
 
           <div class="col-sm-6 col-md-4" ng-repeat="product in filterProducts  = (products | filter:searchProduct)">
             <div class="thumbnail">
-              <img src="" alt="..." width="100%" >
+              <img ng-src="/public/uploads/mobile-20160516143946-ระยะ2.png" alt="..." width="100%" >
               <div class="caption">
                 <h2 class="color-blue" ng-bind-html="product.Name | searchfilter:searchProduct"></h2>
                 <div class = "row" style="padding-top:10px;padding-bottom:10px">
                   <img src="/public/img/Coins-48.png">
                   <div ng-bind-html="product.Price"></div>
                   <div ng-bind-html="product.Unit"></div>
-                
+                  <div ng-bind-html="product.Pic"></div>
+              
           
                   </div>
                 </div>

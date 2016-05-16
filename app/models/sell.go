@@ -6,6 +6,7 @@ import (
     "time"
     "github.com/alouche/go-geolib"
     "math"
+    // "fmt"
 )
 
 type Sells struct{
@@ -13,7 +14,6 @@ type Sells struct{
   Name            string
   Category        string
   Pic             string
-  PicUp           []byte
   Price           int
   Distance        float64
   Address         *Address
@@ -24,6 +24,8 @@ type Sells struct{
   OwnerId         bson.ObjectId
   Status          int
   SellType        int
+  Like 			  []bson.ObjectId
+  NumberOfLike	  int
 }
 
 type  Owner struct{
@@ -55,8 +57,17 @@ type UserId struct{
   Userid          bson.ObjectId `bson:"_id,omitempty"`
 }
 
+type ReturnSellId struct {
+    Status      bool
+    SellId      string
+}
+
 func (sell *Sells) SetDistance(data float64) {
   sell.Distance = data
+}
+
+func (sell *Sells) SetNumLike(data int) {
+  sell.NumberOfLike = data
 }
 
 func (SellDetail *SellDetail) SetOwnerName(data string) {
@@ -87,19 +98,22 @@ func GetSellData(Lat float64, Long float64) []Sells {
 
   var result []Sells
   
-  qmgo.Find(nil).Sort("-TimeCreate").All(&result)
+  qmgo.Find(nil).Sort("-timecreate").All(&result)
 
    for i := range result {
       lat1 := Lat
-      lat2 := 13.286727
+      lat2 := result[i].Address.Lat
       lon1 := Long
-      lon2 := 100.925619
+      lon2 := result[i].Address.Long
       theta := lon1 - lon2
       dist := math.Sin(geolib.Deg2Rad(lat1)) * math.Sin(geolib.Deg2Rad(lat2)) + math.Cos(geolib.Deg2Rad(lat1)) * math.Cos(geolib.Deg2Rad(lat2)) * math.Cos(geolib.Deg2Rad(theta))
       dist = math.Acos(dist)
       dist = geolib.Rad2Deg(dist)
       result[i].SetDistance(dist * 60 * 1.1515 * 1.609344)
+      result[i].SetNumLike(len(result[i].Like))
   }
+
+  // fmt.Printf("%+v\n", result)
   
   return result
 }
@@ -116,8 +130,10 @@ func AddSellData(name string,category string, price int, unit string, detail str
   
  // var  A *Address
  // A = &Address{Lat: 13.00,Long: 100.00}
+  i := bson.NewObjectId()
   
   err = qmgo.Insert(&Sells{
+    Sellid: i,
     Name: name, 
     Category: category, 
     Price: price,
@@ -126,9 +142,9 @@ func AddSellData(name string,category string, price int, unit string, detail str
     Expire: expire, 
     Unit: unit, 
     OwnerId: ownerId,
-    Pic: "public/img/pic/rice1.jpg",
     Status: 1,
     SellType: 2,
+   // Like: [],
   })
 
   if err != nil {
@@ -139,7 +155,7 @@ func AddSellData(name string,category string, price int, unit string, detail str
 
 }
 
-func AddSellData2(name string,category string, price int, unit string, detail string, expire string, ownerId string, lat float64, long float64,sellType int) (result bool) {
+func AddSellData2(name string,category string, price int, unit string, detail string, expire string, ownerId string, lat float64, long float64,sellType int) *ReturnSellId {
   session, err := mgo.Dial("127.0.0.1")
   if err != nil {
       panic(err)
@@ -151,8 +167,9 @@ func AddSellData2(name string,category string, price int, unit string, detail st
 
   session.SetMode(mgo.Monotonic, true)
   qmgo := session.DB("chaokaset").C("sell")
-
+  i := bson.NewObjectId()
   err = qmgo.Insert(&Sells{
+    Sellid: i,
     Name: name, 
     Category: category, 
     Price: price,
@@ -161,16 +178,17 @@ func AddSellData2(name string,category string, price int, unit string, detail st
     Expire: expire, 
     Unit: unit, 
     OwnerId: bson.ObjectIdHex(ownerId), 
-    Pic: "public/img/pic/rice1.jpg",
+    //Pic: "public/img/pic/rice1.jpg",
     Address: A ,
     Status: 1,
     SellType: sellType,
+   // Like: [],
   })
 
   if err != nil {
-    return false
+    return &ReturnSellId{Status: false,SellId: ""}
   }else{
-    return true
+    return &ReturnSellId{Status: true,SellId: i.Hex()}
   }
 
 }
@@ -309,6 +327,27 @@ func EditProductSell(idSell string, name string, category string, price int,deta
     "unit": unit, 
     "address": A,
   }}
+  
+  err = qmgo.Update(colQuerier, change)
+
+  if err != nil {
+    return false
+  }else{
+    return true
+  }
+}
+
+func UpdatePic(idSell string,pic string) (result bool) {
+  session, err := mgo.Dial("127.0.0.1")
+  if err != nil {
+      panic(err)
+  }
+  defer session.Close()
+  session.SetMode(mgo.Monotonic, true)
+  qmgo := session.DB("chaokaset").C("sell")
+
+  colQuerier := bson.M{ "_id": bson.ObjectIdHex(idSell) }
+  change := bson.M{"$set": bson.M{"pic": pic}}
   
   err = qmgo.Update(colQuerier, change)
 

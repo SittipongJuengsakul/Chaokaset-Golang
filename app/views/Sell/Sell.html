@@ -47,13 +47,15 @@
         </div>
         {{end}}
       </div>
-     
+      
+      {{with $field := field "sell.Pic" .}}
       <div class="form-group" style="padding-top:15px;">
         <label for="">รูปสินค้า</label>
-        <input type="file"  name="file" accept="image/png">
-
+        <input type="file"  name="{{$field.Name}}" accept="image/png">
+        <span class="error">{{$field.Error}}</span>
       </div>
-  
+      {{end}}
+
       {{with $field := field "sell.Detail" .}}
       <div class="form-group">
         <label for="">รายละเอียดสินค้า</label>

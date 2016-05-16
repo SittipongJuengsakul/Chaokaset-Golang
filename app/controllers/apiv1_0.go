@@ -7,6 +7,11 @@ import (
     "chaokaset-go/app/models"
     "golang.org/x/crypto/bcrypt"
    // "time"
+    "log"
+    "time"
+    "os"
+    "io"
+   "fmt"
 )
 
 type Api struct {
@@ -39,12 +44,12 @@ type ResSeed struct {
     SeedData    *models.Seed
 }
 
-
 func (c Api) Index() revel.Result {
   var user *models.User
   user = models.GetUserData("sittipong")
   return c.Render(user)
 }
+
 func (c Api) CheckLogin(Username string,Password string) revel.Result {
     var R *ResAuth
     var U *models.User
@@ -55,6 +60,7 @@ func (c Api) CheckLogin(Username string,Password string) revel.Result {
     R = &ResAuth{Status: res,UserData: U}
     return  c.RenderJson(R)
 }
+
 func (c Api) RegisterUser(Username string,Password string,Prefix string,Name string,Lname string,Tel string,Role_user int,Email string) revel.Result {
   var R *ResAuth
   var U *models.User
@@ -107,14 +113,12 @@ func (c Api) SearchProduct(Name string, Lat float64, Long float64) revel.Result{
 
 func (c Api) AddProduct(name string,category string, price int, unit string, detail string, expire string, ownerId string, lat float64, long float64,sellType int) revel.Result {
  err := models.AddSellData2(name,category,price,unit,detail,expire,ownerId,lat,long,sellType)
-  if err {
-      return  c.RenderJson(true)
+  /*if err {
+      return  c.RenderJson(err)
     } else {
-      return  c.RenderJson(false)
-    }
-
-    //return c.RenderJson(A)
-
+      return  c.RenderJson(err)
+    }*/
+    return c.RenderJson(err)
 }
 
 func (c Api) ManageSell(idUser string) revel.Result {
@@ -125,9 +129,6 @@ func (c Api) ManageSell(idUser string) revel.Result {
     R = &ResSellAll{Status: false,SellData: nil}
     return  c.RenderJson(R)
   }
-
-
-
   R = &ResSellAll{Status: true,SellData: U}
   return  c.RenderJson(R)
 }
@@ -252,4 +253,43 @@ func (c Api) EditProduct(idSell string, name string, category string, price int,
   } else {
     return  c.RenderJson(false)
   }
+}
+
+func (c Api) PostApi(IdSell string) revel.Result {
+  upload_dir := "/var/home/goserver/src/chaokaset-go/public/uploads/"
+  m := c.Request.MultipartForm
+  result := true
+  for fname, _ := range m.File {
+
+    fheaders := m.File[fname]
+    for i, _ := range fheaders {
+      //for each fileheader, get a handle to the actual file
+      file, err := fheaders[i].Open()
+      defer file.Close() //close the source file handle on function return
+      if err != nil {
+         log.Print(err)
+        result = false
+      }
+      //create destination file making sure the path is writeable.
+      t := time.Now()
+      file_name_db := "mobile-" + t.Format("20060102150405") + "-" +  fheaders[i].Filename
+      dst_path := upload_dir + file_name_db
+      dst, err := os.Create(dst_path)
+      defer dst.Close() //close the destination file handle on function return
+      defer os.Chmod(dst_path, (os.FileMode)(0644)) //limit access restrictions
+      if err != nil {
+        log.Print(err)
+       result = false
+      }
+      //copy the uploaded file to the destination file
+      if _, err := io.Copy(dst, file); err != nil {
+        log.Print(err)
+       result = false
+      }
+      fmt.Printf("%+v\n", IdSell)
+      fmt.Printf("%+v\n", file_name_db)
+     // models.UpdatePic(IdSell,file_name_db)
+    }
+  } 
+  return  c.RenderJson(result)
 }

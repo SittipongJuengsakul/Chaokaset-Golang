@@ -43,6 +43,7 @@ GET     /farmer/showfarmer                                                      
 GET		/sell/showproduct																		   Sell.IndexSell
 GET		/sell/productdetail/:id																	   Sell.ProductDetail
 GET 	/sell   																				   Sell.Sell
+POST 	/Sell/PostSell 																			Sell.PostSell
 GET		/sell/managesell																		   Sell.ManageSell
 GET		/sell/editproduct/:idSell																   Sell.EditProductSell
 GET		/sell/closeproduct/:idSell																   Sell.CloseSell
@@ -53,6 +54,7 @@ GET     /favicon.ico                                                            
 GET     /apiv1_0                                                                                   Api.Index
 GET     /apiv1_0/login/:Username/:Password                                                         Api.CheckLogin
 GET     /apiv1_0/register/:Username/:Password/:Prefix/:Name/:Lname/:Tel                            Api.RegisterUser
+POST     /apiv1_0/PostApi/:IdSell                           									   Api.PostApi
 
 
 
