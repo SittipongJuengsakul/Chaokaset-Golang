@@ -146,7 +146,7 @@ func SaveAccount(idcrop string,typeaccount int,detail string,price float64) (res
      return accountdatas
 
 }
-//UpdateAccount (POST)
+//UpdateAccount (PUT)
 func UpdateAccount(idaccount string,detail string,price float64) (result bool) {
      session, err := mgo.Dial(ip_mgo)
      if err != nil {

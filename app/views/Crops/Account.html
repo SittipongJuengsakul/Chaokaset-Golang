@@ -187,9 +187,8 @@ $('#myInput').focus()
         });
       }
       $scope.TypeAccounts = [{Text: "รายรับ",Type: 1},{Text: "รายจ่าย",Type: 2}];
-      $scope.AccountSubmit = function() { //บันทึกบัญชี
         $scope.url = site_url+"/apiv1_0/saveaccount/";
-        $scope.AccountSubmit = function() {
+        $scope.AccountSubmit = function() {//บันทึกบัญชี
           var idtype = document.getElementById('SelTypeAccount').value;
           $http({
             method: 'POST',
@@ -202,7 +201,6 @@ $('#myInput').focus()
         });
         $('#myModal').modal('hide');
         }
-      }
       $scope.EditAccountModal = function(idaccount) { //โชแก้ไข
         $http.get(site_url+"/apiv1_0/getoneaccount/"+idcrop+"/"+idaccount)
         .then(function(response) {

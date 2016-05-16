@@ -330,7 +330,17 @@ func (c Api) SaveAccount(idcrop string,typeaccount int,detail string,price float
     R = &ResAccounts{Status: false}
     return  c.RenderJson(R)
   }
-
+}
+func (c Api) EditAccount(idaccount string,detail string,price float64) revel.Result {
+  var R *ResAccounts
+  Adatas := models.UpdateAccount(idaccount,detail,price);
+  R = &ResAccounts{Status: Adatas}
+  if R.Status {
+    return  c.RenderJson(R)
+  }else{
+    R = &ResAccounts{Status: false}
+    return  c.RenderJson(R)
+  }
 }
 func (c Api) SetStatusSell(idSell string,status int) revel.Result {
   err := models.UpdateStatusSell(idSell,status)

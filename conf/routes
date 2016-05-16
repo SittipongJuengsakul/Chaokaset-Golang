@@ -79,6 +79,7 @@ GET     /apiv1_0/addcrop/                                                       
 GET     /apiv1_0/accounts/:idcrop/:skip                                                            Api.AllAccount
 GET     /apiv1_0/getoneaccount/:idcrop/:idaccount                                                            Api.OneAccount
 POST    /apiv1_0/saveaccount/:idcrop/:typeaccount/:detail/:price                                                                Api.SaveAccount
+PUT     /apiv1_0/editaccount/:idaccount/:detail/:price                                                                Api.EditAccount
 GET     /apiv1_0/setStatus/:idSell/:status                                                         Api.SetStatusSell
 
 # WebSocket chat
