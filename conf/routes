@@ -77,6 +77,7 @@ GET     /apiv1_0/onecrop/:cropid                                                
 GET     /apiv1_0/disabledcrop/:cropid                                                              Api.DisabledOneCrop
 GET     /apiv1_0/addcrop/                                                                          Api.DisabledOneCrop
 GET     /apiv1_0/accounts/:idcrop/:skip                                                            Api.AllAccount
+POST    /apiv1_0/saveaccount/:idcrop/:typeaccount/:detail/:price                                                                Api.SaveAccount
 GET     /apiv1_0/setStatus/:idSell/:status                                                         Api.SetStatusSell
 
 # WebSocket chat

@@ -21,6 +21,7 @@ type ResSellAll struct {
     Status        bool
     SellData      []models.Sells
 }
+
 type ResSellDetail struct {
     Status      bool
     SellData    *models.SellDetail
@@ -33,6 +34,10 @@ type ResPlan struct {
 type ResPlans struct {
     Status      bool
     PlanData    []models.Plan
+}
+type ResAccounts struct {
+    Status            bool
+    AccountDatas      []models.Account
 }
 type ResSeed struct {
     Status      bool
@@ -289,14 +294,28 @@ func (c Api) DisabledOneCrop(cropid string) revel.Result {
 //------------------ บัญชีการเพาะปลูก -------------------
 //AllAccount (GET)
 func (c Api) AllAccount(idcrop string,skip int) revel.Result {
+  var R *ResAccounts
   Result,err := models.GetAllAccounts(idcrop,skip)
   if err == true{
-    return  c.RenderJson(Result)
+    R = &ResAccounts{Status: err,AccountDatas: Result}
+    return  c.RenderJson(R)
   }else{
-    return c.RenderJson(Result)
+    R = &ResAccounts{Status: err,AccountDatas: Result}
+    return c.RenderJson(R)
   }
 }
+func (c Api) SaveAccount(idcrop string,typeaccount int,detail string,price float64) revel.Result {
+  var R *ResAccounts
+  Adatas := models.SaveAccount(idcrop,typeaccount,detail,price);
+  R = &ResAccounts{Status: true,AccountDatas: Adatas}
+  if R.Status {
+    return  c.RenderJson(R)
+  }else{
+    R = &ResAccounts{Status: false}
+    return  c.RenderJson(R)
+  }
 
+}
 func (c Api) SetStatusSell(idSell string,status int) revel.Result {
   err := models.UpdateStatusSell(idSell,status)
   if err {

@@ -47,7 +47,7 @@ func GetAllAccounts(idcrop string,skip int) (results []Account,error bool) {
   return results,true
 }
 //SaveAccount (POST)
-func SaveAccount(account *Account,idcrop string) (result bool) {
+func SaveAccount(idcrop string,typeaccount int,detail string,price float64) (results []Account) {
      session, err := mgo.Dial(ip_mgo)
      if err != nil {
          panic(err)
@@ -55,14 +55,17 @@ func SaveAccount(account *Account,idcrop string) (result bool) {
      defer session.Close()
      session.SetMode(mgo.Monotonic, true)
      qmgo := session.DB("chaokaset").C("accounts")
-     //plantnames := GetPlantId(crop.PlantId)
-     //seednames := GetSeedId(crop.SeedId)
-     err = qmgo.Insert(&Account{CropId: idcrop,Created_at: time.Now(),Updated_at: time.Now(),Status: 1,TypeAccount: account.TypeAccount,Price: account.Price,Detail: account.Detail})
+     err = qmgo.Insert(&Account{CropId: idcrop,Created_at: time.Now(),Updated_at: time.Now(),Status: 1,TypeAccount: typeaccount,Price: price,Detail: detail})
      if err != nil {
-       return false
-     }else{
-       return true
+       panic(err)
      }
+
+     accountdatas,err_getAccount := GetAllAccounts(idcrop,0)
+     if err_getAccount {
+       return accountdatas
+     }
+     return accountdatas
+
 }
 //GetAllCrops (GET) ฟังก์ชั่นสำหรับเรียกข้อมูลแผนการเพาะปลูกทั้งหมด
 func GetAllCrops(skip int,userid string) (results []Crop,error bool) {

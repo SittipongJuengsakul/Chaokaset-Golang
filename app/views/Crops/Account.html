@@ -7,7 +7,8 @@
 })
 </script>
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div  ng-app="ChaokasetApp" ng-controller="AddAccount">
+ <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -18,15 +19,14 @@
         <div class="row">
         <div class="col-sm-12 container-box">
           <div class="col-sm-12 container-box-content" >
-            <form method="post" action="{{url "Plant.PostAddSeed"}}">
+            <form ng-submit="AccountSubmit()" >
               <div class="info-plant-show">
                 <div class="form-grop col-md-12" style="padding: 0px;">
                   {{with $field := field "Account.TypeAccount" .}}
                   <div class="form-group col-md-12 padding-left-no padding-right-no">
                     <label>ประเภทการเก็บเงิน</label>
-                    <select class="form-control" name="{{$field.Name}}" id="testdata">
-                       <option value="1">รายรับ</option>
-                       <option value="2">รายจ่าย</option>
+                    <select class="form-control" name="{{$field.Name}}" ng-model="TypeAccount" id="SelTypeAccount">
+                       <option ng-repeat="typeaccount in TypeAccounts" ng-bind="typeaccount.Text" ng-value="typeaccount.Type"></option>
                     </select>
                   </div>
                   {{end}}
@@ -34,8 +34,8 @@
                 <div class="form-grop col-md-12" style="padding: 0px;">
                   {{with $field := field "Account.Details" .}}
                   <div class="form-group col-md-12 padding-left-no padding-right-no">
-                    <label>ชื่อรายการ</label>
-                    <input type="text" class="form-control" placeholder="กรอกชื่อพันธุ์พืช" name="{{$field.Name}}" value="{{$field.Flash}}">
+                    <label>รายละเอียด</label>
+                    <input type="text" class="form-control" placeholder="กรอกรายละเอียด" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="Details" required>
                     <span class="error">{{$field.Error}}</span>
                   </div>
                   {{end}}
@@ -44,7 +44,7 @@
                   {{with $field := field "Account.Price" .}}
                   <div class="form-group col-md-12 padding-left-no padding-right-no">
                     <label>จำนวนเงิน</label>
-                    <input type="number" class="form-control" placeholder="กรอกจำนวนเงิน" name="{{$field.Name}}" value="{{$field.Flash}}">
+                    <input type="number" class="form-control" placeholder="กรอกจำนวนเงิน" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="Price" required>
                     <span class="error">{{$field.Error}}</span>
                   </div>
                   {{end}}
@@ -64,23 +64,38 @@
 </div>
 <script type="text/javascript">
   var app = angular.module('ChaokasetApp', ['ngSanitize']);
-  app.controller('searchShowPlant', function($scope, $http) {
-      $scope.used = 0;
-      $http.get(site_url+"/apiv1_0/seeds/0/")
-      .then(function(response) {
-        console.log(response.data);
-        $scope.plants = response.data;
-      });
-
-      $scope.urlremove = site_url+"/apiv1_0/removeseed/";
-      $scope.RemoveSeed = function(removeid,at) {
-        $scope.plants.splice(at, 1);
-        $http({
-          method: 'POST',
-          url: $scope.urlremove+removeid
-        }).then(function(response) {
-        },function(response) {
-      });
+  app.controller('AddAccount', function($scope, $http) {
+    var idcrop = {{.cropdata.CropId}};
+    var skipper = 0;
+    $http.get(site_url+"/apiv1_0/accounts/"+idcrop+"/"+skipper)
+    .then(function(response) {
+      console.log(response.data.AccountDatas);
+      $scope.accountdatas = response.data.AccountDatas;
+    });
+      $scope.GetAccounts = function(){
+        alert('aaa');
+        $http.get(site_url+"/apiv1_0/accounts/"+"idcrop"+"/"+skipper)
+        .then(function(response) {
+          console.log(response.data.AccountDatas);
+          $scope.accountdatas = response.data.AccountDatas;
+        });
+      }
+      $scope.TypeAccounts = [{Text: "รายรับ",Type: 1},{Text: "รายจ่าย",Type: 2}];
+      $scope.AccountSubmit = function() {
+        $scope.url = site_url+"/apiv1_0/saveaccount/";
+        $scope.AccountSubmit = function() {
+          var idtype = document.getElementById('SelTypeAccount').value;
+          $http({
+            method: 'POST',
+            url: $scope.url+idcrop+"/"+idtype+"/"+$scope.Details+"/"+$scope.Price
+          }).then(function(response) {
+            //สำเร็จ
+            $scope.accountdatas = response.data.AccountDatas;
+          },function(response) {
+            //ผิดพลาด
+        });
+        $('#myModal').modal('hide');
+        }
       }
   });
 </script>
@@ -110,18 +125,17 @@
           </tr>
         </thead>
         <tbody class="box-tbody-show">
-          <tr>
-            <td>10 มี.ค. 59</td>
-            <td>เมล็ดพันธุ์</td>
-            <td>ซื้อเมล็ดพันธุ์</td>
-            <td class="color-red">- 1500.00</td>
-            <td>3,000.00</td>
+          <tr ng-repeat="acdata in accountdatas">
+            <td ng-bind="acdata.Updated_at"></td>
+            <td ng-bind="acdata.TypeAccount"></td>
+            <td ng-bind="acdata.Detail"></td>
+            <td class="color-red" ng-bind="acdata.Price"></td>
+            <td></td>
             <td class="color-green">
               <div class="dropdown">
                 <a href="#" class="dropdown-toggle option-crops"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ดูเพิ่มเติม <span class="caret"></span></a>
                 </button>
                 <ul class="dropdown-menu dd-menu" aria-labelledby="dropdownMenu1">
-                  <li><a href="#">รายละเอียด</a></li>
                   <li><a href="#">แก้ไขรายการ</a></li>
                   <li role="separator" class="divider"></li>
                   <li><a href="#" class="color-red">ลบรายการ</a></li>
@@ -129,46 +143,6 @@
               </div>
             </td>
           </tr>
-          <!--
-          <tr>
-            <td>2 มี.ค. 59</td>
-            <td>ค่าปุ๋ย</td>
-            <td>ซื้อปุ๋ยอินทรี</td>
-            <td class="color-red">- 500.00</td>
-            <td>4,500.00</td>
-            <td class="color-green">
-              <div class="dropdown">
-                <a href="#" class="dropdown-toggle option-crops"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ดูเพิ่มเติม <span class="caret"></span></a>
-                </button>
-                <ul class="dropdown-menu dd-menu" aria-labelledby="dropdownMenu1">
-                  <li><a href="#">รายละเอียด</a></li>
-                  <li><a href="#">แก้ไขรายการ</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li><a href="#" class="color-red">ลบรายการ</a></li>
-                </ul>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>20 ก.พ. 59</td>
-            <td>กู้เงิน</td>
-            <td>กู้เงินจาก ธกส.</td>
-            <td class="color-green">+ 5,000.00</td>
-            <td>5,000.00</td>
-            <td class="color-green">
-              <div class="dropdown">
-                <a href="#" class="dropdown-toggle option-crops"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ดูเพิ่มเติม <span class="caret"></span></a>
-                </button>
-                <ul class="dropdown-menu dd-menu" aria-labelledby="dropdownMenu1">
-                  <li><a href="#">รายละเอียด</a></li>
-                  <li><a href="#">แก้ไขรายการ</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li><a href="#" class="color-red">ลบรายการ</a></li>
-                </ul>
-              </div>
-            </td>
-          </tr>
-        -->
         </tbody>
       </table>
       <nav>
@@ -180,5 +154,6 @@
       </nav>
     </div>
   </div>
+</div>
 </div>
 {{template "Templates/footer.html" .}}
