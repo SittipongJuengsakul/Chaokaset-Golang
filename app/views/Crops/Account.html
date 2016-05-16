@@ -67,13 +67,12 @@
   app.controller('AddAccount', function($scope, $http) {
     var idcrop = {{.cropdata.CropId}};
     var skipper = 0;
-    $http.get(site_url+"/apiv1_0/accounts/"+idcrop+"/"+skipper)
-    .then(function(response) {
-      console.log(response.data.AccountDatas);
-      $scope.accountdatas = response.data.AccountDatas;
-    });
-      $scope.GetAccounts = function(){
-        alert('aaa');
+      $http.get(site_url+"/apiv1_0/accounts/"+idcrop+"/"+skipper)
+      .then(function(response) {
+        console.log(response.data.AccountDatas);
+        $scope.accountdatas = response.data.AccountDatas;
+      });
+      $scope.GetAccounts = function(){ //เรีกยกข้อมูลบัญชี
         $http.get(site_url+"/apiv1_0/accounts/"+"idcrop"+"/"+skipper)
         .then(function(response) {
           console.log(response.data.AccountDatas);
@@ -81,7 +80,7 @@
         });
       }
       $scope.TypeAccounts = [{Text: "รายรับ",Type: 1},{Text: "รายจ่าย",Type: 2}];
-      $scope.AccountSubmit = function() {
+      $scope.AccountSubmit = function() { //บันทึกบัญชี
         $scope.url = site_url+"/apiv1_0/saveaccount/";
         $scope.AccountSubmit = function() {
           var idtype = document.getElementById('SelTypeAccount').value;
@@ -117,20 +116,22 @@
         <thead class="box-thead-show">
           <tr>
             <th width="15%">วันที่</th>
+            <th width="35%">ชื่อรายการ</th>
             <th>ประเภท</th>
-            <th width="25%">ชื่อรายการ</th>
-            <th>จำนวนเงิน</th>
-            <th>ยอดเงินรวม</th>
+            <th>จำนวนเงิน (บาท)</th>
+            <!--<th>ยอดเงินรวม</th>-->
             <th>ตัวเลือก</th>
           </tr>
         </thead>
         <tbody class="box-tbody-show">
           <tr ng-repeat="acdata in accountdatas">
-            <td ng-bind="acdata.Updated_at"></td>
-            <td ng-bind="acdata.TypeAccount"></td>
+            <td ng-bind="acdata.Updated_at | date:'dd MMM yyyy': '+700'"></td>
             <td ng-bind="acdata.Detail"></td>
-            <td class="color-red" ng-bind="acdata.Price"></td>
-            <td></td>
+            <td ng-if="acdata.TypeAccount == 1">รายรับ</td>
+            <td ng-if="acdata.TypeAccount == 2">รายจ่าย</td>
+            <td ng-if="acdata.TypeAccount == 1" class="color-green" ng-bind="acdata.Price | number"></td>
+            <td ng-if="acdata.TypeAccount == 2" class="color-red" ng-bind="acdata.Price | number"></td>
+            <!--<td ng-bind="totalaccount(acdata.Price)"></td>-->
             <td class="color-green">
               <div class="dropdown">
                 <a href="#" class="dropdown-toggle option-crops"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ดูเพิ่มเติม <span class="caret"></span></a>
