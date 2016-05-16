@@ -122,7 +122,7 @@ $('#myInput').focus()
           <button type="button" name="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">เพิ่มข้อมูล</button>
         </div>
         <div class="col-sm-8" style="padding: 0px;">
-          <input type="text" name="SearchCrops" class="form-control" placeholder="ค้นหารายการบัญชี">
+          <input type="text" name="SearchCrops" class="form-control" placeholder="ค้นหารายการบัญชี" ng-model="searchText">
         </div>
       </div>
       <table class="table col-md-12">
@@ -137,7 +137,7 @@ $('#myInput').focus()
           </tr>
         </thead>
         <tbody class="box-tbody-show">
-          <tr ng-repeat="acdata in accountdatas">
+          <tr ng-repeat="acdata in accountdatas | filter:searchText">
             <td ng-bind="acdata.Updated_at | date:'dd MMM yyyy': '+700'"></td>
             <td ng-bind="acdata.Detail"></td>
             <td ng-if="acdata.TypeAccount == 1">รายรับ</td>
@@ -253,24 +253,28 @@ $('#myInput').focus()
       });
       }
       $scope.PrevPages = function() {
-        if(skipper<=0){
-          skipper = 0;
-        }else{
-          skipper = skipper-1;
+        if($("#IdPrevPage").hasClass("disabled") != true){
+          if(skipper<=0){
+            skipper = 0;
+          }else{
+            skipper = skipper-1;
+          }
+          $http.get(site_url+"/apiv1_0/accounts/"+idcrop+"/"+skipper)
+          .then(function(response) {
+            $scope.accountdatas = response.data.AccountDatas;
+            PravNext($scope.accountdatas.length);
+          });
         }
-        $http.get(site_url+"/apiv1_0/accounts/"+idcrop+"/"+skipper)
-        .then(function(response) {
-          $scope.accountdatas = response.data.AccountDatas;
-          PravNext($scope.accountdatas.length);
-        });
       }
       $scope.NextPages = function() {
-        skipper = skipper+1;
-        $http.get(site_url+"/apiv1_0/accounts/"+idcrop+"/"+skipper)
-        .then(function(response) {
-          $scope.accountdatas = response.data.AccountDatas;
-          PravNext($scope.accountdatas.length);
-        });
+        if($("#IdNextPage").hasClass("disabled") != true){
+          skipper = skipper+1;
+          $http.get(site_url+"/apiv1_0/accounts/"+idcrop+"/"+skipper)
+          .then(function(response) {
+            $scope.accountdatas = response.data.AccountDatas;
+            PravNext($scope.accountdatas.length);
+          });
+        }
       }
   });
 </script>
