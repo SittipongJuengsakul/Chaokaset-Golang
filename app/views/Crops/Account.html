@@ -162,8 +162,8 @@ $('#myInput').focus()
       <nav>
         <!-- แสดง 10 รายการ -->
         <ul class="pager">
-          <li class="pager-prev disabled"><a href="#">< ย้อนกลับ</a></li>
-          <li class="pager-next"><a href="#" style="width: 110px">ต่อไป ></a></li>
+          <li id="IdPrevPage" class="pager-prev"><a ng-click="PrevPages()">< ย้อนกลับ</a></li>
+          <li id="IdNextPage" class="pager-next"><a ng-click="NextPages()">ต่อไป ></a></li>
         </ul>
       </nav>
     </div>
@@ -171,14 +171,27 @@ $('#myInput').focus()
 </div>
 </div>
 <script type="text/javascript">
+  var skipper = 0;
+  function PravNext(accountlength){
+    if(skipper == 0){
+      $("#IdPrevPage").addClass("disabled");
+    }else{
+      $("#IdPrevPage").removeClass("disabled");
+    }
+    if(accountlength < 10){
+      $("#IdNextPage").addClass("disabled");
+    }else{
+      $("#IdNextPage").removeClass("disabled");
+    }
+  }
   var app = angular.module('ChaokasetApp', ['ngSanitize']);
   app.controller('AddAccount', function($scope, $http) {
     var idcrop = {{.cropdata.CropId}};
-    var skipper = 0;
       $http.get(site_url+"/apiv1_0/accounts/"+idcrop+"/"+skipper)
       .then(function(response) {
-        //console.log(response.data.AccountDatas);
+        //console.log(response.data.AccountDatas.length);
         $scope.accountdatas = response.data.AccountDatas;
+        PravNext($scope.accountdatas.length);
       });
       $scope.TypeAccounts = [{Text: "รายรับ",Type: 1},{Text: "รายจ่าย",Type: 2}];
         $scope.url = site_url+"/apiv1_0/saveaccount/";
@@ -190,6 +203,7 @@ $('#myInput').focus()
           }).then(function(response) {
             //สำเร็จ
             $scope.accountdatas = response.data.AccountDatas;
+            PravNext($scope.accountdatas.length);
           },function(response) {
             //ผิดพลาด
         });
@@ -216,6 +230,7 @@ $('#myInput').focus()
           $http.get(site_url+"/apiv1_0/accounts/"+idcrop+"/0")
           .then(function(response) {
             $scope.accountdatas = response.data.AccountDatas;
+            PravNext($scope.accountdatas.length);
           });
           $('#EditAccount').modal('hide');
         },function(response) {
@@ -231,10 +246,31 @@ $('#myInput').focus()
           $http.get(site_url+"/apiv1_0/accounts/"+idcrop+"/0")
           .then(function(response) {
             $scope.accountdatas = response.data.AccountDatas;
+            PravNext($scope.accountdatas.length);
           });
         },function(response) {
           //ผิดพลาด
       });
+      }
+      $scope.PrevPages = function() {
+        if(skipper<=0){
+          skipper = 0;
+        }else{
+          skipper = skipper-1;
+        }
+        $http.get(site_url+"/apiv1_0/accounts/"+idcrop+"/"+skipper)
+        .then(function(response) {
+          $scope.accountdatas = response.data.AccountDatas;
+          PravNext($scope.accountdatas.length);
+        });
+      }
+      $scope.NextPages = function() {
+        skipper = skipper+1;
+        $http.get(site_url+"/apiv1_0/accounts/"+idcrop+"/"+skipper)
+        .then(function(response) {
+          $scope.accountdatas = response.data.AccountDatas;
+          PravNext($scope.accountdatas.length);
+        });
       }
   });
 </script>
