@@ -342,6 +342,17 @@ func (c Api) EditAccount(idaccount string,detail string,price float64) revel.Res
     return  c.RenderJson(R)
   }
 }
+func (c Api) RemoveAccount(idaccount string) revel.Result {
+  var R *ResAccounts
+  Adatas := models.DisableOneAccount(idaccount);
+  R = &ResAccounts{Status: Adatas}
+  if R.Status {
+    return  c.RenderJson(R)
+  }else{
+    R = &ResAccounts{Status: false}
+    return  c.RenderJson(R)
+  }
+}
 func (c Api) SetStatusSell(idSell string,status int) revel.Result {
   err := models.UpdateStatusSell(idSell,status)
   if err {

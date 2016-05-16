@@ -78,6 +78,7 @@ $('#myInput').focus()
        <div class="col-sm-12 container-box">
          <div class="col-sm-12 container-box-content" >
            <form ng-submit="EditAccountSubmit()" >
+             <input type="hidden" name="name" ng-model="EditAccountId">
              <div class="info-plant-show">
                <div class="form-grop col-md-12" style="padding: 0px;">
                  {{with $field := field "Account.EditDetails" .}}
@@ -151,7 +152,7 @@ $('#myInput').focus()
                 <ul class="dropdown-menu dd-menu" aria-labelledby="dropdownMenu1">
                   <li><a ng-click="EditAccountModal(acdata.AccountId)">แก้ไขรายการ</a></li>
                   <li role="separator" class="divider"></li>
-                  <li><a ng-click="removeaccount(acdata.AccountId)" class="color-red">ลบรายการ</a></li>
+                  <li><a ng-click="RemoveAccount(acdata.AccountId)" class="color-red">ลบรายการ</a></li>
                 </ul>
               </div>
             </td>
@@ -179,13 +180,6 @@ $('#myInput').focus()
         //console.log(response.data.AccountDatas);
         $scope.accountdatas = response.data.AccountDatas;
       });
-      $scope.GetAccounts = function(){ //เรีกยกข้อมูลบัญชี
-        $http.get(site_url+"/apiv1_0/accounts/"+"idcrop"+"/"+skipper)
-        .then(function(response) {
-          //console.log(response.data.AccountDatas);
-          $scope.accountdatas = response.data.AccountDatas;
-        });
-      }
       $scope.TypeAccounts = [{Text: "รายรับ",Type: 1},{Text: "รายจ่าย",Type: 2}];
         $scope.url = site_url+"/apiv1_0/saveaccount/";
         $scope.AccountSubmit = function() {//บันทึกบัญชี
@@ -206,10 +200,41 @@ $('#myInput').focus()
         .then(function(response) {
           console.log(response.data);
           //$scope.accountdatas = ;
+          $scope.EditAccountId = idaccount;
           $scope.EditDetails = response.data.AccountData.Detail;
           $scope.EditPrice = response.data.AccountData.Price;
           $('#EditAccount').modal('show');
         });
+      }
+      $scope.EditAccountSubmit = function() {//บันทึกแก้ไข
+        var idtype = document.getElementById('SelTypeAccount').value;
+        $http({
+          method: 'PUT',
+          url: site_url+"/apiv1_0/editaccount/"+$scope.EditAccountId+"/"+$scope.EditDetails+"/"+$scope.EditPrice
+        }).then(function(response) {
+          //สำเร็จ
+          $http.get(site_url+"/apiv1_0/accounts/"+idcrop+"/0")
+          .then(function(response) {
+            $scope.accountdatas = response.data.AccountDatas;
+          });
+          $('#EditAccount').modal('hide');
+        },function(response) {
+          //ผิดพลาด
+      });
+      }
+      $scope.RemoveAccount = function(idaccount) {//ลบบัญชี
+        $http({
+          method: 'PUT',
+          url: site_url+"/apiv1_0/removeaccount/"+idaccount
+        }).then(function(response) {
+          //สำเร็จ
+          $http.get(site_url+"/apiv1_0/accounts/"+idcrop+"/0")
+          .then(function(response) {
+            $scope.accountdatas = response.data.AccountDatas;
+          });
+        },function(response) {
+          //ผิดพลาด
+      });
       }
   });
 </script>
