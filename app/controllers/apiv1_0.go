@@ -43,6 +43,14 @@ type ResAccount struct {
     Status            bool
     AccountData      *models.Account
 }
+type ResProblems struct {
+    Status            bool
+    ProblemDatas      []models.Problem
+}
+type ResProblem struct {
+    Status            bool
+    ProblemData      *models.Problem
+}
 type ResSeed struct {
     Status      bool
     SeedData    *models.Seed
@@ -185,6 +193,14 @@ func (c Api) ManageSell(idUser string) revel.Result {
   return  c.RenderJson(R)
 }
 
+func (c Api) SetStatusSell(idSell string,status int) revel.Result {
+  err := models.UpdateStatusSell(idSell,status)
+  if err {
+    return  c.RenderJson(true)
+  } else {
+    return  c.RenderJson(false)
+  }
+}
 //------------------ แผนการเพาะปลูก -------------------
 //Plan (GET)
 func (c Api) Plans(skip int,word string) revel.Result {
@@ -364,11 +380,62 @@ func (c Api) RemoveAccount(idaccount string) revel.Result {
     return  c.RenderJson(R)
   }
 }
-func (c Api) SetStatusSell(idSell string,status int) revel.Result {
-  err := models.UpdateStatusSell(idSell,status)
-  if err {
-    return  c.RenderJson(true)
-  } else {
-    return  c.RenderJson(false)
+
+//------------------ ปัญหาการเพาะปลูก -------------------
+//AllProblem (GET)
+func (c Api) AllProblem(idcrop string,skip int) revel.Result {
+  var R *ResProblems
+  Result,err := models.GetAllProblems(idcrop,skip)
+  if err == true{
+    R = &ResProblems{Status: err,ProblemDatas: Result}
+    return  c.RenderJson(R)
+  }else{
+    R = &ResProblems{Status: err,ProblemDatas: Result}
+    return c.RenderJson(R)
+  }
+}
+//OneProblem (GET)
+func (c Api) OneProblem(idcrop string,idproblem string) revel.Result {
+  var R *ResProblem
+  Result,err := models.GetOneProblem(idcrop,idproblem)
+  if err == true{
+    R = &ResProblem{Status: err,ProblemData: Result}
+    return  c.RenderJson(R)
+  }else{
+    R = &ResProblem{Status: err,ProblemData: Result}
+    return c.RenderJson(R)
+  }
+}
+func (c Api) SaveProblem(idcrop string,problem string,detail string) revel.Result {
+  var R *ResProblems
+  Adatas := models.SaveProblem(idcrop,problem,detail);
+  R = &ResProblems{Status: true,ProblemDatas: Adatas}
+  if R.Status {
+    return  c.RenderJson(R)
+  }else{
+    R = &ResProblems{Status: false}
+    return  c.RenderJson(R)
+  }
+}
+func (c Api) EditProblem(idproblem string,detail string) revel.Result {
+  var R *ResProblems
+  Adatas := models.UpdateProblem(idproblem,detail);
+  R = &ResProblems{Status: Adatas}
+  if R.Status {
+    return  c.RenderJson(R)
+  }else{
+    R = &ResProblems{Status: false}
+    return  c.RenderJson(R)
+  }
+}
+func (c Api) RemoveProblem(idproblem string) revel.Result {
+  var R *ResProblems
+  Adatas := models.DisableOneProblem(idproblem);
+  R = &ResProblems{Status: Adatas}
+  if R.Status {
+    return  c.RenderJson(R)
+  }else{
+    R = &ResProblems{Status: false}
+    return  c.RenderJson(R)
   }
 }

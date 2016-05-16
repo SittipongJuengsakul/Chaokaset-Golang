@@ -33,6 +33,13 @@ type Account struct {
   Created_at,Updated_at                     time.Time
   CropId                                    string
 }
+type Problem struct {
+	ProblemId                                 bson.ObjectId `bson:"_id,omitempty"`
+  Detail,Problem                            string
+  Status,StatusTopic                        int
+  Created_at,Updated_at                     time.Time
+  CropId                                    string
+}
 
 //GetAllCrops (GET) ฟังก์ชั่นสำหรับเรียกข้อมูลแผนการเพาะปลูกทั้งหมด
 func GetAllCrops(skip int,userid string) (results []Crop,error bool) {
@@ -188,6 +195,92 @@ func DisableOneAccount(idaccount string) (result bool) {
      //cropqry := bson.ObjectIdHex(cropid)
      qmgo := session.DB("chaokaset").C("accounts")
     colQuerier := bson.M{"_id": bson.ObjectIdHex(idaccount)}
+    change := bson.M{"$set": bson.M{"status": 0, "Updated_at": time.Now()}}
+    err = qmgo.Update(colQuerier, change)
+     if err != nil {
+       return false
+     }else{
+       return true
+     }
+}
+
+
+//GetAllProblems (GET)
+func GetAllProblems(idcrop string,skip int) (results []Problem,error bool) {
+  session, err := mgo.Dial(ip_mgo)
+  if err != nil {
+      panic(err)
+  }
+  defer session.Close()
+  session.SetMode(mgo.Monotonic, true)
+  qmgo := session.DB("chaokaset").C("problems")
+  skip = skip*10;
+	qmgo.Find(bson.M{"status": 1,"cropid": idcrop}).Sort("-updated_at").Skip(skip).Limit(10).All(&results) //คิวรี่จาก status เป็น 1 หรือ แปลงที่ไช้งานอยู่
+  return results,true
+}
+
+//GetOneProblems (GET)
+func GetOneProblem(idcrop string,idproblem string) (results *Problem,error bool) {
+  session, err := mgo.Dial(ip_mgo)
+  if err != nil {
+      panic(err)
+  }
+  defer session.Close()
+  session.SetMode(mgo.Monotonic, true)
+  qmgo := session.DB("chaokaset").C("problems")
+  qmgo.Find(bson.M{"status": 1,"_id": bson.ObjectIdHex(idproblem)}).One(&results)
+  account := &Problem{StatusTopic: results.StatusTopic,Problem: results.Problem,CropId: results.CropId,Status: results.Status,ProblemId: results.ProblemId,Updated_at: results.Updated_at,Detail: results.Detail}
+  return account,true
+}
+//SaveProblem (POST)
+func SaveProblem(idcrop string,problem string,detail string) (results []Problem) {
+     session, err := mgo.Dial(ip_mgo)
+     if err != nil {
+         panic(err)
+     }
+     defer session.Close()
+     session.SetMode(mgo.Monotonic, true)
+     qmgo := session.DB("chaokaset").C("problems")
+     err = qmgo.Insert(&Problem{StatusTopic: 0,CropId: idcrop,Created_at: time.Now(),Updated_at: time.Now(),Status: 1,Problem: problem,Detail: detail})
+     if err != nil {
+       panic(err)
+     }
+
+     accountdatas,err_getProblem := GetAllProblems(idcrop,0)
+     if err_getProblem {
+       return accountdatas
+     }
+     return accountdatas
+
+}
+//UpdateProblem (PUT)
+func UpdateProblem(idproblem string,detail string) (result bool) {
+     session, err := mgo.Dial(ip_mgo)
+     if err != nil {
+         panic(err)
+     }
+     defer session.Close()
+     session.SetMode(mgo.Monotonic, true)
+     qmgo := session.DB("chaokaset").C("problems")
+     colQuerier := bson.M{"_id": bson.ObjectIdHex(idproblem)}
+     change := bson.M{"$set": bson.M{"statustopic": 0,"detail": detail, "Updated_at": time.Now()}}
+     err = qmgo.Update(colQuerier, change)
+     if err != nil {
+       return false
+     }else{
+       return true
+     }
+}
+//SaveCrop (POST)
+func DisableOneProblem(idproblem string) (result bool) {
+     session, err := mgo.Dial(ip_mgo)
+     if err != nil {
+         panic(err)
+     }
+     defer session.Close()
+     session.SetMode(mgo.Monotonic, true)
+     qmgo := session.DB("chaokaset").C("problems")
+    colQuerier := bson.M{"_id": bson.ObjectIdHex(idproblem)}
     change := bson.M{"$set": bson.M{"status": 0, "Updated_at": time.Now()}}
     err = qmgo.Update(colQuerier, change)
      if err != nil {

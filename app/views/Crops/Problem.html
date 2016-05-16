@@ -7,6 +7,7 @@
 })
 </script>
 <!-- Modal -->
+<div ng-app="ChaokasetApp" ng-controller="ShowProblem">
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -18,16 +19,16 @@
         <div class="row">
         <div class="col-sm-12 container-box">
           <div class="col-sm-12 container-box-content" >
-            <form method="post" action="{{url "Plant.PostAddSeed"}}">
+            <form ng-submit="ProblemSubmit()">
               <div class="info-plant-show">
                 <div class="form-grop col-md-12" style="padding: 0px;">
                   {{with $field := field "Problem.TypeProblem" .}}
                   <div class="form-group col-md-12 padding-left-no padding-right-no">
                     <label>ประเภทปัญหา</label>
-                    <select class="form-control" name="{{$field.Name}}" id="testdata">
-                       <option value="1">ดิน</option>
-                       <option value="2">โรคพืช</option>
-                       <option value="3">ศัตรูพืช</option>
+                    <select class="form-control" name="{{$field.Name}}" id="IdProblem">
+                       <option value="ดิน">ดิน</option>
+                       <option value="โรคพืช">โรคพืช</option>
+                       <option value="ศัตรูพืช">ศัตรูพืช</option>
                     </select>
                   </div>
                   {{end}}
@@ -36,7 +37,43 @@
                   {{with $field := field "Problem.Details" .}}
                   <div class="form-group col-md-12 padding-left-no padding-right-no">
                     <label>ชื่อรายการ</label>
-                    <input type="text" class="form-control" placeholder="กรอกชื่อพันธุ์พืช" name="{{$field.Name}}" value="{{$field.Flash}}">
+                    <input type="text" class="form-control" placeholder="กรอกชื่อพันธุ์พืช" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="ProblemDetail">
+                    <span class="error">{{$field.Error}}</span>
+                  </div>
+                  {{end}}
+                </div>
+              </div>
+          </div>
+        </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-success">บันทึก</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h2 class="color-green">เพิ่มปัญหาการเพาะปลูก</h2>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+        <div class="col-sm-12 container-box">
+          <div class="col-sm-12 container-box-content" >
+            <form ng-submit="EditProblemSubmit()">
+              <div class="info-plant-show">
+                <input type="hidden" name="name" ng-model="EditProblemId">
+                <div class="form-grop col-md-12" style="padding: 0px;">
+                  {{with $field := field "Problem.Details" .}}
+                  <div class="form-group col-md-12 padding-left-no padding-right-no">
+                    <label>ชื่อรายการ</label>
+                    <input type="text" class="form-control" placeholder="กรอกชื่อพันธุ์พืช" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="EditProblemDetail">
                     <span class="error">{{$field.Error}}</span>
                   </div>
                   {{end}}
@@ -65,7 +102,7 @@
           <button type="button" name="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">เพิ่มปัญหา</button>
         </div>
         <div class="col-sm-8" style="padding: 0px;">
-          <input type="text" name="SearchCrops" class="form-control" placeholder="ค้นหาปัญหา">
+          <input type="text" name="SearchCrops" class="form-control" placeholder="ค้นหาปัญหา" ng-model="searchText">
         </div>
       </div>
       <table class="table">
@@ -79,20 +116,20 @@
           </tr>
         </thead>
         <tbody class="box-tbody-show">
-          <tr>
-            <td>22 มี.ค. 59</td>
-            <td>ดิน</td>
-            <td>ดินแข็งไม่สามารถเพาะปลูกได้</td>
-            <td class="color-red">รอการตอบ</td>
+          <tr ng-repeat="problemdata in problemdatas | filter:searchText">
+            <td ng-bind="problemdata.Updated_at | date:'dd MMM yyyy': '+700'"></td>
+            <td ng-bind="problemdata.Problem">ดิน</td>
+            <td ng-bind="problemdata.Detail">ดินแข็งไม่สามารถเพาะปลูกได้</td>
+            <td class="color-red" ng-if="problemdata.StatusTopic==0">รอคำตอบ</td>
+            <td class="color-green" ng-if="problemdata.StatusTopic==1">ได้รับคำตอบแล้ว</td>
             <td class="color-green">
               <div class="dropdown">
                 <a href="#" class="dropdown-toggle option-crops"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ดูเพิ่มเติม <span class="caret"></span></a>
                 </button>
                 <ul class="dropdown-menu dd-menu" aria-labelledby="dropdownMenu1">
-                  <li><a href="#">รายละเอียด</a></li>
-                  <li><a href="#">แก้ไขรายการ</a></li>
+                  <li><a ng-click="EditProblemModal(problemdata.ProblemId)">แก้ไขรายการ</a></li>
                   <li role="separator" class="divider"></li>
-                  <li><a href="#" class="color-red">ลบรายการ</a></li>
+                  <li><a ng-click="RemoveProblem(problemdata.ProblemId)" class="color-red">ลบรายการ</a></li>
                 </ul>
               </div>
             </td>
@@ -102,11 +139,116 @@
       <nav>
         <!-- แสดง 10 รายการ -->
         <ul class="pager">
-          <li class="pager-prev disabled"><a href="#previous">< ย้อนกลับ</a></li>
-          <li class="pager-next"><a href="#next" style="width: 110px">ต่อไป ></a></li>
+          <li id="IdPrevPage" class="pager-prev"><a ng-click="PrevPages()">< ย้อนกลับ</a></li>
+          <li id="IdNextPage" class="pager-next"><a ng-click="NextPages()">ต่อไป ></a></li>
         </ul>
       </nav>
     </div>
   </div>
 </div>
+</div>
+<script type="text/javascript">
+  var skipper = 0;
+  function PravNext(accountlength){
+    if(skipper == 0){
+      $("#IdPrevPage").addClass("disabled");
+    }else{
+      $("#IdPrevPage").removeClass("disabled");
+    }
+    if(accountlength < 10){
+      $("#IdNextPage").addClass("disabled");
+    }else{
+      $("#IdNextPage").removeClass("disabled");
+    }
+  }
+  var app = angular.module('ChaokasetApp', ['ngSanitize']);
+  app.controller('ShowProblem', function($scope, $http) {
+    var idcrop = {{.cropdata.CropId}};
+      $http.get(site_url+"/apiv1_0/problems/"+idcrop+"/"+skipper)
+      .then(function(response) {
+        $scope.problemdatas = response.data.ProblemDatas;
+        PravNext($scope.problemdatas.length);
+      });
+      $scope.ProblemSubmit = function() {//บันทึกบัญชี
+        var idproblem = document.getElementById('IdProblem').value;
+        $http({
+          method: 'POST',
+          url: site_url+"/apiv1_0/saveproblem/"+idcrop+"/"+idproblem+"/"+$scope.ProblemDetail
+        }).then(function(response) {
+          //สำเร็จ
+          $scope.problemdatas = response.data.ProblemDatas;
+          PravNext($scope.problemdatas.length);
+        },function(response) {
+          //ผิดพลาด
+      });
+      $('#myModal').modal('hide');
+      }
+
+      $scope.EditProblemModal = function(idproblem) { //โชแก้ไข
+        $http.get(site_url+"/apiv1_0/getoneproblem/"+idcrop+"/"+idproblem)
+        .then(function(response) {
+          console.log(response.data);
+          //$scope.accountdatas = ;
+          $scope.EditProblemDetail = response.data.ProblemData.Detail;
+          $scope.EditProblemId = idproblem;
+          $('#EditModal').modal('show');
+        });
+      }
+      $scope.EditProblemSubmit = function() {//บันทึกแก้ไข
+        $http({
+          method: 'PUT',
+          url: site_url+"/apiv1_0/editproblem/"+$scope.EditProblemId+"/"+$scope.EditProblemDetail
+        }).then(function(response) {
+          //สำเร็จ
+          $http.get(site_url+"/apiv1_0/problems/"+idcrop+"/"+skipper)
+          .then(function(response) {
+            $scope.problemdatas = response.data.ProblemDatas;
+            PravNext($scope.problemdatas.length);
+          });
+          $('#EditModal').modal('hide');
+        },function(response) {
+          //ผิดพลาด
+      });
+      }
+      $scope.RemoveProblem = function(idproblem) {
+        $http({
+          method: 'PUT',
+          url: site_url+"/apiv1_0/removeproblem/"+idproblem
+        }).then(function(response) {
+          //สำเร็จ
+          $http.get(site_url+"/apiv1_0/problems/"+idcrop+"/"+skipper)
+          .then(function(response) {
+            $scope.problemdatas = response.data.ProblemDatas;
+            PravNext($scope.problemdatas.length);
+          });
+        },function(response) {
+          //ผิดพลาด
+      });
+      }
+      $scope.PrevPages = function() {
+        if($("#IdPrevPage").hasClass("disabled") != true){
+          if(skipper<=0){
+            skipper = 0;
+          }else{
+            skipper = skipper-1;
+          }
+          $http.get(site_url+"/apiv1_0/accounts/"+idcrop+"/"+skipper)
+          .then(function(response) {
+            $scope.accountdatas = response.data.AccountDatas;
+            PravNext($scope.accountdatas.length);
+          });
+        }
+      }
+      $scope.NextPages = function() {
+        if($("#IdNextPage").hasClass("disabled") != true){
+          skipper = skipper+1;
+          $http.get(site_url+"/apiv1_0/accounts/"+idcrop+"/"+skipper)
+          .then(function(response) {
+            $scope.accountdatas = response.data.AccountDatas;
+            PravNext($scope.accountdatas.length);
+          });
+        }
+      }
+  });
+</script>
 {{template "Templates/footer.html" .}}
