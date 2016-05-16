@@ -5,6 +5,10 @@
   $('#myModal').on('shown.bs.modal', function () {
   $('#myInput').focus()
 })
+
+$('#EditAccount').on('shown.bs.modal', function () {
+$('#myInput').focus()
+})
 </script>
 <!-- Modal -->
 <div  ng-app="ChaokasetApp" ng-controller="AddAccount">
@@ -62,42 +66,50 @@
     </div>
   </div>
 </div>
-<script type="text/javascript">
-  var app = angular.module('ChaokasetApp', ['ngSanitize']);
-  app.controller('AddAccount', function($scope, $http) {
-    var idcrop = {{.cropdata.CropId}};
-    var skipper = 0;
-      $http.get(site_url+"/apiv1_0/accounts/"+idcrop+"/"+skipper)
-      .then(function(response) {
-        console.log(response.data.AccountDatas);
-        $scope.accountdatas = response.data.AccountDatas;
-      });
-      $scope.GetAccounts = function(){ //เรีกยกข้อมูลบัญชี
-        $http.get(site_url+"/apiv1_0/accounts/"+"idcrop"+"/"+skipper)
-        .then(function(response) {
-          console.log(response.data.AccountDatas);
-          $scope.accountdatas = response.data.AccountDatas;
-        });
-      }
-      $scope.TypeAccounts = [{Text: "รายรับ",Type: 1},{Text: "รายจ่าย",Type: 2}];
-      $scope.AccountSubmit = function() { //บันทึกบัญชี
-        $scope.url = site_url+"/apiv1_0/saveaccount/";
-        $scope.AccountSubmit = function() {
-          var idtype = document.getElementById('SelTypeAccount').value;
-          $http({
-            method: 'POST',
-            url: $scope.url+idcrop+"/"+idtype+"/"+$scope.Details+"/"+$scope.Price
-          }).then(function(response) {
-            //สำเร็จ
-            $scope.accountdatas = response.data.AccountDatas;
-          },function(response) {
-            //ผิดพลาด
-        });
-        $('#myModal').modal('hide');
-        }
-      }
-  });
-</script>
+<div class="modal fade" id="EditAccount" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+ <div class="modal-dialog" role="document">
+   <div class="modal-content">
+     <div class="modal-header">
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+       <h2 class="color-green">แก้ไขบัญชีการเพาะปลูก</h2>
+     </div>
+     <div class="modal-body">
+       <div class="row">
+       <div class="col-sm-12 container-box">
+         <div class="col-sm-12 container-box-content" >
+           <form ng-submit="EditAccountSubmit()" >
+             <div class="info-plant-show">
+               <div class="form-grop col-md-12" style="padding: 0px;">
+                 {{with $field := field "Account.EditDetails" .}}
+                 <div class="form-group col-md-12 padding-left-no padding-right-no">
+                   <label>รายละเอียด</label>
+                   <input type="text" class="form-control" placeholder="กรอกรายละเอียด" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="EditDetails" required>
+                   <span class="error">{{$field.Error}}</span>
+                 </div>
+                 {{end}}
+               </div>
+               <div class="form-grop col-md-12" style="padding: 0px;">
+                 {{with $field := field "Account.EditPrice" .}}
+                 <div class="form-group col-md-12 padding-left-no padding-right-no">
+                   <label>จำนวนเงิน</label>
+                   <input type="number" class="form-control" placeholder="กรอกจำนวนเงิน" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="EditPrice" required>
+                   <span class="error">{{$field.Error}}</span>
+                 </div>
+                 {{end}}
+               </div>
+             </div>
+         </div>
+       </div>
+       </div>
+     </div>
+     <div class="modal-footer">
+       <button type="submit" class="btn btn-success">บันทึก</button>
+       <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
+       </form>
+     </div>
+   </div>
+ </div>
+</div>
 <div class="chaokaset-container-verticle" id="chaokaset-loader" style="display: none;">
   {{template "Crops/headerCrop.html" .}}
   {{template "Crops/sidebarcrops.html" .}}
@@ -137,9 +149,9 @@
                 <a href="#" class="dropdown-toggle option-crops"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ดูเพิ่มเติม <span class="caret"></span></a>
                 </button>
                 <ul class="dropdown-menu dd-menu" aria-labelledby="dropdownMenu1">
-                  <li><a href="#">แก้ไขรายการ</a></li>
+                  <li><a ng-click="EditAccountModal(acdata.AccountId)">แก้ไขรายการ</a></li>
                   <li role="separator" class="divider"></li>
-                  <li><a href="#" class="color-red">ลบรายการ</a></li>
+                  <li><a ng-click="removeaccount(acdata.AccountId)" class="color-red">ลบรายการ</a></li>
                 </ul>
               </div>
             </td>
@@ -157,4 +169,50 @@
   </div>
 </div>
 </div>
+<script type="text/javascript">
+  var app = angular.module('ChaokasetApp', ['ngSanitize']);
+  app.controller('AddAccount', function($scope, $http) {
+    var idcrop = {{.cropdata.CropId}};
+    var skipper = 0;
+      $http.get(site_url+"/apiv1_0/accounts/"+idcrop+"/"+skipper)
+      .then(function(response) {
+        //console.log(response.data.AccountDatas);
+        $scope.accountdatas = response.data.AccountDatas;
+      });
+      $scope.GetAccounts = function(){ //เรีกยกข้อมูลบัญชี
+        $http.get(site_url+"/apiv1_0/accounts/"+"idcrop"+"/"+skipper)
+        .then(function(response) {
+          //console.log(response.data.AccountDatas);
+          $scope.accountdatas = response.data.AccountDatas;
+        });
+      }
+      $scope.TypeAccounts = [{Text: "รายรับ",Type: 1},{Text: "รายจ่าย",Type: 2}];
+      $scope.AccountSubmit = function() { //บันทึกบัญชี
+        $scope.url = site_url+"/apiv1_0/saveaccount/";
+        $scope.AccountSubmit = function() {
+          var idtype = document.getElementById('SelTypeAccount').value;
+          $http({
+            method: 'POST',
+            url: $scope.url+idcrop+"/"+idtype+"/"+$scope.Details+"/"+$scope.Price
+          }).then(function(response) {
+            //สำเร็จ
+            $scope.accountdatas = response.data.AccountDatas;
+          },function(response) {
+            //ผิดพลาด
+        });
+        $('#myModal').modal('hide');
+        }
+      }
+      $scope.EditAccountModal = function(idaccount) { //โชแก้ไข
+        $http.get(site_url+"/apiv1_0/getoneaccount/"+idcrop+"/"+idaccount)
+        .then(function(response) {
+          console.log(response.data);
+          //$scope.accountdatas = ;
+          $scope.EditDetails = response.data.AccountData.Detail;
+          $scope.EditPrice = response.data.AccountData.Price;
+          $('#EditAccount').modal('show');
+        });
+      }
+  });
+</script>
 {{template "Templates/footer.html" .}}

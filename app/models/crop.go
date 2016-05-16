@@ -34,39 +34,6 @@ type Account struct {
   CropId                                    string
 }
 
-//GetAllAccounts (GET) ฟังก์ชั่นสำหรับเรียกข้อมูลแผนการเพาะปลูกทั้งหมด
-func GetAllAccounts(idcrop string,skip int) (results []Account,error bool) {
-  session, err := mgo.Dial(ip_mgo)
-  if err != nil {
-      panic(err)
-  }
-  defer session.Close()
-  session.SetMode(mgo.Monotonic, true)
-  qmgo := session.DB("chaokaset").C("accounts")
-	qmgo.Find(bson.M{"status": 1,"cropid": idcrop}).Skip(skip).Limit(10).All(&results) //คิวรี่จาก status เป็น 1 หรือ แปลงที่ไช้งานอยู่
-  return results,true
-}
-//SaveAccount (POST)
-func SaveAccount(idcrop string,typeaccount int,detail string,price float64) (results []Account) {
-     session, err := mgo.Dial(ip_mgo)
-     if err != nil {
-         panic(err)
-     }
-     defer session.Close()
-     session.SetMode(mgo.Monotonic, true)
-     qmgo := session.DB("chaokaset").C("accounts")
-     err = qmgo.Insert(&Account{CropId: idcrop,Created_at: time.Now(),Updated_at: time.Now(),Status: 1,TypeAccount: typeaccount,Price: price,Detail: detail})
-     if err != nil {
-       panic(err)
-     }
-
-     accountdatas,err_getAccount := GetAllAccounts(idcrop,0)
-     if err_getAccount {
-       return accountdatas
-     }
-     return accountdatas
-
-}
 //GetAllCrops (GET) ฟังก์ชั่นสำหรับเรียกข้อมูลแผนการเพาะปลูกทั้งหมด
 func GetAllCrops(skip int,userid string) (results []Crop,error bool) {
   session, err := mgo.Dial(ip_mgo)
@@ -127,6 +94,70 @@ func DisableOneCrops(idcrop string) (result bool) {
     colQuerier := bson.M{"_id": bson.ObjectIdHex(idcrop)}
     change := bson.M{"$set": bson.M{"status": 0, "Updated_at": time.Now()}}
     err = qmgo.Update(colQuerier, change)
+     if err != nil {
+       return false
+     }else{
+       return true
+     }
+}
+//GetAllAccounts (GET) ฟังก์ชั่นสำหรับเรียกข้อมูลแผนการเพาะปลูกทั้งหมด
+func GetAllAccounts(idcrop string,skip int) (results []Account,error bool) {
+  session, err := mgo.Dial(ip_mgo)
+  if err != nil {
+      panic(err)
+  }
+  defer session.Close()
+  session.SetMode(mgo.Monotonic, true)
+  qmgo := session.DB("chaokaset").C("accounts")
+	qmgo.Find(bson.M{"status": 1,"cropid": idcrop}).Sort("-updated_at").Skip(skip).Limit(10).All(&results) //คิวรี่จาก status เป็น 1 หรือ แปลงที่ไช้งานอยู่
+  return results,true
+}
+//GetOneAccounts (GET) ฟังก์ชั่นสำหรับเรียกข้อมูลแผนการเพาะปลูกทั้งหมด
+func GetOneAccount(idcrop string,idaccount string) (results *Account,error bool) {
+  session, err := mgo.Dial(ip_mgo)
+  if err != nil {
+      panic(err)
+  }
+  defer session.Close()
+  session.SetMode(mgo.Monotonic, true)
+  qmgo := session.DB("chaokaset").C("accounts")
+  qmgo.Find(bson.M{"status": 1,"_id": bson.ObjectIdHex(idaccount)}).One(&results)
+  account := &Account{CropId: results.CropId,Status: results.Status,AccountId: results.AccountId,Updated_at: results.Updated_at,Detail: results.Detail,Price: results.Price,TypeAccount: results.TypeAccount}
+  return account,true
+}
+//SaveAccount (POST)
+func SaveAccount(idcrop string,typeaccount int,detail string,price float64) (results []Account) {
+     session, err := mgo.Dial(ip_mgo)
+     if err != nil {
+         panic(err)
+     }
+     defer session.Close()
+     session.SetMode(mgo.Monotonic, true)
+     qmgo := session.DB("chaokaset").C("accounts")
+     err = qmgo.Insert(&Account{CropId: idcrop,Created_at: time.Now(),Updated_at: time.Now(),Status: 1,TypeAccount: typeaccount,Price: price,Detail: detail})
+     if err != nil {
+       panic(err)
+     }
+
+     accountdatas,err_getAccount := GetAllAccounts(idcrop,0)
+     if err_getAccount {
+       return accountdatas
+     }
+     return accountdatas
+
+}
+//UpdateAccount (POST)
+func UpdateAccount(idaccount string,detail string,price float64) (result bool) {
+     session, err := mgo.Dial(ip_mgo)
+     if err != nil {
+         panic(err)
+     }
+     defer session.Close()
+     session.SetMode(mgo.Monotonic, true)
+     qmgo := session.DB("chaokaset").C("accounts")
+     colQuerier := bson.M{"_id": bson.ObjectIdHex(idaccount)}
+     change := bson.M{"$set": bson.M{"detail": detail,"price": price, "Updated_at": time.Now()}}
+     err = qmgo.Update(colQuerier, change)
      if err != nil {
        return false
      }else{

@@ -39,6 +39,10 @@ type ResAccounts struct {
     Status            bool
     AccountDatas      []models.Account
 }
+type ResAccount struct {
+    Status            bool
+    AccountData      *models.Account
+}
 type ResSeed struct {
     Status      bool
     SeedData    *models.Seed
@@ -301,6 +305,18 @@ func (c Api) AllAccount(idcrop string,skip int) revel.Result {
     return  c.RenderJson(R)
   }else{
     R = &ResAccounts{Status: err,AccountDatas: Result}
+    return c.RenderJson(R)
+  }
+}
+//OneAccount (GET)
+func (c Api) OneAccount(idcrop string,idaccount string) revel.Result {
+  var R *ResAccount
+  Result,err := models.GetOneAccount(idcrop,idaccount)
+  if err == true{
+    R = &ResAccount{Status: err,AccountData: Result}
+    return  c.RenderJson(R)
+  }else{
+    R = &ResAccount{Status: err,AccountData: Result}
     return c.RenderJson(R)
   }
 }
