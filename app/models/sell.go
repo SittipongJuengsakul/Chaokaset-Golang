@@ -24,8 +24,15 @@ type Sells struct{
   OwnerId         bson.ObjectId
   Status          int
   SellType        int
-  Like 			  []bson.ObjectId
+  Like 			      []bson.ObjectId
   NumberOfLike	  int
+  Comment         []Comments
+}
+
+type Comments struct{
+  Userid          bson.ObjectId
+  Data    string
+  TimeCreate      time.Time
 }
 
 type  Owner struct{
@@ -73,6 +80,7 @@ type PostSell struct{
   Detail          string
   Expire          string
 }
+
 
 func (sell *Sells) SetDistance(data float64) {
   sell.Distance = data
@@ -456,3 +464,43 @@ func CheckLike(idSell string,idUser string) (result bool) {
   //return true;
 }
 
+func GetComment(idSell string) []Sells {
+  session, err := mgo.Dial("127.0.0.1")
+  if err != nil {
+      panic(err)
+  }
+  defer session.Close()
+
+  session.SetMode(mgo.Monotonic, true)
+  qmgo := session.DB("chaokaset").C("sell")
+
+  var result []Sells
+  //var result []Comment
+  
+  qmgo.Find(bson.M{"_id": bson.ObjectIdHex(idSell)}).All(&result)
+ 
+  return result
+}
+
+
+func Comment(idSell string,idUser string,data string) (result bool) {
+  session, err := mgo.Dial("127.0.0.1")
+  if err != nil {
+      panic(err)
+  }
+  defer session.Close()
+  session.SetMode(mgo.Monotonic, true)
+  qmgo := session.DB("chaokaset").C("sell")
+
+  colQuerier := bson.M{ "_id": bson.ObjectIdHex(idSell) }
+
+  change := bson.M{"$push": bson.M{"comment": bson.M{"userid":bson.ObjectIdHex(idUser),"data": data,"timecreate":time.Now()}}}
+  
+  err = qmgo.Update(colQuerier, change)
+
+  if err != nil {
+    return false
+  }else{
+    return true
+  }
+}

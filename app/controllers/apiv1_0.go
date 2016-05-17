@@ -43,6 +43,11 @@ type ResSeed struct {
     Status      bool
     SeedData    *models.Seed
 }
+type ResCommentAll struct {
+    Status        bool
+   // CommentData      []models.Comment
+    CommentData      []models.Sells
+}
 
 func (c Api) Index() revel.Result {
   var user *models.User
@@ -305,6 +310,30 @@ func (c Api) LikeProduct(idSell string, idUser string) revel.Result {
 
 func (c Api) UnLikeProduct(idSell string, idUser string) revel.Result {
   err := models.UnLike(idSell,idUser)
+  if err {
+    return  c.RenderJson(true)
+  } else {
+    return  c.RenderJson(false)
+  }
+}
+
+func (c Api) ShowComment(idSell string) revel.Result{
+  var R *ResCommentAll
+  var U []models.Sells
+  U = models.GetComment(idSell)
+  
+  if U == nil{
+    R = &ResCommentAll{Status: false,CommentData: nil}
+    return  c.RenderJson(R)
+  }else{
+    R = &ResCommentAll{Status: true,CommentData: U}
+  return  c.RenderJson(R)
+  }
+  
+}
+
+func (c Api) AddComment(idSell string, idUser string,data string) revel.Result {
+  err := models.Comment(idSell,idUser,data)
   if err {
     return  c.RenderJson(true)
   } else {
