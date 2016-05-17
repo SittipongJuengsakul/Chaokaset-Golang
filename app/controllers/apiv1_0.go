@@ -4,7 +4,7 @@ import (
     //"github.com/gocql/gocql"
     //"gopkg.in/mgo.v2"
    // "gopkg.in/mgo.v2/bson"
-    "chaokaset-go/app/models"
+    "chaokaset-api/app/models"
     "golang.org/x/crypto/bcrypt"
    // "time"
     "log"
@@ -87,10 +87,10 @@ func (c Api) ProductSell(Lat float64, Long float64) revel.Result {
   return  c.RenderJson(R)
 }
 
-func (c Api) ProductDetail(Id string) revel.Result{
+func (c Api) ProductDetail(IdSell string,IdUser string) revel.Result{
   var R *ResSellDetail
   var U *models.SellDetail
-  U = models.GetSellDetail(Id)
+  U = models.GetSellDetail(IdSell,IdUser)
   if U == nil{
     R = &ResSellDetail{Status: false,SellData: nil}
     return  c.RenderJson(R)
@@ -256,7 +256,7 @@ func (c Api) EditProduct(idSell string, name string, category string, price int,
 }
 
 func (c Api) PostApi(IdSell string) revel.Result {
-  upload_dir := "/var/home/goserver/src/chaokaset-go/public/uploads/"
+  upload_dir := "/var/home/goserver/src/chaokaset-api/public/uploads/"
   m := c.Request.MultipartForm
   result := true
   for fname, _ := range m.File {
@@ -288,8 +288,26 @@ func (c Api) PostApi(IdSell string) revel.Result {
       }
       fmt.Printf("%+v\n", IdSell)
       fmt.Printf("%+v\n", file_name_db)
-     // models.UpdatePic(IdSell,file_name_db)
+      models.UpdatePic(IdSell,file_name_db)
     }
   } 
   return  c.RenderJson(result)
+}
+
+func (c Api) LikeProduct(idSell string, idUser string) revel.Result {
+  err := models.Like(idSell,idUser)
+  if err {
+    return  c.RenderJson(true)
+  } else {
+    return  c.RenderJson(false)
+  }
+}
+
+func (c Api) UnLikeProduct(idSell string, idUser string) revel.Result {
+  err := models.UnLike(idSell,idUser)
+  if err {
+    return  c.RenderJson(true)
+  } else {
+    return  c.RenderJson(false)
+  }
 }

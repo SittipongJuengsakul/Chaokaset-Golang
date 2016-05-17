@@ -47,6 +47,9 @@ type SellDetail struct{
   Owner           Owner
    Status          int
   SellType        int
+  StatusLike      int
+  Like        []bson.ObjectId
+  NumberOfLike    int
 }
 
 type Address struct{
@@ -60,6 +63,15 @@ type UserId struct{
 type ReturnSellId struct {
     Status      bool
     SellId      string
+}
+
+type PostSell struct{
+  Name            string
+  Category        string
+  Price           int
+  Unit            string
+  Detail          string
+  Expire          string
 }
 
 func (sell *Sells) SetDistance(data float64) {
@@ -84,6 +96,14 @@ func (SellDetail *SellDetail) SetOwnerPrefix(data string) {
 
 func (SellDetail *SellDetail) SetOwnerTel(data string) {
   SellDetail.Owner.Tel = data
+}
+
+func (SellDetail *SellDetail) SetStatusLike(data int) {
+  SellDetail.StatusLike = data
+}
+
+func (SellDetail *SellDetail) SetNumLikeDetail(data int) {
+  SellDetail.NumberOfLike = data
 }
 
 func GetSellData(Lat float64, Long float64) []Sells {
@@ -167,7 +187,9 @@ func AddSellData2(name string,category string, price int, unit string, detail st
 
   session.SetMode(mgo.Monotonic, true)
   qmgo := session.DB("chaokaset").C("sell")
+  
   i := bson.NewObjectId()
+  
   err = qmgo.Insert(&Sells{
     Sellid: i,
     Name: name, 
@@ -193,7 +215,7 @@ func AddSellData2(name string,category string, price int, unit string, detail st
 
 }
 
-func GetSellDetail(Idsell string) *SellDetail {
+func GetSellDetail(Idsell string,Userid string) *SellDetail {
   session, err := mgo.Dial("127.0.0.1")
   if err != nil {
       panic(err)
@@ -205,12 +227,22 @@ func GetSellDetail(Idsell string) *SellDetail {
   var result *SellDetail
   //คิวลี่ข้อมูลการขายโดยกำหนดเลข id การขาย
   qmgo.Find(bson.M{"_id": bson.ObjectIdHex(Idsell)}).One(&result)
+
+  check := CheckLike(result.Sellid.Hex(),Userid)
+  if check != true{
+    //มีคนไลน์
+    result.SetStatusLike(1)
+  }else{
+    //ไม่มี
+    result.SetStatusLike(0)
+  }
   //เพิ่มข้อมูลของเจ้าของสินค้า
   data := GetOwnerData(result.OwnerId.Hex())
   result.SetOwnerName(data.Name)
   result.SetOwnerLastname(data.Lastname)
   result.SetOwnerPrefix(data.Prefix)
   result.SetOwnerTel(data.Tel)
+  result.SetNumLikeDetail(len(result.Like))
   
   return result
 }
@@ -357,3 +389,70 @@ func UpdatePic(idSell string,pic string) (result bool) {
     return true
   }
 }
+
+func Like(idSell string,idUser string) (result bool) {
+  session, err := mgo.Dial("127.0.0.1")
+  if err != nil {
+      panic(err)
+  }
+  defer session.Close()
+  session.SetMode(mgo.Monotonic, true)
+  qmgo := session.DB("chaokaset").C("sell")
+
+  colQuerier := bson.M{ "_id": bson.ObjectIdHex(idSell) }
+
+  change := bson.M{"$push": bson.M{"like": bson.ObjectIdHex(idUser)}}
+  
+  err = qmgo.Update(colQuerier, change)
+
+  if err != nil {
+    return false
+  }else{
+    return true
+  }
+}
+
+func UnLike(idSell string,idUser string) (result bool) {
+  session, err := mgo.Dial("127.0.0.1")
+  if err != nil {
+      panic(err)
+  }
+  defer session.Close()
+  session.SetMode(mgo.Monotonic, true)
+  
+  qmgo := session.DB("chaokaset").C("sell")
+
+  colQuerier := bson.M{ "_id": bson.ObjectIdHex(idSell) }
+
+  change := bson.M{"$pull": bson.M{"like": bson.ObjectIdHex(idUser)}}
+  
+  err = qmgo.Update(colQuerier, change)
+
+  if err != nil {
+    return false
+  }else{
+    return true
+  }
+}
+
+func CheckLike(idSell string,idUser string) (result bool) {
+  session, err := mgo.Dial("127.0.0.1")
+  if err != nil {
+      panic(err)
+  }
+  defer session.Close()
+  session.SetMode(mgo.Monotonic, true)
+  
+  qmgo := session.DB("chaokaset").C("sell")
+
+  var data *Sells
+  qmgo.Find(bson.M{"_id": bson.ObjectIdHex(idSell),"like": bson.ObjectIdHex(idUser)}).One(&data)
+
+  if data != nil{
+    return false
+  }else{
+    return true
+  }
+  //return true;
+}
+

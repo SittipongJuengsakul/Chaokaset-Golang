@@ -2,7 +2,7 @@ package controllers
 
 import (
     "github.com/revel/revel"
-	  "chaokaset-go/app/models"
+	  "chaokaset-api/app/models"
     "io"
     "fmt"
     "log"
@@ -16,15 +16,7 @@ type Sell struct {
   *revel.Controller
 }
 
-type PostSell struct{
-  Name            string
-  Category        string
-  Pic             io.Reader
-  Price           int
-  Unit            string
-  Detail          string
-  Expire          string
-}
+
 
 func (c Sell) IndexSell() revel.Result {
   //var data *models.Sell
@@ -34,7 +26,7 @@ func (c Sell) IndexSell() revel.Result {
 }
 
 func (c Sell) ProductDetail(id string) revel.Result {
-  data := models.GetSellDetail(id)
+  data := models.GetSellDetail(id,"55553")
   return c.Render(data)
 }
 
@@ -45,7 +37,7 @@ func (c Sell) Sell() revel.Result {
   return c.Render()
 }
 
-func (c Sell) PostSell(sell PostSell) revel.Result {
+func (c Sell) PostSell(sell models.PostSell) revel.Result {
     
   c.Validation.Required(sell.Name).Message("จำเป็นต้องกรอก ชื่อสินค้า")
   c.Validation.Required(sell.Price).Message("จำเป็นต้องกรอก ราคาสินค้าเป็นตัวเลข")
@@ -67,7 +59,7 @@ func (c Sell) PostSell(sell PostSell) revel.Result {
 
   fmt.Printf("%+v\n", selling.SellId)
   
-  upload_dir := "/var/home/goserver/src/chaokaset-go/public/uploads/" 
+  upload_dir := "/var/home/goserver/src/chaokaset-api/public/uploads/" 
   m := c.Request.MultipartForm
     //var msg string
   for fname, _ := range m.File {
@@ -119,7 +111,7 @@ func (c Sell) ManageSell() revel.Result {
 }
 
 func (c Sell) EditProductSell(idSell string) revel.Result {
-  data := models.GetSellDetail(idSell)
+  data := models.GetSellDetail(idSell,"55555555")
   return c.Render(data)
 }
 

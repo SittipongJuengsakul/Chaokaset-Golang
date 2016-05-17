@@ -3,7 +3,7 @@ package controllers
 import (
     "github.com/revel/revel"
     "gopkg.in/mgo.v2/bson"
-		"chaokaset-go/app/models"
+		"chaokaset-api/app/models"
     "golang.org/x/crypto/bcrypt"
     "regexp"
 )
