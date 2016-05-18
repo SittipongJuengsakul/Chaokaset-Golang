@@ -196,7 +196,7 @@
       }
       $scope.EditProblemSubmit = function() {//บันทึกแก้ไข
         $http({
-          method: 'PUT',
+          method: 'POST',
           url: site_url+"/apiv1_0/editproblem/"+$scope.EditProblemId+"/"+$scope.EditProblemDetail
         }).then(function(response) {
           //สำเร็จ
@@ -212,7 +212,7 @@
       }
       $scope.RemoveProblem = function(idproblem) {
         $http({
-          method: 'PUT',
+          method: 'POST',
           url: site_url+"/apiv1_0/removeproblem/"+idproblem
         }).then(function(response) {
           //สำเร็จ

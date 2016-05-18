@@ -80,15 +80,15 @@ GET     /apiv1_0/accounts/:idcrop/:skip                                         
 GET     /apiv1_0/searchaccounts/:idcrop/:word                                                            Api.SearchAccount
 GET     /apiv1_0/getoneaccount/:idcrop/:idaccount                                                            Api.OneAccount
 POST    /apiv1_0/saveaccount/:idcrop/:typeaccount/:detail/:price                                                                Api.SaveAccount
-PUT     /apiv1_0/editaccount/:idaccount/:detail/:price                                                                Api.EditAccount
-PUT     /apiv1_0/removeaccount/:idaccount                                                          Api.RemoveAccount
+POST     /apiv1_0/editaccount/:idaccount/:detail/:price                                                                Api.EditAccount
+POST     /apiv1_0/removeaccount/:idaccount                                                          Api.RemoveAccount
 GET     /apiv1_0/setStatus/:idSell/:status                                                         Api.SetStatusSell
 
 GET     /apiv1_0/problems/:idcrop/:skip                                                            Api.AllProblem
 GET     /apiv1_0/getoneproblem/:idcrop/:idproblem                                                            Api.OneProblem
 POST    /apiv1_0/saveproblem/:idcrop/:problem/:detail                                                               Api.SaveProblem
-PUT     /apiv1_0/editproblem/:idproblem/:detail                                                                Api.EditProblem
-PUT     /apiv1_0/removeproblem/:idproblem                                                          Api.RemoveProblem
+POST     /apiv1_0/editproblem/:idproblem/:detail                                                                Api.EditProblem
+POST     /apiv1_0/removeproblem/:idproblem                                                          Api.RemoveProblem
 # WebSocket chat
 GET     /websocket/room                                                                            WebSocket.Room
 WS      /websocket/room/socket                                                                     WebSocket.RoomSocket

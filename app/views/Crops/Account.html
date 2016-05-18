@@ -223,7 +223,7 @@ $('#myInput').focus()
       $scope.EditAccountSubmit = function() {//บันทึกแก้ไข
         var idtype = document.getElementById('SelTypeAccount').value;
         $http({
-          method: 'PUT',
+          method: 'POST',
           url: site_url+"/apiv1_0/editaccount/"+$scope.EditAccountId+"/"+$scope.EditDetails+"/"+$scope.EditPrice
         }).then(function(response) {
           //สำเร็จ
@@ -239,7 +239,7 @@ $('#myInput').focus()
       }
       $scope.RemoveAccount = function(idaccount) {//ลบบัญชี
         $http({
-          method: 'PUT',
+          method: 'POST',
           url: site_url+"/apiv1_0/removeaccount/"+idaccount
         }).then(function(response) {
           //สำเร็จ
