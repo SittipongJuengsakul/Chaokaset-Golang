@@ -6,7 +6,7 @@ import (
     "time"
     "github.com/alouche/go-geolib"
     "math"
-    // "fmt"
+    "fmt"
 )
 
 type Sells struct{
@@ -29,16 +29,6 @@ type Sells struct{
   Comment         []Comments
 }
 
-type Comments struct{
-  Userid          bson.ObjectId
-  Data    string
-  TimeCreate      time.Time
-}
-
-type  Owner struct{
-  Name,Lastname,Prefix,Tel       string
-}
-
 type SellDetail struct{
   Sellid          bson.ObjectId `bson:"_id,omitempty"`
   Name            string
@@ -52,11 +42,22 @@ type SellDetail struct{
   TimeCreate      time.Time
   OwnerId         bson.ObjectId
   Owner           Owner
-   Status          int
+  Status          int
   SellType        int
   StatusLike      int
   Like        []bson.ObjectId
   NumberOfLike    int
+  Comment         []Comments     
+}
+type Comments struct{
+  Userid          bson.ObjectId
+  Name            string
+  Data            string
+  TimeCreate      time.Time
+}
+
+type  Owner struct{
+  Name,Lastname,Prefix,Tel       string
 }
 
 type Address struct{
@@ -251,6 +252,23 @@ func GetSellDetail(Idsell string,Userid string) *SellDetail {
   result.SetOwnerPrefix(data.Prefix)
   result.SetOwnerTel(data.Tel)
   result.SetNumLikeDetail(len(result.Like))
+
+  //fmt.Printf("%+v\n", result.Comment)
+  for i := range result.Comment {
+    //fmt.Printf("%+v\n", result.Comment[i].Userid)
+    Detail := GetOwnerData(result.Comment[i].Userid.Hex()) 
+    fmt.Printf("%+v\n", result.Comment[i].Userid.Hex())
+    fmt.Printf("%+v\n", Detail.Name)
+    fmt.Printf("%+v\n", result.Comment[i].Name)
+    Name := Detail.Prefix+Detail.Name+"  "+Detail.Lastname
+    result.Comment[i].Name = Name
+    fmt.Printf("%+v\n", result.Comment[i].Name)
+    
+    //result[i].SetDetailUserid(Detail.Name,Detail.Lastname,Detail.Prefix,Detail.Tel)
+   // func (SellDetail *SellDetail) SetDetailUserid(name string,lastname string,prefix string,tel string) 
+    //result.Comment[i].UseridDetail.Name.SetDetailUserid(i,Detail.Name)
+   // result.Comment[i].SetDetailUserid(Detail.Name)
+  }
   
   return result
 }
