@@ -141,9 +141,7 @@ func GetSellData(Lat float64, Long float64) []Sells {
       result[i].SetDistance(dist * 60 * 1.1515 * 1.609344)
       result[i].SetNumLike(len(result[i].Like))
   }
-
-  // fmt.Printf("%+v\n", result)
-  
+    
   return result
 }
 

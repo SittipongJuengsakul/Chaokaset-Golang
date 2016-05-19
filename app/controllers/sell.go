@@ -8,7 +8,7 @@ import (
     "log"
     "os"
     "time"
-
+   "sort"
 )
 
 //Auth for save Structure of Folder Sell (in views)
@@ -16,17 +16,35 @@ type Sell struct {
   *revel.Controller
 }
 
+//type SortData []models.Sells
 
+type ByLike []models.Sells
+
+func (a ByLike) Len() int           { return len(a) }
+func (a ByLike) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
+func (a ByLike) Less(i, j int) bool { return a[i].NumberOfLike < a[j].NumberOfLike }
+
+type ByDistance []models.Sells
+
+func (a ByDistance) Len() int           { return len(a) }
+func (a ByDistance) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
+func (a ByDistance) Less(i, j int) bool { return a[i].Distance < a[j].Distance }
 
 func (c Sell) IndexSell() revel.Result {
-  //var data *models.Sell
-  //data := models.GetSellData(13,100)
-  //data := "5555"
-  return c.Render()
+  //var data *models.Sells
+  Data := models.GetSellData(13,100)
+ /*for i := range SortData {
+    fmt.Printf("%+v",SortData[i].NumberOfLike)
+  }
+*/
+  sort.Sort(sort.Reverse(ByLike(Data)))
+
+  return c.Render(Data)
 }
 
 func (c Sell) ProductDetail(id string) revel.Result {
-  data := models.GetSellDetail(id,"55553")
+  idUser := models.GetUserid(c.Session["username"])
+  data := models.GetSellDetail(id,idUser.Userid.Hex())
   return c.Render(data)
 }
 

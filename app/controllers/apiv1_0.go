@@ -12,6 +12,7 @@ import (
     "os"
     "io"
    "fmt"
+   "sort"
 )
 
 type Api struct {
@@ -48,6 +49,12 @@ type ResCommentAll struct {
    // CommentData      []models.Comment
     CommentData      []models.Sells
 }
+
+/*type ByLike []models.Sells
+
+func (a ByLike) Len() int           { return len(a) }
+func (a ByLike) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
+func (a ByLike) Less(i, j int) bool { return a[i].NumberOfLike < a[j].NumberOfLike }*/
 
 func (c Api) Index() revel.Result {
   var user *models.User
@@ -339,4 +346,32 @@ func (c Api) AddComment(idSell string, idUser string,data string) revel.Result {
   } else {
     return  c.RenderJson(false)
   }
+}
+
+func (c Api) ProductSellLike(Lat float64, Long float64) revel.Result {
+  var R *ResSellAll
+  var U []models.Sells
+  U = models.GetSellData(Lat,Long)
+  sort.Sort(sort.Reverse(ByLike(U)))
+  if U == nil{
+    R = &ResSellAll{Status: false,SellData: nil}
+    return  c.RenderJson(R)
+  }
+
+  R = &ResSellAll{Status: true,SellData: U}
+  return  c.RenderJson(R)
+}
+
+func (c Api) ProductSellDistance(Lat float64, Long float64) revel.Result {
+  var R *ResSellAll
+  var U []models.Sells
+  U = models.GetSellData(Lat,Long)
+  sort.Sort(ByDistance(U))
+  if U == nil{
+    R = &ResSellAll{Status: false,SellData: nil}
+    return  c.RenderJson(R)
+  }
+
+  R = &ResSellAll{Status: true,SellData: U}
+  return  c.RenderJson(R)
 }

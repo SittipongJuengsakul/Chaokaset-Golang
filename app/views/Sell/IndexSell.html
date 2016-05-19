@@ -2,6 +2,14 @@
 {{template "Templates/header.html" .}}
 {{template "Templates/preloader.html" .}}
 
+<style>
+  .center-cropped {
+  width: 100%;
+  height: 170px;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+</style>
 
 
 <div class="chaokaset-container-verticle" id="chaokaset-loader" style="display: none;">
@@ -18,7 +26,9 @@
           <input type="text" name="SearchProduct" class="form-control" placeholder="ค้นหาสินค้า" ng-model="searchProduct">
       </div>
       </div>
-
+{{ range .Data }}
+  {{ .NumberOfLike }}
+{{end}}
       
       </br>
         <div class="row" >
@@ -40,20 +50,19 @@
 
           <div class="col-sm-6 col-md-4" ng-repeat="product in filterProducts  = (products | filter:searchProduct)">
             <div class="thumbnail">
-              <img ng-src="/public/uploads/mobile-20160516143946-ระยะ2.png" alt="..." width="100%" >
+              <div ng-bind-html="product.Pic"></div>
               <div class="caption">
                 <h2 class="color-blue" ng-bind-html="product.Name | searchfilter:searchProduct"></h2>
                 <div class = "row" style="padding-top:10px;padding-bottom:10px">
                   <img src="/public/img/Coins-48.png">
                   <div ng-bind-html="product.Price"></div>
                   <div ng-bind-html="product.Unit"></div>
-                  <div ng-bind-html="product.Pic"></div>
-              
-          
+
                   </div>
                 </div>
                 <p style="padding-bottom:15px"><img src="/public/img/Geo-fence-48.png" width="25px"> จ.ชลบุรี </p>
-                <a  href="productdetail/"><button type="button" class="btn btn-success">รายละเอียดสินค้า</button></a>
+                <!-- <a  href="productdetail/"><button type="button" class="btn btn-success">รายละเอียดสินค้า</button></a>-->
+                <div ng-bind-html="product.Sellid"></div>
               </div>
             </div>
           </div>
@@ -73,9 +82,15 @@
   app.controller('searchShowProduct', function($scope, $http) {
       $http.get(site_url+"/apiv1_0/product/13/100")
       .then(function(response) {
-        //console.log(response.data["SellData"][0]);
+        //console.log(response.data["SellData"]);
+        var x;
+        for(x in response.data["SellData"]) {
+          response.data["SellData"][x].Pic = '<img class="center-cropped" src="/public/uploads/' + response.data["SellData"][x].Pic + '" width="100%">';
+          response.data["SellData"][x].Sellid = '<a  href="productdetail/'+ response.data["SellData"][x].Sellid+'"><button type="button" class="btn btn-success">รายละเอียดสินค้า</button></a>';
+        }
+
         $scope.products = response.data["SellData"];
-       // $scope.productsDiv = response.data["SellData"][0]["Name"];
+
       });
      
   })
@@ -84,7 +99,7 @@
             if(query == ""){
             return input;
           }else{
-            return input.replace(RegExp('('+ query + ')', 'g'), '<span style="color:red;">$1</span>');
+            return input.replace(RegExp('('+ query + ')', 'g'), '<span class="semetic-value">$1</span>');
           }
         }
   });
