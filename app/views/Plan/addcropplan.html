@@ -48,7 +48,7 @@
             {{with $field := field "plan.Description" .}}
             <div class="form-group col-md-12 padding-left-no padding-right-no">
               <label>รายละเอียด</label>
-              <textarea type="text" class="form-control" placeholder="กรอกชื่อแผนการเพาะปลูก" name="{{$field.Name}}" style="font-size: 20px;" value="{{$field.Flash}}"></textarea>
+              <textarea type="text" ng-model="Details" class="form-control" placeholder="กรอกชื่อแผนการเพาะปลูก" name="{{$field.Name}}" style="font-size: 20px;" value="{{$field.Flash}}"></textarea>
               <span class="error">{{$field.Error}}</span>
             </div>
             {{end}}
@@ -136,21 +136,15 @@
           require: '?ngModel',
           link: function (scope, elem, attrs, ctrl) {
               if (!ctrl) return;
-
-
               ctrl.$formatters.unshift(function (a) {
                   return $filter(attrs.format)(ctrl.$modelValue)
               });
-
-
               ctrl.$parsers.unshift(function (viewValue) {
-
             elem.priceFormat({
               prefix: '',
               centsSeparator: '.',
               thousandsSeparator: ','
           });
-
                   return elem[0].value;
               });
           }

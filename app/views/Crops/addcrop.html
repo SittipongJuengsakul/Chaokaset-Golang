@@ -89,22 +89,42 @@
             {{end}}
           </div>
           <div class="form-grop col-md-12" style="padding: 0px;">
+            {{with $field := field "crop.Rai" .}}
+            <div class="form-group col-md-4 padding-left-no">
+              <label>ขนาดพื้นที่ (ไร่)</label>
+              <input type="number" class="form-control" placeholder="กรอกขนาดพื้นที่ (ไร่)" name="{{$field.Name}}" value="{{$field.Flash}}" min="0">
+            </div>
+            {{end}}
+            {{with $field := field "crop.Ngarn" .}}
+            <div class="form-group col-md-4">
+              <label>ขนาดพื้นที่ (งาน)</label>
+              <input type="number" class="form-control" placeholder="กรอกขนาดพื้นที่ (งาน)" name="{{$field.Name}}" value="{{$field.Flash}}" min="0" max="4">
+            </div>
+            {{end}}
+            {{with $field := field "crop.Wah" .}}
+            <div class="form-group col-md-4 padding-right-no">
+              <label>ขนาดพื้นที่ (ตารางวา)</label>
+              <input type="number" class="form-control" placeholder="กรอกขนาดพื้นที่ (ตารางวา)" name="{{$field.Name}}" value="{{$field.Flash}}" min="0" max="100">
+            </div>
+            {{end}}
+          </div>
+          <div class="form-grop col-md-12" style="padding: 0px;">
             {{with $field := field "crop.Duration" .}}
             <div class="form-group col-md-4 padding-left-no">
               <label>ระยะเวลาทำการเพาะปลูก</label>
-              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="modduration">
+              <input type="number" min="0"  placeholder="กรอกระยะเวลาทำการเพาะปลูก" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="modduration">
             </div>
             {{end}}
             {{with $field := field "crop.Price" .}}
             <div class="form-group col-md-4">
               <label>ราคาผลผลิต ต่อ กิโลกรัม</label>
-              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="modprice">
+              <input type="number" min="0"  placeholder="กรอกราคาผลผลิต" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="modprice">
             </div>
             {{end}}
             {{with $field := field "crop.Product" .}}
             <div class="form-group col-md-4 padding-right-no">
               <label>จำนวนผลผลิต ต่อ ไร่</label>
-              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="modproduct">
+              <input type="number" min="0"  placeholder="กรอกจำนวนผลผลิต ต่อ ไร่" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="modproduct">
             </div>
             {{end}}
           </div>
@@ -112,7 +132,7 @@
             {{with $field := field "crop.Address" .}}
             <div class="form-group col-md-8 padding-left-no">
               <label>ที่อยู่แปลงเพาะปลูก</label>
-              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}">
+              <input type="text" placeholder="กรอกที่อยู่แปลงเพาะปลูก" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}">
             </div>
             {{end}}
             {{with $field := field "crop.Province" .}}
