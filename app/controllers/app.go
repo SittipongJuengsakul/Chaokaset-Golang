@@ -210,7 +210,7 @@ func (c Profile) EditUser() revel.Result {
   user = models.GetEditUserData(c.Session["username"])
 	return c.Render(user)
 }
-//PostEditUser for Create routing Page 
+//PostEditUser for Create routing Page
 func (c Profile) PostEditUser(user *models.UserData) revel.Result {
 	user.ValidateUserData(c.Validation)
   if c.Validation.HasErrors() {

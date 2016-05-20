@@ -66,7 +66,7 @@ func GetOneCrops(cropid string) *Crop {
   qmgo := session.DB("chaokaset").C("crops")
   result := Crop{}
 	qmgo.Find(bson.M{"status": 1,"_id": bson.ObjectIdHex(cropid)}).One(&result)
-  crop = &Crop{CropId: result.CropId,Status: result.Status,CropName: result.CropName,PlantId: result.PlantId,SeedId: result.SeedId,PlanId: result.PlanId,Plant: result.Plant,Seed: result.Seed,StartDate: result.StartDate,EndDate: result.EndDate,Duration: result.Duration,Province: result.Province,Aumphur: result.Aumphur,Tumbon: result.Tumbon,Product: result.Product,Price: result.Price,Address : result.Address}
+  crop = &Crop{Rai: result.Rai,Ngarn: result.Ngarn,Wah: result.Wah,CropId: result.CropId,Status: result.Status,CropName: result.CropName,PlantId: result.PlantId,SeedId: result.SeedId,PlanId: result.PlanId,Plant: result.Plant,Seed: result.Seed,StartDate: result.StartDate,EndDate: result.EndDate,Duration: result.Duration,Province: result.Province,Aumphur: result.Aumphur,Tumbon: result.Tumbon,Product: result.Product,Price: result.Price,Address : result.Address}
   return crop
 }
 

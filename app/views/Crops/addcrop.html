@@ -180,25 +180,6 @@
       $http.get(site_url+"/apiv1_0/plants/0")
       .then(function(response) {
         $scope.plants = response.data;
-        $http.get(site_url+"/apiv1_0/seeds/0/"+$scope.plants[0].PlantId)
-        .then(function(response) {
-          $scope.seeds = response.data;
-          $http.get(site_url+"/apiv1_0/plan/"+$scope.plants[0].PlantId+"/"+$scope.seeds[0].SeedId)
-          .then(function(response) {
-            $scope.plans = response.data;
-            var url = site_url+"/apiv1_0/plan/0/"+$scope.seeds[0].SeedId;
-            $http.get(url)
-            .then(function(response) {
-              $scope.plandata = response.data;
-              console.log(response.data);
-              console.log($scope.plandata[0].PlanName);
-              $scope.modtypeplanname = $scope.plandata[0].PlanName;
-              $scope.modduration = $scope.plandata[0].Duration;
-              $scope.modproduct = $scope.plandata[0].Product;
-              $scope.modprice = $scope.plandata[0].Price;
-            });
-          });
-        });
       });
       $scope.ShowNewPlanOption = function() {
           $scope.NewPlanOption = true
@@ -212,14 +193,11 @@
         $http.get(site_url+"/apiv1_0/seeds/0/"+$scope.modplant)
         .then(function(response) {
           $scope.seeds = response.data;
+          console.log(response);
           var url = site_url+"/apiv1_0/plan/0/"+$scope.modseed;
           $http.get(url)
           .then(function(response) {
             $scope.plandata = response.data;
-            $scope.modtypeplanname = $scope.plandata[0].PlanName;
-            $scope.modduration = $scope.plandata[0].Duration;
-            $scope.modproduct = $scope.plandata[0].Product;
-            $scope.modprice = $scope.plandata[0].Price;
           });
         });
       }
@@ -236,15 +214,11 @@
             $scope.modproduct = "";
             $scope.modprice = "";
             $scope.plandata = response.data;
-            $scope.modtypeplanname = $scope.plandata[0].PlanName;
-            $scope.modduration = $scope.plandata[0].Duration;
-            $scope.modproduct = $scope.plandata[0].Product;
-            $scope.modprice = $scope.plandata[0].Price;
           });
         });
       }
       $scope.chooseplan = function(id) {
-        var url = "http://localhost:9000"+"/apiv1_0/planid/"+$scope.modplan;
+        var url = site_url+"/apiv1_0/planid/"+$scope.modplan;
         $http.get(url)
         .then(function(response) {
           $scope.modtypeplanname = "";
@@ -253,7 +227,6 @@
           $scope.modprice = "";
           $scope.plandata = response.PlanData;
           console.log(response);
-          console.log($scope.plandata.PlanName);
         });
       }
   });
