@@ -48,6 +48,26 @@
               </select>
             </div>
             {{end}}
+            <div class="form-grop col-md-12" style="padding: 0px;">
+              {{with $field := field "crop.Rai" .}}
+              <div class="form-group col-md-4 padding-left-no">
+                <label>ขนาดพื้นที่ (ไร่)</label>
+                <input type="number" class="form-control" placeholder="กรอกขนาดพื้นที่ (ไร่)" name="{{$field.Name}}" value="{{$field.Flash}}" min="0">
+              </div>
+              {{end}}
+              {{with $field := field "crop.Ngarn" .}}
+              <div class="form-group col-md-4">
+                <label>ขนาดพื้นที่ (งาน)</label>
+                <input type="number" class="form-control" placeholder="กรอกขนาดพื้นที่ (งาน)" name="{{$field.Name}}" value="{{$field.Flash}}" min="0" max="4">
+              </div>
+              {{end}}
+              {{with $field := field "crop.Wah" .}}
+              <div class="form-group col-md-4 padding-right-no">
+                <label>ขนาดพื้นที่ (ตารางวา)</label>
+                <input type="number" class="form-control" placeholder="กรอกขนาดพื้นที่ (ตารางวา)" name="{{$field.Name}}" value="{{$field.Flash}}" min="0" max="100">
+              </div>
+              {{end}}
+            </div>
           <div class="form-grop col-md-12" style="padding: 0px;">
             {{with $field := field "crop.TypePlanOption" .}}
             <div class="form-group col-md-4 padding-left-no">
@@ -85,26 +105,6 @@
             <div class="form-group col-md-4 padding-right-no">
               <label>สิ้นสุดวันที่ (ตามแผน)</label>
               <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="modenddate">
-            </div>
-            {{end}}
-          </div>
-          <div class="form-grop col-md-12" style="padding: 0px;">
-            {{with $field := field "crop.Rai" .}}
-            <div class="form-group col-md-4 padding-left-no">
-              <label>ขนาดพื้นที่ (ไร่)</label>
-              <input type="number" class="form-control" placeholder="กรอกขนาดพื้นที่ (ไร่)" name="{{$field.Name}}" value="{{$field.Flash}}" min="0">
-            </div>
-            {{end}}
-            {{with $field := field "crop.Ngarn" .}}
-            <div class="form-group col-md-4">
-              <label>ขนาดพื้นที่ (งาน)</label>
-              <input type="number" class="form-control" placeholder="กรอกขนาดพื้นที่ (งาน)" name="{{$field.Name}}" value="{{$field.Flash}}" min="0" max="4">
-            </div>
-            {{end}}
-            {{with $field := field "crop.Wah" .}}
-            <div class="form-group col-md-4 padding-right-no">
-              <label>ขนาดพื้นที่ (ตารางวา)</label>
-              <input type="number" class="form-control" placeholder="กรอกขนาดพื้นที่ (ตารางวา)" name="{{$field.Name}}" value="{{$field.Flash}}" min="0" max="100">
             </div>
             {{end}}
           </div>
@@ -180,6 +180,37 @@
       $http.get(site_url+"/apiv1_0/plants/0")
       .then(function(response) {
         $scope.plants = response.data;
+        $scope.plans = [{PlanName: 'ไม่มีข้อมูล',PlanId: 'ไม่มีข้อมูล'}];
+        $http.get(site_url+"/apiv1_0/seeds/0/"+$scope.plants[0].PlantId)
+        .then(function(response) {
+          if(response.data.length != 0){
+            $scope.seeds = response.data;
+          }else{
+            $scope.seeds = [{SeedName: 'ไม่มีข้อมูล',SeedId: 'ไม่มีข้อมูล'}];
+            $scope.modtypeplanname = '';
+            $scope.modduration = '';
+            $scope.modproduct = '';
+            $scope.modprice = '';
+          }
+          $http.get(site_url+"/apiv1_0/plan/0/"+$scope.seeds[0].SeedId)
+          .then(function(response) {
+            if(response.data == null){
+              $scope.plans = [{PlanName: 'ไม่มีข้อมูล',PlanId: 'ไม่มีข้อมูล'}];
+              $scope.modtypeplanname = '';
+              $scope.modduration = '';
+              $scope.modproduct = '';
+              $scope.modprice = '';
+            }else{
+              $scope.plans = response.data;
+              $http.get(site_url+"/apiv1_0/planid/"+$scope.plans[0].PlanId).then(function(response) {
+                $scope.modtypeplanname = response.data.PlanData.PlanName;
+                $scope.modduration = response.data.PlanData.Duration;
+                $scope.modproduct = response.data.PlanData.Product;
+                $scope.modprice = response.data.PlanData.Price;
+              });
+            }
+          });
+        });
       });
       $scope.ShowNewPlanOption = function() {
           $scope.NewPlanOption = true
@@ -192,41 +223,63 @@
       $scope.chooseplant = function(id,at) {
         $http.get(site_url+"/apiv1_0/seeds/0/"+$scope.modplant)
         .then(function(response) {
-          $scope.seeds = response.data;
-          console.log(response);
-          var url = site_url+"/apiv1_0/plan/0/"+$scope.modseed;
-          $http.get(url)
-          .then(function(response) {
-            $scope.plandata = response.data;
-          });
+          if(response.data == null){
+            $scope.seeds = [{SeedName: 'ไม่มีข้อมูล',SeedId: 'ไม่มีข้อมูล'}];
+            $scope.plans = [{PlanName: 'ไม่มีข้อมูล',PlanId: 'ไม่มีข้อมูล'}];
+            $scope.modtypeplanname = '';
+            $scope.modduration = '';
+            $scope.modproduct = '';
+            $scope.modprice = '';
+          }else{
+            $scope.seeds = response.data;
+            $http.get(site_url+"/apiv1_0/plan/0/"+$scope.seeds[0].SeedId)
+            .then(function(response) {
+              if(response.data == null){
+                $scope.plans = [{PlanName: 'ไม่มีข้อมูล',PlanId: 'ไม่มีข้อมูล'}];
+                $scope.modtypeplanname = '';
+                $scope.modduration = '';
+                $scope.modproduct = '';
+                $scope.modprice = '';
+              }else{
+                $scope.plans = response.data;
+                $http.get(site_url+"/apiv1_0/planid/"+$scope.plans[0].PlanId).then(function(response) {
+                  $scope.modtypeplanname = response.data.PlanData.PlanName;
+                  $scope.modduration = response.data.PlanData.Duration;
+                  $scope.modproduct = response.data.PlanData.Product;
+                  $scope.modprice = response.data.PlanData.Price;
+                });
+              }
+            });
+          }
         });
       }
       $scope.chooseseed = function(id) {
-        var url = site_url+"/apiv1_0/plan/"+$scope.modplant+"/"+$scope.modseed;
-        $http.get(url)
+        $http.get(site_url+"/apiv1_0/plan/0/"+$scope.modseed)
         .then(function(response) {
-          $scope.plans = response.data;
-          var url = site_url+"/apiv1_0/plan/0/"+$scope.modseed;
-          $http.get(url)
-          .then(function(response) {
-            $scope.modtypeplanname = "";
-            $scope.modduration = "";
-            $scope.modproduct = "";
-            $scope.modprice = "";
-            $scope.plandata = response.data;
-          });
+          if(response.data == null){
+            $scope.plans = [{PlanName: 'ไม่มีข้อมูล',PlanId: 'ไม่มีข้อมูล'}];
+            $scope.modtypeplanname = '';
+            $scope.modduration = '';
+            $scope.modproduct = '';
+            $scope.modprice = '';
+          }else{
+            $scope.plans = response.data;
+            $http.get(site_url+"/apiv1_0/planid/"+$scope.plans[0].PlanId).then(function(response) {
+              $scope.modtypeplanname = response.data.PlanData.PlanName;
+              $scope.modduration = response.data.PlanData.Duration;
+              $scope.modproduct = response.data.PlanData.Product;
+              $scope.modprice = response.data.PlanData.Price;
+            });
+          }
         });
       }
       $scope.chooseplan = function(id) {
         var url = site_url+"/apiv1_0/planid/"+$scope.modplan;
-        $http.get(url)
-        .then(function(response) {
-          $scope.modtypeplanname = "";
-          $scope.modduration = "";
-          $scope.modproduct = "";
-          $scope.modprice = "";
-          $scope.plandata = response.PlanData;
-          console.log(response);
+        $http.get(url).then(function(response) {
+          $scope.modtypeplanname = response.data.PlanData.PlanName;
+          $scope.modduration = response.data.PlanData.Duration;
+          $scope.modproduct = response.data.PlanData.Product;
+          $scope.modprice = response.data.PlanData.Price;
         });
       }
   });
@@ -235,21 +288,15 @@
           require: '?ngModel',
           link: function (scope, elem, attrs, ctrl) {
               if (!ctrl) return;
-
-
               ctrl.$formatters.unshift(function (a) {
                   return $filter(attrs.format)(ctrl.$modelValue)
               });
-
-
               ctrl.$parsers.unshift(function (viewValue) {
-
             elem.priceFormat({
               prefix: '',
               centsSeparator: '.',
               thousandsSeparator: ','
           });
-
                   return elem[0].value;
               });
           }
