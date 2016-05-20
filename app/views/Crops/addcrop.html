@@ -138,8 +138,8 @@
             {{with $field := field "crop.Province" .}}
             <div class="form-group col-md-4 padding-right-no">
               <label>จังหวัด</label>
-              <select class="form-control" name="{{$field.Name}}">
-                 <option value="ชลบุรี">ชลบุรี</option>
+              <select class="form-control" name="{{$field.Name}}" ng-change="chooseprovince(seed)" ng-model="modseed">
+                 <option ng-repeat="province in provinces" ng-bind="province.name" ng-value="province.code"></option>
               </select>
             </div>
             {{end}}
@@ -177,6 +177,27 @@
      $scope.durationsplan = 0;
       $scope.NewPlanOption = true;
       $scope.PlanOption = false;
+      $http({
+        method: 'GET',
+        url: 'http://angsila.cs.buu.ac.th/~55160287/Rest_Chaokaset/get_province.php'
+      }).then(function(response) {
+        console.log(response);
+        $scope.provinces = response.data;
+        $http({
+          method: 'GET',
+          url: 'http://angsila.cs.buu.ac.th/~55160287/Rest_Chaokaset/get_district.php?code='+$scope.provincescode
+        }).then(function(response) {
+          console.log(response);
+          $scope.aumphur = response.data;
+          $http({
+            method: 'GET',
+            url: 'http://angsila.cs.buu.ac.th/~55160287/Rest_Chaokaset/get_district.php?code='+$scope.aumphurcode
+          }).then(function(response) {
+            console.log(response);
+            $scope.tumbon = response.data;
+          });
+        });
+      });
       $http.get(site_url+"/apiv1_0/plants/0")
       .then(function(response) {
         $scope.plants = response.data;
@@ -282,6 +303,12 @@
           $scope.modprice = response.data.PlanData.Price;
         });
       }
+      $scope.chooseprovince = function(id) {
+        $http.get("http://angsila.cs.buu.ac.th/~55160287/Rest_Chaokaset/get_province.php").then(function(response) {
+          $scope.provinces = response.data;
+        });
+      }
+
   });
   app.directive('format', ['$filter', function ($filter) {
       return {
