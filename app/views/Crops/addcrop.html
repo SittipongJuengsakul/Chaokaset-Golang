@@ -138,7 +138,7 @@
             {{with $field := field "crop.Province" .}}
             <div class="form-group col-md-4 padding-right-no">
               <label>จังหวัด</label>
-              <select class="form-control" name="{{$field.Name}}" ng-change="chooseprovince(seed)" ng-model="provincescode">
+              <select class="form-control" name="{{$field.Name}}" ng-change="chooseprovince(province)" ng-model="provincescode">
                  <option ng-repeat="province in provinces" ng-bind="province.name" ng-value="province.code"></option>
               </select>
             </div>
@@ -148,7 +148,7 @@
             {{with $field := field "crop.Aumphur" .}}
             <div class="form-group col-md-6 padding-left-no">
               <label>อำเภอ</label>
-              <select class="form-control" name="{{$field.Name}}" ng-change="chooseprovince(seed)" ng-model="aumphurcode">
+              <select class="form-control" name="{{$field.Name}}" ng-change="chooseaumphur(aumphur)" ng-model="aumphurcode">
                  <option ng-repeat="aumphur in aumphurs" ng-bind="aumphur.name" ng-value="aumphur.code"></option>
               </select>
             </div>
@@ -156,7 +156,7 @@
             {{with $field := field "crop.Tumbon" .}}
             <div class="form-group col-md-6 padding-right-no">
               <label>ตำบล</label>
-              <select class="form-control" name="{{$field.Name}}" ng-change="chooseprovince(seed)" ng-model="tumboncode">
+              <select class="form-control" name="{{$field.Name}}" ng-change="choosetumbon(tumbon)" ng-model="tumboncode">
                  <option ng-repeat="tumbon in tumbons" ng-bind="tumbon.name" ng-value="tumbon.code"></option>
               </select>
             </div>
@@ -181,20 +181,17 @@
         method: 'GET',
         url: 'http://angsila.cs.buu.ac.th/~55160287/Rest_Chaokaset/get_province.php'
       }).then(function(response) {
-        console.log(response);
-        $scope.provinces = response.data;
+        $scope.provinces = response.data.data;
         $http({
           method: 'GET',
-          url: 'http://angsila.cs.buu.ac.th/~55160287/Rest_Chaokaset/get_district.php?code='+$scope.provincescode
+          url: 'http://angsila.cs.buu.ac.th/~55160287/Rest_Chaokaset/get_district.php?code='+$scope.provinces[0].code
         }).then(function(response) {
-          console.log(response);
-          $scope.aumphur = response.data;
+          $scope.aumphurs = response.data.data;
           $http({
             method: 'GET',
-            url: 'http://angsila.cs.buu.ac.th/~55160287/Rest_Chaokaset/get_district.php?code='+$scope.aumphurcode
+            url: 'http://angsila.cs.buu.ac.th/~55160287/Rest_Chaokaset/get_district.php?code='+$scope.aumphurs[0].code
           }).then(function(response) {
-            console.log(response);
-            $scope.tumbon = response.data;
+            $scope.tumbons = response.data.data;
           });
         });
       });
@@ -304,11 +301,27 @@
         });
       }
       $scope.chooseprovince = function(id) {
-        $http.get("http://angsila.cs.buu.ac.th/~55160287/Rest_Chaokaset/get_province.php").then(function(response) {
-          $scope.provinces = response.data;
-        });
+          $http({
+            method: 'GET',
+            url: 'http://angsila.cs.buu.ac.th/~55160287/Rest_Chaokaset/get_district.php?code='+$scope.provincescode
+          }).then(function(response) {
+            $scope.aumphurs = response.data.data;
+            $http({
+              method: 'GET',
+              url: 'http://angsila.cs.buu.ac.th/~55160287/Rest_Chaokaset/get_district.php?code='+$scope.aumphurs[0].code
+            }).then(function(response) {
+              $scope.tumbons = response.data.data;
+            });
+          });
       }
-
+      $scope.chooseaumphur = function(id) {
+            $http({
+              method: 'GET',
+              url: 'http://angsila.cs.buu.ac.th/~55160287/Rest_Chaokaset/get_district.php?code='+$scope.aumphurcode
+            }).then(function(response) {
+              $scope.tumbons = response.data.data;
+            });
+      }
   });
   app.directive('format', ['$filter', function ($filter) {
       return {
