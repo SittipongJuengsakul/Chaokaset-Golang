@@ -38,9 +38,9 @@
                 <a href="#" class="dropdown-toggle option-crops"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ดูเพิ่มเติม <span class="caret"></span></a>
                 </button>
                 <ul class="dropdown-menu dd-menu" aria-labelledby="dropdownMenu1">
-                  <!--<li><a href="#">ดูข้อมูล</a></li>
-                  <li><a href="#">ผู้สนใจ</a></li>
-                  <li role="separator" class="divider"></li>-->
+                  <li><a href="/crops/management/{{ .CropId.Hex }}">ดูข้อมูล</a></li>
+                  <!--<li><a href="#">ผู้สนใจ</a></li>-->
+                  <li role="separator" class="divider"></li>
                   <li><a href="/crops/disbled/{{ .CropId.Hex }}" class="color-red">ยุติแปลงนี้</a></li>
                 </ul>
               </div>

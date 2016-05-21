@@ -14,7 +14,7 @@ func init() {
 		revel.FlashFilter,             // Restore and write the flash cookie.
 		revel.ValidationFilter,        // Restore kept validation errors and save new ones from cookie.
 		revel.I18nFilter,              // Resolve the requested language
-		HeaderFilter,                  // Add some security based headers
+		CORSFilter,                  // Add some security based headers
 		revel.InterceptorFilter,       // Run interceptors around the action.
 		revel.CompressFilter,          // Compress the result.
 		revel.ActionInvoker,           // Invoke the action.
@@ -29,10 +29,16 @@ func init() {
 // TODO turn this into revel.HeaderFilter
 // should probably also have a filter for CSRF
 // not sure if it can go in the same filter or not
-var HeaderFilter = func(c *revel.Controller, fc []revel.Filter) {
-	// Add some common security headers
-	c.Response.Out.Header().Add("Access-Control-Allow-Origin", "*")
-	c.Response.Out.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
-	c.Response.Out.Header().Set("Access-Control-Allow-Headers","Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
-	fc[0](c, fc[1:]) // Execute the next filter stage.
+var CORSFilter = func(c *revel.Controller, fc []revel.Filter) {
+        c.Response.Out.Header().Set("Access-Control-Allow-Origin", "*")
+        c.Response.Out.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+        c.Response.Out.Header().Set("Access-Control-Allow-Headers",
+                "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+
+        // Stop here for a Preflighted OPTIONS request.
+        if c.Request.Method == "OPTIONS" {
+                return
+        }
+
+        fc[0](c, fc[1:]) // Execute the next filter stage.
 }

@@ -138,7 +138,7 @@
             {{with $field := field "crop.Province" .}}
             <div class="form-group col-md-4 padding-right-no">
               <label>จังหวัด</label>
-              <select class="form-control" name="{{$field.Name}}" ng-change="chooseprovince(seed)" ng-model="modseed">
+              <select class="form-control" name="{{$field.Name}}" ng-change="chooseprovince(seed)" ng-model="provincescode">
                  <option ng-repeat="province in provinces" ng-bind="province.name" ng-value="province.code"></option>
               </select>
             </div>
@@ -148,16 +148,16 @@
             {{with $field := field "crop.Aumphur" .}}
             <div class="form-group col-md-6 padding-left-no">
               <label>อำเภอ</label>
-              <select class="form-control" name="{{$field.Name}}">
-                 <option value="เมือง">เมือง</option>
+              <select class="form-control" name="{{$field.Name}}" ng-change="chooseprovince(seed)" ng-model="aumphurcode">
+                 <option ng-repeat="aumphur in aumphurs" ng-bind="aumphur.name" ng-value="aumphur.code"></option>
               </select>
             </div>
             {{end}}
             {{with $field := field "crop.Tumbon" .}}
             <div class="form-group col-md-6 padding-right-no">
               <label>ตำบล</label>
-              <select class="form-control" name="{{$field.Name}}">
-                 <option value="แสนสุข">แสนสุข</option>
+              <select class="form-control" name="{{$field.Name}}" ng-change="chooseprovince(seed)" ng-model="tumboncode">
+                 <option ng-repeat="tumbon in tumbons" ng-bind="tumbon.name" ng-value="tumbon.code"></option>
               </select>
             </div>
             {{end}}
@@ -165,7 +165,7 @@
         </div>
         <div style="width: 100%;text-align: center;">
           <button type="submit" class="btn btn-success">ตกลง</button>
-          <button type="button" class="btn btn-danger">ยกเลิก</button>
+          <button type="button" class="btn btn-danger" onclick="javascript:location.href='/crops'">ยกเลิก</button>
         </div>
         </form>
     </div>
