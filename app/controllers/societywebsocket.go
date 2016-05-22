@@ -19,10 +19,10 @@ func (c WebSocket) RoomSocket(user string, ws *websocket.Conn) revel.Result {
 	subscription := chatroom.Subscribe()
 	defer subscription.Cancel()
 
-	chatroom.Join(user)
-	defer chatroom.Leave(user)
+	chatroom.Join(user) //เมื่อ user เข้าฟังก์ชัน
+	defer chatroom.Leave(user) //เมื่อ user จบฟังก์ชัน
 
-	// Send down the archive.
+	// Send down the archive. ข้อความเก่า
 	for _, event := range subscription.Archive {
 		if websocket.JSON.Send(ws, &event) != nil {
 			// They disconnected

@@ -65,18 +65,22 @@
         var display = function(event) {
           $('#chatroom').append(tmpl('message_tmpl', {event: event}));
           $('#chatroom').scrollTo('max')
+          console.log("display");
         }
         // Message received on the socket
         socket.onmessage = function(event) {
           display(JSON.parse(event.data))
+          console.log("onmessage");
         }
         $('#send').click(function(e) {
+          console.log("click");
           var message = $('#message').val()
           $('#message').val('')
           socket.send(message)
         });
         $('#message').keypress(function(e) {
           if(e.charCode == 13 || e.keyCode == 13) {
+            console.log("keypress");
             $('#send').click()
             e.preventDefault()
           }
