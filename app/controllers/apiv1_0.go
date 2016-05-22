@@ -99,12 +99,12 @@ func (c Api) PostRegisterUser(Username string,Password string,Prefix string,Name
     }
 }
 //PostEditUser for Create routing Page
-func (c Api) PostEditUser(user *models.UserData) revel.Result {
+func (c Api) PostEditUser(Username string,Prefix string,Name string,Lastname string,Tel string,Email string,Province string,Aumphur string,Tumbon string,Zipcode string,Address string) revel.Result {
   var R *ResAuth
   var U *models.User
-  err := models.EditUserData(user.Username,user.Prefix,user.Name,user.Lastname,user.Tel,user.Email,user.Province,user.Tumbon,user.Aumphur,user.Zipcode,user.Address)
+  err := models.EditUserData(Username,Prefix,Name,Lastname,Tel,Email,Province,Tumbon,Aumphur,Zipcode,Address)
   if err {
-    U = models.GetUserData(user.Username)
+    U = models.GetUserData(Username)
     R = &ResAuth{Status: err,UserData: U}
     return c.RenderJson(R)
   } else {
