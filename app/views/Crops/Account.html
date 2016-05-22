@@ -128,7 +128,7 @@ $('#myInput').focus()
       <table class="table col-md-12">
         <thead class="box-thead-show">
           <tr>
-            <th width="15%">วันที่</th>
+            <th width="20%">วันที่</th>
             <th width="35%">ชื่อรายการ</th>
             <th>ประเภท</th>
             <th>จำนวนเงิน (บาท)</th>
@@ -137,7 +137,7 @@ $('#myInput').focus()
           </tr>
         </thead>
         <tbody class="box-tbody-show">
-          <tr ng-repeat="acdata in accountdatas | filter:searchText">
+          <tr ng-if="accountdatas" ng-repeat="acdata in accountdatas | filter:searchText">
             <td ng-bind="acdata.Updated_at | date:'dd MMM yyyy': '+700'"></td>
             <td ng-bind="acdata.Detail"></td>
             <td ng-if="acdata.TypeAccount == 1">รายรับ</td>
@@ -156,6 +156,11 @@ $('#myInput').focus()
                 </ul>
               </div>
             </td>
+          </tr>
+          <tr ng-if="!accountdatas" style="text-align: center;">
+              <td colspan="5">
+                ไม่มีข้อมูล
+              </td>
           </tr>
         </tbody>
       </table>

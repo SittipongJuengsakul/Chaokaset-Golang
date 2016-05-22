@@ -116,7 +116,7 @@
           </tr>
         </thead>
         <tbody class="box-tbody-show">
-          <tr ng-repeat="problemdata in problemdatas | filter:searchText">
+          <tr ng-if="problemdatas" ng-repeat="problemdata in problemdatas | filter:searchText">
             <td ng-bind="problemdata.Updated_at | date:'dd MMM yyyy': '+700'"></td>
             <td ng-bind="problemdata.Problem">ดิน</td>
             <td ng-bind="problemdata.Detail">ดินแข็งไม่สามารถเพาะปลูกได้</td>
@@ -133,6 +133,11 @@
                 </ul>
               </div>
             </td>
+          </tr>
+          <tr ng-if="!problemdatas" style="text-align: center;">
+              <td colspan="5">
+                ไม่มีข้อมูล
+              </td>
           </tr>
         </tbody>
       </table>
