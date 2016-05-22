@@ -122,7 +122,7 @@ func DisableOneCrops(idcrop string) (result bool) {
      }
 }
 //UpdateCrop (POST) บันทึกการเพาะปลูก
-func UpdateCrop(crop *Crop,userid string) (result bool) {
+func UpdateCrop(crop *Crop,cropid string) (result bool) {
      session, err := mgo.Dial(ip_mgo)
      if err != nil {
          panic(err)
@@ -131,8 +131,8 @@ func UpdateCrop(crop *Crop,userid string) (result bool) {
      session.SetMode(mgo.Monotonic, true)
      //cropqry := bson.ObjectIdHex(cropid)
      qmgo := session.DB("chaokaset").C("crops")
-    colQuerier := bson.M{"_id": bson.ObjectIdHex(userid)}
-    change := bson.M{"$set": bson.M{"status": 0, "Updated_at": time.Now(),"price": crop.Price,"product": crop.Product,"rai": crop.Rai,"ngarn": crop.Ngarn,"wah": crop.Wah,"duration": crop.Duration,"startdate": crop.StartDate,"enddate": crop.EndDate}}
+    colQuerier := bson.M{"_id": bson.ObjectIdHex(cropid)}
+    change := bson.M{"$set": bson.M{"Updated_at": time.Now(),"cropname": crop.CropName,"price": crop.Price,"product": crop.Product,"rai": crop.Rai,"ngarn": crop.Ngarn,"wah": crop.Wah,"duration": crop.Duration,"startdate": crop.StartDate,"enddate": crop.EndDate}}
     err = qmgo.Update(colQuerier, change)
      if err != nil {
        return false

@@ -272,15 +272,15 @@ func (c Crops) EditCrop(idcrop string) revel.Result {
 	return c.Render(cropdata,plandata,cropdataproduct)
 }
 //PostEditCrop
-func (c Crops) PostEditCrop(crop *models.Crop) revel.Result {
+func (c Crops) PostEditCrop(crop *models.Crop,cropid string) revel.Result {
   crop.ValidateAddCrop(c.Validation)
   if c.Validation.HasErrors() {
 		c.Validation.Keep()
 		c.FlashParams()
-		return c.Redirect(Crops.AddCrop)
+		return c.Redirect(Crops.EditCrop)
   }
-  user := models.GetUserData(c.Session["username"])
-  result := models.UpdateCrop(crop,user.Userid.Hex())
+  //user := models.GetUserData(c.Session["username"])
+  result := models.UpdateCrop(crop,cropid)
   if result {
     return c.Redirect(Crops.IndexCrops)
   } else{
