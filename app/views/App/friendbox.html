@@ -1,5 +1,28 @@
 {{ if .user}}
-<div class="friendbox col-sm-3">
+<div class="col-sm-3 friendbox-close" id="friendboxclose" style="display: block;">
     <p><i class="fa fa-users" aria-hidden="true"></i> กล่องพูดคุย <span class="label label-default label-pill pull-xs-right activity-new" id="notification-in-header" style="margin-left: 5px;">14</span></p>
 </div>
+<div class="col-sm-3 friendbox-open" id="friendboxopen" style="display: none;">
+  <div class="col-sm-12 friendbox">
+      <p class="friendhead"><i class="fa fa-users" aria-hidden="true"></i> กล่องพูดคุย <span class="close-freindbox" id="closefriendbox">X</span></p>
+  </div>
+  <div class="col-sm-12" style="padding:0;">
+    <div class="chat-friend">
+      <p>ถวิล ศรีวัง</p>
+    </div>
+    <div class="chat-friend">
+      <p>ถวิล2 ศรีวัง</p>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+$( "#friendboxclose" ).click(function() {
+  $("#friendboxclose").hide();
+  $("#friendboxopen").show();
+});
+$( "#closefriendbox" ).click(function() {
+  $("#friendboxopen").hide();
+  $("#friendboxclose").show();
+});
+</script>
 {{end}}

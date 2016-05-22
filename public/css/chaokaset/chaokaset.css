@@ -171,6 +171,7 @@ h1, h2, h3 {
   .chaokaset-nav {
     background-color: white;
     border-color: #FFFFFF;
+    z-index: 30;
     font-weight: 500;
     font-family: 'Kanit', sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -581,7 +582,8 @@ h1, h2, h3 {
   .topic-chaokaset-content img {
     margin: 0 auto; }
 
-.friendbox {
+.friendbox-close {
+  color: #777;
   height: 60px;
   background-color: white;
   position: fixed;
@@ -591,5 +593,43 @@ h1, h2, h3 {
   text-align: center;
   line-height: 60px;
   cursor: pointer; }
+
+.friendbox-open {
+  color: #777;
+  z-index: 100;
+  padding: 0;
+  height: 100%;
+  position: fixed;
+  border: solid 1px #eaeaea;
+  background-color: white;
+  top: 0;
+  right: 0;
+  text-align: center;
+  line-height: 60px;
+  cursor: pointer; }
+  .friendbox-open .chat-friend {
+    height: 50px;
+    border: solid 1px #eaeaea; }
+  .friendbox-open .friendbox {
+    color: white;
+    height: 60px;
+    background-color: #5cb85c;
+    text-align: center;
+    line-height: 60px;
+    cursor: pointer; }
+    .friendbox-open .friendbox p.friendhead {
+      color: white; }
+    .friendbox-open .friendbox .close-freindbox {
+      float: right;
+      font-size: 21px;
+      font-weight: 700;
+      line-height: 1;
+      margin-top: 7px;
+      color: #464646;
+      line-height: 30px;
+      width: 30px;
+      height: 30px; }
+      .friendbox-open .friendbox .close-freindbox:hover {
+        color: #e74c3c; }
 
 /*# sourceMappingURL=chaokaset.css.map */
