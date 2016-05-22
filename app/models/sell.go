@@ -127,7 +127,7 @@ func GetSellData(Lat float64, Long float64) []Sells {
 
   var result []Sells
   
-  qmgo.Find(nil).Sort("-timecreate").All(&result)
+  qmgo.Find(bson.M{"status": 1}).Sort("-timecreate").All(&result)
 
    for i := range result {
       lat1 := Lat
