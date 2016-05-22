@@ -722,3 +722,20 @@ h1,h2,h3{
     }
   }
 }
+.topic-chaokaset-content{
+  margin-top: 20px;
+  border: solid 2px #eaeaea;
+  padding: 25px;
+  border-radius: 3px;
+  text-align: center;
+  .name-header{
+    padding: 10px;
+  }
+  .name-content{
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  img{
+    margin: 0 auto;
+  }
+}

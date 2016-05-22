@@ -564,4 +564,18 @@ h1, h2, h3 {
       #chatroom .notice .ctmessage p {
         color: red; }
 
+.topic-chaokaset-content {
+  margin-top: 20px;
+  border: solid 2px #eaeaea;
+  padding: 25px;
+  border-radius: 3px;
+  text-align: center; }
+  .topic-chaokaset-content .name-header {
+    padding: 10px; }
+  .topic-chaokaset-content .name-content {
+    padding-left: 10px;
+    padding-right: 10px; }
+  .topic-chaokaset-content img {
+    margin: 0 auto; }
+
 /*# sourceMappingURL=chaokaset.css.map */
