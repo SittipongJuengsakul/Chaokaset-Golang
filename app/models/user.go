@@ -17,6 +17,8 @@ type User struct { //สร้าง Struct
   Name,Lastname,Prefix,Tel,Pic,Email        string
   HashedPassword                            []byte
   Timestamp                                 time.Time
+  Province,Aumphur,Tumbon,Address           string
+  Zipcode                                   string
 }
 type UserByChaokaset struct{
   Userid                                    bson.ObjectId `bson:"_id,omitempty"`
@@ -25,6 +27,8 @@ type UserByChaokaset struct{
   Password                                  []byte
   Timestamp                                 time.Time
   Role                                      int
+  Province,Aumphur,Tumbon,Address           string
+  Zipcode                                   string
 }
 
 type UserData struct{
@@ -110,7 +114,7 @@ func GetUserData(Uusername string) *User {
   qmgo := session.DB("chaokaset").C("users")
   result := User{}
 	qmgo.Find(bson.M{"username": Uusername}).One(&result)
-  user = &User{Userid: result.Userid,Username: result.Username,Email: result.Email,Name: result.Name,Lastname: result.Lastname,Pic: result.Pic,Role: result.Role,Tel: result.Tel,Prefix : result.Prefix}
+  user = &User{Userid: result.Userid,Username: result.Username,Email: result.Email,Name: result.Name,Lastname: result.Lastname,Pic: result.Pic,Role: result.Role,Tel: result.Tel,Prefix : result.Prefix,Province: result.Province,Aumphur: result.Aumphur,Tumbon: result.Tumbon,Address: result.Address,Zipcode: result.Zipcode}
   return user
 }
 //GetEditUserData สำหรับเรียกข้อมูลแก้ไขผู้ใช้งาน

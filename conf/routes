@@ -63,7 +63,7 @@ GET		/apiv1_0/ManageSell/:idUser																   Api.ManageSell
 GET     /apiv1_0/plans/:skip                                                                       Api.Plans
 GET     /apiv1_0/userdata/:Username                                                                Api.ApiGetUserData
 POST    /apiv1_0/PostRegister/:Username/:Password/:Prefix/:Name/:Lastname/:Tel/:Email                                                            Api.PostRegisterUser
-POST    /apiv1_0/PostEditUser/:Username/:Prefix/:Name/:Lastname/:Tel/:Email/:Province/:Aumphur/:Tumbon/:Zipcode/:Address                                                                      Api.PostEditUser
+POST    /apiv1_0/PostEditUser/:Username/:Prefix/:Name/:Lastname/:Tel/:Email                                                                      Api.PostEditUser
 GET     /apiv1_0/planid/:idplan                                                                    Api.Plan
 GET     /apiv1_0/plan/:idplant/:idseed                                                             Api.PlansAllPlants
 GET     /apiv1_0/plants/:skip                                                                      Api.Plants
