@@ -575,7 +575,21 @@ h1, h2, h3 {
   .topic-chaokaset-content .name-content {
     padding-left: 10px;
     padding-right: 10px; }
+  .topic-chaokaset-content input.searchsocial {
+    height: 38px;
+    font-size: 18px; }
   .topic-chaokaset-content img {
     margin: 0 auto; }
+
+.friendbox {
+  height: 60px;
+  background-color: white;
+  position: fixed;
+  border: solid 1px #eaeaea;
+  bottom: 0;
+  right: 0;
+  text-align: center;
+  line-height: 60px;
+  cursor: pointer; }
 
 /*# sourceMappingURL=chaokaset.css.map */
