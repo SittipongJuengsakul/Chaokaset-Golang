@@ -23,6 +23,10 @@ func (s Subscription) Cancel() {
 	drain(s.New)         // Drain it, just in case there was a pending publish.
 }
 
+func init() {
+	go chatroom()
+}
+
 func newEvent(typ, user, msg string) Event {
 	return Event{typ, user, int(time.Now().Unix()), msg}
 }
@@ -91,10 +95,6 @@ func chatroom() {
 			}
 		}
 	}
-}
-
-func init() {
-	go chatroom()
 }
 
 // Helpers
