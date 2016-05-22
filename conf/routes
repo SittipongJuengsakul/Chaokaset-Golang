@@ -23,6 +23,7 @@ GET     /crops                                                                  
 GET     /crops/disbled/:idcrop                                                                     Crops.DisbleCrop
 GET     /crops/add                                                                                 Crops.AddCrop
 GET     /crops/calendar/:idcrop                                                                    Crops.Calendar
+GET     /crops/management/editcrop/:idcrop                                                         Crops.EditCrop
 GET     /crops/management/:idcrop                                                                  Crops.Management
 GET     /crops/account/:idcrop                                                                     Crops.Account
 GET     /crops/problem/:idcrop                                                                     Crops.Problem

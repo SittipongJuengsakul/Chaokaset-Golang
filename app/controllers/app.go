@@ -261,6 +261,16 @@ func (c Crops) Management(idcrop string) revel.Result {
   cropdataproduct := cropdata.Product*20.5
 	return c.Render(cropdata,plandata,cropdataproduct)
 }
+//EditCrop
+func (c Crops) EditCrop(idcrop string) revel.Result {
+  if idcrop == ""{
+    return c.Redirect(Crops.IndexCrops)
+  }
+  cropdata := models.GetOneCrops(idcrop)
+  plandata := models.GetPlans(cropdata.PlanId)
+  cropdataproduct := cropdata.Product*20.5
+	return c.Render(cropdata,plandata,cropdataproduct)
+}
 //Carlendar
 func (c Crops) Calendar(idcrop string) revel.Result {
   if idcrop == ""{
@@ -312,6 +322,12 @@ func (c Crops) AddCrop() revel.Result {
 }
 //PostAddCrop เพิ่มข้อมูลการเพาะปลูก
 func (c Crops) PostAddCrop(crop *models.Crop) revel.Result {
+  crop.ValidateAddCrop(c.Validation)
+  if c.Validation.HasErrors() {
+		c.Validation.Keep()
+		c.FlashParams()
+		return c.Redirect(Crops.AddCrop)
+  }
   user := models.GetUserData(c.Session["username"])
   result := models.SaveCrop(crop,user.Userid.Hex())
   if result {
