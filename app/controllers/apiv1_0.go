@@ -300,9 +300,20 @@ func (c Api) SaveCrop(iduser string,cropname string,plantid string,seedid string
   crop = &models.Crop{Rai: rai,Ngarn: ngarn,Wah: wah,Status: 1,CropName: cropname,PlantId: planid,SeedId: seedid,PlanId: planid,Plant: plant,Seed: seed,StartDate: startdate,EndDate: endate,Duration: duration,Province: province,Aumphur: aumphur,Tumbon: tumbon,Product: product,Price: price,Address : address}
   result := models.SaveCrop(crop,iduser)
   if result {
-    return c.Redirect(Crops.IndexCrops)
+    return c.RenderJson(result)
   } else{
-    return c.Redirect(Crops.AddCrop)
+    return c.RenderJson(result)
+  }
+}
+//UpdateCrop เพิ่มข้อมูลการเพาะปลูก
+func (c Api) UpdateCrop(idcrop string,cropname string,startdate string,endate string,duration int,price float64,product float64,rai float64,ngarn float64,wah float64) revel.Result {
+  var crop *models.Crop
+  crop = &models.Crop{Rai: rai,Ngarn: ngarn,Wah: wah,Status: 1,CropName: cropname,StartDate: startdate,EndDate: endate,Duration: duration,Product: product,Price: price}
+  result := models.UpdateCrop(crop,idcrop)
+  if result {
+    return c.RenderJson(result)
+  } else{
+    return c.RenderJson(result)
   }
 }
 //AddCrop (POST)
