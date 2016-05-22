@@ -10,7 +10,7 @@
       <h2 class="color-green">รายละเอียดสินค้า "{{.data.Name}}"</h2>
       <div class="row">
         <div class="col-sm-5" style="padding-top:20px;">
-          <img src="/{{.data.Pic}}" alt="..." width="100%">
+          <img src="/public/uploads/{{.data.Pic}}" alt="..." width="100%">
         </div>
         <div class="col-sm-7" style="padding-top:20px;">
           <div class="row info-plant-show">
@@ -48,8 +48,29 @@
         </div>
       </div>
     </div>
-
-    <div class="row">
+    <div class="col-sm-12 container-box-content">
+      <h2 class="color-green">ความคิดเห็น</h2>
+    <div id="updatecomment">
+      {{ range .data.Comment  }}
+        <div class="col-sm-12 container-box-content">
+          <p class="text-bold">ความคิดเห็น</p>
+          <br>
+          <p>{{.Data}}</p>
+          <p class="text-right" style="padding-top:15px;"><b>โดย</b> {{.Name}} <b>วันที่</b> {{.TimeCreate}}
+        </div>
+      {{end}}
+    </div>
+      <div class="col-sm-12 container-box-content">
+        <div class="form-group">
+          <label for="comment"><h2 class="color-blue">แสดงความคิดเห็น</h2></label>
+          <textarea class="form-control" rows="5" id="comment"></textarea>
+        </div>
+        <p class="text-right" >
+          <button type="button" class="btn bg-link" id="addcomment">เเสดงความคิดเห็น</button>
+        <p/>
+      </div>
+    </div>
+    <!--<div class="row">
     <div class="col-sm-8 container-box-content">
       <h2 class="color-green">ความคิดเห็น</h2>
       <div class="col-sm-12 container-box-content">
@@ -114,17 +135,68 @@
         </div>
       </div>
     </div>
-  </div>
+  </div>-->
 
 
   </div>
-
-  
-
-
-  
-
-
-
 </div>
+<script>
+  $("#addcomment").click(function(){
+    //alert(5555555555555555555);
+    var data = $("#comment").val();
+    var Sell_id = "{{.data.Sellid.Hex}}";
+    var User_id = "{{.idUser.Userid.Hex}}";
+    if (data != ""){
+      //alert("u = "+User_id);
+      var api =  site_url+"/apiv1_0/addcomment/"+Sell_id+"/"+User_id+"/"+data;
+      $.ajax({
+        url:api,
+        success:function(res){
+          console.log(res);
+          if(res == true){
+            $("#comment").val("");
+          }
+        },
+        error:function(err){
+        }
+      });
+    }else{
+      alert('กรุณากรอกความคิดเห็น');
+    }
+    
+  });
+
+  $(document).ready(function(){  
+    setInterval(function(){ // เขียนฟังก์ชัน javascript ให้ทำงานทุก ๆ 30 วินาที  
+       // alert(55555555555555555);
+        // 1 วินาที่ เท่า 1000  
+        // คำสั่งที่ต้องการให้ทำงาน ทุก ๆ 3 วินาที 
+        var Sell_id = "{{.data.Sellid.Hex}}";
+        var User_id = "{{.idUser.Userid.Hex}}"; 
+        var api = site_url+"/apiv1_0/detail/"+Sell_id+"/"+User_id;
+        var i = "";
+       $.ajax({ // ใช้ ajax ด้วย jQuery ดึงข้อมูลจากฐานข้อมูล  
+                url: api, 
+               // data:"sel_id="+"<?php echo $detail[0]['sel_id']?>", 
+               // type:"POST",  
+                success:function(res){  
+                   //alert(55555555555555555);
+                  if(res.SellData.Comment == ""){
+                   // alert("55555555555555555555");
+                    var i = '<div class="col-sm-12 container-box-content"><br><p>'+'ไม่มีความคิดเห็น'+'</p><p class="text-right" style="padding-top:15px;"></div>';
+                  }else{
+                    for(x in res.SellData.Comment){
+                      var html = '<div class="col-sm-12 container-box-content"><p class="text-bold">ความคิดเห็น</p><br><p>'+res.SellData.Comment[x].Data+'</p><p class="text-right" style="padding-top:15px;"><b>โดย   </b>'+res.SellData.Comment[x].Name+'<b>   วันที่</b>'+res.SellData.Comment[x].TimeCreate+'</div>';
+                      //alert(res.SellData.Comment[x].Data);
+                        i = i+html;
+                    }
+                  }
+
+                  $("#updatecomment").html(i); 
+                }
+        }).responseText;  
+    },2000);      
+  });
+
+</script>
 {{template "Templates/footer.html" .}}

@@ -45,7 +45,8 @@ func (c Sell) IndexSell() revel.Result {
 func (c Sell) ProductDetail(id string) revel.Result {
   idUser := models.GetUserid(c.Session["username"])
   data := models.GetSellDetail(id,idUser.Userid.Hex())
-  return c.Render(data)
+  
+  return c.Render(data,idUser)
 }
 
 func (c Sell) Sell() revel.Result {
