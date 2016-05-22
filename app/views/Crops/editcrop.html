@@ -1,0 +1,114 @@
+{{set . "title" "แก้ไขแปลงเพาะปลูก"}}
+{{template "Templates/header.html" .}}
+{{template "Templates/preloader.html" .}}
+<!-- Include Date Range Picker -->
+<script src="/public/js/moment.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+<div class="chaokaset-container-verticle" id="chaokaset-loader" style="display: none;">
+  <div class="col-sm-12 varticle-header-box">
+    <h1>แก้ไขแปลงเพาะปลูก</h1>
+  </div>
+  <div class="col-sm-12 container-box" ng-app="ChaokasetApp" ng-controller="NewCrop">
+    <div class="col-sm-12 container-box-content" >
+      <div class="col-sm-12 padding-left-no padding-right-no name-header" style="padding-left: 0px;"><h2 class="color-green">ข้อมูลแผนการเพาะปลูก</h2></div>
+      <form method="post" action="{{url "Crops.PostEditCrop"}}">
+        <div class="info-plant-show">
+          <div class="form-grop col-md-12" style="padding: 0px;">
+            <div class="form-group col-md-12 padding-left-no padding-right-no">
+              <label>ชื่อแปลงเพาะปลูก</label>
+              <input type="text" class="form-control" placeholder="กรอกชื่อแปลงเพาะปลูก" name="crop.CropName" value="{{.cropdata.CropName}}">
+              <span class="error">{{.crop.CropName.Error}}</span>
+            </div>
+          </div>
+          <div class="form-grop col-md-12" style="padding: 0px;">
+            <div class="form-grop col-md-12" style="padding: 0px;">
+              {{with $field := field "crop.Rai" .}}
+              <div class="form-group col-md-4 padding-left-no">
+                <label>ขนาดพื้นที่ (ไร่)</label>
+                <input type="number" class="form-control" placeholder="กรอกขนาดพื้นที่ (ไร่)" name="{{$field.Name}}" value="{{$field.Flash}}" min="0">
+              </div>
+              {{end}}
+              {{with $field := field "crop.Ngarn" .}}
+              <div class="form-group col-md-4">
+                <label>ขนาดพื้นที่ (งาน)</label>
+                <input type="number" class="form-control" placeholder="กรอกขนาดพื้นที่ (งาน)" name="{{$field.Name}}" value="{{$field.Flash}}" min="0" max="4">
+              </div>
+              {{end}}
+              {{with $field := field "crop.Wah" .}}
+              <div class="form-group col-md-4 padding-right-no">
+                <label>ขนาดพื้นที่ (ตารางวา)</label>
+                <input type="number" class="form-control" placeholder="กรอกขนาดพื้นที่ (ตารางวา)" name="{{$field.Name}}" value="{{$field.Flash}}" min="0" max="100">
+              </div>
+              {{end}}
+            </div>
+          <div class="form-grop col-md-12" style="padding: 0px;">
+            {{with $field := field "crop.Duration" .}}
+            <div class="form-group col-md-4 padding-left-no">
+              <label>ระยะเวลาทำการเพาะปลูก</label>
+              <input type="number" min="0"  placeholder="กรอกระยะเวลาทำการเพาะปลูก" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="modduration">
+            </div>
+            {{end}}
+            {{with $field := field "crop.Price" .}}
+            <div class="form-group col-md-4">
+              <label>ราคาผลผลิต ต่อ กิโลกรัม</label>
+              <input type="number" min="0"  placeholder="กรอกราคาผลผลิต" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="modprice">
+            </div>
+            {{end}}
+            {{with $field := field "crop.Product" .}}
+            <div class="form-group col-md-4 padding-right-no">
+              <label>จำนวนผลผลิต ต่อ ไร่</label>
+              <input type="number" min="0"  placeholder="กรอกจำนวนผลผลิต ต่อ ไร่" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="modproduct">
+            </div>
+            {{end}}
+          </div>
+          <div class="form-grop col-md-12" style="padding: 0px;">
+            <script type="text/javascript">
+            $(function() {
+              $('input[name="crop.StartDate"]').daterangepicker({
+                   locale: {
+                        format: 'DD MMMM YYYY',
+                    },
+                   singleDatePicker: true,
+                   showDropdowns: true
+               });
+
+               $('input[name="crop.EndDate"]').daterangepicker({
+                    startDate: moment().add(120, 'days'),
+                    locale: {
+                         format: 'DD MMMM YYYY',
+                     },
+                    singleDatePicker: true,
+                    showDropdowns: true
+                });
+            });
+            </script>
+            {{with $field := field "crop.StartDate" .}}
+            <div class="form-group col-md-6 padding-left-no">
+              <label>เริ่มต้นวันที่</label>
+              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="modstartdate">
+            </div>
+            {{end}}
+            {{with $field := field "crop.EndDate" .}}
+            <div class="form-group col-md-6 padding-right-no">
+              <label>สิ้นสุดวันที่ (ตามแผน)</label>
+              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="modenddate">
+            </div>
+            {{end}}
+          </div>
+        </div>
+        <div style="width: 100%;text-align: center;">
+          <button type="submit" class="btn btn-success">ตกลง</button>
+          <button type="button" class="btn btn-danger" onclick="javascript:location.href='/crops'">ยกเลิก</button>
+        </div>
+        </form>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  var app = angular.module('ChaokasetApp', []);
+  app.controller('NewCrop', function($scope,$http) {
+
+  });
+</script>
+{{template "Templates/footer.html" .}}

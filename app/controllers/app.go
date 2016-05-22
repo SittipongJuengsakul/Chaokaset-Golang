@@ -271,6 +271,22 @@ func (c Crops) EditCrop(idcrop string) revel.Result {
   cropdataproduct := cropdata.Product*20.5
 	return c.Render(cropdata,plandata,cropdataproduct)
 }
+//PostEditCrop
+func (c Crops) PostEditCrop(crop *models.Crop) revel.Result {
+  crop.ValidateAddCrop(c.Validation)
+  if c.Validation.HasErrors() {
+		c.Validation.Keep()
+		c.FlashParams()
+		return c.Redirect(Crops.AddCrop)
+  }
+  user := models.GetUserData(c.Session["username"])
+  result := models.UpdateCrop(crop,user.Userid.Hex())
+  if result {
+    return c.Redirect(Crops.IndexCrops)
+  } else{
+    return c.Redirect(Crops.EditCrop)
+  }
+}
 //Carlendar
 func (c Crops) Calendar(idcrop string) revel.Result {
   if idcrop == ""{

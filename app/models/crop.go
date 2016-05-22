@@ -121,6 +121,25 @@ func DisableOneCrops(idcrop string) (result bool) {
        return true
      }
 }
+//UpdateCrop (POST) บันทึกการเพาะปลูก
+func UpdateCrop(crop *Crop,userid string) (result bool) {
+     session, err := mgo.Dial(ip_mgo)
+     if err != nil {
+         panic(err)
+     }
+     defer session.Close()
+     session.SetMode(mgo.Monotonic, true)
+     //cropqry := bson.ObjectIdHex(cropid)
+     qmgo := session.DB("chaokaset").C("crops")
+    colQuerier := bson.M{"_id": bson.ObjectIdHex(userid)}
+    change := bson.M{"$set": bson.M{"status": 0, "Updated_at": time.Now(),"price": crop.Price,"product": crop.Product,"rai": crop.Rai,"ngarn": crop.Ngarn,"wah": crop.Wah,"duration": crop.Duration,"startdate": crop.StartDate,"enddate": crop.EndDate}}
+    err = qmgo.Update(colQuerier, change)
+     if err != nil {
+       return false
+     }else{
+       return true
+     }
+}
 //GetAllAccounts (GET) ฟังก์ชั่นสำหรับเรียกข้อมูลแผนการเพาะปลูกทั้งหมด
 func GetAllAccounts(idcrop string,skip int) (results []Account,error bool) {
   session, err := mgo.Dial(ip_mgo)
