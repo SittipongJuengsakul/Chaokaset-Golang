@@ -147,3 +147,8 @@ func (c Sell) OpenSell(idSell string) revel.Result {
   return  c.Redirect(Sell.ManageSell)
 }
 
+func (c Sell) ProductCategory(Category string) revel.Result {
+ // Data := models.
+  return c.Render(Category)
+}
+

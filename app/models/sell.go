@@ -145,6 +145,36 @@ func GetSellData(Lat float64, Long float64) []Sells {
   return result
 }
 
+func GetSellDataByCategory(category string,Lat float64, Long float64) []Sells {
+  session, err := mgo.Dial("127.0.0.1")
+  if err != nil {
+      panic(err)
+  }
+  defer session.Close()
+
+  session.SetMode(mgo.Monotonic, true)
+  qmgo := session.DB("chaokaset").C("sell")
+
+  var result []Sells
+  
+  qmgo.Find(bson.M{"status": 1,"category": category}).Sort("-timecreate").All(&result)
+
+   for i := range result {
+      lat1 := Lat
+      lat2 := result[i].Address.Lat
+      lon1 := Long
+      lon2 := result[i].Address.Long
+      theta := lon1 - lon2
+      dist := math.Sin(geolib.Deg2Rad(lat1)) * math.Sin(geolib.Deg2Rad(lat2)) + math.Cos(geolib.Deg2Rad(lat1)) * math.Cos(geolib.Deg2Rad(lat2)) * math.Cos(geolib.Deg2Rad(theta))
+      dist = math.Acos(dist)
+      dist = geolib.Rad2Deg(dist)
+      result[i].SetDistance(dist * 60 * 1.1515 * 1.609344)
+      result[i].SetNumLike(len(result[i].Like))
+  }
+    
+  return result
+}
+
 func AddSellData(name string,category string, price int, unit string, detail string, expire string, ownerId bson.ObjectId) (result bool) {
   session, err := mgo.Dial("127.0.0.1")
   if err != nil {

@@ -41,6 +41,7 @@ GET     /plan/managemnet                                                        
 GET     /farmer/management                                                                         Farmer.FarmerManagement
 GET     /farmer/showfarmer                                                                         Farmer.ShowFarmer
 GET		/sell/showproduct																		   Sell.IndexSell
+GET		/sell/showproductcategory/:Category														   Sell.ProductCategory
 GET		/sell/productdetail/:id																	   Sell.ProductDetail
 GET 	/sell   																				   Sell.Sell
 
@@ -59,6 +60,9 @@ POST     /apiv1_0/PostApi/:IdSell                           									   Api.Post
 
 
 GET		/apiv1_0/product/:Lat/:Long 														       Api.ProductSell
+GET		/apiv1_0/productCategory/:Category/:Lat/:Long 											   Api.ProductSellCategory
+GET		/apiv1_0/productLikeCategory/:Category/:Lat/:Long 										   Api.ProductSellLikeCategory
+GET		/apiv1_0/productDistanceCategory/:Category/:Lat/:Long 									   Api.ProductSellDistanceCategory
 GET		/apiv1_0/productLike/:Lat/:Long 														   Api.ProductSellLike
 GET		/apiv1_0/productDistance/:Lat/:Long 													   Api.ProductSellDistance
 GET		/apiv1_0/detail/:IdSell/:IdUser															   Api.ProductDetail

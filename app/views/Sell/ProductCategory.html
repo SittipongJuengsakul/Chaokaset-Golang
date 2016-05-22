@@ -28,7 +28,7 @@
     <div class="col-sm-12 container-box-content" >
       <div class="row">
       <div class="col-sm-7 name-header"> 
-        <h2 class="color-green">รายการสินค้า</h2>
+        <h2 class="color-green">รายการสินค้า "{{.Category}}"</h2>
       </div>
       <div class="col-sm-5 text-right" style="padding: 5px;">
           <!--<input type="text" name="SearchProduct" class="form-control" placeholder="ค้นหาสินค้า" ng-model="searchProduct">-->
@@ -65,25 +65,26 @@
       var Lat = position.coords.latitude;
       var Long = position.coords.longitude;
       var i = "";
-      var api =  site_url+"/apiv1_0/product/"+Lat+"/"+Long;
+      //productCategory/ข้าว/13/100
+      var api =  site_url+"/apiv1_0/productCategory/"+{{.Category}}+"/"+Lat+"/"+Long;
       //alert(api);
     $.ajax({
         url:api,
       //data:"code="+value,
       //type:"POST",
       success:function(res){
-        //$("#div_cate").html(res);
-        //alert(res.SellData);
-        for(x in res.SellData){
+        if (res.Status == false){
+           $("#data").html('<center><h2>ไม่มีรายการสินค้า</h2></center>');
+        }else{
+          for(x in res.SellData){
           //alert(res.SellData[x].Name);
-          var Distance = numeral(res.SellData[x].Distance).format('0.00');
-          var Price = numeral(res.SellData[x].Price).format('0,0');
-
-          var html = '<div class="col-sm-6 col-md-4"><div class="thumbnail"><img id="cropped" src="/public/uploads/'+res.SellData[x].Pic+'"><div class="caption"><h2 class="color-blue">'+res.SellData[x].Name+'</h2><p  style="padding-top:10px;padding-bottom:10px"><img src="/public/img/Coins-48.png" width="30px"> '+Price+' บาท/'+res.SellData[x].Unit+'</p><p style="padding-bottom:15px"><img src="/public/img/Geo-fence-48.png" width="25px">     '+Distance+' กิโลเมตร</p><p style="padding-bottom:15px"><img src="/public/img/Like Filled-48.png" width="25px"> '+res.SellData[x].NumberOfLike+'</p><a  href="productdetail/'+res.SellData[x].Sellid+'"><button type="button" class="btn btn-success">รายละเอียดสินค้า</button></a></div></div></div>';
-        i = i+html; 
-          $("#data").html(i);
+            var Distance = numeral(res.SellData[x].Distance).format('0.00');
+            var Price = numeral(res.SellData[x].Price).format('0,0');
+            var html = '<div class="col-sm-6 col-md-4"><div class="thumbnail"><img id="cropped" src="/public/uploads/'+res.SellData[x].Pic+'"><div class="caption"><h2 class="color-blue">'+res.SellData[x].Name+'</h2><p  style="padding-top:10px;padding-bottom:10px"><img src="/public/img/Coins-48.png" width="30px"> '+Price+' บาท/'+res.SellData[x].Unit+'</p><p style="padding-bottom:15px"><img src="/public/img/Geo-fence-48.png" width="25px">     '+Distance+' กิโลเมตร</p><p style="padding-bottom:15px"><img src="/public/img/Like Filled-48.png" width="25px"> '+res.SellData[x].NumberOfLike+'</p><a  href="productdetail/'+res.SellData[x].Sellid+'"><button type="button" class="btn btn-success">รายละเอียดสินค้า</button></a></div></div></div>';
+              i = i+html; 
+            $("#data").html(i);
+          }
         }
-        console.log(res);
       },
       error:function(err){
       }
@@ -104,25 +105,25 @@
       var Lat = position.coords.latitude;
       var Long = position.coords.longitude;
       var i = "";
-      var api =  site_url+"/apiv1_0/productLike/"+Lat+"/"+Long;
+      var api =  site_url+"/apiv1_0/productLikeCategory/"+{{.Category}}+"/"+Lat+"/"+Long;
       //alert(api);
     $.ajax({
         url:api,
       //data:"code="+value,
       //type:"POST",
       success:function(res){
-        //$("#div_cate").html(res);
-        //alert(res.SellData);
-        for(x in res.SellData){
+        if (res.Status == false){
+           $("#data").html('<center><h2>ไม่มีรายการสินค้า</h2></center>');
+        }else{
+          for(x in res.SellData){
           //alert(res.SellData[x].Name);
-          var Distance = numeral(res.SellData[x].Distance).format('0.00');
-          var Price = numeral(res.SellData[x].Price).format('0,0');
-
-          var html = '<div class="col-sm-6 col-md-4"><div class="thumbnail"><img id="cropped" src="/public/uploads/'+res.SellData[x].Pic+'"><div class="caption"><h2 class="color-blue">'+res.SellData[x].Name+'</h2><p  style="padding-top:10px;padding-bottom:10px"><img src="/public/img/Coins-48.png" width="30px"> '+Price+' บาท/'+res.SellData[x].Unit+'</p><p style="padding-bottom:15px"><img src="/public/img/Geo-fence-48.png" width="25px">     '+Distance+' กิโลเมตร</p><p style="padding-bottom:15px"><img src="/public/img/Like Filled-48.png" width="25px"> '+res.SellData[x].NumberOfLike+'</p><a  href="productdetail/'+res.SellData[x].Sellid+'"><button type="button" class="btn btn-success">รายละเอียดสินค้า</button></a></div></div></div>';
-        i = i+html; 
-          $("#data").html(i);
+            var Distance = numeral(res.SellData[x].Distance).format('0.00');
+            var Price = numeral(res.SellData[x].Price).format('0,0');
+            var html = '<div class="col-sm-6 col-md-4"><div class="thumbnail"><img id="cropped" src="/public/uploads/'+res.SellData[x].Pic+'"><div class="caption"><h2 class="color-blue">'+res.SellData[x].Name+'</h2><p  style="padding-top:10px;padding-bottom:10px"><img src="/public/img/Coins-48.png" width="30px"> '+Price+' บาท/'+res.SellData[x].Unit+'</p><p style="padding-bottom:15px"><img src="/public/img/Geo-fence-48.png" width="25px">     '+Distance+' กิโลเมตร</p><p style="padding-bottom:15px"><img src="/public/img/Like Filled-48.png" width="25px"> '+res.SellData[x].NumberOfLike+'</p><a  href="productdetail/'+res.SellData[x].Sellid+'"><button type="button" class="btn btn-success">รายละเอียดสินค้า</button></a></div></div></div>';
+              i = i+html; 
+            $("#data").html(i);
+          }
         }
-        //console.log(res);
       },
       error:function(err){
       }
@@ -142,25 +143,25 @@
       var Lat = position.coords.latitude;
       var Long = position.coords.longitude;
       var i = "";
-      var api =  site_url+"/apiv1_0/productDistance/"+Lat+"/"+Long;
+      var api =  site_url+"/apiv1_0/productDistanceCategory/"+{{.Category}}+"/"+Lat+"/"+Long;
       //alert(api);
     $.ajax({
         url:api,
       //data:"code="+value,
       //type:"POST",
       success:function(res){
-        //$("#div_cate").html(res);
-        //alert(res.SellData);
-        for(x in res.SellData){
+       if (res.Status == false){
+           $("#data").html('<center><h2>ไม่มีรายการสินค้า</h2></center>');
+        }else{
+          for(x in res.SellData){
           //alert(res.SellData[x].Name);
-          var Distance = numeral(res.SellData[x].Distance).format('0.00');
-          var Price = numeral(res.SellData[x].Price).format('0,0');
-
-          var html = '<div class="col-sm-6 col-md-4"><div class="thumbnail"><img id="cropped" src="/public/uploads/'+res.SellData[x].Pic+'"><div class="caption"><h2 class="color-blue">'+res.SellData[x].Name+'</h2><p  style="padding-top:10px;padding-bottom:10px"><img src="/public/img/Coins-48.png" width="30px"> '+Price+' บาท/'+res.SellData[x].Unit+'</p><p style="padding-bottom:15px"><img src="/public/img/Geo-fence-48.png" width="25px">     '+Distance+' กิโลเมตร</p><p style="padding-bottom:15px"><img src="/public/img/Like Filled-48.png" width="25px"> '+res.SellData[x].NumberOfLike+'</p><a  href="productdetail/'+res.SellData[x].Sellid+'"><button type="button" class="btn btn-success">รายละเอียดสินค้า</button></a></div></div></div>';
-        i = i+html; 
-          $("#data").html(i);
+            var Distance = numeral(res.SellData[x].Distance).format('0.00');
+            var Price = numeral(res.SellData[x].Price).format('0,0');
+            var html = '<div class="col-sm-6 col-md-4"><div class="thumbnail"><img id="cropped" src="/public/uploads/'+res.SellData[x].Pic+'"><div class="caption"><h2 class="color-blue">'+res.SellData[x].Name+'</h2><p  style="padding-top:10px;padding-bottom:10px"><img src="/public/img/Coins-48.png" width="30px"> '+Price+' บาท/'+res.SellData[x].Unit+'</p><p style="padding-bottom:15px"><img src="/public/img/Geo-fence-48.png" width="25px">     '+Distance+' กิโลเมตร</p><p style="padding-bottom:15px"><img src="/public/img/Like Filled-48.png" width="25px"> '+res.SellData[x].NumberOfLike+'</p><a  href="productdetail/'+res.SellData[x].Sellid+'"><button type="button" class="btn btn-success">รายละเอียดสินค้า</button></a></div></div></div>';
+              i = i+html; 
+            $("#data").html(i);
+          }
         }
-        //console.log(res);
       },
       error:function(err){
       }

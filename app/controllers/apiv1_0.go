@@ -98,6 +98,18 @@ func (c Api) ProductSell(Lat float64, Long float64) revel.Result {
   R = &ResSellAll{Status: true,SellData: U}
   return  c.RenderJson(R)
 }
+func (c Api) ProductSellCategory(Category string,Lat float64, Long float64) revel.Result {
+  var R *ResSellAll
+  var U []models.Sells
+  U = models.GetSellDataByCategory(Category,Lat,Long)
+  if U == nil{
+    R = &ResSellAll{Status: false,SellData: nil}
+    return  c.RenderJson(R)
+  }
+
+  R = &ResSellAll{Status: true,SellData: U}
+  return  c.RenderJson(R)
+}
 
 func (c Api) ProductDetail(IdSell string,IdUser string) revel.Result{
   var R *ResSellDetail
@@ -366,6 +378,34 @@ func (c Api) ProductSellDistance(Lat float64, Long float64) revel.Result {
   var R *ResSellAll
   var U []models.Sells
   U = models.GetSellData(Lat,Long)
+  sort.Sort(ByDistance(U))
+  if U == nil{
+    R = &ResSellAll{Status: false,SellData: nil}
+    return  c.RenderJson(R)
+  }
+
+  R = &ResSellAll{Status: true,SellData: U}
+  return  c.RenderJson(R)
+}
+
+func (c Api) ProductSellLikeCategory(Category string,Lat float64, Long float64) revel.Result {
+  var R *ResSellAll
+  var U []models.Sells
+  U = models.GetSellDataByCategory(Category,Lat,Long)
+  sort.Sort(sort.Reverse(ByLike(U)))
+  if U == nil{
+    R = &ResSellAll{Status: false,SellData: nil}
+    return  c.RenderJson(R)
+  }
+
+  R = &ResSellAll{Status: true,SellData: U}
+  return  c.RenderJson(R)
+}
+
+func (c Api) ProductSellDistanceCategory(Category string,Lat float64, Long float64) revel.Result {
+  var R *ResSellAll
+  var U []models.Sells
+  U = models.GetSellDataByCategory(Category,Lat,Long)
   sort.Sort(ByDistance(U))
   if U == nil{
     R = &ResSellAll{Status: false,SellData: nil}
