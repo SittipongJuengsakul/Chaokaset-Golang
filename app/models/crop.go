@@ -153,6 +153,30 @@ func GetAllAccounts(idcrop string,skip int) (results []Account,error bool) {
 	qmgo.Find(bson.M{"status": 1,"cropid": idcrop}).Sort("-updated_at").Skip(skip).Limit(10).All(&results) //คิวรี่จาก status เป็น 1 หรือ แปลงที่ไช้งานอยู่
   return results,true
 }
+//GetAllAccounts (GET) ฟังก์ชั่นสำหรับเรียกข้อมูลแผนการเพาะปลูกทั้งหมด
+func GetFullAllAccounts(idcrop string) (results []Account,error bool) {
+  session, err := mgo.Dial(ip_mgo)
+  if err != nil {
+      panic(err)
+  }
+  defer session.Close()
+  session.SetMode(mgo.Monotonic, true)
+  qmgo := session.DB("chaokaset").C("accounts")
+	qmgo.Find(bson.M{"status": 1,"cropid": idcrop}).All(&results) //คิวรี่จาก status เป็น 1 หรือ แปลงที่ไช้งานอยู่
+  return results,true
+}
+//GetCountAccount (GET)
+func GetCountProblem(idcrop string) (result int,err error) {
+  session, err := mgo.Dial(ip_mgo)
+  if err != nil {
+      panic(err)
+  }
+  defer session.Close()
+  session.SetMode(mgo.Monotonic, true)
+  qmgo := session.DB("chaokaset").C("problems")
+	result,err = qmgo.Find(bson.M{"status": 1,"cropid": idcrop}).Count() //คิวรี่จาก status เป็น 1 หรือ แปลงที่ไช้งานอยู่
+  return result,err
+}
 //GetSearchAllAccounts (GET) ฟังก์ชั่นสำหรับเรียกข้อมูลแผนการเพาะปลูกทั้งหมด
 func GetSearchAllAccounts(idcrop string,word string) (results []Account,error bool) {
   session, err := mgo.Dial(ip_mgo)

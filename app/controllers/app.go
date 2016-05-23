@@ -267,8 +267,15 @@ func (c Crops) Management(idcrop string) revel.Result {
   }
   cropdata := models.GetOneCrops(idcrop)
   plandata := models.GetPlans(cropdata.PlanId)
+  countproblem,_ := models.GetCountProblem(idcrop)
+  //sumaccount := models.GetSumAccount(idcrop)
   cropdataproduct := cropdata.Product*20.5
-	return c.Render(cropdata,plandata,cropdataproduct)
+  fullaccount,_ := models.GetFullAllAccounts(idcrop)
+  var sumaccount float64
+  for index,_ := range fullaccount {
+    sumaccount = sumaccount + fullaccount[index].Price
+  }
+	return c.Render(cropdata,plandata,cropdataproduct,countproblem,sumaccount)
 }
 //EditCrop
 func (c Crops) EditCrop(idcrop string) revel.Result {
