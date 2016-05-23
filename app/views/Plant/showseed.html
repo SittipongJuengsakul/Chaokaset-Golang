@@ -16,9 +16,9 @@
     <table class="table col-md-12">
       <thead class="box-thead-show">
         <tr>
-          <th width="40%">ชื่อพันธุ์พืช</th>
+          <th>ชื่อพันธุ์พืช</th>
           <th>ชื่อพืช</th>
-          <th style="text-align: center;">จำนวนผู้ปลูก</th>
+          <!--<th style="text-align: center;">จำนวนผู้ปลูก</th>-->
           <th>ตัวเลือก</th>
         </tr>
       </thead>
@@ -27,7 +27,7 @@
           <td ng-bind-html="plant.SeedName | searchfilter:searchPlant"></td>
           <td ng-bind-html="plant.PlantName | searchfilter:searchPlant"></td>
           <!--<td ng-bind-html="plant.Used | searchfilter:searchPlant"></td> -->
-          <td style="text-align: center;" ng-bind="used | number:0  ">
+          <!--<td style="text-align: center;" ng-bind="used | number:0  ">-->
           </td>
           <td class="color-green">
             <div class="dropdown">
