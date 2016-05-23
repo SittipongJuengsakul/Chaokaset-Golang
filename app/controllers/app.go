@@ -68,6 +68,7 @@ func init() {
   revel.InterceptFunc(setuser, revel.BEFORE, &Management{})
   revel.InterceptFunc(setuser, revel.BEFORE, &Plan{})
   revel.InterceptFunc(setuser, revel.BEFORE, &Plant{})
+  //จำกัดสิทธิการไช้งาน
   revel.InterceptFunc(checksetfarmer, revel.BEFORE, &Farmer{})
   revel.InterceptFunc(checksetfarmer, revel.BEFORE, &Crops{})
   revel.InterceptFunc(checksetofficer, revel.BEFORE, &Management{})
