@@ -47,14 +47,6 @@ func (crop *Crop) ValidateAddCrop(v *revel.Validation) {
   v.Required(crop.Wah).Message("จำเป็นต้องกรอก จำนวนตารางวา")
   v.Required(crop.Price).Message("จำเป็นต้องกรอก จำนวนผลผลิตที่คาดหวัง")
   v.Required(crop.Product).Message("จำเป็นต้องกรอก ราคาผลผลิตที่คาดหวัง")
-  /*v.Required(user.Name).Message("จำเป็นต้องกรอก ชื่อ")
-  v.Required(user.Lastname).Message("จำเป็นต้องกรอก นามสกุล")
-  v.Required(user.Tel).Message("จำเป็นต้องกรอก เบอร์โทรศัพท์")
-  v.Match(user.Tel, regexp.MustCompile("^\\d*$")).Message("เบอร์โทรศัพท์เป็นตัวเลขเท่านั้น เช่น 08011122233")
-  v.MinSize(user.Tel, 9).Message("เบอร์โทรศัพท์ต้องมี 10 ตัวเลข")
-  v.MaxSize(user.Tel, 10).Message("เบอร์โทรศัพท์ต้องมี 10 ตัวเลข")
-  v.Required(user.Email).Message("จำเป็นต้องกรอก อีเมล์")
-  v.Email(user.Email).Message("กรอก Email ในลักษณะ sample@gmail.com")*/
 }
 //GetAllCrops (GET) ฟังก์ชั่นสำหรับเรียกข้อมูลแผนการเพาะปลูกทั้งหมด
 func GetAllCrops(skip int,userid string) (results []Crop,error bool) {
