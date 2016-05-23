@@ -66,6 +66,7 @@ POST    /apiv1_0/PostRegister/:Username/:Password/:Prefix/:Name/:Lastname/:Tel/:
 POST    /apiv1_0/PostEditUser/:Username/:Prefix/:Name/:Lastname/:Tel/:Email                                                                      Api.PostEditUser
 GET     /apiv1_0/planid/:idplan                                                                    Api.Plan
 GET     /apiv1_0/plan/:idplant/:idseed                                                             Api.PlansAllPlants
+POST    /apiv1_0/plan/removeplan/:idplan                                                           Api.RemovePlan
 GET     /apiv1_0/plants/:skip                                                                      Api.Plants
 GET     /apiv1_0/plant/:word                                                                       Api.Plant
 GET     /apiv1_0/getoneplant/:idplant                                                              Api.GetOnePlant

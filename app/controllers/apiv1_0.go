@@ -230,7 +230,16 @@ func (c Api) Plan(idplan string) revel.Result {
   }
   return  c.RenderJson(Res)
 }
-
+//Plants (Post)
+func (c Api) SavePlan(PlantName string) revel.Result {
+  Result := models.SavePlant(PlantName);
+  return c.RenderJson(Result)
+}
+//EditPlant (Post)
+func (c Api) RemovePlan(idplant string,PlantName string) revel.Result {
+  Result := models.EditPlant(idplant,PlantName);
+  return c.RenderJson(Result)
+}
 //------------------ พืชและพันธุ์พืช -------------------
 //Plants (GET)
 func (c Api) Plants(skip int,word string) revel.Result {
