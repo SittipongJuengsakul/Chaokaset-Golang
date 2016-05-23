@@ -21,7 +21,7 @@
           <th>หน่วยงาน</th>
           <th>ชนิดพืช</th>
           <th>พันธุ์พืช</th>
-          <th>ผู้ใช้งาน</th>
+          <!--<th>ผู้ใช้งาน</th>-->
           <th>ตัวเลือก</th>
         </tr>
       </thead>
@@ -31,7 +31,7 @@
           <td ng-bind-html="plan.OwnerCompany | searchfilter:searchPlanText"></td>
           <td ng-bind-html="plan.Plant | searchfilter:searchPlanText"></td>
           <td ng-bind-html="plan.Seed | searchfilter:searchPlanText"></td>
-          <td ng-bind-html="plan.UsedNum | number" style="text-align: center;"></td>
+          <!--<td ng-bind-html="plan.UsedNum | number" style="text-align: center;"></td>-->
           <td class="color-green">
             <div class="dropdown">
               <a href="#" class="dropdown-toggle option-crops"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ดูเพิ่มเติม <span class="caret"></span></a>
