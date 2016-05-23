@@ -126,7 +126,7 @@
             {{with $field := field "crop.Duration" .}}
             <div class="form-group col-md-4 padding-left-no">
               <label>ระยะเวลาทำการเพาะปลูก</label>
-              <input type="number" min="0" disabled placeholder="กรอกระยะเวลาทำการเพาะปลูก" class="form-control" name="{{$field.Name}}" value="0" ng-model="modduration">
+              <input type="number" min="0" placeholder="กรอกระยะเวลาทำการเพาะปลูก" class="form-control" name="{{$field.Name}}" value="0" ng-model="modduration">
             </div>
             {{end}}
             {{with $field := field "crop.Price" .}}
