@@ -125,7 +125,7 @@
         });
       });
       $scope.chooseplant = function(id,at) {
-        $http.get("http://localhost:9000"+"/apiv1_0/seeds/0/"+$scope.modplant)
+        $http.get(site_url+"/apiv1_0/seeds/0/"+$scope.modplant)
         .then(function(response) {
           $scope.seeds = response.data;
         });

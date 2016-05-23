@@ -38,7 +38,7 @@ func GetAllPlants(skip int) (results []Plant,err_query error) {
   defer session.Close()
   session.SetMode(mgo.Monotonic, true)
   qmgo := session.DB("chaokaset").C("plants")
-	err_query = qmgo.Find(bson.M{}).Limit(10).Skip(skip).Sort("-updated_at").All(&results) //คิวรี่จาก status เป็น 1 หรือ แปลงที่ไช้งานอยู่
+	err_query = qmgo.Find(bson.M{}).Sort("-updated_at").All(&results) //คิวรี่จาก status เป็น 1 หรือ แปลงที่ไช้งานอยู่
   return results,err_query
 }
 //GetPlant (GET) ฟังก์ชั่นสำหรับเรียกข้อมูลพืชทั้งหมด
@@ -133,9 +133,9 @@ func GetAllSeeds(skips int,plantid string) (results []Seed) {
   session.SetMode(mgo.Monotonic, true)
   qmgo := session.DB("chaokaset").C("seeds")
   if plantid == ""{
-    qmgo.Find(bson.M{}).Limit(10).Skip(skips).All(&results)
+    qmgo.Find(bson.M{}).All(&results)
   }else{
-    qmgo.Find(bson.M{"plantid": plantid}).Limit(10).Skip(skips).All(&results)
+    qmgo.Find(bson.M{"plantid": plantid}).All(&results)
   }
 
   return results

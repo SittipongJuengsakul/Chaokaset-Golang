@@ -2,11 +2,12 @@
 {{template "Templates/header.html" .}}
 
 {{template "Templates/preloader.html" .}}
+<div ng-app="ChaokasetApp" ng-controller="searchShowPlan">
 <div class="chaokaset-container-verticle" id="chaokaset-loader" style="display: none;">
   <div class="col-sm-12 varticle-header-box">
     <h1>แสดงแผนการเพาะปลูก</h1>
   </div>
-  <div class="col-sm-12 container-box"  ng-app="ChaokasetApp" ng-controller="searchShowPlan" style="margin-top: 20px;">
+  <div class="col-sm-12 container-box"   style="margin-top: 20px;">
     <div class="col-sm-2" style="padding: 0px;">
       <button type="button" name="button" class="btn btn-success" style="width: 90%;" onclick="javascript:location.href='/plan/addcropplan'">เพิ่มข้อมูล</button>
     </div>
@@ -68,6 +69,7 @@
       </div>
     </div>
   </div>
+</div>
 </div>
 <script type="text/javascript">
   var app = angular.module('ChaokasetApp', ['ngSanitize']);
