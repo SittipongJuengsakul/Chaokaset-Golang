@@ -105,6 +105,21 @@ func SavePlan(plan *Plan) (result bool) {
      }
 }
 
+func RemovePlan(idplan string) (result bool) {
+  session, err := mgo.Dial(ip_mgo)
+  if err != nil {
+      panic(err)
+  }
+  defer session.Close()
+  session.SetMode(mgo.Monotonic, true)
+  qmgo := session.DB("chaokaset").C("cropplans")
+  if idplan == ""{
+    return false
+  } else{
+    qmgo.Remove(bson.M{"_id": bson.ObjectIdHex(idplan)})
+    return true
+  }
+}
 //SavePlanLikeLog (POST) เก็บ log ของการกด like
 func SavePlanLikeLog(UserId string,CompanyId string) (result bool){
     session, err := mgo.Dial(ip_mgo)

@@ -236,8 +236,8 @@ func (c Api) SavePlan(PlantName string) revel.Result {
   return c.RenderJson(Result)
 }
 //EditPlant (Post)
-func (c Api) RemovePlan(idplant string,PlantName string) revel.Result {
-  Result := models.EditPlant(idplant,PlantName);
+func (c Api) RemovePlan(idplan string) revel.Result {
+  Result := models.RemovePlan(idplan);
   return c.RenderJson(Result)
 }
 //------------------ พืชและพันธุ์พืช -------------------

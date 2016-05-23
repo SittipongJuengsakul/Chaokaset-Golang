@@ -40,7 +40,7 @@
                 <li><a data-toggle="modal" data-target="#myModal">รายละเอียด</a></li>
                 <li><a href="#">แก้ไขรายการ</a></li>
                 <li role="separator" class="divider"></li>
-                <li><a href="#" class="color-red">ลบรายการ</a></li>
+                <li><a ng-click="RemovePlan(plan.PlanId)" class="color-red">ลบรายการ</a></li>
               </ul>
             </div>
           </td>
@@ -78,6 +78,19 @@
       .then(function(response) {
         $scope.plans = response.data;
       });
+      $scope.RemovePlan = function(removeid,at) {
+        $scope.plans.splice(at, 1);
+        $http({
+          method: 'POST',
+          url: site_url+"/apiv1_0/plan/removeplan/"+removeid
+        }).then(function(response) {
+          $http.get(site_url+"/apiv1_0/plans/0")
+          .then(function(response) {
+            $scope.plans = response.data;
+          });
+        },function(response) {
+      });
+      }
   })
   .filter('searchfilter', function() {
         return function (input, query) {
