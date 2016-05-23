@@ -76,6 +76,15 @@ func (c App) connected() *models.User {
 	}
 	return nil
 }
+func (c App) RoomWater() revel.Result {
+	return c.Render()
+}
+func (c App) RoomEarth() revel.Result {
+	return c.Render()
+}
+func (c App) RoomPest() revel.Result {
+	return c.Render()
+}
 //ตราจสอบ Session
 func setuser(c *revel.Controller) revel.Result {
 	var user *models.User

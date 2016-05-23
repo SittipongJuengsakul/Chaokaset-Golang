@@ -93,8 +93,13 @@ POST    /apiv1_0/saveproblem/:idcrop/:problem/:detail                           
 POST     /apiv1_0/editproblem/:idproblem/:detail                                                                Api.EditProblem
 POST     /apiv1_0/removeproblem/:idproblem                                                          Api.RemoveProblem
 # WebSocket chat
-GET     /websocket/room                                                                            WebSocket.Room
-WS      /websocket/room/:roomid/socket                                                                     WebSocket.RoomSocket
+GET     /chat/roomearth                                                                             App.RoomEarth
+GET     /chat/roomwater                                                                             App.RoomWater
+GET     /chat/roompest                                                                              App.RoomPest
+WS      /websocket/room/:roomid/socket                                                              WebSocket.RoomSocket
+WS      /websocket/roomearth/:roomid/socket                                                         WebSocket.RoomSocket
+WS      /websocket/roomwater/:roomid/socket                                                         WebSocket.RoomSocket
+WS      /websocket/roompest/:roomid/socket                                                          WebSocket.RoomSocket
 
 
 

@@ -1,0 +1,98 @@
+{{set . "title" "ชุมชนชาวเกษตร"}}
+{{template "Templates/header.html" .}}
+{{template "Templates/preloader.html" .}}
+<script src="/public/js/templating.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/jquery.scrollTo-min.js" type="text/javascript" charset="utf-8"></script>
+<div class="chaokaset-container-verticle" id="chaokaset-loader" style="display: none;">
+  <div class="col-sm-12 container-box">
+    <div class="col-sm-12 container-box-content">
+      <div class="col-sm-5 name-header padding-left-no padding-right-no"><h2 class="color-green">ห้องสนทนา รวม</h2></div>
+      <div class="col-sm-7 name-header padding-left-no padding-right-no">
+        <div class="col-sm-12">
+          <button type="button" name="button" class="btn btn-danger" style="float:right;" onclick="javascript:location.href='/'">ออกจากห้องสนทนา</button>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div id="chatroom">
+          <script type="text/html" id="message_tmpl">
+            <% if(event.Type == 'message') { %>
+              <div class="message <%= event.User == '{{.user.Username}}' ? 'me' : '' %>">
+                <h2><%= event.User %></h2>
+                <p>
+                  <%= event.Text %>
+                </p>
+              </div>
+            <% } %>
+            <% if(event.Type == 'join') { %>
+              <div class="message notice">
+                <div class="ctmessage">
+                  <h2></h2>
+                  <p>
+                    <%= event.User %> เริ่มสนทนา
+                  </p>
+                </div>
+              </div>
+            <% } %>
+            <% if(event.Type == 'leave') { %>
+              <div class="message notice">
+                <div class="ctmessage">
+                  <h2></h2>
+                  <p>
+                    <%= event.User %> ออกจากห้องสนทนา
+                  </p>
+                </div>
+              </div>
+            <% } %>
+            <% if(event.Type == 'quit') { %>
+              <div class="message important">
+                <h2></h2>
+                <p>
+                  You are now disconnected!
+                </p>
+              </div>
+            <% } %>
+          </script>
+        </div>
+        <div id="newMessage" class="col-sm-4 col-sm-offset-4">
+          <input type="text" id="message" autocomplete="off" autofocus placeholder="กรอกข้อความบางอย่างสิ">
+          <button type="submit" value="send" class="btn btn-success" name="button" id="send">ส่ง</button>
+        </div>
+      </div>
+      <script type="text/javascript">
+        // Create a socket
+        var socket = new WebSocket('ws://'+window.location.host+'/websocket/roomearth/1/socket?user={{.user.Username}}')
+        // Display a message
+        var display = function(event) {
+          $('#chatroom').append(tmpl('message_tmpl', {event: event}));
+          $('#chatroom').scrollTo('max')
+          console.log("display");
+        }
+        // Message received on the socket
+        socket.onmessage = function(event) {
+          display(JSON.parse(event.data))
+          console.log("onmessage");
+        }
+        $('#send').click(function(e) {
+          console.log("click");
+          var message = $('#message').val()
+          $('#message').val('')
+          socket.send(message)
+        });
+        $('#message').keypress(function(e) {
+          if(e.charCode == 13 || e.keyCode == 13) {
+            console.log("keypress");
+            $('#send').click()
+            e.preventDefault()
+          }
+        })
+      </script>
+    </div>
+  </div>
+</div>
+</div>
+<script>
+$( document ).ready(function() {
+  $( "#notification-in-header" ).hide();
+});
+</script>
+{{template "Templates/footer.html" .}}
