@@ -97,9 +97,9 @@ GET     /chat/roomearth                                                         
 GET     /chat/roomwater                                                                             App.RoomWater
 GET     /chat/roompest                                                                              App.RoomPest
 WS      /websocket/room/:roomid/socket                                                              WebSocket.RoomSocket
-WS      /websocket/roomearth/:roomid/socket                                                         WebSocket.RoomSocket
-WS      /websocket/roomwater/:roomid/socket                                                         WebSocket.RoomSocket
-WS      /websocket/roompest/:roomid/socket                                                          WebSocket.RoomSocket
+WS      /websocket/roomearth/:roomid/socket                                                         WebSocket.RoomEarth
+WS      /websocket/roomwater/:roomid/socket                                                         WebSocket.RoomWater
+WS      /websocket/roompest/:roomid/socket                                                          WebSocket.RoomPest
 
 
 
