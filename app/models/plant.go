@@ -159,7 +159,25 @@ func SaveSeed(seedname string,plantid string,plantname string) (result bool){
       return true
     }
 }
-
+//SaveCrop (POST) บันทึกการเพาะปลูก
+func EditSeed(idseed string,seedname string,plantname string,plantid string) (result bool) {
+     session, err := mgo.Dial(ip_mgo)
+     if err != nil {
+         panic(err)
+     }
+     defer session.Close()
+     session.SetMode(mgo.Monotonic, true)
+     //cropqry := bson.ObjectIdHex(cropid)
+     qmgo := session.DB("chaokaset").C("seeds")
+    colQuerier := bson.M{"_id": bson.ObjectIdHex(idseed)}
+    change := bson.M{"$set": bson.M{"seedname": seedname,"plantname": plantname,"plantid": plantid,"Updated_at": time.Now()}}
+    err = qmgo.Update(colQuerier, change)
+     if err != nil {
+       return false
+     }else{
+       return true
+     }
+}
 //RemoveSeed (GET)
 func RemoveSeed(idseed string) (result bool) {
   session, err := mgo.Dial(ip_mgo)

@@ -2,11 +2,58 @@
 {{template "Templates/header.html" .}}
 
 {{template "Templates/preloader.html" .}}
+<div ng-app="ChaokasetApp" ng-controller="searchShowPlant">
+<div class="modal fade" id="EditAccount" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+ <div class="modal-dialog" role="document">
+   <div class="modal-content">
+     <div class="modal-header">
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+       <h2 class="color-green">แก้ไขพันธุ์พืช</h2>
+     </div>
+     <div class="modal-body">
+       <div class="row">
+       <div class="col-sm-12 container-box">
+         <div class="col-sm-12 container-box-content" >
+           <form ng-submit="EditSubmit()" >
+             <input type="hidden" name="name" ng-model="idseedng">
+             <div class="info-plant-show">
+               <div class="form-grop col-md-12" style="padding: 0px;">
+                 {{with $field := field "plant.PlantName" .}}
+                 <div class="form-group col-md-12 padding-left-no padding-right-no">
+                   <label>พืช</label>
+                   <select class="form-control" name="{{$field.Name}}" id="editplant" ng-model="editplant">
+                      <option ng-repeat="plant in plants" ng-bind="plant.PlantName" ng-value="plant.PlantId"></option>
+                   </select>
+                 </div>
+                 {{end}}
+               </div>
+               <div class="form-grop col-md-12" style="padding: 0px;">
+                 {{with $field := field "seed.SeedName" .}}
+                 <div class="form-group col-md-12 padding-left-no padding-right-no">
+                   <label>ชื่อพันธุ์พืช</label>
+                   <input type="text" class="form-control" placeholder="กรอกชื่อพันธุ์พืช" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="seededit" id="editseed">
+                   <span class="error">{{$field.Error}}</span>
+                 </div>
+                 {{end}}
+               </div>
+             </div>
+         </div>
+       </div>
+       </div>
+     </div>
+     <div class="modal-footer">
+       <button type="submit" class="btn btn-success">บันทึก</button>
+       <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
+       </form>
+     </div>
+   </div>
+ </div>
+</div>
 <div class="chaokaset-container-verticle" id="chaokaset-loader" style="display: none;">
   <div class="col-sm-12 varticle-header-box">
     <h1>แสดงพันธุ์พืช</h1>
   </div>
-  <div class="col-sm-12 container-box"  ng-app="ChaokasetApp" ng-controller="searchShowPlant" style="margin-top: 20px;">
+  <div class="col-sm-12 container-box" style="margin-top: 20px;">
     <div class="col-sm-2" style="padding: 0px;">
       <button type="button" name="button" class="btn btn-success" style="width: 90%;" onclick="javascript:location.href='/plant/addseed'">เพิ่มพันธุ์พืช</button>
     </div>
@@ -23,10 +70,10 @@
         </tr>
       </thead>
       <tbody class="box-tbody-show">
-        <tr ng-repeat="plant in filterPlans  = (plants | filter:searchPlant)">
-          <td ng-bind-html="plant.SeedName | searchfilter:searchPlant"></td>
-          <td ng-bind-html="plant.PlantName | searchfilter:searchPlant"></td>
-          <!--<td ng-bind-html="plant.Used | searchfilter:searchPlant"></td> -->
+        <tr ng-repeat="seed in filterPlans  = (seeds | filter:searchPlant)">
+          <td ng-bind-html="seed.SeedName | searchfilter:searchPlant"></td>
+          <td ng-bind-html="seed.PlantName | searchfilter:searchPlant"></td>
+          <!--<td ng-bind-html="seed.Used | searchfilter:searchPlant"></td> -->
           <!--<td style="text-align: center;" ng-bind="used | number:0  ">-->
           </td>
           <td class="color-green">
@@ -34,10 +81,10 @@
               <a href="#" class="dropdown-toggle option-crops"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ดูเพิ่มเติม <span class="caret"></span></a>
               </button>
               <ul class="dropdown-menu dd-menu" aria-labelledby="dropdownMenu1">
-                <li><a data-toggle="modal" data-target="#myModal">รายละเอียด</a></li>
-                <li><a href="#">แก้ไขรายการ</a></li>
+                <!--<li><a data-toggle="modal" data-target="#myModal">รายละเอียด</a></li>-->
+                <li><a ng-click="EditModal(seed.SeedId)">แก้ไขรายการ</a></li>
                 <li role="separator" class="divider"></li>
-                <li><a ng-click="RemoveSeed(plant.SeedId,$index)" class="color-red">ลบรายการ</a></li>
+                <li><a ng-click="RemoveSeed(seed.SeedId,$index)" class="color-red">ลบรายการ</a></li>
               </ul>
             </div>
           </td>
@@ -67,23 +114,53 @@
     </div>
   </div>
 </div>
+</div>
 <script type="text/javascript">
   var app = angular.module('ChaokasetApp', ['ngSanitize']);
   app.controller('searchShowPlant', function($scope, $http) {
       $scope.used = 0;
       $http.get(site_url+"/apiv1_0/seeds/0/")
       .then(function(response) {
-        console.log(response.data);
+        $scope.seeds = response.data;
+      });
+      $http.get(site_url+"/apiv1_0/plants/0")
+      .then(function(response) {
         $scope.plants = response.data;
       });
       $scope.urlremove = site_url+"/apiv1_0/removeseed/";
       $scope.RemoveSeed = function(removeid,at) {
-        $scope.plants.splice(at, 1);
+        $scope.seeds.splice(at, 1);
         $http({
           method: 'POST',
           url: $scope.urlremove+removeid
         }).then(function(response) {
         },function(response) {
+      });
+      }
+      $scope.EditModal = function(idedit) { //โชแก้ไข
+        $http.get(site_url+"/apiv1_0/getoneseed/"+idedit)
+        .then(function(response) {
+          console.log(response);
+          $scope.seededit = response.data.SeedName;
+          $scope.idseedng = idedit;
+        });
+        $('#EditAccount').modal('show');
+      }
+      $scope.EditSubmit = function() {//บันทึกแก้ไข
+        var plantname = $('#editplant :selected').text();
+        var plantid = document.getElementById('editplant').value
+        console.log("edit")
+        $http({
+          method: 'POST',
+          url: site_url+"/apiv1_0/editseed/"+$scope.idseedng+"/"+$scope.seededit+"/"+plantname+"/"+plantid
+        }).then(function(response) {
+          $http.get(site_url+"/apiv1_0/seeds/0/")
+          .then(function(response) {
+            $scope.seeds = response.data;
+          });
+          $('#EditAccount').modal('hide');
+        },function(response) {
+          //ผิดพลาด
       });
       }
   })
