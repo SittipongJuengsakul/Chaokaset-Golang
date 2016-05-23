@@ -68,10 +68,10 @@ func init() {
   revel.InterceptFunc(setuser, revel.BEFORE, &Management{})
   revel.InterceptFunc(setuser, revel.BEFORE, &Plan{})
   revel.InterceptFunc(setuser, revel.BEFORE, &Plant{})
-  revel.InterceptFunc(checksetuser, revel.BEFORE, &Farmer{})
-  revel.InterceptFunc(checksetuser, revel.BEFORE, &Crops{})
-  revel.InterceptFunc(checksetuser, revel.BEFORE, &Management{})
-  revel.InterceptFunc(checksetuser, revel.BEFORE, &Plan{})
+  revel.InterceptFunc(checksetfarmer, revel.BEFORE, &Farmer{})
+  revel.InterceptFunc(checksetfarmer, revel.BEFORE, &Crops{})
+  revel.InterceptFunc(checksetofficer, revel.BEFORE, &Management{})
+  revel.InterceptFunc(checksetofficer, revel.BEFORE, &Plan{})
   revel.InterceptFunc(checksetuser, revel.BEFORE, &Profile{})
 }
 
@@ -114,7 +114,41 @@ func checksetuser(c *revel.Controller) revel.Result {
   if username, ok := c.Session["username"]; ok {
 		user = models.GetUserData(username)
     c.RenderArgs["user"] = user
+	} else{
+    c.Flash.Error("กรุณาล็อคอินก่อนทำรายการ !!")
+    return c.Redirect(Auth.Login)
+  }
+	return nil
+}
+//ตรวจสอบว่ามีสิทธิไช้งานหรือไม่ หากไม่ ล็อกอินก่อน
+func checksetfarmer(c *revel.Controller) revel.Result {
+	var user *models.User
+  if username, ok := c.Session["username"]; ok {
+		user = models.GetUserData(username)
+    if user.Role == 3{
+      c.RenderArgs["user"] = user
+    }else{
+      c.Flash.Error("กรุณาล็อคอินก่อนทำรายการ !!")
+      return c.Redirect(App.Index)
+    }
 
+	} else{
+    c.Flash.Error("กรุณาล็อคอินก่อนทำรายการ !!")
+    return c.Redirect(Auth.Login)
+  }
+	return nil
+}
+//ตรวจสอบว่ามีสิทธิไช้งานหรือไม่ หากไม่ ล็อกอินก่อน
+func checksetofficer(c *revel.Controller) revel.Result {
+	var user *models.User
+  if username, ok := c.Session["username"]; ok {
+		user = models.GetUserData(username)
+    if user.Role == 2{
+      c.RenderArgs["user"] = user
+    }else{
+      c.Flash.Error("กรุณาล็อคอินก่อนทำรายการ !!")
+      return c.Redirect(App.Index)
+    }
 	} else{
     c.Flash.Error("กรุณาล็อคอินก่อนทำรายการ !!")
     return c.Redirect(Auth.Login)
