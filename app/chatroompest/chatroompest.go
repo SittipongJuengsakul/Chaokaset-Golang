@@ -54,11 +54,11 @@ const archiveSize = 10
 var (
 	// Send a channel here to get room events back.  It will send the entire
 	// archive initially, and then new messages as they come in.
-	subscribe = make(chan (chan<- Subscription), 10)
+	subscribe = make(chan (chan<- Subscription), 20)
 	// Send a channel here to unsubscribe.
-	unsubscribe = make(chan (<-chan Event), 10)
+	unsubscribe = make(chan (<-chan Event), 20)
 	// Send events here to publish them.
-	publish = make(chan Event, 10)
+	publish = make(chan Event, 20)
 )
 
 // This function loops forever, handling the chat room pubsub
