@@ -30,7 +30,7 @@
               </div>
               <div class="form-group col-md-4">
                 <label>ขนาดพื้นที่ (งาน)</label>
-                <input type="number" class="form-control" placeholder="กรอกขนาดพื้นที่ (งาน)" name="crop.Ngarn" value=".cropdata.Ngarn" min="0" max="4">
+                <input type="number" class="form-control" placeholder="กรอกขนาดพื้นที่ (งาน)" name="crop.Ngarn" value=".cropdata.Ngarn" min="0" max="3">
               </div>
               <div class="form-group col-md-4 padding-right-no">
                 <label>ขนาดพื้นที่ (ตารางวา)</label>
@@ -40,7 +40,7 @@
           <div class="form-grop col-md-12" style="padding: 0px;">
             <div class="form-group col-md-4 padding-left-no">
               <label>ระยะเวลาทำการเพาะปลูก</label>
-              <input type="number" min="0"  placeholder="กรอกระยะเวลาทำการเพาะปลูก" class="form-control" name="crop.Duration" value=".cropdata.Duration" ng-model="modduration">
+              <input type="number" min="0"  placeholder="กรอกระยะเวลาทำการเพาะปลูก" class="form-control" name="crop.Duration" value=".cropdata.Duration" ng-model="modduration" disabled>
             </div>
             <div class="form-group col-md-4">
               <label>ราคาผลผลิต ต่อ กิโลกรัม</label>
@@ -53,6 +53,21 @@
           </div>
           <div class="form-grop col-md-12" style="padding: 0px;">
             <script type="text/javascript">
+            function checkdate() {
+              var a = $('input[name="crop.StartDate"]').val();
+              var b = $('input[name="crop.EndDate"]').val();
+              var startday = moment(a,'DD MMMM YYYY');
+              var endday = moment(b,'DD MMMM YYYY');
+              if (startday<endday){
+                console.log('เลือกวันถูก')
+                var days = (endday - startday) / (1000 * 60 * 60 * 24);
+                $('input[name="crop.Duration"]').val(days);
+              }else{
+                console.log('วันนี้ไม่ได้')
+                $('input[name="crop.EndDate"]').val(a);
+                $('input[name="crop.Duration"]').val(0);
+              }
+            }
             $(function() {
               $('input[name="crop.StartDate"]').daterangepicker({
                    locale: {
@@ -61,7 +76,6 @@
                    singleDatePicker: true,
                    showDropdowns: true
                });
-
                $('input[name="crop.EndDate"]').daterangepicker({
                     startDate: moment().add(120, 'days'),
                     locale: {
@@ -75,13 +89,13 @@
             {{with $field := field "crop.StartDate" .}}
             <div class="form-group col-md-6 padding-left-no">
               <label>เริ่มต้นวันที่</label>
-              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="modstartdate">
+              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="modstartdate" onchange="checkdate()">
             </div>
             {{end}}
             {{with $field := field "crop.EndDate" .}}
             <div class="form-group col-md-6 padding-right-no">
               <label>สิ้นสุดวันที่ (ตามแผน)</label>
-              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="modenddate">
+              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="modenddate" onchange="checkdate()">
             </div>
             {{end}}
           </div>
