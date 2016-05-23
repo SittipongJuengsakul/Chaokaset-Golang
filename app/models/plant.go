@@ -107,7 +107,22 @@ func EditPlant(idplant string,plantname string) (result bool) {
        return true
      }
 }
-
+//RemovePlant (GET)
+func RemovePlant(idplant string) (result bool) {
+  session, err := mgo.Dial(ip_mgo)
+  if err != nil {
+      panic(err)
+  }
+  defer session.Close()
+  session.SetMode(mgo.Monotonic, true)
+  qmgo := session.DB("chaokaset").C("plants")
+  if idplant == ""{
+    return false
+  } else{
+    qmgo.Remove(bson.M{"_id": bson.ObjectIdHex(idplant)})
+    return true
+  }
+}
 //GetAllSeeds (GET) ฟังก์ชั่นสำหรับเรียกข้อมูลพืชทั้งหมด
 func GetAllSeeds(skips int,plantid string) (results []Seed) {
   session, err := mgo.Dial(ip_mgo)

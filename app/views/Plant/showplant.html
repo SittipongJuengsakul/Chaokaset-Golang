@@ -116,6 +116,15 @@
           //ผิดพลาด
       });
       }
+      $scope.RemovePlant = function(removeid,at) {
+        $scope.plants.splice(at, 1);
+        $http({
+          method: 'POST',
+          url: site_url+"/apiv1_0/removeplant/"+removeid
+        }).then(function(response) {
+        },function(response) {
+      });
+      }
   })
   .filter('searchfilter', function() {
         return function (input, query) {

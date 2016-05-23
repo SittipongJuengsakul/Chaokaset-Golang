@@ -261,7 +261,11 @@ func (c Api) EditPlant(idplant string,PlantName string) revel.Result {
   Result := models.EditPlant(idplant,PlantName);
   return c.RenderJson(Result)
 }
-
+//RemovePlant (GET)
+func (c Api) RemovePlant(idplant string) revel.Result {
+  models.RemovePlant(idplant);
+  return c.RenderJson(true)
+}
 //Seed (GET)
 func (c Api) Seed(skips int,plantname string,seedname string) revel.Result {
     Result := models.GetSeed(skips,plantname,seedname)
