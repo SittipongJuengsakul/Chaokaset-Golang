@@ -18,6 +18,7 @@ type Crop struct {
   Description                               string
   Address,Tumbon,Aumphur,Province           string
   Duration,Status                           int
+  Grow                                      int
   Product,Price                             float64
   UserId                                    string
   Rai,Ngarn,Wah                             float64
@@ -80,7 +81,7 @@ func GetOneCrops(cropid string) *Crop {
   qmgo := session.DB("chaokaset").C("crops")
   result := Crop{}
 	qmgo.Find(bson.M{"status": 1,"_id": bson.ObjectIdHex(cropid)}).One(&result)
-  crop = &Crop{Rai: result.Rai,Ngarn: result.Ngarn,Wah: result.Wah,CropId: result.CropId,Status: result.Status,CropName: result.CropName,PlantId: result.PlantId,SeedId: result.SeedId,PlanId: result.PlanId,Plant: result.Plant,Seed: result.Seed,StartDate: result.StartDate,EndDate: result.EndDate,Duration: result.Duration,Province: result.Province,Aumphur: result.Aumphur,Tumbon: result.Tumbon,Product: result.Product,Price: result.Price,Address : result.Address}
+  crop = &Crop{Grow: result.Grow,Rai: result.Rai,Ngarn: result.Ngarn,Wah: result.Wah,CropId: result.CropId,Status: result.Status,CropName: result.CropName,PlantId: result.PlantId,SeedId: result.SeedId,PlanId: result.PlanId,Plant: result.Plant,Seed: result.Seed,StartDate: result.StartDate,EndDate: result.EndDate,Duration: result.Duration,Province: result.Province,Aumphur: result.Aumphur,Tumbon: result.Tumbon,Product: result.Product,Price: result.Price,Address : result.Address}
   return crop
 }
 
@@ -95,7 +96,7 @@ func SaveCrop(crop *Crop,userid string) (result bool) {
      qmgo := session.DB("chaokaset").C("crops")
      plantnames := GetPlantId(crop.PlantId)
      seednames := GetSeedId(crop.SeedId)
-     err = qmgo.Insert(&Crop{Rai: crop.Rai,Ngarn: crop.Ngarn,Wah: crop.Wah,Created_at: time.Now(),Updated_at: time.Now(),UserId : userid,Status: 1,CropName: crop.CropName,PlantId: crop.PlantId,SeedId: crop.SeedId,PlanId: crop.PlanId,Plant: plantnames.PlantName,Seed: seednames.SeedName,StartDate: crop.StartDate,EndDate: crop.EndDate,Duration: crop.Duration,Province: crop.Province,Aumphur: crop.Aumphur,Tumbon: crop.Tumbon,Product: crop.Product,Price: crop.Price,Address : crop.Address})
+     err = qmgo.Insert(&Crop{Grow: 1,Rai: crop.Rai,Ngarn: crop.Ngarn,Wah: crop.Wah,Created_at: time.Now(),Updated_at: time.Now(),UserId : userid,Status: 1,CropName: crop.CropName,PlantId: crop.PlantId,SeedId: crop.SeedId,PlanId: crop.PlanId,Plant: plantnames.PlantName,Seed: seednames.SeedName,StartDate: crop.StartDate,EndDate: crop.EndDate,Duration: crop.Duration,Province: crop.Province,Aumphur: crop.Aumphur,Tumbon: crop.Tumbon,Product: crop.Product,Price: crop.Price,Address : crop.Address})
      if err != nil {
        return false
      }else{
