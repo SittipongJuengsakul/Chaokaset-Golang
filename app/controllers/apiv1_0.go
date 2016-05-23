@@ -241,15 +241,24 @@ func (c Api) Plants(skip int,word string) revel.Result {
     return c.RenderJson(Result)
   }
 }
+//GetOnePlant (GET)
+func (c Api) GetOnePlant(idplant string) revel.Result {
+  Result := models.GetPlantId(idplant)
+    return  c.RenderJson(Result)
+}
 //Plant (GET)
 func (c Api) Plant(word string) revel.Result {
-  //Result := models.GetPlantId("572dfeede3890226904ecba9")
   Result := models.GetPlant(word)
     return  c.RenderJson(Result)
 }
 //Plants (Post)
 func (c Api) SavePlantData(PlantName string) revel.Result {
   Result := models.SavePlant(PlantName);
+  return c.RenderJson(Result)
+}
+//EditPlant (Post)
+func (c Api) EditPlant(idplant string,PlantName string) revel.Result {
+  Result := models.EditPlant(idplant,PlantName);
   return c.RenderJson(Result)
 }
 
