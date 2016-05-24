@@ -60,6 +60,8 @@ GET		/apiv1_0/SearchProduct/:Name/:Lat/:long													   Api.SearchProduct
 GET		/apiv1_0/AddProduct/:name/:category/:price/:unit/:detail/:expire/:ownerId/:lat/:long	   Api.AddProduct
 GET		/apiv1_0/ManageSell/:idUser																   Api.ManageSell
 
+GET     /apiv1_0/plan/getallactivity/:idplan                                                       Api.AllActivityPlan
+POST    /apiv1_0/SavePlanActivity/:idplan/:detail/:startduration/:endduration                      Api.SaveActivityPlan
 GET     /apiv1_0/plans/:skip                                                                       Api.Plans
 GET     /apiv1_0/userdata/:Username                                                                Api.ApiGetUserData
 POST    /apiv1_0/PostRegister/:Username/:Password/:Prefix/:Name/:Lastname/:Tel/:Email                                                            Api.PostRegisterUser

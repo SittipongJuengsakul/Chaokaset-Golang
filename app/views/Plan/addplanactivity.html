@@ -6,7 +6,7 @@
     <h1>จัดการกิจกรรมการเพาะปลูก</h1>
   </div>
   <div class="col-sm-12 container-box" ng-app="ChaokasetApp" ng-controller="NewShowPlan">
-          <div class="col-sm-12 padding-left-no padding-right-no name-header" style="padding-left: 0px;"><h2 class="color-green">กิจกรรมการเพาะปลูก : แผนการเพาะปลูก A</h2></div>
+          <div class="col-sm-12 padding-left-no padding-right-no name-header" style="padding-left: 0px;"><h2 class="color-green">กิจกรรมการเพาะปลูก : {{.plandata.PlanName}}</h2></div>
           <table class="table col-md-12">
             <thead class="box-thead-show">
               <tr>
@@ -19,17 +19,20 @@
             <tbody class="box-tbody-show">
               <tr>
                 <form ng-submit="SaveNewActivity(PlanActivitys)">
-                <td><input type="number" min="0" class="form-control" placeholder="เริ่มวันที่ (วัน)" ng-model="PlanActivitys.startdate" value="" id="IdStartDate" required></td>
-                <td><input type="number" min="0" class="form-control" placeholder="สิ้นสุดวันที่ (วัน)" ng-model="PlanActivitys.enddate" value="" id="IdEndDate" required></td>
-                <td><input type="text" class="form-control" placeholder="รายละเอียด" ng-model="PlanActivitys.details" value="" id="IdDetails" required></td>
+                <td><input type="number" min="0" class="form-control" placeholder="เริ่มวันที่ (วัน)" ng-model="newstartdate" value="" id="IdStartDate" required></td>
+                <td><input type="number" min="0" class="form-control" placeholder="สิ้นสุดวันที่ (วัน)" ng-model="newenddate" value="" id="IdEndDate" required></td>
+                <td><input type="text" class="form-control" placeholder="รายละเอียด" ng-model="newdetail" value="" id="IdDetails" required></td>
                 <td><button type="submit" class="btn btn-success">เพิ่มข้อมูล</button></td>
                 </form>
               </tr>
-              <tr ng-repeat="PlanActivity in PlanActivitys | orderBy:'startdate'">
-                <td ng-bind="PlanActivity.startdate">เริ่มวันที่</td>
-                <td ng-bind="PlanActivity.enddate">สิ้นสุดวันที่</td>
-                <td ng-bind="PlanActivity.details">รายละเอียด</td>
-                <td><button type="button" name="button" class="btn btn-warning" style="margin-right: 5px;" ng-click="">ข้อมูล</button><button type="button" name="button" class="btn btn-danger" ng-click="remove(PlanActivity.Id)">ลบ</button></td>
+              <tr ng-if="PlanActivitys" ng-repeat="PlanActivity in PlanActivitys | orderBy:'StartDuration'">
+                <td ng-bind="PlanActivity.StartDuration">เริ่มวันที่</td>
+                <td ng-bind="PlanActivity.EndDuration">สิ้นสุดวันที่</td>
+                <td ng-bind="PlanActivity.Detail">รายละเอียด</td>
+                <td><button type="button" name="button" class="btn btn-warning" style="margin-right: 5px;" ng-click="">ข้อมูล</button><button type="button" name="button" class="btn btn-danger" ng-click="remove(PlanActivity.PlanActivity)">ลบ</button></td>
+              </tr>
+              <tr ng-if="!PlanActivitys">
+                <td colspan="4" style="text-align: center;">ไม่มีข้อมูล</td>
               </tr>
             </tbody>
           </table>
@@ -41,65 +44,34 @@
   </div>
 </div>
 <script type="text/javascript">
+  var idplan = {{.plandata.PlanId}};
   var app = angular.module('ChaokasetApp', []);
-  app.controller('NewShowPlan', function($scope) {
-      $scope.NewPlanOption = true;
-      $scope.PlanOption = false;
-      $scope.ShowNewPlanOption = function() {
-          $scope.NewPlanOption = true
-          $scope.PlanOption = false;
-      }
-      $scope.ShowPlanOption = function() {
-          $scope.PlanOption = true
-          $scope.NewPlanOption = false;
-      }
-
-      $scope.PlanActivitys = [
-        {
-            'Id' : 'a1',
-            'startdate': 0,
-            'enddate': 20,
-            'details':'เตรียมดิน'
-        },
-        {
-            'Id' : 'a2',
-            'startdate':10,
-            'enddate':200,
-            'details':'ตากดิน'
-        },
-        {
-            'Id' : 'a3',
-            'startdate':5000,
-            'enddate':200,
-            'details':'ตากดิน'
-        }
-        ];
+  app.controller('NewShowPlan', function($scope,$http) {
+        $http.get(site_url+"/apiv1_0/plan/getallactivity/"+idplan)
+        .then(function(response) {
+          $scope.PlanActivitys = response.data;
+          console.log(response.data);
+        });
         $scope.SaveNewActivity= function(PlanActivitys){
-          if(PlanActivitys.startdate > PlanActivitys.enddate){
+          if($scope.newstartdate > $scope.newenddate){
             alert('วันที่สิ้นสุดน้อยกว่าวันที่เริ่มต้น !')
             return 0;
           }
           else{
-            $scope.PlanActivitys.push({
-                  'Id': '2222aaa',
-                  'startdate': PlanActivitys.startdate,
-                  'enddate': PlanActivitys.enddate,
-                  'details': PlanActivitys.details,
+              $http({
+              method: 'POST',
+              url: site_url+"/apiv1_0/SavePlanActivity/"+idplan+"/"+$scope.newdetail+"/"+$scope.newstartdate+"/"+$scope.newenddate
+              }).then(function(response) {
+                $http.get(site_url+"/apiv1_0/plan/getallactivity/"+idplan)
+                .then(function(response) {
+                  $scope.PlanActivitys = response.data;
+                });
+              },function(response) {
               });
-              document.getElementById("IdStartDate").value = "";
-              document.getElementById("IdEndDate").value = "";
-              document.getElementById("IdDetails").value = "";
-              $scope.PD = {};
-              $scope.orderOptions = $scope.PlanActivitys.startdate;
           }
         }
         $scope.remove = function(IdRemover){
-            //$scope.PlanActivitys.splice(1, 1);
-            for (var i = 0; i < $scope.PlanActivitys.length; i++)
-            if ($scope.PlanActivitys[i].Id && $scope.PlanActivitys[i].Id === IdRemover) {
-                $scope.PlanActivitys.splice(i, 1);
-                break;
-            }
+
         };
   });
 </script>

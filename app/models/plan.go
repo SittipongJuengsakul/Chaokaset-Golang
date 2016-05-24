@@ -22,7 +22,14 @@ type Plan struct { //สร้าง Struct ของ Plan
   ConfirmNum,LikeNum,ViewNum,UsedNum        int
 }
 type Plans []Plan
-
+type PlanActivity struct{
+  PlanActivity                              bson.ObjectId `bson:"_id,omitempty"`
+  Status                                    int
+  StartDuration,EndDuration                 int
+  Detail                                    string
+  Created_at,Updated_at                     time.Time
+  PlanId                                    string
+}
 type LogLikePlan struct{
   UserId,CompanyId                          string
   Status                                    int
@@ -39,11 +46,39 @@ func GetAllPlans(skip int) (results []Plan,error bool) {
   //var plans *Plan
   session.SetMode(mgo.Monotonic, true)
   qmgo := session.DB("chaokaset").C("cropplans")
-	qmgo.Find(bson.M{"status": 1}).Limit(10).Skip(skip).Sort("-updated_at").All(&results) //คิวรี่จาก status เป็น 1 หรือ แปลงที่ไช้งานอยู่
+	qmgo.Find(bson.M{"status": 1}).Sort("-updated_at").All(&results) //คิวรี่จาก status เป็น 1 หรือ แปลงที่ไช้งานอยู่
   //plans = &Plan{PlanId: result.PlanId,Created_at: result.Created_at,Updated_at: result.Updated_at,PlanName: result.PlanName,Plant: result.Plant,Seed: result.Seed,OldPlanId: result.OldPlanId,Description: result.Description,Owner: result.Owner,OwnerCompany: result.OwnerCompany,Duration: result.Duration,TypePlan : result.TypePlan,ConfirmNum: result.ConfirmNum,LikeNum: result.LikeNum,ViewNum: result.ViewNum,UsedNum: result.UsedNum}
   return results,true
 }
-
+//GetAllPlanActivities (GET)
+func GetAllPlanActivities(idplan string) (results []PlanActivity,error bool) {
+  session, err := mgo.Dial(ip_mgo)
+  if err != nil {
+      panic(err)
+  }
+  defer session.Close()
+  //var plans *Plan
+  session.SetMode(mgo.Monotonic, true)
+  qmgo := session.DB("chaokaset").C("planactivities")
+	qmgo.Find(bson.M{"planid": idplan}).All(&results) //คิวรี่จาก status เป็น 1 หรือ แปลงที่ไช้งานอยู่
+  return results,true
+}
+//SavePlan (POST) บันทึกแผนการเพาะปลูก
+func SavePlanActivity(idplan string,detail string,startduration int,endduration int) (result bool) {
+     session, err := mgo.Dial(ip_mgo)
+     if err != nil {
+         panic(err)
+     }
+     defer session.Close()
+     session.SetMode(mgo.Monotonic, true)
+     qmgo := session.DB("chaokaset").C("planactivities")
+     err = qmgo.Insert(&PlanActivity{Status: 1,Created_at: time.Now(),Updated_at: time.Now(),PlanId: idplan,Detail: detail,StartDuration: startduration,EndDuration: endduration})
+     if err != nil {
+       return false
+     }else{
+       return true
+     }
+}
 func GetAllPlansPlants(skip int,plantid string,seedid string) (results []Plan,error bool) {
   session, err := mgo.Dial(ip_mgo)
   if err != nil {
@@ -54,7 +89,6 @@ func GetAllPlansPlants(skip int,plantid string,seedid string) (results []Plan,er
   session.SetMode(mgo.Monotonic, true)
   qmgo := session.DB("chaokaset").C("cropplans")
 	qmgo.Find(bson.M{"status": 1,"seedid" : seedid}).Sort("-updated_at").All(&results) //คิวรี่จาก status เป็น 1 หรือ แปลงที่ไช้งานอยู่
-  //plans = &Plan{PlanId: result.PlanId,Created_at: result.Created_at,Updated_at: result.Updated_at,PlanName: result.PlanName,Plant: result.Plant,Seed: result.Seed,OldPlanId: result.OldPlanId,Description: result.Description,Owner: result.Owner,OwnerCompany: result.OwnerCompany,Duration: result.Duration,TypePlan : result.TypePlan,ConfirmNum: result.ConfirmNum,LikeNum: result.LikeNum,ViewNum: result.ViewNum,UsedNum: result.UsedNum}
   return results,true
 }
 

@@ -493,8 +493,8 @@ func (c Plant) PostAddSeed(seed *models.Seed,plant *models.Plant) revel.Result {
 }
 //AddPlanActivity
 func (c Plan) AddPlanActivity(idplan string) revel.Result {
-
-	return c.Render()
+  plandata := *models.GetPlans(idplan);
+	return c.Render(plandata)
 }
 //ShowPlan
 func (c Plan) ShowPlan() revel.Result {
