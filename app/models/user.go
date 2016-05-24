@@ -184,3 +184,21 @@ func CheckPasswordUser(Uusername string,Upassword string) (result bool){
       return false;
    }
 }
+//ChangePasswordUser (POST)
+func ChangePasswordUser(username string,password []byte) (result bool) {
+     session, err := mgo.Dial(ip_mgo)
+     if err != nil {
+         panic(err)
+     }
+     defer session.Close()
+     session.SetMode(mgo.Monotonic, true)
+     qmgo := session.DB("chaokaset").C("users")
+    colQuerier := bson.M{"username": username}
+    change := bson.M{"$set": bson.M{"password": password}}
+    err = qmgo.Update(colQuerier, change)
+     if err != nil {
+       return false
+     }else{
+       return true
+     }
+}

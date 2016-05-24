@@ -188,6 +188,32 @@ func (c Auth) Login() revel.Result {
 	}
 	return c.Render()
 }
+func (c Auth) PostChangePassword(OldPassword string,NewPassword string,ValidNewPassword string) revel.Result {
+  c.Validation.Required(OldPassword).Message("จำเป็นต้องกรอกรหัสผ่านเดิม")
+  c.Validation.Required(NewPassword).Message("จำเป็นต้องกรอกรหัสผ่านไหม่")
+  c.Validation.Required(ValidNewPassword).Message("จำเป็นต้องกรอกรหัสผ่านอีกครั้ง")
+  if c.Validation.HasErrors() {
+    c.Validation.Keep()
+    c.FlashParams()
+    return c.Redirect(Profile.ChangePassword)
+  }
+  if NewPassword != ValidNewPassword {
+    c.Flash.Error("รหัสผ่านไหม่ทั้ง 2 ช่องไม่ตรงกัน!!")
+    return c.Redirect(Profile.ChangePassword)
+  }else{
+    user := models.GetUserData(c.Session["username"])
+    checkpassword := models.CheckPasswordUser(user.Username,OldPassword)
+    if checkpassword {
+      newpassword, _ := bcrypt.GenerateFromPassword(
+    		[]byte(NewPassword), bcrypt.DefaultCost)
+      models.ChangePasswordUser(c.Session["username"],newpassword)
+      return c.Redirect(App.Index)
+    }else{
+      c.Flash.Error("รหัสผ่านเก่า ผิดพลาด!!")
+      return c.Redirect(Profile.ChangePassword)
+    }
+  }
+}
 func (c Auth) PostLogin(user *models.User) revel.Result {
   c.Validation.Required(user.Username).Message("จำเป็นต้องกรอก ชื่อผู้ใช้งาน")
   c.Validation.Required(user.Password).Message("จำเป็นต้องกรอก รหัสผ่าน")
