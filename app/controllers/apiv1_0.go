@@ -339,9 +339,8 @@ func (c Api) OneCrop(cropid string) revel.Result {
 }
 //SaveCrop เพิ่มข้อมูลการเพาะปลูก
 func (c Api) SaveCrop(iduser string,cropname string,plantid string,seedid string,planid string,plant string,seed string,startdate string,endate string,duration int,price float64,product float64,province string,aumphur string,tumbon string,address string,rai float64,ngarn float64,wah float64) revel.Result {
-  var crop *models.Crop
-  crop = &models.Crop{Rai: rai,Ngarn: ngarn,Wah: wah,Status: 1,CropName: cropname,PlantId: planid,SeedId: seedid,PlanId: planid,Plant: plant,Seed: seed,StartDate: startdate,EndDate: endate,Duration: duration,Province: province,Aumphur: aumphur,Tumbon: tumbon,Product: product,Price: price,Address : address}
-  result := models.SaveCrop(crop,iduser)
+  //crop = &models.Crop{Rai: rai,Ngarn: ngarn,Wah: wah,Status: 1,CropName: cropname,PlantId: planid,SeedId: seedid,PlanId: planid,Plant: plant,Seed: seed,StartDate: startdate,EndDate: endate,Duration: duration,Province: province,Aumphur: aumphur,Tumbon: tumbon,Product: product,Price: price,Address : address}
+  result := models.SaveCropApi(iduser,cropname,plantid,seedid,planid,plant,seed,startdate,endate,duration,price,product,province,aumphur,tumbon,address,rai,ngarn,wah)
   if result {
     return c.RenderJson(result)
   } else{

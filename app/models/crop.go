@@ -95,6 +95,23 @@ func SaveCrop(crop *Crop,userid string) (result bool) {
        return true
      }
 }
+//SaveCropApi (POST) บันทึกการเพาะปลูก
+func SaveCropApi(iduser string,cropname string,plantid string,seedid string,planid string,plant string,seed string,startdate string,endate string,duration int,price float64,product float64,province string,aumphur string,tumbon string,address string,rai float64,ngarn float64,wah float64) (result bool) {
+     session, err := mgo.Dial(ip_mgo)
+     if err != nil {
+         panic(err)
+     }
+     defer session.Close()
+     session.SetMode(mgo.Monotonic, true)
+     qmgo := session.DB("chaokaset").C("crops")
+     err = qmgo.Insert(&Crop{UserId: iduser,Created_at: time.Now(),Updated_at: time.Now(),Grow: 1,Rai: rai,Ngarn: ngarn,Wah: wah,Status: 1,CropName: cropname,PlantId: planid,SeedId: seedid,PlanId: planid,Plant: plant,Seed: seed,StartDate: startdate,EndDate: endate,Duration: duration,Province: province,Aumphur: aumphur,Tumbon: tumbon,Product: product,Price: price,Address : address})
+     //err = qmgo.Insert(&Crop{,,UserId : userid,Status: 1,CropName: CropName,PlantId: PlantId,SeedId: SeedId,PlanId: PlanId,Plant: plantnames.PlantName,Seed: seednames.SeedName,StartDate: StartDate,EndDate: EndDate,Duration: Duration,Province: Province,Aumphur: Aumphur,Tumbon: Tumbon,Product: Product,Price: Price,Address : Address})
+     if err != nil {
+       return false
+     }else{
+       return true
+     }
+}
 //SaveCrop (POST) บันทึกการเพาะปลูก
 func DisableOneCrops(idcrop string) (result bool) {
      session, err := mgo.Dial(ip_mgo)
