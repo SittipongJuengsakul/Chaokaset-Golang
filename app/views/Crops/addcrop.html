@@ -117,7 +117,7 @@
             {{end}}
             {{with $field := field "crop.EndDate" .}}
             <div class="form-group col-md-4 padding-right-no">
-              <label>สิ้นสุดวันที่ (ตามแผน)</label>
+              <label>สิ้นสุดวันที่</label>
               <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="modenddate" onchange="checkdate()">
             </div>
             {{end}}
