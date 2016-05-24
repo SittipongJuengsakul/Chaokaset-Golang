@@ -29,7 +29,7 @@
                 <td ng-bind="PlanActivity.StartDuration">เริ่มวันที่</td>
                 <td ng-bind="PlanActivity.EndDuration">สิ้นสุดวันที่</td>
                 <td ng-bind="PlanActivity.Detail">รายละเอียด</td>
-                <td><button type="button" name="button" class="btn btn-warning" style="margin-right: 5px;" ng-click="">ข้อมูล</button><button type="button" name="button" class="btn btn-danger" ng-click="remove(PlanActivity.PlanActivity)">ลบ</button></td>
+                <td><!--<button type="button" name="button" class="btn btn-warning" style="margin-right: 5px;" ng-click="">ข้อมูล</button>--><button type="button" name="button" class="btn btn-danger" ng-click="remove(PlanActivity.PlanActivity)">ลบ</button></td>
               </tr>
               <tr ng-if="!PlanActivitys">
                 <td colspan="4" style="text-align: center;">ไม่มีข้อมูล</td>
@@ -65,13 +65,25 @@
                 $http.get(site_url+"/apiv1_0/plan/getallactivity/"+idplan)
                 .then(function(response) {
                   $scope.PlanActivitys = response.data;
+                  $scope.newdetail = "";
+                  $scope.newstartdate = 0;
+                  $scope.newenddate = 0;
                 });
               },function(response) {
               });
           }
         }
         $scope.remove = function(IdRemover){
-
+          $http({
+          method: 'POST',
+          url: site_url+"/apiv1_0/RemovePlanActivity/"+IdRemover
+          }).then(function(response) {
+            $http.get(site_url+"/apiv1_0/plan/getallactivity/"+idplan)
+            .then(function(response) {
+              $scope.PlanActivitys = response.data;
+            });
+          },function(response) {
+          });
         };
   });
 </script>

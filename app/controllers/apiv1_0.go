@@ -248,6 +248,10 @@ func (c Api) SaveActivityPlan(idplan string,detail string,startduration int,endd
   Result := models.SavePlanActivity(idplan,detail,startduration,endduration);
   return c.RenderJson(Result)
 }
+func (c Api) RemovePlanActivity(idactivity string) revel.Result {
+  Result := models.RemovePlanActivity(idactivity);
+  return c.RenderJson(Result)
+}
 //------------------ พืชและพันธุ์พืช -------------------
 //Plants (GET)
 func (c Api) Plants(skip int,word string) revel.Result {

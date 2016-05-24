@@ -79,6 +79,21 @@ func SavePlanActivity(idplan string,detail string,startduration int,endduration 
        return true
      }
 }
+func RemovePlanActivity(idactivity string) (result bool) {
+  session, err := mgo.Dial(ip_mgo)
+  if err != nil {
+      panic(err)
+  }
+  defer session.Close()
+  session.SetMode(mgo.Monotonic, true)
+  qmgo := session.DB("chaokaset").C("planactivities")
+  if idactivity == ""{
+    return false
+  } else{
+    qmgo.Remove(bson.M{"_id": bson.ObjectIdHex(idactivity)})
+    return true
+  }
+}
 func GetAllPlansPlants(skip int,plantid string,seedid string) (results []Plan,error bool) {
   session, err := mgo.Dial(ip_mgo)
   if err != nil {
