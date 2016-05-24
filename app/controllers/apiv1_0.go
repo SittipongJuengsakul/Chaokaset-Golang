@@ -31,6 +31,14 @@ type ResSellDetail struct {
     Status      bool
     SellData    *models.SellDetail
 }
+type ResCropAll struct {
+    Status      bool
+    CropData    []models.Crop
+}
+type ResCropDetail struct {
+    Status      bool
+    CropData    *models.Crop
+}
 
 type ResPlan struct {
     Status      bool
@@ -413,5 +421,30 @@ func (c Api) ProductSellDistanceCategory(Category string,Lat float64, Long float
   }
 
   R = &ResSellAll{Status: true,SellData: U}
+  return  c.RenderJson(R)
+}
+
+func (c Api) ProductCropSell(userid string) revel.Result {
+  var R *ResCropAll
+  var U []models.Crop
+  U = models.GetCropSell(userid)
+  if U == nil{
+    R = &ResCropAll{Status: false,CropData: nil}
+    return  c.RenderJson(R)
+  }
+
+  R = &ResCropAll{Status: true,CropData: U}
+  return  c.RenderJson(R)
+}
+
+func (c Api) ProductCropSellDetail(userid string,cropid string) revel.Result {
+  var R *ResCropDetail
+  var U *models.Crop
+  U = models.GetCropSellDetail(userid,cropid)
+  if U == nil{
+    R = &ResCropDetail{Status: false,CropData: nil}
+    return  c.RenderJson(R)
+  }
+  R = &ResCropDetail{Status: true,CropData: U}
   return  c.RenderJson(R)
 }

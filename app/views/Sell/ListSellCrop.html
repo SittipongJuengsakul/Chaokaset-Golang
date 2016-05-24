@@ -1,0 +1,51 @@
+{{set . "title" "ขาย สินค้าในแปลง"}}
+{{template "Templates/header.html" .}}
+{{template "Templates/preloader.html" .}}
+<div class="chaokaset-container-verticle" id="chaokaset-loader" style="display: none;">
+ 
+  {{template "Templates/menuSell.html" .}}
+
+  <div class="col-sm-9 container-box">
+    <div class="col-sm-12 container-box-content" >
+ 
+      <div class="col-sm-8 name-header"> 
+        <h2 class="color-green">แปลงเพาะปลูกที่สามารถจำหน่ายสินค้าได้</h2>
+      </div>
+
+          <div class="col-sm-12 container-box">
+      <table class="table">
+        <thead class="box-thead-show">
+          <tr>
+            <th width="30%">ชื่อแปลงเพาะปลูก</th>
+            <th width="25%">พืชที่ปลูก</th>
+            <th width="25%">ราคาการขาย</th>
+            <th width="20%">ตัวเลือก</th>
+          </tr>
+        </thead>
+        <tbody class="box-tbody-show">
+        {{ range .data }}
+          <tr>
+            <td class="color-green"><a href="/sellcrop/{{.CropId.Hex}}" class="name-crops">{{.CropName}}</a></td>
+            <td>{{.Plant}} {{.Seed}}</td>
+            <td>{{.Price}} บาท/กิโลกรัม</td>
+     
+            <td class="color-blue">
+              <a href="/sellcrop/{{.CropId.Hex}}" class="">ขายสินค้า</a>
+            </td>
+          </tr>
+        {{end}}
+        </tbody>
+      </table>
+    </div>
+  
+   
+
+
+
+  
+      
+    </div>
+
+  </div>
+</div>
+{{template "Templates/footer.html" .}}

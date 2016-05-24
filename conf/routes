@@ -44,7 +44,8 @@ GET		/sell/showproduct																		   Sell.IndexSell
 GET		/sell/showproductcategory/:Category														   Sell.ProductCategory
 GET		/sell/productdetail/:id																	   Sell.ProductDetail
 GET 	/sell   																				   Sell.Sell
-
+GET 	/listsellcrop																			   Sell.ListSellCrop
+GET 	/sellcrop/:idcrop																		   Sell.SellCrop
 GET		/sell/managesell																		   Sell.ManageSell
 GET		/sell/editproduct/:idSell																   Sell.EditProductSell
 GET		/sell/closeproduct/:idSell																   Sell.CloseSell
@@ -56,9 +57,6 @@ GET     /apiv1_0                                                                
 GET     /apiv1_0/login/:Username/:Password                                                         Api.CheckLogin
 GET     /apiv1_0/register/:Username/:Password/:Prefix/:Name/:Lname/:Tel                            Api.RegisterUser
 POST     /apiv1_0/PostApi/:IdSell                           									   Api.PostApi
-
-
-
 GET		/apiv1_0/product/:Lat/:Long 														       Api.ProductSell
 GET		/apiv1_0/productCategory/:Category/:Lat/:Long 											   Api.ProductSellCategory
 GET		/apiv1_0/productLikeCategory/:Category/:Lat/:Long 										   Api.ProductSellLikeCategory
@@ -69,7 +67,8 @@ GET		/apiv1_0/detail/:IdSell/:IdUser															   Api.ProductDetail
 GET		/apiv1_0/SearchProduct/:Name/:Lat/:long													   Api.SearchProduct
 GET		/apiv1_0/AddProduct/:name/:category/:price/:unit/:detail/:expire/:ownerId/:lat/:long/:sellType	   Api.AddProduct
 GET		/apiv1_0/ManageSell/:idUser																   Api.ManageSell
-
+GET		/apiv1_0/ProductCrop/:userid													               Api.ProductCropSell
+GET		/apiv1_0/ProductCropDetail/:userid/:cropid												   Api.ProductCropSellDetail
 GET     /apiv1_0/plans/:skip                                                                       Api.Plans
 GET     /apiv1_0/planid/:idplan                                                                    Api.Plan
 GET     /apiv1_0/plan/:idplant/:idseed                                                             Api.PlansAllPlants
@@ -88,6 +87,7 @@ GET     /apiv1_0/like/:idSell/:idUser                                           
 GET     /apiv1_0/unlike/:idSell/:idUser                                                            Api.UnLikeProduct
 GET     /apiv1_0/comment/:idSell 		                                                           Api.ShowComment
 GET     /apiv1_0/addcomment/:idSell/:idUser/:data		                                           Api.AddComment
+GET		/setLatLong/:Lat/:Long 																	   Sell.SetLatLong
 
 # WebSocket chat
 GET     /websocket/room                                                                            WebSocket.Room

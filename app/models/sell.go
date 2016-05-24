@@ -83,6 +83,7 @@ type PostSell struct{
 }
 
 
+
 func (sell *Sells) SetDistance(data float64) {
   sell.Distance = data
 }
@@ -549,4 +550,38 @@ func Comment(idSell string,idUser string,data string) (result bool) {
   }else{
     return true
   }
+}
+
+func GetCropSell(Userid string) []Crop {
+  session, err := mgo.Dial("127.0.0.1")
+  if err != nil {
+      panic(err)
+  }
+  defer session.Close()
+
+  session.SetMode(mgo.Monotonic, true)
+  qmgo := session.DB("chaokaset").C("crops")
+
+  var result []Crop
+  
+  qmgo.Find(bson.M{"grow" : 5,"userid" : Userid}).Sort("-timecreate").All(&result)
+
+  return result
+}
+
+func GetCropSellDetail(Userid string,Cropid string) *Crop {
+  session, err := mgo.Dial("127.0.0.1")
+  if err != nil {
+      panic(err)
+  }
+  defer session.Close()
+
+  session.SetMode(mgo.Monotonic, true)
+  qmgo := session.DB("chaokaset").C("crops")
+
+  var result *Crop
+  
+  qmgo.Find(bson.M{"grow" : 5,"userid" : Userid,"_id": bson.ObjectIdHex(Cropid)}).One(&result)
+
+  return result
 }
