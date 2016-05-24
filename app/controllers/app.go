@@ -350,7 +350,8 @@ func (c Crops) Calendar(idcrop string) revel.Result {
   }
   cropdata := models.GetOneCrops(idcrop)
   plandata := models.GetPlans(cropdata.PlanId)
-	return c.Render(cropdata,plandata)
+  planactivitydata,_ := models.GetAllPlanActivities(cropdata.PlanId)
+	return c.Render(cropdata,plandata,planactivitydata)
 }
 //Account แสดงข้อมูลการเพาะปลูก
 func (c Crops) Account(idcrop string) revel.Result {
