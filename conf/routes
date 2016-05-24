@@ -36,7 +36,7 @@ GET     /plant/addseed                                                          
 POST    /plant/removeseed/:idseed                                                                  Plant.RemoveSeed
 GET     /management                                                                                Management.IndexManagement
 GET     /plan/addplan                                                                              Plan.AddCropPlan
-GET     /plan/addplanactivity                                                                      Plan.AddPlanActivity
+GET     /plan/addplanactivity/:idplan                                                              Plan.AddPlanActivity
 GET     /plan/showplan                                                                             Plan.ShowPlan
 GET     /plan/managemnet                                                                           Plan.PlanManagement
 GET     /farmer/management                                                                         Farmer.FarmerManagement

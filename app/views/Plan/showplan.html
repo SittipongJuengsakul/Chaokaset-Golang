@@ -38,7 +38,7 @@
               </button>
               <ul class="dropdown-menu dd-menu" aria-labelledby="dropdownMenu1">
                 <li><a data-toggle="modal" data-target="#myModal">รายละเอียด</a></li>
-                <li><a href="#">แก้ไขรายการ</a></li>
+                <li><a ng-click="EditActivity(plan.PlanId)">จัดการกิจกรรม</a></li>
                 <li role="separator" class="divider"></li>
                 <li><a ng-click="RemovePlan(plan.PlanId)" class="color-red">ลบรายการ</a></li>
               </ul>
@@ -90,6 +90,9 @@
           });
         },function(response) {
       });
+      }
+      $scope.EditActivity = function(idplan) {
+        location.href='/plan/addplanactivity/'+idplan
       }
   })
   .filter('searchfilter', function() {

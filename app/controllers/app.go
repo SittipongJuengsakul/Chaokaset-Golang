@@ -422,7 +422,7 @@ func (c Plan) PostAddCropPlan(plan *models.Plan) revel.Result {
   }
   result := models.SavePlan(plan)
   if result {
-    return c.Redirect(Plan.AddPlanActivity)
+    return c.Redirect(Plan.ShowPlan)
   } else{
     return c.Redirect(Plan.AddCropPlan)
   }
@@ -492,7 +492,8 @@ func (c Plant) PostAddSeed(seed *models.Seed,plant *models.Plant) revel.Result {
     }
 }
 //AddPlanActivity
-func (c Plan) AddPlanActivity() revel.Result {
+func (c Plan) AddPlanActivity(idplan string) revel.Result {
+
 	return c.Render()
 }
 //ShowPlan
