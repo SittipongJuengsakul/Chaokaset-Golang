@@ -1,7 +1,38 @@
 {{set . "title" "ปฎิทินการเพาะปลูก"}}
 {{template "Templates/headerCalendar.html" .}}
 {{template "Templates/preloader.html" .}}
-
+<div class="modal fade" id="CalendarActivity" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+ <div class="modal-dialog" role="document">
+   <div class="modal-content">
+     <div class="modal-header">
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+       <h2 class="color-green" style="font-size: 20px;" id="IdActivityHeader"></h2>
+     </div>
+     <div class="modal-body">
+       <div class="row">
+         <div class="col-sm-12 container-box">
+           <div class="col-sm-12 container-box-content" >
+               <input type="hidden" name="name" ng-model="EditAccountId">
+               <div class="info-plant-show">
+                 <div class="form-grop col-md-12" style="padding: 0px;">
+                   <div class="form-group col-md-12 padding-left-no padding-right-no">
+                     <h2 style="font-size: 18px;">กิจกรรม</h2>
+                     <p id="IdActivityDetail" style="font-size: 16px;margin-top: 10px;"></p>
+                   </div>
+                 </div>
+               </div>
+           </div>
+         </div>
+      </div>
+     </div>
+     <div class="modal-footer">
+       <button type="button" class="btn btn-danger" onclick="CloseActivity()">ปิด</button>
+       </form>
+     </div>
+   </div>
+ </div>
+</div>
+</div>
 <div class="chaokaset-container-verticle" id="chaokaset-loader" style="display: none;">
   {{template "Crops/headerCrop.html" .}}
   {{template "Crops/sidebarcrops.html" .}}
@@ -44,9 +75,7 @@
         var startdateformat = DayInArray.format('YYYY-MM-DD')
         EndDayInArray = startDay.add({{.EndDuration}}, 'day');
         var enddateformat = EndDayInArray.format('YYYY-MM-DD')
-        console.log(startdateformat+"---"+enddateformat);
         eventArray.push({title: {{.Detail}},startDate: startdateformat,endDate: enddateformat,})
-        console.log(DayInArray.format('YYYY-MM-DD')+" / "+EndDayInArray.format('YYYY-MM-DD'));
       {{end}}
       // The order of the click handlers is predictable. Direct click action
       // callbacks come first: click, nextMonth, previousMonth, nextYear,
@@ -57,7 +86,20 @@
           events: eventArray,
           clickEvents: {
               click: function (target) {
-                  console.log('Cal-1 clicked: ', target.events[0].title);
+                  console.log('Cal-1 clicked: ', target);
+                  $('#CalendarActivity').modal('show');
+                  var curentdate = target.date._i;
+                  var res = curentdate.split("-");
+                  var newdatecurrent = (parseInt(res[2]))+" "+thmonth[parseInt(res[1])-1]+" "+(parseInt(res[0])+543)
+                  $('#IdActivityHeader').html('กิจกรรมวันที่ '+ newdatecurrent);
+                  if(target.events.length == 0){
+                    $('#IdActivityDetail').css("color","red");
+                    $('#IdActivityDetail').html('ไม่มีกิจกรรมวันนี้ !');
+                  }else{
+                    $('#IdActivityDetail').css("color","#00b74e");
+                    $('#IdActivityDetail').html(target.events[0].title);
+                  }
+
               },
               today: function () {
                   console.log('Cal-1 today');
@@ -116,5 +158,8 @@
           }
       });
   });
+  function CloseActivity() {
+    $('#CalendarActivity').modal('hide');
+  }
 </script>
 {{template "Templates/footer.html" .}}
