@@ -76,6 +76,9 @@ func (c Sell) PostSell(sell models.PostSell) revel.Result {
   fmt.Printf("%+v\n", lat_value)
   fmt.Printf("%+v\n", lon_value)
 
+  lat_values,_ := strconv.ParseFloat(lat_value, 64)
+  lon_values,_ := strconv.ParseFloat(lon_value, 64)
+
   if c.Validation.HasErrors() {
     c.Validation.Keep()
     c.FlashParams()
@@ -85,7 +88,7 @@ func (c Sell) PostSell(sell models.PostSell) revel.Result {
   data := models.GetUserid(c.Session["username"])
 
   
-  selling := models.AddSellData2(sell.Name,sell.Category,sell.Price,sell.Unit,sell.Detail,sell.Expire,data.Userid.Hex(),13,100,2)
+  selling := models.AddSellData2(sell.Name,sell.Category,sell.Price,sell.Unit,sell.Detail,sell.Expire,data.Userid.Hex(),lat_values,lon_values,2)
 
   fmt.Printf("%+v\n", selling.SellId)
   
