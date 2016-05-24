@@ -316,14 +316,15 @@ func GetSearchSell(Name string,Lat float64,Long float64) []Sells {
   qmgo.Find(bson.M{"name": bson.RegEx{".*"+Name, "s"}}).All(&result)
    for i := range result {
       lat1 := Lat
-      lat2 := 13.286727
+      lat2 := result[i].Address.Lat
       lon1 := Long
-      lon2 := 100.925619
+      lon2 := result[i].Address.Long
       theta := lon1 - lon2
       dist := math.Sin(geolib.Deg2Rad(lat1)) * math.Sin(geolib.Deg2Rad(lat2)) + math.Cos(geolib.Deg2Rad(lat1)) * math.Cos(geolib.Deg2Rad(lat2)) * math.Cos(geolib.Deg2Rad(theta))
       dist = math.Acos(dist)
       dist = geolib.Rad2Deg(dist)
-      result[i].SetDistance(dist * 60 * 1.1515 * 1.609344)  
+      result[i].SetDistance(dist * 60 * 1.1515 * 1.609344)
+      result[i].SetNumLike(len(result[i].Like))
   }
   return result
 }

@@ -143,12 +143,70 @@ func (c Sell) ManageSell() revel.Result {
 }
 
 func (c Sell) EditProductSell(idSell string) revel.Result {
-  data := models.GetSellDetail(idSell,"55555555")
+  userid := c.Session["username"]
+  id := models.GetUserid(userid)
+  data := models.GetSellDetail(idSell,id.Userid.Hex())
   return c.Render(data)
 }
 
 func (c Sell) PostEditSell() revel.Result {
-  return nil
+  var Name string = c.Params.Get("Name")
+  var Category string = c.Params.Get("Category")
+  var Price string = c.Params.Get("Price")
+  var Unit string = c.Params.Get("Unit")
+  var Detail string = c.Params.Get("Detail")
+  var Expire string = c.Params.Get("Expire")
+  var lat_value string = c.Params.Get("lat_value")
+  var lon_value string = c.Params.Get("lon_value")
+  var idSell string = c.Params.Get("idSell")
+  var status string = c.Params.Get("status")
+
+  lat_values,_ := strconv.ParseFloat(lat_value, 64)
+  lon_values,_ := strconv.ParseFloat(lon_value, 64)
+  Prices,_:=  strconv.Atoi(Price)
+
+  models.EditProductSell(idSell,Name,Category,Prices,Detail,Expire,Unit,lat_values,lon_values)
+  
+  if status == "1" {
+      upload_dir := "/var/home/goserver/src/chaokaset-api/public/uploads/" 
+      m := c.Request.MultipartForm
+        //var msg string
+      for fname, _ := range m.File {
+
+      fheaders := m.File[fname]
+        for i, _ := range fheaders {
+          //for each fileheader, get a handle to the actual file
+          file, err := fheaders[i].Open()
+          defer file.Close() //close the source file handle on function return
+          if err != nil {
+             log.Print(err)
+           //  msg = "upload failed.."
+          }
+          //create destination file making sure the path is writeable.
+          t := time.Now()
+          file_name_db := c.Session["username"] + "-" + t.Format("20060102150405") + "-" +  fheaders[i].Filename
+          
+          fmt.Printf("%+v\n", file_name_db)
+
+          models.UpdatePic(idSell,file_name_db)
+          
+          dst_path := upload_dir + file_name_db
+          dst, err := os.Create(dst_path)
+          defer dst.Close() //close the destination file handle on function return
+          defer os.Chmod(dst_path, (os.FileMode)(0644)) //limit access restrictions
+          if err != nil {
+            log.Print(err)
+           // msg = "upload failed.."
+          }
+          //copy the uploaded file to the destination file
+          if _, err := io.Copy(dst, file); err != nil {
+            log.Print(err)
+           // msg = "upload failed.."
+          }
+        }
+      }
+  }
+  return  c.Redirect(Sell.IndexSell)
 }
 
 func (c Sell) CloseSell(idSell string) revel.Result {
@@ -161,19 +219,17 @@ func (c Sell) OpenSell(idSell string) revel.Result {
 }
 
 func (c Sell) ProductCategory(Category string) revel.Result {
- // Data := models.
-  return c.Render(Category)
+  Lat := c.Session["Lat"]
+  Long := c.Session["Long"]
+  return c.Render(Category,Lat,Long)
 }
 
 func (c Sell) SetLatLong(Lat string, Long string) revel.Result {
- // Data := models.
-  //return c.Render(Category)
   c.Session["Lat"] = Lat
   c.Session["Long"] = Long
   var data *SetLatLong
   data = &SetLatLong{Lat : c.Session["Lat"],Long:c.Session["Long"]}
   return c.RenderJson(data)
-  //return true
 }
 
 func (c Sell) ListSellCrop() revel.Result {
@@ -187,7 +243,9 @@ func (c Sell) SellCrop(idcrop string) revel.Result{
   userid := c.Session["username"]
   id := models.GetUserid(userid)
   data := models.GetCropSellDetail(id.Userid.Hex(),idcrop)
-  return c.Render(data)
+  Lat := c.Session["Lat"]
+  Long := c.Session["Long"]
+  return c.Render(data,Lat,Long)
 }
 
 func (c Sell) PostSellCrop() revel.Result {
@@ -217,8 +275,13 @@ func (c Sell) PostSellCrop() revel.Result {
 
   Prices,_:=  strconv.Atoi(Price)
 
+  var lat_value string = c.Params.Get("lat_value")
+  var lon_value string = c.Params.Get("lon_value")
+
+  lat_values,_ := strconv.ParseFloat(lat_value, 64)
+  lon_values,_ := strconv.ParseFloat(lon_value, 64)
   
-  selling := models.AddSellData2(Name,"ข้าว",Prices,"กิโลกรัม",Detail,Expire,data.Userid.Hex(),13,100,1)
+  selling := models.AddSellData2(Name,"ข้าว",Prices,"กิโลกรัม",Detail,Expire,data.Userid.Hex(),lat_values,lon_values,1)
 
   fmt.Printf("%+v\n", selling.SellId)
   
@@ -265,4 +328,10 @@ func (c Sell) PostSellCrop() revel.Result {
   
   return  c.Redirect(Sell.IndexSell)
 
+}
+
+func (c Sell) SearchProduct(idcrop string) revel.Result{
+  Lat := c.Session["Lat"]
+  Long := c.Session["Long"]
+  return c.Render(Lat,Long)
 }

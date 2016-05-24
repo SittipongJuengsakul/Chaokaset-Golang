@@ -5,7 +5,7 @@
 <style>
   /* css กำหนดความกว้าง ความสูงของแผนที่ */
   #map_canvas { 
-    width:100%;
+    width: 100%;
     height:350px;
   }
 </style>
@@ -71,24 +71,21 @@
         <span class="error">{{$field.Error}}</span>
       </div>
       {{end}}
+
+      <div class="form-group"  id="map">
+        <label for="">ที่อยู่สินค้า</label>
+        <input name="lat_value" class="form-control" type="hidden" id="lat_value" value="{{.Lat}}" >   
+        <input name="lon_value" class="form-control" type="hidden" id="lon_value" value="{{.Long}}" >
+        <center><div id="map_canvas"></div></center>
+      </div>
+
       {{with $field := field "sell.Expire" .}}
       <div class="form-group">
         <label for="">วันหมดอายุ/วันปิดการขาย</label>
-        <input type="date" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" > 
+        <input type="date" class="form-control ng-valid ng-dirty ng-valid-parse ng-touched" name="{{$field.Name}}" value="{{$field.Flash}}" > 
         <span class="error">{{$field.Error}}</span>
       </div>
       {{end}}
-      <!--<div class="form-group">
-        <select class="form-control" id="sel1" name="">
-            <option value="ข้าว">ข้าว</option>
-        </select>
-      </div>-->
-      55555555555 {{ .Lat }}{{ .Long}}
-      <div class="form-group"  id="map">
-        <input name="lat_value" class="form-control" type="text" id="lat_value" value="{{.Lat}}" >   
-        <input name="lon_value" class="form-control" type="text" id="lon_value" value="{{.Long}}" >
-        <center><div id="map_canvas"></div></center>
-      </div>
 
       <p class="text-right" >
         <button type="submit" class="btn bg-link">ขายสินค้า</button>
