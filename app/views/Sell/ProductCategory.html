@@ -80,7 +80,7 @@
           //alert(res.SellData[x].Name);
             var Distance = numeral(res.SellData[x].Distance).format('0.00');
             var Price = numeral(res.SellData[x].Price).format('0,0');
-            var html = '<div class="col-sm-6 col-md-4"><div class="thumbnail"><img id="cropped" src="/public/uploads/'+res.SellData[x].Pic+'"><div class="caption"><h2 class="color-blue">'+res.SellData[x].Name+'</h2><p  style="padding-top:10px;padding-bottom:10px"><img src="/public/img/Coins-48.png" width="30px"> '+Price+' บาท/'+res.SellData[x].Unit+'</p><p style="padding-bottom:15px"><img src="/public/img/Geo-fence-48.png" width="25px">     '+Distance+' กิโลเมตร</p><p style="padding-bottom:15px"><img src="/public/img/Like Filled-48.png" width="25px"> '+res.SellData[x].NumberOfLike+'</p><a  href="productdetail/'+res.SellData[x].Sellid+'"><button type="button" class="btn btn-success">รายละเอียดสินค้า</button></a></div></div></div>';
+            var html = '<div class="col-sm-6 col-md-4"><div class="thumbnail"><img id="cropped" src="/public/uploads/'+res.SellData[x].Pic+'"><div class="caption"><h2 class="color-blue">'+res.SellData[x].Name+'</h2><p  style="padding-top:10px;padding-bottom:10px"><img src="/public/img/Coins-48.png" width="30px"> '+Price+' บาท/'+res.SellData[x].Unit+'</p><p style="padding-bottom:15px"><img src="/public/img/Geo-fence-48.png" width="25px">     '+Distance+' กิโลเมตร</p><p style="padding-bottom:15px"><img src="/public/img/Like Filled-48.png" width="25px"> '+res.SellData[x].NumberOfLike+'</p><a  href="/sell/productdetail/'+res.SellData[x].Sellid+'"><button type="button" class="btn btn-success">รายละเอียดสินค้า</button></a></div></div></div>';
               i = i+html; 
             $("#data").html(i);
           }
@@ -119,7 +119,7 @@
           //alert(res.SellData[x].Name);
             var Distance = numeral(res.SellData[x].Distance).format('0.00');
             var Price = numeral(res.SellData[x].Price).format('0,0');
-            var html = '<div class="col-sm-6 col-md-4"><div class="thumbnail"><img id="cropped" src="/public/uploads/'+res.SellData[x].Pic+'"><div class="caption"><h2 class="color-blue">'+res.SellData[x].Name+'</h2><p  style="padding-top:10px;padding-bottom:10px"><img src="/public/img/Coins-48.png" width="30px"> '+Price+' บาท/'+res.SellData[x].Unit+'</p><p style="padding-bottom:15px"><img src="/public/img/Geo-fence-48.png" width="25px">     '+Distance+' กิโลเมตร</p><p style="padding-bottom:15px"><img src="/public/img/Like Filled-48.png" width="25px"> '+res.SellData[x].NumberOfLike+'</p><a  href="productdetail/'+res.SellData[x].Sellid+'"><button type="button" class="btn btn-success">รายละเอียดสินค้า</button></a></div></div></div>';
+            var html = '<div class="col-sm-6 col-md-4"><div class="thumbnail"><img id="cropped" src="/public/uploads/'+res.SellData[x].Pic+'"><div class="caption"><h2 class="color-blue">'+res.SellData[x].Name+'</h2><p  style="padding-top:10px;padding-bottom:10px"><img src="/public/img/Coins-48.png" width="30px"> '+Price+' บาท/'+res.SellData[x].Unit+'</p><p style="padding-bottom:15px"><img src="/public/img/Geo-fence-48.png" width="25px">     '+Distance+' กิโลเมตร</p><p style="padding-bottom:15px"><img src="/public/img/Like Filled-48.png" width="25px"> '+res.SellData[x].NumberOfLike+'</p><a  href="/sell/productdetail/'+res.SellData[x].Sellid+'"><button type="button" class="btn btn-success">รายละเอียดสินค้า</button></a></div></div></div>';
               i = i+html; 
             $("#data").html(i);
           }
@@ -157,7 +157,7 @@
           //alert(res.SellData[x].Name);
             var Distance = numeral(res.SellData[x].Distance).format('0.00');
             var Price = numeral(res.SellData[x].Price).format('0,0');
-            var html = '<div class="col-sm-6 col-md-4"><div class="thumbnail"><img id="cropped" src="/public/uploads/'+res.SellData[x].Pic+'"><div class="caption"><h2 class="color-blue">'+res.SellData[x].Name+'</h2><p  style="padding-top:10px;padding-bottom:10px"><img src="/public/img/Coins-48.png" width="30px"> '+Price+' บาท/'+res.SellData[x].Unit+'</p><p style="padding-bottom:15px"><img src="/public/img/Geo-fence-48.png" width="25px">     '+Distance+' กิโลเมตร</p><p style="padding-bottom:15px"><img src="/public/img/Like Filled-48.png" width="25px"> '+res.SellData[x].NumberOfLike+'</p><a  href="productdetail/'+res.SellData[x].Sellid+'"><button type="button" class="btn btn-success">รายละเอียดสินค้า</button></a></div></div></div>';
+            var html = '<div class="col-sm-6 col-md-4"><div class="thumbnail"><img id="cropped" src="/public/uploads/'+res.SellData[x].Pic+'"><div class="caption"><h2 class="color-blue">'+res.SellData[x].Name+'</h2><p  style="padding-top:10px;padding-bottom:10px"><img src="/public/img/Coins-48.png" width="30px"> '+Price+' บาท/'+res.SellData[x].Unit+'</p><p style="padding-bottom:15px"><img src="/public/img/Geo-fence-48.png" width="25px">     '+Distance+' กิโลเมตร</p><p style="padding-bottom:15px"><img src="/public/img/Like Filled-48.png" width="25px"> '+res.SellData[x].NumberOfLike+'</p><a  href="/sell/productdetail/'+res.SellData[x].Sellid+'"><button type="button" class="btn btn-success">รายละเอียดสินค้า</button></a></div></div></div>';
               i = i+html; 
             $("#data").html(i);
           }

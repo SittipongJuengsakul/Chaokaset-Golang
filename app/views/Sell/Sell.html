@@ -6,7 +6,7 @@
   /* css กำหนดความกว้าง ความสูงของแผนที่ */
   #map_canvas { 
     width:100%;
-    height:500px;
+    height:350px;
   }
 </style>
 <div class="chaokaset-container-verticle" id="chaokaset-loader" style="display: none;">
@@ -78,15 +78,15 @@
         <span class="error">{{$field.Error}}</span>
       </div>
       {{end}}
-      <div class="form-group">
+      <!--<div class="form-group">
         <select class="form-control" id="sel1" name="">
             <option value="ข้าว">ข้าว</option>
         </select>
-      </div>
-      
+      </div>-->
+      55555555555 {{ .Lat }}{{ .Long}}
       <div class="form-group"  id="map">
-        <input name="lat_value" class="form-control" type="text" id="lat_value" value="" >   
-        <input name="lon_value" class="form-control" type="text" id="lon_value" value="" >
+        <input name="lat_value" class="form-control" type="text" id="lat_value" value="{{.Lat}}" >   
+        <input name="lon_value" class="form-control" type="text" id="lon_value" value="{{.Long}}" >
         <center><div id="map_canvas"></div></center>
       </div>
 
@@ -103,8 +103,8 @@ var GGM; // กำหนดตัวแปร GGM ไว้เก็บ google.m
 function initialize() { // ฟังก์ชันแสดงแผนที่
   // เรียกใช้คุณสมบัติ ระบุตำแหน่ง ของ html 5 ถ้ามี
         //alert(position.coords.latitude+"  "+position.coords.longitude);
-        var latitude = 13.2626698378282;
-        var longitude = 101.065979003906;
+        var latitude = {{.Lat}};
+        var longitude = {{.Long}};
         
         GGM=new Object(google.maps); // เก็บตัวแปร google.maps Object ไว้ในตัวแปร GGM
         // กำหนดจุดเริ่มต้นของแผนที่

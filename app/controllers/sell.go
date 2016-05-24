@@ -57,10 +57,9 @@ func (c Sell) ProductDetail(id string) revel.Result {
 }
 
 func (c Sell) Sell() revel.Result {
- /* data := models.GetUserData(c.Session["username"])
-
-  return  c.RenderJson(data)*/
-  return c.Render()
+  Lat := c.Session["Lat"]
+  Long := c.Session["Long"]
+  return c.Render(Lat,Long)
 }
 
 func (c Sell) PostSell(sell models.PostSell) revel.Result {
