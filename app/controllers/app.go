@@ -335,7 +335,11 @@ func (c Crops) Management(idcrop string) revel.Result {
   plandata := models.GetPlans(cropdata.PlanId)
   countproblem,_ := models.GetCountProblem(idcrop)
   //sumaccount := models.GetSumAccount(idcrop)
-  cropdataproduct := cropdata.Product*20.5
+  rai := cropdata.Rai;
+  ngarn := cropdata.Ngarn/4;
+  wah := cropdata.Wah/400;
+  allrai := rai+ngarn+wah;
+  cropdataproduct := cropdata.Product*allrai
   fullaccount,_ := models.GetFullAllAccounts(idcrop)
   var sumaccount float64
   for index,_ := range fullaccount {
@@ -350,7 +354,11 @@ func (c Crops) EditCrop(idcrop string) revel.Result {
   }
   cropdata := models.GetOneCrops(idcrop)
   plandata := models.GetPlans(cropdata.PlanId)
-  cropdataproduct := cropdata.Product*20.5
+  rai := cropdata.Rai;
+  ngarn := cropdata.Ngarn/4;
+  wah := cropdata.Wah/400;
+  allrai := rai+ngarn+wah;
+  cropdataproduct := cropdata.Product*allrai
 	return c.Render(cropdata,plandata,cropdataproduct)
 }
 //PostEditCrop
