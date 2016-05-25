@@ -343,7 +343,12 @@ func (c Crops) Management(idcrop string) revel.Result {
   fullaccount,_ := models.GetFullAllAccounts(idcrop)
   var sumaccount float64
   for index,_ := range fullaccount {
-    sumaccount = sumaccount + fullaccount[index].Price
+    if fullaccount[index].TypeAccount == 1{
+      sumaccount = sumaccount + fullaccount[index].Price
+    } else {
+      sumaccount = sumaccount - fullaccount[index].Price
+    }
+
   }
 	return c.Render(cropdata,plandata,cropdataproduct,countproblem,sumaccount)
 }

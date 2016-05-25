@@ -48,7 +48,7 @@
             {{with $field := field "plan.Description" .}}
             <div class="form-group col-md-12 padding-left-no padding-right-no">
               <label>รายละเอียด</label>
-              <textarea type="text" ng-model="Details" class="form-control" placeholder="กรอกชื่อแผนการเพาะปลูก" name="{{$field.Name}}" style="font-size: 20px;" value="{{$field.Flash}}"></textarea>
+              <textarea type="text" ng-model="Details" class="form-control" placeholder="กรอกรายละเอียด" name="{{$field.Name}}" style="font-size: 20px;" value="{{$field.Flash}}"></textarea>
               <span class="error">{{$field.Error}}</span>
             </div>
             {{end}}
@@ -56,7 +56,7 @@
           <div class="form-grop col-md-12" style="padding: 0px;">
             {{with $field := field "plan.TypePlanOption" .}}
             <div class="form-group col-md-12 padding-left-no padding-right-no">
-              <label>ประเภทของแผนการเพาะปลูก</label>
+              <label>ชื่อแผนการเพาะปลูก</label>
               <div class="radio" style="margin: 0;">
                 <label style="line-height: 45px;"><input type="radio" value="0" name="plan.TypePlan" ng-click="ShowNewPlanOption()" checked>แผนการเพาะปลูกใหม่</label>
                 <label style="margin-left: 15px;line-height: 45px;"><input type="radio" value="1" name="plan.TypePlan" ng-click="ShowPlanOption()">แผนการเพาะปลูกต่อเนื่อง</label>
@@ -96,7 +96,7 @@
         </div>
         <div style="width: 100%;text-align: center;">
           <button type="submit" class="btn btn-success">ตกลง</button>
-          <button type="button" class="btn btn-danger">ยกเลิก</button>
+          <button type="button" class="btn btn-danger" onclick="javascript:location.href='/plan/showplan'">ยกเลิก</button>
         </div>
         </form>
     </div>

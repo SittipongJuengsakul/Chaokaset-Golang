@@ -28,7 +28,7 @@ $('#myInput').focus()
                 <div class="form-grop col-md-12" style="padding: 0px;">
                   {{with $field := field "Account.TypeAccount" .}}
                   <div class="form-group col-md-12 padding-left-no padding-right-no">
-                    <label>ประเภทการเก็บเงิน</label>
+                    <label>ประเภทบัญชี</label>
                     <select class="form-control" name="{{$field.Name}}" ng-model="TypeAccount" id="SelTypeAccount">
                        <option ng-repeat="typeaccount in TypeAccounts" ng-bind="typeaccount.Text" ng-value="typeaccount.Type"></option>
                     </select>
