@@ -183,6 +183,7 @@
           //สำเร็จ
           $scope.problemdatas = response.data.ProblemDatas;
           PravNext($scope.problemdatas.length);
+          $scope.ProblemDetail = "";
         },function(response) {
           //ผิดพลาด
       });
