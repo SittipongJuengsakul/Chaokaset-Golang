@@ -3,7 +3,7 @@
 {{template "Templates/preloader.html" .}}
 <!-- Include Date Range Picker -->
 <script src="/public/js/moment.js"></script>
-<script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+<script type="text/javascript" src="/public/js/daterangepicker.js"></script>
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
 <div class="chaokaset-container-verticle" id="chaokaset-loader" style="display: none;">
   <div class="col-sm-12 varticle-header-box">
@@ -76,30 +76,29 @@
             </div>
             {{end}}
             <script type="text/javascript">
+            var thmonth = new Array ("มกราคม","กุมภาพันธ์","มีนาคม",
+            "เมษายน","พฤษภาคม","มิถุนายน", "กรกฎาคม","สิงหาคม","กันยายน",
+            "ตุลาคม","พฤศจิกายน","ธันวาคม");
             function checkdate() {
               var a = $('input[name="crop.StartDate"]').val();
               var enddateandduration = moment().add(enddurationday, 'days');
               var enddurationday = $("#idModDuration").val();
               //var enddurationday = document.getElementById('idModDuration').innerHTML;
-              console.log(enddurationday);
+              //console.log(enddurationday);
+              var res = a.split(" ");
+              var m = thmonth.indexOf(res[1])+1;
+              var b = moment(res[0]+' '+m+' '+res[2], "MM DD YYYY");
+              $('input[name="crop.EndDate"]').val(a)
             }
             $(function() {
               $('input[name="crop.StartDate"]').daterangepicker({
                    locale: {
                         format: 'DD MMMM YYYY',
                     },
+
                    singleDatePicker: true,
                    showDropdowns: true
                });
-               $('input[name="crop.EndDate"]').daterangepicker({
-                 var enddurationday = $("#idModDuration").val(),
-                    startDate: moment().add(120, 'days'),
-                    locale: {
-                         format: 'DD MMMM YYYY',
-                     },
-                    singleDatePicker: true,
-                    showDropdowns: true
-                });
             });
             </script>
             {{with $field := field "crop.StartDate" .}}
