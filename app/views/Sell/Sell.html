@@ -1,6 +1,24 @@
 {{set . "title" "ขาย สินค้าอื่น"}}
 {{template "Templates/header.html" .}}
 {{template "Templates/preloader.html" .}}
+<!--<script src="http://maps.googleapis.com/maps/api/js?callback=initialize"></script>-->
+<script src="/public/js/moment.js"></script>
+<script type="text/javascript" src="/public/js/daterangepicker.js"></script>
+
+<!--<link rel="stylesheet" type="text/css" href="public/js/css/datepicker.css">-->
+
+<!--<script type="text/javascript" src="/public/js/bootstrap-datepicker.js"></script>-->
+<!-- thai extension -->
+<!--<script type="text/javascript" src="/public/js/bootstrap-datepicker-thai.js"></script>
+<script type="text/javascript" src="/public/js/locales/bootstrap-datepicker.th.js"></script>-->
+<script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+<!--<script src="https://maps.googleapis.com/maps/api/js?v=3&language=th&key=AIzaSyC6nz4NFQTBtKSttLMGQ9dvsdCI6L5FQpg"></script>-->
+
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?v=3.23
+        &key=AIzaSyC6nz4NFQTBtKSttLMGQ9dvsdCI6L5FQpg&callback=initMap"></script>
+
 
 <style>
   /* css กำหนดความกว้าง ความสูงของแผนที่ */
@@ -21,7 +39,7 @@
       {{with $field := field "sell.Category" .}}
       <div class="form-group">
           <label for="">ประเภทสินค้า</label>
-            <select class="form-control" id="sel1" name="{{$field.Name}}">
+            <select class="form-control" id="sel1" name="{{$field.Name}}" required>
             <option value="ข้าว">ข้าว</option>
             <option value="ผลไม้">ผลไม้</option>
             <option value="พืชผัก">พืชผัก</option>
@@ -35,7 +53,7 @@
       {{with $field := field "sell.Name" .}}
       <div class="form-group">
         <label for="">ชื่อสินค้า</label>
-        <input type="text" class="form-control" placeholder="กรอกชื่อสินค้า เช่น ข้าวหอมมะลิ" name="{{$field.Name}}" value="{{$field.Flash}}">
+        <input type="text" class="form-control" placeholder="กรอกชื่อสินค้า เช่น ข้าวหอมมะลิ" name="{{$field.Name}}" value="{{$field.Flash}}" required>
         <span class="error">{{$field.Error}}</span>
       </div>
       {{end}}
@@ -43,14 +61,14 @@
         {{with $field := field "sell.Price" .}}
         <div  class="col-sm-6">
           <label for="">ราคา (หน่วยเป็นบาท)</label>
-          <input type="text" class="form-control" placeholder="กรอกราคาหน่วยเป็นบาท" name="{{$field.Name}}" value="{{$field.Flash}}"> 
+          <input type="text" class="form-control" placeholder="กรอกราคาหน่วยเป็นบาท" name="{{$field.Name}}" value="{{$field.Flash}}" required> 
           <span class="error">{{$field.Error}}</span>
         </div>
         {{end}}
         {{with $field := field "sell.Unit" .}}
         <div  class="col-sm-6">
           <label for="">หน่วยสินค้าที่ขาย</label>
-          <input type="text" class="form-control" placeholder="เช่น กิโลกรัม ผล โหล ลัง" name="{{$field.Name}}" value="{{$field.Flash}}"> 
+          <input type="text" class="form-control" placeholder="เช่น กิโลกรัม ผล โหล ลัง" name="{{$field.Name}}" value="{{$field.Flash}}" required> 
            <span class="error">{{$field.Error}}</span>
         </div>
         {{end}}
@@ -59,7 +77,7 @@
       {{with $field := field "sell.Pic" .}}
       <div class="form-group" style="padding-top:15px;">
         <label for="">รูปสินค้า</label>
-        <input type="file"  name="{{$field.Name}}" accept="image/png">
+        <input type="file"  name="{{$field.Name}}" accept="image/png" required>
         <span class="error">{{$field.Error}}</span>
       </div>
       {{end}}
@@ -67,22 +85,24 @@
       {{with $field := field "sell.Detail" .}}
       <div class="form-group">
         <label for="">รายละเอียดสินค้า</label>
-        <textarea class="form-control" rows="5" id="" placeholder="กรอกรายละเอียดสินค้า เช่น สี ขนาด" name="{{$field.Name}}" >{{$field.Flash}}</textarea>
+        <textarea class="form-control" rows="5" id="" placeholder="กรอกรายละเอียดสินค้า เช่น สี ขนาด" name="{{$field.Name}}" required>{{$field.Flash}}</textarea>
         <span class="error">{{$field.Error}}</span>
       </div>
       {{end}}
 
-      <div class="form-group"  id="map">
+      <div class="form-group"  >
         <label for="">ที่อยู่สินค้า</label>
-        <input name="lat_value" class="form-control" type="hidden" id="lat_value" value="{{.Lat}}" >   
-        <input name="lon_value" class="form-control" type="hidden" id="lon_value" value="{{.Long}}" >
-        <center><div id="map_canvas"></div></center>
+       <p id="map_canvas"></p>
       </div>
+      <input name="lat_value" class="form-control" type="hidden" id="lat_value" value="{{.Lat}}" >   
+        <input name="lon_value" class="form-control" type="hidden" id="lon_value" value="{{.Long}}" >
 
       {{with $field := field "sell.Expire" .}}
       <div class="form-group">
         <label for="">วันหมดอายุ/วันปิดการขาย</label>
-        <input type="date" class="form-control ng-valid ng-dirty ng-valid-parse ng-touched" name="{{$field.Name}}" value="{{$field.Flash}}" > 
+       <!--<input type="date" class="form-control ng-valid ng-dirty ng-valid-parse ng-touched" name="{{$field.Name}}" value="{{$field.Flash}}" required>-->
+        <input type="text" class="form-control" name="{{$field.Name}}" value="" required>
+        <!-- <input class="form-control input-medium" type="text" data-provide="datepicker" data-date-language="th-th">-->
         <span class="error">{{$field.Error}}</span>
       </div>
       {{end}}
@@ -93,41 +113,60 @@
   </div>
   </form>
 </div>
+ <script type="text/javascript">
+            $(function() {
+              $('input[name="sell.Expire"]').daterangepicker({
+                   locale: {
+                        format: 'DD MMMM YYYY',
 
-<script>
+                    },
+                   singleDatePicker: true,
+                   //showDropdowns: true,                   
+                    minDate:'28 05 2016',
+                   drops: "up",
+               });
+
+            });
+
+    /*function demo() {
+        $('.datepicker').datepicker();
+    }*/
+</script>
+
+<script type="text/javascript">
 var map; // กำหนดตัวแปร map ไว้ด้านนอกฟังก์ชัน เพื่อให้สามารถเรียกใช้งาน จากส่วนอื่นได้
-var GGM; // กำหนดตัวแปร GGM ไว้เก็บ google.maps Object จะได้เรียกใช้งานได้ง่ายขึ้น
-function initialize() { // ฟังก์ชันแสดงแผนที่
+function initMap() { // ฟังก์ชันแสดงแผนที่
   // เรียกใช้คุณสมบัติ ระบุตำแหน่ง ของ html 5 ถ้ามี
         //alert(position.coords.latitude+"  "+position.coords.longitude);
-        var latitude = {{.Lat}};
-        var longitude = {{.Long}};
-        
-        GGM=new Object(google.maps); // เก็บตัวแปร google.maps Object ไว้ในตัวแปร GGM
+        var latitude = parseFloat({{.Lat}});
+        var longitude = parseFloat({{.Long}});
         // กำหนดจุดเริ่มต้นของแผนที่
-        var my_Latlng  = new GGM.LatLng(latitude,longitude);
+        var my_Latlng  = new google.maps.LatLng(latitude,longitude);
+        //alert(my_Latlng);
         //var my_Latlng  = new GGM.LatLng(latitude,latitude);
-        var my_mapTypeId=GGM.MapTypeId.ROADMAP; // กำหนดรูปแบบแผนที่ที่แสดง
+        var my_mapTypeId = google.maps.MapTypeId.ROADMAP; // กำหนดรูปแบบแผนที่ที่แสดง
         // กำหนด DOM object ที่จะเอาแผนที่ไปแสดง ที่นี้คือ div id=map_canvas
-        var my_DivObj=$("#map_canvas")[0]; 
+        //alert($("#map_canvas"));
+        var my_DivObj = $("#map_canvas")[0]; 
         // กำหนด Option ของแผนที่
         var myOptions = {
           zoom: 13, // กำหนดขนาดการ zoom
           center: my_Latlng , // กำหนดจุดกึ่งกลาง
-          mapTypeId:my_mapTypeId // กำหนดรูปแบบแผนที่
+          mapTypeId : my_mapTypeId // กำหนดรูปแบบแผนที่
         };
-        map = new GGM.Map(my_DivObj,myOptions);// สร้างแผนที่และเก็บตัวแปรไว้ในชื่อ map
-        
-        var my_Marker = new GGM.Marker({ // สร้างตัว marker
+
+        map = new google.maps.Map(my_DivObj,myOptions);// สร้างแผนที่และเก็บตัวแปรไว้ในชื่อ map
+
+        var my_Marker = new google.maps.Marker({ // สร้างตัว marker
           position: my_Latlng,  // กำหนดไว้ที่เดียวกับจุดกึ่งกลาง
           map: map, // กำหนดว่า marker นี้ใช้กับแผนที่ชื่อ instance ว่า map
           draggable:true, // กำหนดให้สามารถลากตัว marker นี้ได้
-          //animation:google.maps.Animation.BOUNCE,
+          animation:google.maps.Animation.BOUNCE,
           title:"คลิกลากเพื่อหาตำแหน่งจุดที่ต้องการ!" // แสดง title เมื่อเอาเมาส์มาอยู่เหนือ
         });
         
         // กำหนด event ให้กับตัว marker เมื่อสิ้นสุดการลากตัว marker ให้ทำงานอะไร
-        GGM.event.addListener(my_Marker, 'dragend', function() {
+        google.maps.event.addListener(my_Marker, 'dragend', function() {
           var my_Point = my_Marker.getPosition();  // หาตำแหน่งของตัว marker เมื่อกดลากแล้วปล่อย
               map.panTo(my_Point);  // ให้แผนที่แสดงไปที่ตัว marker   
               $("#lat_value").val(my_Point.lat());  // เอาค่า latitude ตัว marker แสดงใน textbox id=lat_value
@@ -135,13 +174,10 @@ function initialize() { // ฟังก์ชันแสดงแผนที�
              // $("#zoom_value").val(map.getZoom()); // เอาขนาด zoom ของแผนที่แสดงใน textbox id=zoom_value
               //$("address").val(my_Point.lat());
         });   
-        // กำหนด event ให้กับตัวแผนที่ เมื่อมีการเปลี่ยนแปลงการ zoom
-        GGM.event.addListener(map, 'zoom_changed', function() {
-          $("#zoom_value").val(map.getZoom()); // เอาขนาด zoom ของแผนที่แสดงใน textbox id=zoom_value  
-        });
-              
+
 }
- $(document).ready(function(){
+
+$(document).ready(function(){
   // โหลด สคริป google map api เมื่อเว็บโหลดเรียบร้อยแล้ว
   // ค่าตัวแปร ที่ส่งไปในไฟล์ google map api
   // v=3.2&sensor=false&language=th&callback=initialize
@@ -149,12 +185,16 @@ function initialize() { // ฟังก์ชันแสดงแผนที�
   //  sensor กำหนดให้สามารถแสดงตำแหน่งทำเปิดแผนที่อยู่ได้ เหมาะสำหรับมือถือ ปกติใช้ false
   //  language ภาษา th ,en เป็นต้น
   //  callback ให้เรียกใช้ฟังก์ชันแสดง แผนที่ initialize
-  $("<script/>", {
+/* $("<script/>", {
     "type": "text/javascript",
-    src: "http://maps.google.com/maps/api/js?key=AIzaSyC6nz4NFQTBtKSttLMGQ9dvsdCI6L5FQpg&?v=3.2&language=th&callback=initialize"
-  }).appendTo("body");  
+    //src: "http://maps.google.com/maps/api/js?key=AIzaSyC6nz4NFQTBtKSttLMGQ9dvsdCI6L5FQpg&v=3.2&language=th&callback=initialize"
+      //src: "http://maps.google.com/maps/api/js?callback=initialize"
+      src : "https://maps.googleapis.com/maps/api/js?key=AIzaSyC6nz4NFQTBtKSttLMGQ9dvsdCI6L5FQpg&callback=initialize&language=th"
+  }).appendTo("body");*/
+    //getmap();
 });
 
 </script>
+
 
 {{template "Templates/footer.html" .}}

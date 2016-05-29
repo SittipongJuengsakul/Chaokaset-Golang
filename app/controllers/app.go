@@ -66,8 +66,10 @@ func init() {
   revel.InterceptFunc(setuser, revel.BEFORE, &Management{})
   revel.InterceptFunc(setuser, revel.BEFORE, &Farmer{})
   revel.InterceptFunc(setuser, revel.BEFORE, &Plant{})
+  revel.InterceptFunc(setuser, revel.BEFORE, &Sell{})
   revel.InterceptFunc(checksetuser, revel.BEFORE, &Crops{})
   revel.InterceptFunc(checksetuser, revel.BEFORE, &Profile{})
+  revel.InterceptFunc(checksetuser, revel.BEFORE, &Sell{})
 }
 
 func (c App) connected() *models.User {

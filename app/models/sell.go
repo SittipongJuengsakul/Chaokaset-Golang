@@ -7,6 +7,7 @@ import (
     "github.com/alouche/go-geolib"
     "math"
     "fmt"
+    "strings"
 )
 
 type Sells struct{
@@ -19,6 +20,7 @@ type Sells struct{
   Address         *Address
   Unit            string
   Detail          string
+  Start           string
   Expire          string
   TimeCreate      time.Time
   OwnerId         bson.ObjectId
@@ -126,9 +128,12 @@ func GetSellData(Lat float64, Long float64) []Sells {
   session.SetMode(mgo.Monotonic, true)
   qmgo := session.DB("chaokaset").C("sell")
 
-  var result []Sells
+  var result,result_data []Sells
   
   qmgo.Find(bson.M{"status": 1}).Sort("-timecreate").All(&result)
+
+  t := time.Now()
+  tNow := t.Format("2006-01-02")
 
    for i := range result {
       lat1 := Lat
@@ -141,9 +146,45 @@ func GetSellData(Lat float64, Long float64) []Sells {
       dist = geolib.Rad2Deg(dist)
       result[i].SetDistance(dist * 60 * 1.1515 * 1.609344)
       result[i].SetNumLike(len(result[i].Like))
+
+      s := strings.Split(result[i].Expire," ")
+      var s2 string
+      
+      switch s[1] {
+        case "มกราคม": 
+          s2 = "01"
+        case "กุมภาพันธ์":
+          s2 = "02"
+        case "มีนาคม": 
+          s2 = "03"
+        case "เมษายน": 
+          s2 = "04"
+        case "พฤษภาคม": 
+          s2 = "05"
+        case "มิถุนายน": 
+          s2 = "06"
+        case "กรฏาคม": 
+          s2 = "07"
+        case "สิงหาคม": 
+          s2 = "08"
+        case "กันยายน": 
+          s2 = "09"
+        case "ตุลาคม": 
+          s2 = "10"
+        case "พฤษจิกายน": 
+          s2 = "11"
+        case "ธันวาคม": 
+          s2 = "12"
+      }
+     // fmt.Println(s2)
+      dateNum := s[2]+"-"+s2+"-"+s[0]
+      //fmt.Println(dateNum)
+      if dateNum >= tNow{
+        result_data = append(result_data,result[i])
+      }
   }
     
-  return result
+  return result_data
 }
 
 func GetSellDataByCategory(category string,Lat float64, Long float64) []Sells {
@@ -156,9 +197,12 @@ func GetSellDataByCategory(category string,Lat float64, Long float64) []Sells {
   session.SetMode(mgo.Monotonic, true)
   qmgo := session.DB("chaokaset").C("sell")
 
-  var result []Sells
+  var result,result_data []Sells
   
   qmgo.Find(bson.M{"status": 1,"category": category}).Sort("-timecreate").All(&result)
+//fmt.Printf("%+v\n", result)
+  t := time.Now()
+  tNow := t.Format("2006-01-02")
 
    for i := range result {
       lat1 := Lat
@@ -169,11 +213,48 @@ func GetSellDataByCategory(category string,Lat float64, Long float64) []Sells {
       dist := math.Sin(geolib.Deg2Rad(lat1)) * math.Sin(geolib.Deg2Rad(lat2)) + math.Cos(geolib.Deg2Rad(lat1)) * math.Cos(geolib.Deg2Rad(lat2)) * math.Cos(geolib.Deg2Rad(theta))
       dist = math.Acos(dist)
       dist = geolib.Rad2Deg(dist)
+      fmt.Printf("%+v\n", dist)
       result[i].SetDistance(dist * 60 * 1.1515 * 1.609344)
       result[i].SetNumLike(len(result[i].Like))
+
+      s := strings.Split(result[i].Expire," ")
+      var s2 string
+      
+      switch s[1] {
+        case "มกราคม": 
+          s2 = "01"
+        case "กุมภาพันธ์":
+          s2 = "02"
+        case "มีนาคม": 
+          s2 = "03"
+        case "เมษายน": 
+          s2 = "04"
+        case "พฤษภาคม": 
+          s2 = "05"
+        case "มิถุนายน": 
+          s2 = "06"
+        case "กรฏาคม": 
+          s2 = "07"
+        case "สิงหาคม": 
+          s2 = "08"
+        case "กันยายน": 
+          s2 = "09"
+        case "ตุลาคม": 
+          s2 = "10"
+        case "พฤษจิกายน": 
+          s2 = "11"
+        case "ธันวาคม": 
+          s2 = "12"
+      }
+     // fmt.Println(s2)
+      dateNum := s[2]+"-"+s2+"-"+s[0]
+      //fmt.Println(dateNum)
+      if dateNum >= tNow{
+        result_data = append(result_data,result[i])
+      }
   }
     
-  return result
+  return result_data
 }
 
 func AddSellData(name string,category string, price int, unit string, detail string, expire string, ownerId bson.ObjectId) (result bool) {
@@ -225,7 +306,44 @@ func AddSellData2(name string,category string, price int, unit string, detail st
 
   session.SetMode(mgo.Monotonic, true)
   qmgo := session.DB("chaokaset").C("sell")
-  
+
+  t := time.Now()
+  //fmt.Println(t.Year())
+ // fmt.Println(t.Month())
+ // fmt.Println(t.Day())
+  Month := t.Format("01")
+  fmt.Println(Month)
+  var MonthName string
+
+  switch Month {
+      case "01": 
+        MonthName = "มกราคม"
+      case "02": 
+        MonthName = "กุมภาพันธ์"
+      case "03": 
+        MonthName = "มีนาคม"
+      case "04": 
+        MonthName = "เมษายน"
+      case "05": 
+        MonthName = "พฤษภาคม"
+      case "06": 
+        MonthName = "มิถุนายน"
+      case "07": 
+        MonthName = "กรกฎาคม"
+      case "08": 
+        MonthName = "สิงหาคม"
+      case "09": 
+        MonthName = "กันยายน"
+      case "10": 
+        MonthName = "ตุลาคม"
+      case "11": 
+        MonthName = "พฤษจิกายน"
+      case "12": 
+        MonthName = "ธันวาคม"       
+  }
+
+  start := t.Format("02") +" "+MonthName+" "+t.Format("2006")
+  fmt.Println(start)
   i := bson.NewObjectId()
   
   err = qmgo.Insert(&Sells{
@@ -233,7 +351,7 @@ func AddSellData2(name string,category string, price int, unit string, detail st
     Name: name, 
     Category: category, 
     Price: price,
-    TimeCreate: time.Now(), 
+    TimeCreate: t, 
     Detail: detail, 
     Expire: expire, 
     Unit: unit, 
@@ -242,6 +360,7 @@ func AddSellData2(name string,category string, price int, unit string, detail st
     Address: A ,
     Status: 1,
     SellType: sellType,
+    Start: start,
    // Like: [],
   })
 
@@ -264,7 +383,7 @@ func GetSellDetail(Idsell string,Userid string) *SellDetail {
   //ประกาศตัวแปร
   var result *SellDetail
   //คิวลี่ข้อมูลการขายโดยกำหนดเลข id การขาย
-  qmgo.Find(bson.M{"_id": bson.ObjectIdHex(Idsell)}).One(&result)
+  qmgo.Find(bson.M{"_id": bson.ObjectIdHex(Idsell),"status": 1}).One(&result)
 
   check := CheckLike(result.Sellid.Hex(),Userid)
   if check != true{
@@ -291,8 +410,7 @@ func GetSellDetail(Idsell string,Userid string) *SellDetail {
     fmt.Printf("%+v\n", result.Comment[i].Name)
     Name := Detail.Prefix+Detail.Name+"  "+Detail.Lastname
     result.Comment[i].Name = Name
-    fmt.Printf("%+v\n", result.Comment[i].Name)
-    
+    fmt.Printf("%+v\n", result.Comment[i].Name)   
     //result[i].SetDetailUserid(Detail.Name,Detail.Lastname,Detail.Prefix,Detail.Tel)
    // func (SellDetail *SellDetail) SetDetailUserid(name string,lastname string,prefix string,tel string) 
     //result.Comment[i].UseridDetail.Name.SetDetailUserid(i,Detail.Name)
@@ -311,22 +429,65 @@ func GetSearchSell(Name string,Lat float64,Long float64) []Sells {
   defer session.Close()
   session.SetMode(mgo.Monotonic, true)
   qmgo := session.DB("chaokaset").C("sell")
-  var result []Sells
+  var result,result_data []Sells
   
-  qmgo.Find(bson.M{"name": bson.RegEx{".*"+Name, "s"}}).All(&result)
+  qmgo.Find(bson.M{"name": bson.RegEx{".*"+Name, "s"},"status": 1}).All(&result)
+ // fmt.Printf("%+v\n", result)
+    t := time.Now()
+  tNow := t.Format("2006-01-02")
+
    for i := range result {
-      lat1 := Lat
-      lat2 := result[i].Address.Lat
-      lon1 := Long
-      lon2 := result[i].Address.Long
+      lat2 := Lat
+      lat1 := result[i].Address.Lat
+      //fmt.Printf("%+v\n", lat2)
+      lon2 := Long
+      lon1 := result[i].Address.Long
+      //fmt.Printf("%+v\n", lon2)
       theta := lon1 - lon2
       dist := math.Sin(geolib.Deg2Rad(lat1)) * math.Sin(geolib.Deg2Rad(lat2)) + math.Cos(geolib.Deg2Rad(lat1)) * math.Cos(geolib.Deg2Rad(lat2)) * math.Cos(geolib.Deg2Rad(theta))
       dist = math.Acos(dist)
       dist = geolib.Rad2Deg(dist)
+      //fmt.Printf("%+v\n", dist)
       result[i].SetDistance(dist * 60 * 1.1515 * 1.609344)
       result[i].SetNumLike(len(result[i].Like))
+
+      s := strings.Split(result[i].Expire," ")
+      var s2 string
+      
+      switch s[1] {
+        case "มกราคม": 
+          s2 = "01"
+        case "กุมภาพันธ์":
+          s2 = "02"
+        case "มีนาคม": 
+          s2 = "03"
+        case "เมษายน": 
+          s2 = "04"
+        case "พฤษภาคม": 
+          s2 = "05"
+        case "มิถุนายน": 
+          s2 = "06"
+        case "กรฏาคม": 
+          s2 = "07"
+        case "สิงหาคม": 
+          s2 = "08"
+        case "กันยายน": 
+          s2 = "09"
+        case "ตุลาคม": 
+          s2 = "10"
+        case "พฤษจิกายน": 
+          s2 = "11"
+        case "ธันวาคม": 
+          s2 = "12"
+      }
+     // fmt.Println(s2)
+      dateNum := s[2]+"-"+s2+"-"+s[0]
+      //fmt.Println(dateNum)
+      if dateNum >= tNow{
+        result_data = append(result_data,result[i])
+      }
   }
-  return result
+  return result_data
 }
 
 func GetOwnerData(id string) *Owner{
@@ -563,11 +724,58 @@ func GetCropSell(Userid string) []Crop {
   session.SetMode(mgo.Monotonic, true)
   qmgo := session.DB("chaokaset").C("crops")
 
-  var result []Crop
+  var result,result_data []Crop
   
-  qmgo.Find(bson.M{"grow" : 5,"userid" : Userid}).Sort("-timecreate").All(&result)
+  t := time.Now()
+  tNow := t.Format("2006-01-02")
+  //tyear := t.Format("2006")
 
-  return result
+  fmt.Println(tNow)
+ // fmt.Printf("%q\n", strings.Split("27 พฤษภาคม 2558", " "))
+  qmgo.Find(bson.M{"userid" : Userid}).Sort("-timecreate").All(&result)
+  //qmgo.Find(bson.M{"userid" : Userid,"enddate": bson.M{"$lte":"26 พฤษภาคม 2016"}}).Sort("-timecreate").All(&result)
+
+  for i := range result {
+    s := strings.Split(result[i].EndDate," ")
+    var s2 string
+    switch s[1] {
+      case "มกราคม": 
+        s2 = "01"
+      case "กุมภาพันธ์":
+        s2 = "02"
+      case "มีนาคม": 
+        s2 = "03"
+      case "เมษายน": 
+        s2 = "04"
+      case "พฤษภาคม": 
+        s2 = "05"
+      case "มิถุนายน": 
+        s2 = "06"
+      case "กรฏาคม": 
+        s2 = "07"
+      case "สิงหาคม": 
+        s2 = "08"
+      case "กันยายน": 
+        s2 = "09"
+      case "ตุลาคม": 
+        s2 = "10"
+      case "พฤษจิกายน": 
+        s2 = "11"
+      case "ธันวาคม": 
+        s2 = "12"
+    }
+   // fmt.Println(s2)
+    dateNum := s[2]+"-"+s2+"-"+s[0]
+    //fmt.Println(dateNum)
+    if dateNum < tNow{
+      result_data = append(result_data,result[i])
+    }
+  }
+
+  fmt.Println(result_data)
+
+
+  return result_data
 }
 
 func GetCropSellDetail(Userid string,Cropid string) *Crop {
@@ -582,7 +790,7 @@ func GetCropSellDetail(Userid string,Cropid string) *Crop {
 
   var result *Crop
   
-  qmgo.Find(bson.M{"grow" : 5,"userid" : Userid,"_id": bson.ObjectIdHex(Cropid)}).One(&result)
+  qmgo.Find(bson.M{"status": 1,"userid" : Userid,"_id": bson.ObjectIdHex(Cropid)}).One(&result)
 
   return result
 }

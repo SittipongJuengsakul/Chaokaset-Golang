@@ -10,6 +10,7 @@ import (
     "time"
   // "sort"
      "strconv"
+    // "strings"
 )
 
 //Auth for save Structure of Folder Sell (in views)
@@ -236,6 +237,16 @@ func (c Sell) ListSellCrop() revel.Result {
   userid := c.Session["username"]
   id := models.GetUserid(userid)
   data := models.GetCropSell(id.Userid.Hex())
+  /*t := time.Now()
+  fmt.Println(t.Year())
+  fmt.Println(t.Month())
+  fmt.Println(t.Day())*/
+ /* t := time.Now()
+  fmt.Println(t.Format("2006-01-02"))
+  fmt.Printf("%q\n", strings.Split("27 พฤษภาคม 2558", " "))
+  tDate := strings.Split("27 พฤษภาคม 2558", " ")
+   fmt.Println(tDate[0])*/
+ // fmt.Println(t.Format(time.RFC850))
   return c.Render(data)
 }
 
@@ -243,6 +254,7 @@ func (c Sell) SellCrop(idcrop string) revel.Result{
   userid := c.Session["username"]
   id := models.GetUserid(userid)
   data := models.GetCropSellDetail(id.Userid.Hex(),idcrop)
+  fmt.Println(data)
   Lat := c.Session["Lat"]
   Long := c.Session["Long"]
   return c.Render(data,Lat,Long)

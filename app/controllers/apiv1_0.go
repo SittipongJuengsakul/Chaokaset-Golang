@@ -13,6 +13,7 @@ import (
     "io"
    "fmt"
    "sort"
+   "strings"
 )
 
 type Api struct {
@@ -144,13 +145,45 @@ func (c Api) SearchProduct(Name string, Lat float64, Long float64) revel.Result{
 }
 
 func (c Api) AddProduct(name string,category string, price int, unit string, detail string, expire string, ownerId string, lat float64, long float64,sellType int) revel.Result {
- err := models.AddSellData2(name,category,price,unit,detail,expire,ownerId,lat,long,sellType)
+  //2016-5-25 
+  s := strings.Split(expire,"-")
+  var MonthName string
+  switch s[1] {
+      case "1": 
+        MonthName = "มกราคม"
+      case "2": 
+        MonthName = "กุมภาพันธ์"
+      case "3": 
+        MonthName = "มีนาคม"
+      case "4": 
+        MonthName = "เมษายน"
+      case "5": 
+        MonthName = "พฤษภาคม"
+      case "6": 
+        MonthName = "มิถุนายน"
+      case "7": 
+        MonthName = "กรกฎาคม"
+      case "8": 
+        MonthName = "สิงหาคม"
+      case "9": 
+        MonthName = "กันยายน"
+      case "10": 
+        MonthName = "ตุลาคม"
+      case "11": 
+        MonthName = "พฤษจิกายน"
+      case "12": 
+        MonthName = "ธันวาคม"       
+    }
+
+    expire = s[2] + " " + MonthName + " " + s[0]
+  
+  err := models.AddSellData2(name,category,price,unit,detail,expire,ownerId,lat,long,sellType)
   /*if err {
       return  c.RenderJson(err)
     } else {
       return  c.RenderJson(err)
     }*/
-    return c.RenderJson(err)
+  return c.RenderJson(err)
 }
 
 func (c Api) ManageSell(idUser string) revel.Result {
