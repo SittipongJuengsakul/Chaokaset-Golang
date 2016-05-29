@@ -71,25 +71,17 @@
           <div class="form-grop col-md-12" style="padding: 0px;">
             {{with $field := field "crop.TypePlanOption" .}}
             <div class="form-group col-md-4 padding-left-no">
-              <label>ประเภทของแผนการเพาะปลูก</label>
+              <label>ชื่อแผนการเพาะปลูก</label>
               <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" disabled ng-model="modtypeplanname">
             </div>
             {{end}}
             <script type="text/javascript">
             function checkdate() {
               var a = $('input[name="crop.StartDate"]').val();
-              var b = $('input[name="crop.EndDate"]').val();
-              var startday = moment(a,'DD MMMM YYYY');
-              var endday = moment(b,'DD MMMM YYYY');
-              if (startday<endday){
-                console.log('เลือกวันถูก')
-                var days = (endday - startday) / (1000 * 60 * 60 * 24);
-                $('input[name="crop.Duration"]').val(days);
-              }else{
-                console.log('วันนี้ไม่ได้')
-                $('input[name="crop.EndDate"]').val(a);
-                $('input[name="crop.Duration"]').val(0);
-              }
+              var enddateandduration = moment().add(enddurationday, 'days');
+              var enddurationday = $("#idModDuration").val();
+              //var enddurationday = document.getElementById('idModDuration').innerHTML;
+              console.log(enddurationday);
             }
             $(function() {
               $('input[name="crop.StartDate"]').daterangepicker({
@@ -100,6 +92,7 @@
                    showDropdowns: true
                });
                $('input[name="crop.EndDate"]').daterangepicker({
+                 var enddurationday = $("#idModDuration").val(),
                     startDate: moment().add(120, 'days'),
                     locale: {
                          format: 'DD MMMM YYYY',
@@ -126,7 +119,7 @@
             {{with $field := field "crop.Duration" .}}
             <div class="form-group col-md-4 padding-left-no">
               <label>ระยะเวลาทำการเพาะปลูก</label>
-              <input type="number" min="0" placeholder="กรอกระยะเวลาทำการเพาะปลูก" class="form-control" name="{{$field.Name}}" value="0" ng-model="modduration">
+              <input type="number" min="0" placeholder="กรอกระยะเวลาทำการเพาะปลูก" class="form-control" name="{{$field.Name}}" value="0" ng-model="modduration" id="idModDuration">
             </div>
             {{end}}
             {{with $field := field "crop.Price" .}}
