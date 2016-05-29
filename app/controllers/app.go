@@ -3,7 +3,7 @@ package controllers
 import (
     "github.com/revel/revel"
     "gopkg.in/mgo.v2/bson"
-		"chaokaset-go/app/models"
+		"chaokaset-api/app/models"
     "golang.org/x/crypto/bcrypt"
     "regexp"
 )
@@ -68,12 +68,18 @@ func init() {
   revel.InterceptFunc(setuser, revel.BEFORE, &Management{})
   revel.InterceptFunc(setuser, revel.BEFORE, &Plan{})
   revel.InterceptFunc(setuser, revel.BEFORE, &Plant{})
+<<<<<<< HEAD
   //จำกัดสิทธิการไช้งาน
   revel.InterceptFunc(checksetfarmer, revel.BEFORE, &Farmer{})
   revel.InterceptFunc(checksetfarmer, revel.BEFORE, &Crops{})
   revel.InterceptFunc(checksetofficer, revel.BEFORE, &Management{})
   revel.InterceptFunc(checksetofficer, revel.BEFORE, &Plan{})
+=======
+  revel.InterceptFunc(setuser, revel.BEFORE, &Sell{})
+  revel.InterceptFunc(checksetuser, revel.BEFORE, &Crops{})
+>>>>>>> origin/DevManagementSell
   revel.InterceptFunc(checksetuser, revel.BEFORE, &Profile{})
+  revel.InterceptFunc(checksetuser, revel.BEFORE, &Sell{})
 }
 
 func (c App) connected() *models.User {

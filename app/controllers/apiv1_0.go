@@ -1,8 +1,24 @@
 package controllers
 import (
     "github.com/revel/revel"
+<<<<<<< HEAD
     "chaokaset-go/app/models"
     "golang.org/x/crypto/bcrypt"
+=======
+    //"github.com/gocql/gocql"
+    //"gopkg.in/mgo.v2"
+   // "gopkg.in/mgo.v2/bson"
+    "chaokaset-api/app/models"
+    "golang.org/x/crypto/bcrypt"
+   // "time"
+    "log"
+    "time"
+    "os"
+    "io"
+   "fmt"
+   "sort"
+   "strings"
+>>>>>>> origin/DevManagementSell
 )
 
 type Api struct {
@@ -21,6 +37,14 @@ type ResSellAll struct {
 type ResSellDetail struct {
     Status      bool
     SellData    *models.SellDetail
+}
+type ResCropAll struct {
+    Status      bool
+    CropData    []models.Crop
+}
+type ResCropDetail struct {
+    Status      bool
+    CropData    *models.Crop
 }
 
 type ResPlan struct {
@@ -51,13 +75,24 @@ type ResSeed struct {
     Status      bool
     SeedData    *models.Seed
 }
+type ResCommentAll struct {
+    Status        bool
+   // CommentData      []models.Comment
+    CommentData      []models.Sells
+}
 
+/*type ByLike []models.Sells
+
+func (a ByLike) Len() int           { return len(a) }
+func (a ByLike) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
+func (a ByLike) Less(i, j int) bool { return a[i].NumberOfLike < a[j].NumberOfLike }*/
 
 func (c Api) Index() revel.Result {
   var user *models.User
   user = models.GetUserData("sittipong")
   return c.Render(user)
 }
+
 func (c Api) CheckLogin(Username string,Password string) revel.Result {
     var R *ResAuth
     var U *models.User
@@ -69,6 +104,7 @@ func (c Api) CheckLogin(Username string,Password string) revel.Result {
     return  c.RenderJson(R)
 }
 
+<<<<<<< HEAD
 func (c Api) ApiGetUserData(Username string) revel.Result {
     var R *ResAuth
     var U *models.User
@@ -113,6 +149,8 @@ func (c Api) PostEditUser(Username string,Prefix string,Name string,Lastname str
     return c.RenderJson(R)
   }
 }
+=======
+>>>>>>> origin/DevManagementSell
 func (c Api) RegisterUser(Username string,Password string,Prefix string,Name string,Lname string,Tel string,Role_user int,Email string) revel.Result {
   var R *ResAuth
   var U *models.User
@@ -138,11 +176,23 @@ func (c Api) ProductSell(Lat float64, Long float64) revel.Result {
   R = &ResSellAll{Status: true,SellData: U}
   return  c.RenderJson(R)
 }
+func (c Api) ProductSellCategory(Category string,Lat float64, Long float64) revel.Result {
+  var R *ResSellAll
+  var U []models.Sells
+  U = models.GetSellDataByCategory(Category,Lat,Long)
+  if U == nil{
+    R = &ResSellAll{Status: false,SellData: nil}
+    return  c.RenderJson(R)
+  }
 
-func (c Api) ProductDetail(Id string) revel.Result{
+  R = &ResSellAll{Status: true,SellData: U}
+  return  c.RenderJson(R)
+}
+
+func (c Api) ProductDetail(IdSell string,IdUser string) revel.Result{
   var R *ResSellDetail
   var U *models.SellDetail
-  U = models.GetSellDetail(Id)
+  U = models.GetSellDetail(IdSell,IdUser)
   if U == nil{
     R = &ResSellDetail{Status: false,SellData: nil}
     return  c.RenderJson(R)
@@ -163,16 +213,46 @@ func (c Api) SearchProduct(Name string, Lat float64, Long float64) revel.Result{
   return  c.RenderJson(R)
 }
 
-func (c Api) AddProduct(name string,category string, price int, unit string, detail string, expire string, ownerId string, lat float64, long float64) revel.Result {
- err := models.AddSellData2(name,category,price,unit,detail,expire,ownerId,lat,long)
-  if err {
-      return  c.RenderJson(true)
-    } else {
-      return  c.RenderJson(false)
+func (c Api) AddProduct(name string,category string, price int, unit string, detail string, expire string, ownerId string, lat float64, long float64,sellType int) revel.Result {
+  //2016-5-25 
+  s := strings.Split(expire,"-")
+  var MonthName string
+  switch s[1] {
+      case "1": 
+        MonthName = "มกราคม"
+      case "2": 
+        MonthName = "กุมภาพันธ์"
+      case "3": 
+        MonthName = "มีนาคม"
+      case "4": 
+        MonthName = "เมษายน"
+      case "5": 
+        MonthName = "พฤษภาคม"
+      case "6": 
+        MonthName = "มิถุนายน"
+      case "7": 
+        MonthName = "กรกฎาคม"
+      case "8": 
+        MonthName = "สิงหาคม"
+      case "9": 
+        MonthName = "กันยายน"
+      case "10": 
+        MonthName = "ตุลาคม"
+      case "11": 
+        MonthName = "พฤษจิกายน"
+      case "12": 
+        MonthName = "ธันวาคม"       
     }
 
-    //return c.RenderJson(A)
-
+    expire = s[2] + " " + MonthName + " " + s[0]
+  
+  err := models.AddSellData2(name,category,price,unit,detail,expire,ownerId,lat,long,sellType)
+  /*if err {
+      return  c.RenderJson(err)
+    } else {
+      return  c.RenderJson(err)
+    }*/
+  return c.RenderJson(err)
 }
 
 func (c Api) ManageSell(idUser string) revel.Result {
@@ -183,9 +263,6 @@ func (c Api) ManageSell(idUser string) revel.Result {
     R = &ResSellAll{Status: false,SellData: nil}
     return  c.RenderJson(R)
   }
-
-
-
   R = &ResSellAll{Status: true,SellData: U}
   return  c.RenderJson(R)
 }
@@ -497,4 +574,175 @@ func (c Api) RemoveProblem(idproblem string) revel.Result {
     R = &ResProblems{Status: false}
     return  c.RenderJson(R)
   }
+}
+
+func (c Api) EditProduct(idSell string, name string, category string, price int,detail string,expire string,unit string,lat float64,long float64) revel.Result {
+  err := models.EditProductSell(idSell,name,category,price,detail,expire,unit,lat,long)
+  if err {
+    return  c.RenderJson(true)
+  } else {
+    return  c.RenderJson(false)
+  }
+}
+
+func (c Api) PostApi(IdSell string) revel.Result {
+  upload_dir := "/var/home/goserver/src/chaokaset-api/public/uploads/"
+  m := c.Request.MultipartForm
+  result := true
+  for fname, _ := range m.File {
+
+    fheaders := m.File[fname]
+    for i, _ := range fheaders {
+      //for each fileheader, get a handle to the actual file
+      file, err := fheaders[i].Open()
+      defer file.Close() //close the source file handle on function return
+      if err != nil {
+         log.Print(err)
+        result = false
+      }
+      //create destination file making sure the path is writeable.
+      t := time.Now()
+      file_name_db := "mobile-" + t.Format("20060102150405") + "-" +  fheaders[i].Filename
+      dst_path := upload_dir + file_name_db
+      dst, err := os.Create(dst_path)
+      defer dst.Close() //close the destination file handle on function return
+      defer os.Chmod(dst_path, (os.FileMode)(0644)) //limit access restrictions
+      if err != nil {
+        log.Print(err)
+       result = false
+      }
+      //copy the uploaded file to the destination file
+      if _, err := io.Copy(dst, file); err != nil {
+        log.Print(err)
+       result = false
+      }
+      fmt.Printf("%+v\n", IdSell)
+      fmt.Printf("%+v\n", file_name_db)
+      models.UpdatePic(IdSell,file_name_db)
+    }
+  } 
+  return  c.RenderJson(result)
+}
+
+func (c Api) LikeProduct(idSell string, idUser string) revel.Result {
+  err := models.Like(idSell,idUser)
+  if err {
+    return  c.RenderJson(true)
+  } else {
+    return  c.RenderJson(false)
+  }
+}
+
+func (c Api) UnLikeProduct(idSell string, idUser string) revel.Result {
+  err := models.UnLike(idSell,idUser)
+  if err {
+    return  c.RenderJson(true)
+  } else {
+    return  c.RenderJson(false)
+  }
+}
+
+func (c Api) ShowComment(idSell string) revel.Result{
+  var R *ResCommentAll
+  var U []models.Sells
+  U = models.GetComment(idSell)
+  
+  if U == nil{
+    R = &ResCommentAll{Status: false,CommentData: nil}
+    return  c.RenderJson(R)
+  }else{
+    R = &ResCommentAll{Status: true,CommentData: U}
+  return  c.RenderJson(R)
+  }
+  
+}
+
+func (c Api) AddComment(idSell string, idUser string,data string) revel.Result {
+  err := models.Comment(idSell,idUser,data)
+  if err {
+    return  c.RenderJson(true)
+  } else {
+    return  c.RenderJson(false)
+  }
+}
+
+func (c Api) ProductSellLike(Lat float64, Long float64) revel.Result {
+  var R *ResSellAll
+  var U []models.Sells
+  U = models.GetSellData(Lat,Long)
+  sort.Sort(sort.Reverse(ByLike(U)))
+  if U == nil{
+    R = &ResSellAll{Status: false,SellData: nil}
+    return  c.RenderJson(R)
+  }
+
+  R = &ResSellAll{Status: true,SellData: U}
+  return  c.RenderJson(R)
+}
+
+func (c Api) ProductSellDistance(Lat float64, Long float64) revel.Result {
+  var R *ResSellAll
+  var U []models.Sells
+  U = models.GetSellData(Lat,Long)
+  sort.Sort(ByDistance(U))
+  if U == nil{
+    R = &ResSellAll{Status: false,SellData: nil}
+    return  c.RenderJson(R)
+  }
+
+  R = &ResSellAll{Status: true,SellData: U}
+  return  c.RenderJson(R)
+}
+
+func (c Api) ProductSellLikeCategory(Category string,Lat float64, Long float64) revel.Result {
+  var R *ResSellAll
+  var U []models.Sells
+  U = models.GetSellDataByCategory(Category,Lat,Long)
+  sort.Sort(sort.Reverse(ByLike(U)))
+  if U == nil{
+    R = &ResSellAll{Status: false,SellData: nil}
+    return  c.RenderJson(R)
+  }
+
+  R = &ResSellAll{Status: true,SellData: U}
+  return  c.RenderJson(R)
+}
+
+func (c Api) ProductSellDistanceCategory(Category string,Lat float64, Long float64) revel.Result {
+  var R *ResSellAll
+  var U []models.Sells
+  U = models.GetSellDataByCategory(Category,Lat,Long)
+  sort.Sort(ByDistance(U))
+  if U == nil{
+    R = &ResSellAll{Status: false,SellData: nil}
+    return  c.RenderJson(R)
+  }
+
+  R = &ResSellAll{Status: true,SellData: U}
+  return  c.RenderJson(R)
+}
+
+func (c Api) ProductCropSell(userid string) revel.Result {
+  var R *ResCropAll
+  var U []models.Crop
+  U = models.GetCropSell(userid)
+  if U == nil{
+    R = &ResCropAll{Status: false,CropData: nil}
+    return  c.RenderJson(R)
+  }
+
+  R = &ResCropAll{Status: true,CropData: U}
+  return  c.RenderJson(R)
+}
+
+func (c Api) ProductCropSellDetail(userid string,cropid string) revel.Result {
+  var R *ResCropDetail
+  var U *models.Crop
+  U = models.GetCropSellDetail(userid,cropid)
+  if U == nil{
+    R = &ResCropDetail{Status: false,CropData: nil}
+    return  c.RenderJson(R)
+  }
+  R = &ResCropDetail{Status: true,CropData: U}
+  return  c.RenderJson(R)
 }

@@ -1,0 +1,162 @@
+{{set . "title" "การซื้อ-ขาย สินค้า"}}
+{{template "Templates/header.html" .}}
+{{template "Templates/preloader.html" .}}
+<style>
+  /* css กำหนดความกว้าง ความสูงของแผนที่ */
+  #map_canvas { 
+    width: 100%;
+    height:350px;
+  }
+</style>
+<div class="chaokaset-container-verticle" id="chaokaset-loader" style="display: none;">
+ 
+  {{template "Templates/menuSell.html" .}}
+
+  <div class="col-sm-9">
+    <div class="col-sm-12 container-box-content" >
+      <h2 class="color-green">แก้ไขรายละเอียดสินค้า "{{.data.Name}}"</h2>
+      </br>
+      <form method="post" action="{{url "Sell.PostEditSell"}}" enctype="multipart/form-data" >
+      <input name="idSell" class="form-control" type="hidden"  value="{{.data.Sellid.Hex}}" >
+      <div class="form-group">
+          <label for="">ประเภทสินค้า</label>
+            <select class="form-control" id="sel1" name="Category">
+            <option value="{{.data.Category}}" selected>{{.data.Category}}</option>
+            <option value="ข้าว">ข้าว</option>
+            <option value="ผลไม้">ผลไม้</option>
+            <option value="พืชผัก">พืชผัก</option>
+            <option value="พืชไร่">พืชไร่</option>
+            <option value="พืชสวน">พืชสวน</option>
+            <option value="สัตว์">สัตว์</option>
+            <option value="สินค้าอื่นๆ">สินค้าอื่นๆ</option>
+          </select>
+      </div>
+   
+      <div class="form-group">
+        <label for="">ชื่อสินค้า</label>
+        <input type="text" class="form-control" placeholder="กรอกชื่อสินค้า เช่น ข้าวหอมมะลิ" name="Name" value="{{.data.Name}}">
+      </div>
+
+      <div class="row">
+      
+        <div  class="col-sm-6">
+          <label for="">ราคา (หน่วยเป็นบาท)</label>
+          <input type="text" class="form-control" placeholder="กรอกราคาหน่วยเป็นบาท" name="Price" value="{{.data.Price}}"> 
+        </div>
+   
+        
+        <div  class="col-sm-6">
+          <label for="">หน่วยสินค้าที่ขาย</label>
+          <input type="text" class="form-control" placeholder="เช่น กิโลกรัม ผล โหล ลัง" name="Unit" value="{{.data.Unit}}">
+        </div>
+      </div>
+     
+      <div class="form-group" style="padding-top:15px;">
+        <label for="">รูปสินค้า</label>
+        <!--<input type="file"  name="file" accept="image/png" value="http://188.166.230.170:9000/public/uploads/{{.data.Pic}}">-->
+        <div>
+          <center><img src="/public/uploads/{{.data.Pic}}" id="upfile1" style="cursor:pointer" height="200px"/></center>
+          <input type="file" id="file1"  name="file" style="display:none" accept="image/png"/>
+        </div>
+      </div>
+  
+     
+      <div class="form-group">
+        <label for="">รายละเอียดสินค้า</label>
+        <textarea class="form-control" rows="5" id="" placeholder="กรอกรายละเอียดสินค้า เช่น สี ขนาด" name="Detail" >{{.data.Detail}}</textarea>
+     
+      </div>
+
+      <div class="form-group"  id="map">
+        <label for="">ที่อยู่สินค้า</label>
+        <input name="lat_value" class="form-control" type="hidden" id="lat_value" value="{{.data.Address.Lat}}" >   
+        <input name="lon_value" class="form-control" type="hidden" id="lon_value" value="{{.data.Address.Long}}" >
+        <center><div id="map_canvas"></div></center>
+      </div>
+
+      <div class="form-group">
+        <label for="">วันหมดอายุ/วันปิดการขาย</label>
+        <input type="date" class="form-control" name="Expire" value="{{.data.Expire}}" > 
+      </div>
+       <input name="status" class="form-control" type="hidden" id="status" value="0" >
+      <p class="text-right" >
+        <button type="submit" class="btn bg-link">แก้ไขรายละเอียดสินค้า</button>
+      <p/>
+  </div>
+  </form>
+</div>
+
+<script>
+$("#upfile1").click(function () {
+    $("#file1").trigger('click');
+});
+
+$("#file1").change(function(event){
+  //alert(URL.createObjectURL(event.target.files[0]));
+  var file = URL.createObjectURL(event.target.files[0]);
+  $("#upfile1").attr("src", file);
+  $("#status").val("1");
+});
+
+var map; // กำหนดตัวแปร map ไว้ด้านนอกฟังก์ชัน เพื่อให้สามารถเรียกใช้งาน จากส่วนอื่นได้
+var GGM; // กำหนดตัวแปร GGM ไว้เก็บ google.maps Object จะได้เรียกใช้งานได้ง่ายขึ้น
+function initialize() { // ฟังก์ชันแสดงแผนที่
+  // เรียกใช้คุณสมบัติ ระบุตำแหน่ง ของ html 5 ถ้ามี
+        //alert(position.coords.latitude+"  "+position.coords.longitude);
+        var latitude = "{{.data.Address.Lat}}";
+        var longitude = "{{.data.Address.Long}}";
+        
+        GGM=new Object(google.maps); // เก็บตัวแปร google.maps Object ไว้ในตัวแปร GGM
+        // กำหนดจุดเริ่มต้นของแผนที่
+        var my_Latlng  = new GGM.LatLng(latitude,longitude);
+        //var my_Latlng  = new GGM.LatLng(latitude,latitude);
+        var my_mapTypeId=GGM.MapTypeId.ROADMAP; // กำหนดรูปแบบแผนที่ที่แสดง
+        // กำหนด DOM object ที่จะเอาแผนที่ไปแสดง ที่นี้คือ div id=map_canvas
+        var my_DivObj=$("#map_canvas")[0]; 
+        // กำหนด Option ของแผนที่
+        var myOptions = {
+          zoom: 13, // กำหนดขนาดการ zoom
+          center: my_Latlng , // กำหนดจุดกึ่งกลาง
+          mapTypeId:my_mapTypeId // กำหนดรูปแบบแผนที่
+        };
+        map = new GGM.Map(my_DivObj,myOptions);// สร้างแผนที่และเก็บตัวแปรไว้ในชื่อ map
+        
+        var my_Marker = new GGM.Marker({ // สร้างตัว marker
+          position: my_Latlng,  // กำหนดไว้ที่เดียวกับจุดกึ่งกลาง
+          map: map, // กำหนดว่า marker นี้ใช้กับแผนที่ชื่อ instance ว่า map
+          draggable:true, // กำหนดให้สามารถลากตัว marker นี้ได้
+          //animation:google.maps.Animation.BOUNCE,
+          title:"คลิกลากเพื่อหาตำแหน่งจุดที่ต้องการ!" // แสดง title เมื่อเอาเมาส์มาอยู่เหนือ
+        });
+        
+        // กำหนด event ให้กับตัว marker เมื่อสิ้นสุดการลากตัว marker ให้ทำงานอะไร
+        GGM.event.addListener(my_Marker, 'dragend', function() {
+          var my_Point = my_Marker.getPosition();  // หาตำแหน่งของตัว marker เมื่อกดลากแล้วปล่อย
+              map.panTo(my_Point);  // ให้แผนที่แสดงไปที่ตัว marker   
+              $("#lat_value").val(my_Point.lat());  // เอาค่า latitude ตัว marker แสดงใน textbox id=lat_value
+              $("#lon_value").val(my_Point.lng()); // เอาค่า longitude ตัว marker แสดงใน textbox id=lon_value 
+             // $("#zoom_value").val(map.getZoom()); // เอาขนาด zoom ของแผนที่แสดงใน textbox id=zoom_value
+              //$("address").val(my_Point.lat());
+        });   
+        // กำหนด event ให้กับตัวแผนที่ เมื่อมีการเปลี่ยนแปลงการ zoom
+        GGM.event.addListener(map, 'zoom_changed', function() {
+          $("#zoom_value").val(map.getZoom()); // เอาขนาด zoom ของแผนที่แสดงใน textbox id=zoom_value  
+        });
+              
+}
+ $(document).ready(function(){
+  // โหลด สคริป google map api เมื่อเว็บโหลดเรียบร้อยแล้ว
+  // ค่าตัวแปร ที่ส่งไปในไฟล์ google map api
+  // v=3.2&sensor=false&language=th&callback=initialize
+  //  v เวอร์ชัน่ 3.2
+  //  sensor กำหนดให้สามารถแสดงตำแหน่งทำเปิดแผนที่อยู่ได้ เหมาะสำหรับมือถือ ปกติใช้ false
+  //  language ภาษา th ,en เป็นต้น
+  //  callback ให้เรียกใช้ฟังก์ชันแสดง แผนที่ initialize
+  $("<script/>", {
+    "type": "text/javascript",
+    src: "http://maps.google.com/maps/api/js?key=AIzaSyC6nz4NFQTBtKSttLMGQ9dvsdCI6L5FQpg&?v=3.2&language=th&callback=initialize"
+  }).appendTo("body");  
+});
+
+</script>
+{{template "Templates/footer.html" .}}

@@ -1,0 +1,101 @@
+{{set . "title" "การซื้อ-ขาย สินค้า"}}
+{{template "Templates/header.html" .}}
+{{template "Templates/preloader.html" .}}
+<script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/1.4.5/numeral.min.js"></script>
+<style>
+  .center-cropped {
+    min-width: 100%;
+  min-height: 200px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  }
+
+  #cropped {
+  width: 100%;
+  height: 175px;
+  background-position: center center;
+ /* background-repeat: no-repeat;*/
+}
+</style>
+
+
+<div class="chaokaset-container-verticle" id="chaokaset-loader" style="display: none;">
+
+  {{template "Templates/menuSell.html" .}}
+
+  
+  <div class="col-sm-9 container-box">
+    <div class="col-sm-12 container-box-content" >
+      <div class="row">
+      <div class="col-sm-7 name-header"> 
+        <h2 class="color-green">ค้นหาสินค้า</h2>
+      </div>
+      <div class="col-sm-5 text-right" style="padding: 5px;">
+          <!--<input type="text" name="SearchProduct" class="form-control" placeholder="ค้นหาสินค้า" ng-model="searchProduct">
+          <button type="button" class="btn bg-submit" id="New" >ล่าสุด</button>
+          <button type="button" class="btn bg-submit" id="Like">ความนิยม</button>
+          <button type="button" class="btn bg-submit" id="Distance">ระยะทาง</button>-->
+      </div>
+      </div>
+      </br>
+      <div class="row">
+        <div class="col-sm-2">
+        </div>
+        <div class="col-sm-1">
+          <center><img src="/public/img/Search-48.png" width="30px"></center> 
+        </div>
+        <div class="col-sm-5">
+          <input type="text" id="SearchProduct" class="form-control" placeholder="ค้นหาสินค้า">
+        </div>
+        <div class="col-sm-2">
+          <button type="button" class="btn btn-success" id="ok">ค้นหาสินค้า</button>
+        </div>
+        <div class="col-sm-2">
+        </div>
+      </div>
+      {{.Lat}}{{.Long}}
+      </br>
+      <div class="row" id="data">
+
+      </div>
+  
+
+
+
+<script>
+   $("#ok").click(function(){
+    //alert(5555555);
+    var name = $("#SearchProduct").val();
+    if(name != ""){
+      var i = "";
+      var api =  site_url+"/apiv1_0/SearchProduct/"+name+"/"+{{.Lat}}+"/"+{{.Long}};
+      alert(api);
+      $.ajax({
+        url:api,
+        success:function(res){
+          if (res.SellData == "" || res.Status == false ){
+            //alert(name);
+            $("#data").html('<center><h2>ไม่พบรายการสินค้า</h2></center>');
+          }else{
+            for(x in res.SellData){
+              //alert(res.SellData[x].Distance);
+              var Distance = numeral(res.SellData[x].Distance).format('0.00');
+              var Price = numeral(res.SellData[x].Price).format('0,0');
+              var html = '<div class="col-sm-6 col-md-4"><div class="thumbnail"><img id="cropped" src="/public/uploads/'+res.SellData[x].Pic+'"><div class="caption"><h2 class="color-blue">'+res.SellData[x].Name+'</h2><p  style="padding-top:10px;padding-bottom:10px"><img src="/public/img/Coins-48.png" width="30px"> '+Price+' บาท/'+res.SellData[x].Unit+'</p><p style="padding-bottom:15px"><img src="/public/img/Geo-fence-48.png" width="25px">     '+Distance+' กิโลเมตร</p><p style="padding-bottom:15px"><img src="/public/img/Like Filled-48.png" width="25px"> '+res.SellData[x].NumberOfLike+'</p><a  href="/sell/productdetail/'+res.SellData[x].Sellid+'"><button type="button" class="btn btn-success">รายละเอียดสินค้า</button></a></div></div></div>';
+                i = i+html; 
+              $("#data").html(i);
+            }
+          }
+        },
+        error:function(err){
+        }
+      });
+    }else{
+      alert("กรุณากรอกชื่อสินค้าที่ต้องการค้นหา");
+    }
+    
+   });
+
+
+</script>
+{{template "Templates/footer.html" .}}

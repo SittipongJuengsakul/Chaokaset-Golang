@@ -27,9 +27,14 @@
           {{ range .data }}
           <tr>
             <td class="color-yellow">
-              <!--<span class="status-ball bg-green"></span>-->
+              {{ if eq .Status 1}}
+                <span class="status-ball bg-green" title="กำลังขาย"></span>
+              {{end}}
+              {{ if eq .Status 0}}
+                <span class="status-ball bg-red" title="ปิดการขาย"></span>
+              {{end}}
             </td>
-            <td class="color-green"><a href="/sell/editproduct/{{.Sellid.Hex}}" class="name-crops">{{.Name}} </a></td>
+            <td class="color-green"><a href="/sell/productdetail/{{.Sellid.Hex}}" class="name-crops">{{.Name}} </a></td>
             <td>{{date .TimeCreate}}</td>
             <td>{{.Expire}}</td>
      
@@ -38,10 +43,15 @@
                 <a href="#" class="dropdown-toggle option-crops"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ดูเพิ่มเติม <span class="caret"></span></a>
                 </button>
                 <ul class="dropdown-menu dd-menu" aria-labelledby="dropdownMenu1">
-                  <li><a href="#">ดูข้อมูลสินค้า</a></li>
-                  <li><a href="#">แก้ไขรายละเอียดสินค้า</a></li>
+                
+                  <li><a href="/sell/editproduct/{{.Sellid.Hex}}">แก้ไขรายละเอียดสินค้า</a></li>
                   <li role="separator" class="divider"></li>
-                  <li><a href="#" class="color-red">ปิดการขาย</a></li>
+                  {{ if eq .Status 1}}
+                    <li><a href="/sell/closeproduct/{{.Sellid.Hex}}" class="color-red">ปิดการขาย</a></li>
+                  {{end}}
+                  {{ if eq .Status 0}}
+                    <li><a href="/sell/openproduct/{{.Sellid.Hex}}" class="color-green">เปิดการขาย</a></li>
+                  {{end}}
                 </ul>
               </div>
             </td>
