@@ -32,7 +32,7 @@
         this.parentEl = 'body';
         this.element = $(element);
         this.startDate = moment().startOf('day').add(543, 'years');
-        this.endDate = moment().endOf('day');
+        this.endDate = moment().startOf('day').add(543, 'years');
         this.minDate = false;
         this.maxDate = false;
         this.dateLimit = false;

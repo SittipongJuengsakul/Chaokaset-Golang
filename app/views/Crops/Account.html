@@ -138,7 +138,7 @@ $('#myInput').focus()
         </thead>
         <tbody class="box-tbody-show">
           <tr ng-if="accountdatas" ng-repeat="acdata in accountdatas | filter:searchText">
-            <td ng-bind="acdata.Updated_at | date:'dd MMM yyyy': '+700'"></td>
+            <td ng-bind="acdata.Updated_at | bdate"></td>
             <td ng-bind="acdata.Detail"></td>
             <td ng-if="acdata.TypeAccount == 1">รายรับ</td>
             <td ng-if="acdata.TypeAccount == 2">รายจ่าย</td>
@@ -287,5 +287,21 @@ $('#myInput').focus()
         }
       }
   });
+  app.filter('bdate', function($filter)
+    {
+     return function(input)
+     {
+      if(input == null){ return ""; }
+      var bYears=543;
+      //Please write the formula for getting the buddhist date here
+      //Below is a rough conversion of adding 365*bYears days to todays date
+
+     // Convert 'days' to milliseconds
+        var millies = 1000 * 60 * 60 * 24 * 365 * bYears;
+     var d = new Date(input).getTime()+millies;
+      var _date = $filter('date')(new Date(d), 'MMM dd yyyy');
+      return _date.toUpperCase();
+     };
+    });
 </script>
 {{template "Templates/footer.html" .}}
