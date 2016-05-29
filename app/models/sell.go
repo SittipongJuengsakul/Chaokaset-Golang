@@ -134,7 +134,7 @@ func GetSellData(Lat float64, Long float64) []Sells {
 
   t := time.Now()
   tNow := t.Format("2006-01-02")
-
+  var s2 string
    for i := range result {
       lat1 := Lat
       lat2 := result[i].Address.Lat
@@ -148,8 +148,7 @@ func GetSellData(Lat float64, Long float64) []Sells {
       result[i].SetNumLike(len(result[i].Like))
 
       s := strings.Split(result[i].Expire," ")
-      var s2 string
-      
+     // fmt.Println(s)
       switch s[1] {
         case "มกราคม": 
           s2 = "01"
@@ -163,7 +162,7 @@ func GetSellData(Lat float64, Long float64) []Sells {
           s2 = "05"
         case "มิถุนายน": 
           s2 = "06"
-        case "กรฏาคม": 
+        case "กรกฎาคม": 
           s2 = "07"
         case "สิงหาคม": 
           s2 = "08"
@@ -176,9 +175,9 @@ func GetSellData(Lat float64, Long float64) []Sells {
         case "ธันวาคม": 
           s2 = "12"
       }
-     // fmt.Println(s2)
+      //fmt.Println(s2)
       dateNum := s[2]+"-"+s2+"-"+s[0]
-      //fmt.Println(dateNum)
+      fmt.Println(dateNum)
       if dateNum >= tNow{
         result_data = append(result_data,result[i])
       }
@@ -200,10 +199,10 @@ func GetSellDataByCategory(category string,Lat float64, Long float64) []Sells {
   var result,result_data []Sells
   
   qmgo.Find(bson.M{"status": 1,"category": category}).Sort("-timecreate").All(&result)
-//fmt.Printf("%+v\n", result)
+ // fmt.Printf("%+v\n", result)
   t := time.Now()
   tNow := t.Format("2006-01-02")
-
+  var s2 string
    for i := range result {
       lat1 := Lat
       lat2 := result[i].Address.Lat
@@ -213,13 +212,12 @@ func GetSellDataByCategory(category string,Lat float64, Long float64) []Sells {
       dist := math.Sin(geolib.Deg2Rad(lat1)) * math.Sin(geolib.Deg2Rad(lat2)) + math.Cos(geolib.Deg2Rad(lat1)) * math.Cos(geolib.Deg2Rad(lat2)) * math.Cos(geolib.Deg2Rad(theta))
       dist = math.Acos(dist)
       dist = geolib.Rad2Deg(dist)
-      fmt.Printf("%+v\n", dist)
+      //fmt.Printf("%+v\n", dist)
       result[i].SetDistance(dist * 60 * 1.1515 * 1.609344)
       result[i].SetNumLike(len(result[i].Like))
 
       s := strings.Split(result[i].Expire," ")
-      var s2 string
-      
+    //  fmt.Println(s)
       switch s[1] {
         case "มกราคม": 
           s2 = "01"
@@ -233,7 +231,7 @@ func GetSellDataByCategory(category string,Lat float64, Long float64) []Sells {
           s2 = "05"
         case "มิถุนายน": 
           s2 = "06"
-        case "กรฏาคม": 
+        case "กรกฎาคม": 
           s2 = "07"
         case "สิงหาคม": 
           s2 = "08"
@@ -246,14 +244,14 @@ func GetSellDataByCategory(category string,Lat float64, Long float64) []Sells {
         case "ธันวาคม": 
           s2 = "12"
       }
-     // fmt.Println(s2)
+     //fmt.Println(s2)
       dateNum := s[2]+"-"+s2+"-"+s[0]
-      //fmt.Println(dateNum)
+      fmt.Println(dateNum)
       if dateNum >= tNow{
         result_data = append(result_data,result[i])
       }
   }
-    
+
   return result_data
 }
 
@@ -433,12 +431,13 @@ func GetSearchSell(Name string,Lat float64,Long float64) []Sells {
   
   qmgo.Find(bson.M{"name": bson.RegEx{".*"+Name, "s"},"status": 1}).All(&result)
  // fmt.Printf("%+v\n", result)
-    t := time.Now()
+  t := time.Now()
   tNow := t.Format("2006-01-02")
-
-   for i := range result {
-      lat2 := Lat
-      lat1 := result[i].Address.Lat
+  var s2 string
+  
+  for i := range result {
+    lat2 := Lat
+    lat1 := result[i].Address.Lat
       //fmt.Printf("%+v\n", lat2)
       lon2 := Long
       lon1 := result[i].Address.Long
@@ -452,7 +451,6 @@ func GetSearchSell(Name string,Lat float64,Long float64) []Sells {
       result[i].SetNumLike(len(result[i].Like))
 
       s := strings.Split(result[i].Expire," ")
-      var s2 string
       
       switch s[1] {
         case "มกราคม": 
@@ -467,7 +465,7 @@ func GetSearchSell(Name string,Lat float64,Long float64) []Sells {
           s2 = "05"
         case "มิถุนายน": 
           s2 = "06"
-        case "กรฏาคม": 
+        case "กรกฏาคม": 
           s2 = "07"
         case "สิงหาคม": 
           s2 = "08"

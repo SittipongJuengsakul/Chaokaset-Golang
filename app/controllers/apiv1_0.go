@@ -1,16 +1,8 @@
 package controllers
 import (
     "github.com/revel/revel"
-<<<<<<< HEAD
     "chaokaset-go/app/models"
     "golang.org/x/crypto/bcrypt"
-=======
-    //"github.com/gocql/gocql"
-    //"gopkg.in/mgo.v2"
-   // "gopkg.in/mgo.v2/bson"
-    "chaokaset-api/app/models"
-    "golang.org/x/crypto/bcrypt"
-   // "time"
     "log"
     "time"
     "os"
@@ -18,7 +10,6 @@ import (
    "fmt"
    "sort"
    "strings"
->>>>>>> origin/DevManagementSell
 )
 
 type Api struct {
@@ -77,15 +68,8 @@ type ResSeed struct {
 }
 type ResCommentAll struct {
     Status        bool
-   // CommentData      []models.Comment
     CommentData      []models.Sells
 }
-
-/*type ByLike []models.Sells
-
-func (a ByLike) Len() int           { return len(a) }
-func (a ByLike) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
-func (a ByLike) Less(i, j int) bool { return a[i].NumberOfLike < a[j].NumberOfLike }*/
 
 func (c Api) Index() revel.Result {
   var user *models.User
@@ -104,7 +88,6 @@ func (c Api) CheckLogin(Username string,Password string) revel.Result {
     return  c.RenderJson(R)
 }
 
-<<<<<<< HEAD
 func (c Api) ApiGetUserData(Username string) revel.Result {
     var R *ResAuth
     var U *models.User
@@ -149,8 +132,7 @@ func (c Api) PostEditUser(Username string,Prefix string,Name string,Lastname str
     return c.RenderJson(R)
   }
 }
-=======
->>>>>>> origin/DevManagementSell
+
 func (c Api) RegisterUser(Username string,Password string,Prefix string,Name string,Lname string,Tel string,Role_user int,Email string) revel.Result {
   var R *ResAuth
   var U *models.User
@@ -586,7 +568,7 @@ func (c Api) EditProduct(idSell string, name string, category string, price int,
 }
 
 func (c Api) PostApi(IdSell string) revel.Result {
-  upload_dir := "/var/home/goserver/src/chaokaset-api/public/uploads/"
+  upload_dir := "/var/home/goserver/src/chaokaset-go/public/uploads/"
   m := c.Request.MultipartForm
   result := true
   for fname, _ := range m.File {

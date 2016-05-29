@@ -2,7 +2,7 @@ package controllers
 
 import (
     "github.com/revel/revel"
-	  "chaokaset-api/app/models"
+	  "chaokaset-go/app/models"
     "io"
     "fmt"
     "log"
@@ -37,16 +37,8 @@ func (a ByDistance) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
 func (a ByDistance) Less(i, j int) bool { return a[i].Distance < a[j].Distance }
 
 func (c Sell) IndexSell() revel.Result {
-  //var data *models.Sells
-  //Data := models.GetSellData(13,100)
- /*for i := range SortData {
-    fmt.Printf("%+v",SortData[i].NumberOfLike)
-  }
-*/
-//  sort.Sort(sort.Reverse(ByLike(Data)))
   Lat := c.Session["Lat"]
   Long := c.Session["Long"]
-
   return c.Render(Lat,Long)
 }
 
@@ -92,7 +84,7 @@ func (c Sell) PostSell(sell models.PostSell) revel.Result {
 
   fmt.Printf("%+v\n", selling.SellId)
   
-  upload_dir := "/var/home/goserver/src/chaokaset-api/public/uploads/" 
+  upload_dir := "/var/home/goserver/src/chaokaset-go/public/uploads/" 
   m := c.Request.MultipartForm
     //var msg string
   for fname, _ := range m.File {
@@ -130,8 +122,6 @@ func (c Sell) PostSell(sell models.PostSell) revel.Result {
     }
   }
    
-  //return  c.RenderJson(555)
-  
   return  c.Redirect(Sell.IndexSell)
 
 }
@@ -169,7 +159,7 @@ func (c Sell) PostEditSell() revel.Result {
   models.EditProductSell(idSell,Name,Category,Prices,Detail,Expire,Unit,lat_values,lon_values)
   
   if status == "1" {
-      upload_dir := "/var/home/goserver/src/chaokaset-api/public/uploads/" 
+      upload_dir := "/var/home/goserver/src/chaokaset-go/public/uploads/" 
       m := c.Request.MultipartForm
         //var msg string
       for fname, _ := range m.File {
@@ -237,16 +227,6 @@ func (c Sell) ListSellCrop() revel.Result {
   userid := c.Session["username"]
   id := models.GetUserid(userid)
   data := models.GetCropSell(id.Userid.Hex())
-  /*t := time.Now()
-  fmt.Println(t.Year())
-  fmt.Println(t.Month())
-  fmt.Println(t.Day())*/
- /* t := time.Now()
-  fmt.Println(t.Format("2006-01-02"))
-  fmt.Printf("%q\n", strings.Split("27 พฤษภาคม 2558", " "))
-  tDate := strings.Split("27 พฤษภาคม 2558", " ")
-   fmt.Println(tDate[0])*/
- // fmt.Println(t.Format(time.RFC850))
   return c.Render(data)
 }
 
@@ -297,7 +277,7 @@ func (c Sell) PostSellCrop() revel.Result {
 
   fmt.Printf("%+v\n", selling.SellId)
   
-  upload_dir := "/var/home/goserver/src/chaokaset-api/public/uploads/" 
+  upload_dir := "/var/home/goserver/src/chaokaset-go/public/uploads/" 
   m := c.Request.MultipartForm
     //var msg string
   for fname, _ := range m.File {
@@ -334,9 +314,6 @@ func (c Sell) PostSellCrop() revel.Result {
       }
     }
   }
-  
-  
- // return  c.RenderJson(Name)
   
   return  c.Redirect(Sell.IndexSell)
 
