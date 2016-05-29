@@ -23,13 +23,13 @@
 		</video>
 		<div class="layer">
 			<h1 style="color: white;">ค้นหา</h1>
-			<form action="index.html" method="post">
+			<form action="{{url "Sell.Search"}}" method="post">
 				<div class="chaokaset-main-search">
-					<input type="text" name="smartsearch" class="search-plant" value="">
+					<input type="text" name="search" class="search-plant" value="" required>
 					<!--<input type="text" name="smartsearch" class="search-plant" value="" ng-value="message"> -->
 				</div>
 				<div class="chaokaset-main-button-search">
-					<button type="button" class="button-search">ค้นหาผลผลิต</button>
+					<button type="summit" class="button-search">ค้นหาผลผลิต</button>
 					<!--<button type="button" class="button-search">ค้นหาเกษตรกร</button>-->
 				</div>
 			</form>

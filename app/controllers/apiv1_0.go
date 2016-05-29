@@ -10,6 +10,7 @@ import (
    "fmt"
    "sort"
    "strings"
+   "strconv"
 )
 
 type Api struct {
@@ -225,8 +226,11 @@ func (c Api) AddProduct(name string,category string, price int, unit string, det
       case "12": 
         MonthName = "ธันวาคม"       
     }
+    year,_ := strconv.ParseInt(s[0], 10, 64)
+    //year = year+543
+    yearThai:= strconv.FormatInt(year+543, 10)
 
-    expire = s[2] + " " + MonthName + " " + s[0]
+    expire = s[2] + " " + MonthName + " " + yearThai
   
   err := models.AddSellData2(name,category,price,unit,detail,expire,ownerId,lat,long,sellType)
   /*if err {

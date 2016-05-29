@@ -8,6 +8,7 @@ import (
     "math"
     "fmt"
     "strings"
+    "strconv"
 )
 
 type Sells struct{
@@ -176,7 +177,10 @@ func GetSellData(Lat float64, Long float64) []Sells {
           s2 = "12"
       }
       //fmt.Println(s2)
-      dateNum := s[2]+"-"+s2+"-"+s[0]
+      year,_ := strconv.ParseInt(s[2], 10, 64)
+    //year = year+543
+    yearEng:= strconv.FormatInt(year-543, 10)
+      dateNum := yearEng+"-"+s2+"-"+s[0]
       fmt.Println(dateNum)
       if dateNum >= tNow{
         result_data = append(result_data,result[i])
@@ -245,7 +249,10 @@ func GetSellDataByCategory(category string,Lat float64, Long float64) []Sells {
           s2 = "12"
       }
      //fmt.Println(s2)
-      dateNum := s[2]+"-"+s2+"-"+s[0]
+      year,_ := strconv.ParseInt(s[2], 10, 64)
+    //year = year+543
+    yearEng:= strconv.FormatInt(year-543, 10)
+      dateNum := yearEng+"-"+s2+"-"+s[0]
       fmt.Println(dateNum)
       if dateNum >= tNow{
         result_data = append(result_data,result[i])
@@ -339,8 +346,11 @@ func AddSellData2(name string,category string, price int, unit string, detail st
       case "12": 
         MonthName = "ธันวาคม"       
   }
+  //year,_ := strconv.ParseInt(t.Year(), 10, 64)
+  year := t.Year()+543
+  yearThai:= strconv.Itoa(year)
 
-  start := t.Format("02") +" "+MonthName+" "+t.Format("2006")
+  start := t.Format("02") +" "+MonthName+" "+yearThai
   fmt.Println(start)
   i := bson.NewObjectId()
   

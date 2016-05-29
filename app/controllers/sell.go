@@ -324,3 +324,18 @@ func (c Sell) SearchProduct(idcrop string) revel.Result{
   Long := c.Session["Long"]
   return c.Render(Lat,Long)
 }
+
+func (c Sell) Search() revel.Result{
+  var Name string = c.Params.Get("search")
+  var data []models.Sells
+  Lat := c.Session["Lat"]
+  Long := c.Session["Long"]
+  Lats,_ := strconv.ParseFloat(Lat, 64)
+  Longs,_ := strconv.ParseFloat(Long, 64)
+  if Name == "" {
+    data = models.GetSellData(Lats,Longs)
+  }else{
+    data = models.GetSearchSell(Name,Lats,Longs)
+  }
+  return c.Render(data,Lat,Long,Name)
+}
