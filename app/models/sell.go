@@ -436,17 +436,14 @@ func GetSearchSell(Name string,Lat float64,Long float64) []Sells {
   var s2 string
   
   for i := range result {
-    lat2 := Lat
-    lat1 := result[i].Address.Lat
-      //fmt.Printf("%+v\n", lat2)
-      lon2 := Long
-      lon1 := result[i].Address.Long
-      //fmt.Printf("%+v\n", lon2)
+      lat1 := Lat
+      lat2 := result[i].Address.Lat
+      lon1 := Long
+      lon2 := result[i].Address.Long
       theta := lon1 - lon2
       dist := math.Sin(geolib.Deg2Rad(lat1)) * math.Sin(geolib.Deg2Rad(lat2)) + math.Cos(geolib.Deg2Rad(lat1)) * math.Cos(geolib.Deg2Rad(lat2)) * math.Cos(geolib.Deg2Rad(theta))
       dist = math.Acos(dist)
       dist = geolib.Rad2Deg(dist)
-      //fmt.Printf("%+v\n", dist)
       result[i].SetDistance(dist * 60 * 1.1515 * 1.609344)
       result[i].SetNumLike(len(result[i].Like))
 
@@ -465,7 +462,7 @@ func GetSearchSell(Name string,Lat float64,Long float64) []Sells {
           s2 = "05"
         case "มิถุนายน": 
           s2 = "06"
-        case "กรกฏาคม": 
+        case "กรกฎาคม": 
           s2 = "07"
         case "สิงหาคม": 
           s2 = "08"

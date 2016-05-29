@@ -53,7 +53,7 @@
         <div class="col-sm-2">
         </div>
       </div>
-      {{.Lat}}{{.Long}}
+
       </br>
       <div class="row" id="data">
 
@@ -69,7 +69,7 @@
     if(name != ""){
       var i = "";
       var api =  site_url+"/apiv1_0/SearchProduct/"+name+"/"+{{.Lat}}+"/"+{{.Long}};
-      alert(api);
+      //alert(api);
       $.ajax({
         url:api,
         success:function(res){
