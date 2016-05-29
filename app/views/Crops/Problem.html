@@ -117,7 +117,7 @@
         </thead>
         <tbody class="box-tbody-show">
           <tr ng-if="problemdatas" ng-repeat="problemdata in problemdatas | filter:searchText">
-            <td ng-bind="problemdata.Updated_at | date:'dd MMM yyyy': '+700'"></td>
+            <td ng-bind="problemdata.Updated_at | bdate"></td>
             <td ng-bind="problemdata.Problem">ดิน</td>
             <td ng-bind="problemdata.Detail">ดินแข็งไม่สามารถเพาะปลูกได้</td>
             <td class="color-red" ng-if="problemdata.StatusTopic==0">รอคำตอบ</td>
@@ -259,18 +259,17 @@
   app.filter('bdate', function($filter)
     {
      return function(input)
-     {
-      if(input == null){ return ""; }
-      var bYears=543;
-      //Please write the formula for getting the buddhist date here
-      //Below is a rough conversion of adding 365*bYears days to todays date
-
-     // Convert 'days' to milliseconds
-        var millies = 1000 * 60 * 60 * 24 * 365 * bYears;
-     var d = new Date(input).getTime()+millies;
-      var _date = $filter('date')(new Date(d), 'MMM dd yyyy');
-      return _date.toUpperCase();
-     };
+       {
+          if(input == null){ return ""; }
+          var startday = moment(input, moment.ISO_8601);
+          var b = startday.format('D M YYYY');
+          var res = b.split(" ");
+          var c = parseInt(res[2])+543;
+          return res[0]+" "+thmonth[res[1]-1]+" "+c;
+       };
     });
+    var thmonth = new Array ("มกราคม","กุมภาพันธ์","มีนาคม",
+    "เมษายน","พฤษภาคม","มิถุนายน", "กรกฎาคม","สิงหาคม","กันยายน",
+    "ตุลาคม","พฤศจิกายน","ธันวาคม");
 </script>
 {{template "Templates/footer.html" .}}
