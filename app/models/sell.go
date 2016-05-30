@@ -738,10 +738,11 @@ func GetCropSell(Userid string) []Crop {
  // fmt.Printf("%q\n", strings.Split("27 พฤษภาคม 2558", " "))
   qmgo.Find(bson.M{"userid" : Userid}).Sort("-timecreate").All(&result)
   //qmgo.Find(bson.M{"userid" : Userid,"enddate": bson.M{"$lte":"26 พฤษภาคม 2016"}}).Sort("-timecreate").All(&result)
- fmt.Println(result)
+ //fmt.Println(result)
   for i := range result {
     s := strings.Split(result[i].EndDate," ")
     var s2 string
+    fmt.Println(s[1])
     switch s[1] {
       case "มกราคม": 
         s2 = "01"
@@ -755,7 +756,7 @@ func GetCropSell(Userid string) []Crop {
         s2 = "05"
       case "มิถุนายน": 
         s2 = "06"
-      case "กรฏาคม": 
+      case "กรกฎาคม": 
         s2 = "07"
       case "สิงหาคม": 
         s2 = "08"
@@ -776,7 +777,7 @@ func GetCropSell(Userid string) []Crop {
   //  dateNum := s[2]+"-"+s2+"-"+s[0]
     fmt.Println(tNow)
     fmt.Println("----------------")
-    fmt.Println("5555"+dateNum)
+    fmt.Println(dateNum)
     if dateNum <= tNow{
       result_data = append(result_data,result[i])
     }
@@ -797,6 +798,7 @@ func GetCropSellDetail(Userid string,Cropid string) *Crop {
 
   session.SetMode(mgo.Monotonic, true)
   qmgo := session.DB("chaokaset").C("crops")
+  fmt.Println("uid: "+Userid+"  cid: "+Cropid)
 
   var result *Crop
   
