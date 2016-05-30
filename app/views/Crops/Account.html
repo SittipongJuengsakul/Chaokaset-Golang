@@ -295,6 +295,7 @@ var thmonth = new Array ("มกราคม","กุมภาพันธ์","
     {
      return function(input)
        {
+         //alert(input)
           if(input == null){ return ""; }
           var startday = moment(input, moment.ISO_8601);
           var b = startday.format('D M YYYY');
