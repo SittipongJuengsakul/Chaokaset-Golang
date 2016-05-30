@@ -35,6 +35,7 @@ GET     /plant/showseed                                                         
 GET     /plant/addseed                                                                             Plant.AddSeed
 POST    /plant/removeseed/:idseed                                                                  Plant.RemoveSeed
 GET     /management                                                                                Management.IndexManagement
+GET     /management/showproblem                                                                    Management.ShowProblem
 GET     /plan/addplan                                                                              Plan.AddCropPlan
 GET     /plan/addplanactivity/:idplan                                                              Plan.AddPlanActivity
 GET     /plan/showplan                                                                             Plan.ShowPlan
