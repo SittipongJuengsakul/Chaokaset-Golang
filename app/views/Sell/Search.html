@@ -95,6 +95,11 @@
    });
 
   $(document).ready(function(){
+    var sessionLat = {{.Lat}}
+    var sessionLong = {{.Long}}
+    if(sessionLat == "" && sessionLong == ""){
+      getLocation();
+    }
     //alert(5555555);
    // var name = $("#SearchProduct").val();
    var name = {{.Name}}
@@ -127,6 +132,31 @@
     }
     
    });
+
+  function getLocation() {
+      if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(setLatong);
+      } else { 
+          alert("Geolocation is not supported by this browser.");
+      }
+  }
+
+  function setLatong(position) {
+    var Lat = position.coords.latitude;
+    var Long = position.coords.longitude;
+   // alert(Lat+"  "+Long);
+    var api =  site_url+"/setLatLong/"+Lat+"/"+Long;
+    //alert(api);
+    $.ajax({
+        url:api,
+        success:function(res){
+          alert("บันทึกพิกัดที่ "+Lat+","+Long);
+          location.reload(); 
+        },
+       error:function(err){
+       }
+    });
+  }
 
 </script>
 {{template "Templates/footer.html" .}}

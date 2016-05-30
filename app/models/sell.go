@@ -733,13 +733,11 @@ func GetCropSell(Userid string) []Crop {
   
   t := time.Now()
   tNow := t.Format("2006-01-02")
-  //tyear := t.Format("2006")
-
-  fmt.Println(tNow)
+ 
  // fmt.Printf("%q\n", strings.Split("27 พฤษภาคม 2558", " "))
   qmgo.Find(bson.M{"userid" : Userid}).Sort("-timecreate").All(&result)
   //qmgo.Find(bson.M{"userid" : Userid,"enddate": bson.M{"$lte":"26 พฤษภาคม 2016"}}).Sort("-timecreate").All(&result)
-
+ fmt.Println(result)
   for i := range result {
     s := strings.Split(result[i].EndDate," ")
     var s2 string
@@ -769,10 +767,16 @@ func GetCropSell(Userid string) []Crop {
       case "ธันวาคม": 
         s2 = "12"
     }
+    year,_ := strconv.ParseInt(s[2], 10, 64)
+    //year = year+543
+    yearEng:= strconv.FormatInt(year-543, 10)
+    dateNum := yearEng+"-"+s2+"-"+s[0]
    // fmt.Println(s2)
-    dateNum := s[2]+"-"+s2+"-"+s[0]
-    //fmt.Println(dateNum)
-    if dateNum < tNow{
+  //  dateNum := s[2]+"-"+s2+"-"+s[0]
+    fmt.Println(tNow)
+    fmt.Println("----------------")
+    fmt.Println("5555"+dateNum)
+    if dateNum <= tNow{
       result_data = append(result_data,result[i])
     }
   }
