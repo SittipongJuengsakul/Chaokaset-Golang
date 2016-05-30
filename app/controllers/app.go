@@ -575,3 +575,6 @@ func (c Howto) HowtoMarket() revel.Result {
 func (c Management) IndexManagement() revel.Result {
 	return c.Render()
 }
+func (c Management) ShowProblem() revel.Result {
+	return c.Render()
+}

@@ -28,7 +28,7 @@
       <tbody class="box-tbody-show">
         <tr ng-repeat="plan in filterPlans  = (plans | filter:searchPlanText)">
           <td ng-bind-html="plan.PlanName | searchfilter:searchPlanText"></td>
-          <td ng-bind-html="plan.OwnerCompany | searchfilter:searchPlanText"></td>
+          <td ng-bind-html="plan.Owner | searchfilter:searchPlanText"></td>
           <td ng-bind-html="plan.Plant | searchfilter:searchPlanText"></td>
           <td ng-bind-html="plan.Seed | searchfilter:searchPlanText"></td>
           <!--<td ng-bind-html="plan.UsedNum | number" style="text-align: center;"></td>-->

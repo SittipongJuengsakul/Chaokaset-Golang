@@ -1,0 +1,147 @@
+{{set . "title" "แสดงหน้าตอบปัญหาการเพาะปลูก"}}
+{{template "Templates/header.html" .}}
+
+{{template "Templates/preloader.html" .}}
+<div ng-app="ChaokasetApp" ng-controller="searchShowPlan">
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h2 class="color-green">เพิ่มปัญหาการเพาะปลูก</h2>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+          <div class="col-sm-12 container-box">
+            <div class="col-sm-12 container-box-content" >
+              <form ng-submit="SaveProblemSubmit()">
+                <input type="hidden" ng-model="AnswerIdProblem" name="answer">
+                <div class="info-plant-show">
+                  <div class="form-grop col-md-12" style="padding: 0px;">
+                    {{with $field := field "Problem.Details" .}}
+                    <div class="form-group col-md-12 padding-left-no padding-right-no">
+                      <label>คำตอบ</label>
+                      <textarea type="text" class="form-control" placeholder="กรอกคำตอบ" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="AnswerDetail"></textarea>
+                      <span class="error">{{$field.Error}}</span>
+                    </div>
+                    {{end}}
+                  </div>
+                </div>
+            </div>
+          </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">บันทึก</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+<div class="chaokaset-container-verticle" id="chaokaset-loader" style="display: none;">
+  <div class="col-sm-12 varticle-header-box">
+    <h1>ตอบปัญหาของเกษตรกร</h1>
+  </div>
+  <div class="col-sm-12 container-box"   style="margin-top: 20px;">
+    <table class="table">
+      <thead class="box-thead-show">
+        <tr>
+          <th width="25%">วันที่</th>
+          <th>ประเภท</th>
+          <th width="35%">รายละเอียด</th>
+          <th>ตัวเลือก</th>
+        </tr>
+      </thead>
+      <tbody class="box-tbody-show">
+        <tr ng-if="problemdatas" ng-repeat="problemdata in problemdatas | filter:searchText">
+          <td ng-bind="problemdata.Updated_at | bdate"></td>
+          <td ng-bind="problemdata.Problem"></td>
+          <td ng-bind="problemdata.Detail"></td>
+          <td class="color-green">
+            <div class="dropdown">
+              <a href="#" class="dropdown-toggle option-crops"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ดูเพิ่มเติม <span class="caret"></span></a>
+              </button>
+              <ul class="dropdown-menu dd-menu" aria-labelledby="dropdownMenu1">
+                <li><a ng-click="ProblemSubmit(problemdata.ProblemId)">ตอบคำถาม</a></li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+        <tr ng-if="!problemdatas" style="text-align: center;">
+            <td colspan="5">
+              ไม่มีข้อมูล
+            </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade container-box" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog container-box-content" role="document">
+    <div class="modal-content">
+      <div class="modal-header name-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="color-green" id="NameDetailLabel">แผนการเพาะปลูก</h4>
+      </div>
+      <div class="modal-body info-plant-show">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<script type="text/javascript">
+  var app = angular.module('ChaokasetApp', ['ngSanitize']);
+  app.controller('searchShowPlan', function($scope, $http) {
+    $http.get(site_url+"/apiv1_0/officerallproblems")
+    .then(function(response) {
+      $scope.problemdatas = response.data.ProblemDatas;
+    });
+    $scope.ProblemSubmit = function(idproblem) {//บันทึกบัญชี
+      $scope.AnswerIdProblem = idproblem;
+      $scope.AnswerDetail = "";
+      $('#myModal').modal('show');
+    }
+    $scope.SaveProblemSubmit = function() {//บันทึกบัญชี
+      $http({
+        method: 'POST',
+        url: site_url+"/apiv1_0/saveofficerproblem/"+$scope.AnswerIdProblem+"/"+$scope.AnswerDetail
+      }).then(function(response) {
+        //สำเร็จ
+        $http.get(site_url+"/apiv1_0/officerallproblems")
+        .then(function(response) {
+          $scope.problemdatas = response.data.ProblemDatas;
+        });
+      },function(response) {
+        //ผิดพลาด
+    });
+      $('#myModal').modal('hide');
+    }
+  });
+  app.filter('bdate', function($filter)
+    {
+     return function(input)
+       {
+          if(input == null){ return ""; }
+          var startday = moment(input, moment.ISO_8601);
+          var b = startday.format('D M YYYY');
+          var res = b.split(" ");
+          var c = parseInt(res[2])+543;
+          return res[0]+" "+thmonth[res[1]-1]+" "+c;
+       };
+    });
+    var thmonth = new Array ("มกราคม","กุมภาพันธ์","มีนาคม",
+    "เมษายน","พฤษภาคม","มิถุนายน", "กรกฎาคม","สิงหาคม","กันยายน",
+    "ตุลาคม","พฤศจิกายน","ธันวาคม");
+  //Modal Script
+  $('#myModal').on('shown.bs.modal', function () {
+    $('#myModal').focus()
+  })
+</script>
+{{template "Templates/footer.html" .}}

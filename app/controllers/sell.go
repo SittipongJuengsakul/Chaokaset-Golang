@@ -234,6 +234,7 @@ func (c Sell) ListSellCrop() revel.Result {
 func (c Sell) SellCrop(idcrop string) revel.Result{
   userid := c.Session["username"]
   id := models.GetUserid(userid)
+ // fmt.Println(idcrop+"   "+id.Userid.Hex())
   data := models.GetCropSellDetail(id.Userid.Hex(),idcrop)
   fmt.Println(data)
   Lat := c.Session["Lat"]
