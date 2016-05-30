@@ -118,9 +118,10 @@ func (SellDetail *SellDetail) SetStatusLike(data int) {
 func (SellDetail *SellDetail) SetNumLikeDetail(data int) {
   SellDetail.NumberOfLike = data
 }
+//var ip_mgo = "188.166.230.170"
 
 func GetSellData(Lat float64, Long float64) []Sells {
-  session, err := mgo.Dial("127.0.0.1")
+  session, err := mgo.Dial(ip_mgo)
   if err != nil {
       panic(err)
   }
@@ -191,7 +192,7 @@ func GetSellData(Lat float64, Long float64) []Sells {
 }
 
 func GetSellDataByCategory(category string,Lat float64, Long float64) []Sells {
-  session, err := mgo.Dial("127.0.0.1")
+  session, err := mgo.Dial(ip_mgo)
   if err != nil {
       panic(err)
   }
@@ -263,7 +264,7 @@ func GetSellDataByCategory(category string,Lat float64, Long float64) []Sells {
 }
 
 func AddSellData(name string,category string, price int, unit string, detail string, expire string, ownerId bson.ObjectId) (result bool) {
-  session, err := mgo.Dial("127.0.0.1")
+  session, err := mgo.Dial(ip_mgo)
   if err != nil {
       panic(err)
   }
@@ -300,7 +301,7 @@ func AddSellData(name string,category string, price int, unit string, detail str
 }
 
 func AddSellData2(name string,category string, price int, unit string, detail string, expire string, ownerId string, lat float64, long float64,sellType int) *ReturnSellId {
-  session, err := mgo.Dial("127.0.0.1")
+  session, err := mgo.Dial(ip_mgo)
   if err != nil {
       panic(err)
   }
@@ -381,7 +382,7 @@ func AddSellData2(name string,category string, price int, unit string, detail st
 }
 
 func GetSellDetail(Idsell string,Userid string) *SellDetail {
-  session, err := mgo.Dial("127.0.0.1")
+  session, err := mgo.Dial(ip_mgo)
   if err != nil {
       panic(err)
   }
@@ -430,7 +431,7 @@ func GetSellDetail(Idsell string,Userid string) *SellDetail {
 
 
 func GetSearchSell(Name string,Lat float64,Long float64) []Sells {
-  session, err := mgo.Dial("127.0.0.1")
+  session, err := mgo.Dial(ip_mgo)
   if err != nil {
       panic(err)
   }
@@ -496,7 +497,7 @@ func GetSearchSell(Name string,Lat float64,Long float64) []Sells {
 }
 
 func GetOwnerData(id string) *Owner{
-  session, err := mgo.Dial("127.0.0.1")
+  session, err := mgo.Dial(ip_mgo)
   if err != nil {
       panic(err)
   }
@@ -510,7 +511,7 @@ func GetOwnerData(id string) *Owner{
 }
 
 func GetManageSell(id string) []Sells {
-  session, err := mgo.Dial("127.0.0.1")
+  session, err := mgo.Dial(ip_mgo)
   if err != nil {
       panic(err)
   }
@@ -525,7 +526,7 @@ func GetManageSell(id string) []Sells {
 }
 
 func GetUserid(username string) *UserId {
-  session, err := mgo.Dial("127.0.0.1")
+  session, err := mgo.Dial(ip_mgo)
   if err != nil {
       panic(err)
   }
@@ -538,7 +539,7 @@ func GetUserid(username string) *UserId {
 }
 
 func UpdateStatusSell(idSell string,status int) (result bool) {
-  session, err := mgo.Dial("127.0.0.1")
+  session, err := mgo.Dial(ip_mgo)
   if err != nil {
       panic(err)
   }
@@ -559,7 +560,7 @@ func UpdateStatusSell(idSell string,status int) (result bool) {
 }
 
 func EditProductSell(idSell string, name string, category string, price int,detail string,expire string,unit string,lat float64,long float64) (result bool) {
-  session, err := mgo.Dial("127.0.0.1")
+  session, err := mgo.Dial(ip_mgo)
   if err != nil {
       panic(err)
   }
@@ -592,7 +593,7 @@ func EditProductSell(idSell string, name string, category string, price int,deta
 }
 
 func UpdatePic(idSell string,pic string) (result bool) {
-  session, err := mgo.Dial("127.0.0.1")
+  session, err := mgo.Dial(ip_mgo)
   if err != nil {
       panic(err)
   }
@@ -613,7 +614,7 @@ func UpdatePic(idSell string,pic string) (result bool) {
 }
 
 func Like(idSell string,idUser string) (result bool) {
-  session, err := mgo.Dial("127.0.0.1")
+  session, err := mgo.Dial(ip_mgo)
   if err != nil {
       panic(err)
   }
@@ -635,7 +636,7 @@ func Like(idSell string,idUser string) (result bool) {
 }
 
 func UnLike(idSell string,idUser string) (result bool) {
-  session, err := mgo.Dial("127.0.0.1")
+  session, err := mgo.Dial(ip_mgo)
   if err != nil {
       panic(err)
   }
@@ -658,7 +659,7 @@ func UnLike(idSell string,idUser string) (result bool) {
 }
 
 func CheckLike(idSell string,idUser string) (result bool) {
-  session, err := mgo.Dial("127.0.0.1")
+  session, err := mgo.Dial(ip_mgo)
   if err != nil {
       panic(err)
   }
@@ -679,7 +680,7 @@ func CheckLike(idSell string,idUser string) (result bool) {
 }
 
 func GetComment(idSell string) []Sells {
-  session, err := mgo.Dial("127.0.0.1")
+  session, err := mgo.Dial(ip_mgo)
   if err != nil {
       panic(err)
   }
@@ -698,7 +699,7 @@ func GetComment(idSell string) []Sells {
 
 
 func Comment(idSell string,idUser string,data string) (result bool) {
-  session, err := mgo.Dial("127.0.0.1")
+  session, err := mgo.Dial(ip_mgo)
   if err != nil {
       panic(err)
   }
@@ -720,7 +721,7 @@ func Comment(idSell string,idUser string,data string) (result bool) {
 }
 
 func GetCropSell(Userid string) []Crop {
-  session, err := mgo.Dial("127.0.0.1")
+  session, err := mgo.Dial(ip_mgo)
   if err != nil {
       panic(err)
   }
@@ -788,7 +789,7 @@ func GetCropSell(Userid string) []Crop {
 }
 
 func GetCropSellDetail(Userid string,Cropid string) *Crop {
-  session, err := mgo.Dial("127.0.0.1")
+  session, err := mgo.Dial(ip_mgo)
   if err != nil {
       panic(err)
   }
