@@ -1,41 +1,4 @@
 /**
-<<<<<<< HEAD
-* @version: 2.1.19
-* @author: Dan Grossman http://www.dangrossman.info/
-* @copyright: Copyright (c) 2012-2015 Dan Grossman. All rights reserved.
-* @license: Licensed under the MIT license. See http://www.opensource.org/licenses/mit-license.php
-* @website: https://www.improvely.com/
-*/
-
-(function(root, factory) {
-
-  if (typeof define === 'function' && define.amd) {
-    define(['moment', 'jquery', 'exports'], function(momentjs, $, exports) {
-      root.daterangepicker = factory(root, exports, momentjs, $);
-    });
-
-  } else if (typeof exports !== 'undefined') {
-      var momentjs = require('moment');
-      var jQuery = (typeof window != 'undefined') ? window.jQuery : undefined;  //isomorphic issue
-      if (!jQuery) {
-          try {
-              jQuery = require('jquery');
-              if (!jQuery.fn) jQuery.fn = {}; //isomorphic issue
-          } catch (err) {
-              if (!jQuery) throw new Error('jQuery dependency not found');
-          }
-      }
-
-    factory(root, exports, momentjs, jQuery);
-
-  // Finally, as a browser global.
-  } else {
-    root.daterangepicker = factory(root, {}, root.moment || moment, (root.jQuery || root.Zepto || root.ender || root.$));
-  }
-
-}(this || {}, function(root, daterangepicker, moment, $) { // 'this' doesn't exist on a server
-
-=======
 * @version: 2.1.20
 * @author: Dan Grossman http://www.dangrossman.info/
 * @copyright: Copyright (c) 2012-2016 Dan Grossman. All rights reserved.
@@ -63,19 +26,13 @@
         root.daterangepicker = factory(root.moment, root.jQuery);
     }
 }(this, function(moment, $) {
->>>>>>> DevFarmers
     var DateRangePicker = function(element, options, cb) {
 
         //default settings for options
         this.parentEl = 'body';
         this.element = $(element);
-<<<<<<< HEAD
-        this.startDate = moment().startOf('day');
-        this.endDate = moment().endOf('day');
-=======
         this.startDate = moment().startOf('day').add(543, 'years');
         this.endDate = moment().startOf('day').add(543, 'years');
->>>>>>> DevFarmers
         this.minDate = false;
         this.maxDate = false;
         this.dateLimit = false;
@@ -106,10 +63,7 @@
         this.cancelClass = 'btn-default';
 
         this.locale = {
-<<<<<<< HEAD
-=======
             direction: 'ltr',
->>>>>>> DevFarmers
             format: 'MM/DD/YYYY',
             separator: ' - ',
             applyLabel: 'Apply',
@@ -141,11 +95,7 @@
             options.template = '<div class="daterangepicker dropdown-menu">' +
                 '<div class="calendar left">' +
                     '<div class="daterangepicker_input">' +
-<<<<<<< HEAD
-                      '<input class="input-mini" type="text" name="daterangepicker_start" value="" />' +
-=======
                       '<input class="input-mini form-control" type="text" name="daterangepicker_start" value="" />' +
->>>>>>> DevFarmers
                       '<i class="fa fa-calendar glyphicon glyphicon-calendar"></i>' +
                       '<div class="calendar-time">' +
                         '<div></div>' +
@@ -156,11 +106,7 @@
                 '</div>' +
                 '<div class="calendar right">' +
                     '<div class="daterangepicker_input">' +
-<<<<<<< HEAD
-                      '<input class="input-mini" type="text" name="daterangepicker_end" value="" />' +
-=======
                       '<input class="input-mini form-control" type="text" name="daterangepicker_end" value="" />' +
->>>>>>> DevFarmers
                       '<i class="fa fa-calendar glyphicon glyphicon-calendar"></i>' +
                       '<div class="calendar-time">' +
                         '<div></div>' +
@@ -186,12 +132,9 @@
 
         if (typeof options.locale === 'object') {
 
-<<<<<<< HEAD
-=======
             if (typeof options.locale.direction === 'string')
                 this.locale.direction = options.locale.direction;
 
->>>>>>> DevFarmers
             if (typeof options.locale.format === 'string')
                 this.locale.format = options.locale.format;
 
@@ -220,10 +163,7 @@
               this.locale.customRangeLabel = options.locale.customRangeLabel;
 
         }
-<<<<<<< HEAD
-=======
         this.container.addClass(this.locale.direction);
->>>>>>> DevFarmers
 
         if (typeof options.startDate === 'string')
             this.startDate = moment(options.startDate, this.locale.format);
@@ -317,12 +257,9 @@
         if (typeof options.isInvalidDate === 'function')
             this.isInvalidDate = options.isInvalidDate;
 
-<<<<<<< HEAD
-=======
         if (typeof options.isCustomDate === 'function')
             this.isCustomDate = options.isCustomDate;
 
->>>>>>> DevFarmers
         if (typeof options.alwaysShowCalendars === 'boolean')
             this.alwaysShowCalendars = options.alwaysShowCalendars;
 
@@ -378,27 +315,17 @@
                     start = this.minDate.clone();
 
                 var maxDate = this.maxDate;
-<<<<<<< HEAD
-                if (this.dateLimit && start.clone().add(this.dateLimit).isAfter(maxDate))
-=======
                 if (this.dateLimit && maxDate && start.clone().add(this.dateLimit).isAfter(maxDate))
->>>>>>> DevFarmers
                     maxDate = start.clone().add(this.dateLimit);
                 if (maxDate && end.isAfter(maxDate))
                     end = maxDate.clone();
 
                 // If the end of the range is before the minimum or the start of the range is
                 // after the maximum, don't display this range option at all.
-<<<<<<< HEAD
-                if ((this.minDate && end.isBefore(this.minDate)) || (maxDate && start.isAfter(maxDate)))
-                    continue;
-                
-=======
                 if ((this.minDate && end.isBefore(this.minDate, this.timepicker ? 'minute' : 'day'))
                   || (maxDate && start.isAfter(maxDate, this.timepicker ? 'minute' : 'day')))
                     continue;
 
->>>>>>> DevFarmers
                 //Support unicode chars in the range names.
                 var elem = document.createElement('textarea');
                 elem.innerHTML = range;
@@ -441,11 +368,7 @@
             this.container.find('.calendar.left').addClass('single');
             this.container.find('.calendar.left').show();
             this.container.find('.calendar.right').hide();
-<<<<<<< HEAD
-            this.container.find('.daterangepicker_input input, .daterangepicker_input i').hide();
-=======
             this.container.find('.daterangepicker_input input, .daterangepicker_input > i').hide();
->>>>>>> DevFarmers
             if (!this.timePicker) {
                 this.container.find('.ranges').hide();
             }
@@ -459,14 +382,7 @@
 
         //swap the position of the predefined ranges if opens right
         if (typeof options.ranges !== 'undefined' && this.opens == 'right') {
-<<<<<<< HEAD
-            var ranges = this.container.find('.ranges');
-            var html = ranges.clone();
-            ranges.remove();
-            this.container.find('.calendar.left').parent().prepend(html);
-=======
             this.container.find('.ranges').prependTo( this.container.find('.calendar.left').parent() );
->>>>>>> DevFarmers
         }
 
         //apply CSS classes and labels to buttons
@@ -502,11 +418,7 @@
             .on('mouseenter.daterangepicker', 'li', $.proxy(this.hoverRange, this))
             .on('mouseleave.daterangepicker', 'li', $.proxy(this.updateFormInputs, this));
 
-<<<<<<< HEAD
-        if (this.element.is('input')) {
-=======
         if (this.element.is('input') || this.element.is('button')) {
->>>>>>> DevFarmers
             this.element.on({
                 'click.daterangepicker': $.proxy(this.show, this),
                 'focus.daterangepicker': $.proxy(this.show, this),
@@ -548,13 +460,6 @@
             if (this.timePicker && this.timePickerIncrement)
                 this.startDate.minute(Math.round(this.startDate.minute() / this.timePickerIncrement) * this.timePickerIncrement);
 
-<<<<<<< HEAD
-            if (this.minDate && this.startDate.isBefore(this.minDate))
-                this.startDate = this.minDate;
-
-            if (this.maxDate && this.startDate.isAfter(this.maxDate))
-                this.startDate = this.maxDate;
-=======
             if (this.minDate && this.startDate.isBefore(this.minDate)) {
                 this.startDate = this.minDate;
                 if (this.timePicker && this.timePickerIncrement)
@@ -566,7 +471,6 @@
                 if (this.timePicker && this.timePickerIncrement)
                     this.startDate.minute(Math.floor(this.startDate.minute() / this.timePickerIncrement) * this.timePickerIncrement);
             }
->>>>>>> DevFarmers
 
             if (!this.isShowing)
                 this.updateElement();
@@ -608,13 +512,10 @@
             return false;
         },
 
-<<<<<<< HEAD
-=======
         isCustomDate: function() {
             return false;
         },
 
->>>>>>> DevFarmers
         updateView: function() {
             if (this.timePicker) {
                 this.renderTimePicker('left');
@@ -655,24 +556,17 @@
                 } else {
                     this.rightCalendar.month = this.startDate.clone().date(2).add(1, 'month');
                 }
-<<<<<<< HEAD
-                
-=======
 
->>>>>>> DevFarmers
             } else {
                 if (this.leftCalendar.month.format('YYYY-MM') != this.startDate.format('YYYY-MM') && this.rightCalendar.month.format('YYYY-MM') != this.startDate.format('YYYY-MM')) {
                     this.leftCalendar.month = this.startDate.clone().date(2);
                     this.rightCalendar.month = this.startDate.clone().date(2).add(1, 'month');
                 }
             }
-<<<<<<< HEAD
-=======
             if (this.maxDate && this.linkedCalendars && this.rightCalendar.month > this.maxDate) {
               this.rightCalendar.month = this.maxDate.clone().date(2);
               this.leftCalendar.month = this.maxDate.clone().date(2).subtract(1, 'month');
             }
->>>>>>> DevFarmers
         },
 
         updateCalendars: function() {
@@ -724,15 +618,7 @@
 
             var calendar = side == 'left' ? this.leftCalendar : this.rightCalendar;
             var month = calendar.month.month();
-<<<<<<< HEAD
-           /* if(calendar.month.year() < 2559){
-                var year = calendar.month.year()+543;
-            }else{
-                var year = calendar.month.year();
-            }*/
-=======
             //var year = calendar.month.year();
->>>>>>> DevFarmers
             var year = calendar.month.year();
             var hour = calendar.month.hour();
             var minute = calendar.month.minute();
@@ -797,10 +683,7 @@
             var minDate = side == 'left' ? this.minDate : this.startDate;
             var maxDate = this.maxDate;
             var selected = side == 'left' ? this.startDate : this.endDate;
-<<<<<<< HEAD
-=======
             var arrow = this.locale.direction == 'ltr' ? {left: 'chevron-left', right: 'chevron-right'} : {left: 'chevron-right', right: 'chevron-left'};
->>>>>>> DevFarmers
 
             var html = '<table class="table-condensed">';
             html += '<thead>';
@@ -811,11 +694,7 @@
                 html += '<th></th>';
 
             if ((!minDate || minDate.isBefore(calendar.firstDay)) && (!this.linkedCalendars || side == 'left')) {
-<<<<<<< HEAD
-                html += '<th class="prev available"><i class="fa fa-chevron-left glyphicon glyphicon-chevron-left"></i></th>';
-=======
                 html += '<th class="prev available"><i class="fa fa-' + arrow.left + ' glyphicon glyphicon-' + arrow.left + '"></i></th>';
->>>>>>> DevFarmers
             } else {
                 html += '<th></th>';
             }
@@ -826,11 +705,7 @@
                 var currentMonth = calendar[1][1].month();
                 var currentYear = calendar[1][1].year();
                 var maxYear = (maxDate && maxDate.year()) || (currentYear + 5);
-<<<<<<< HEAD
-                var minYear = (minDate && minDate.year()) || (currentYear - 50);
-=======
                 var minYear = (minDate && minDate.year()) || (currentYear - 5);
->>>>>>> DevFarmers
                 var inMinYear = currentYear == minYear;
                 var inMaxYear = currentYear == maxYear;
 
@@ -861,11 +736,7 @@
 
             html += '<th colspan="5" class="month">' + dateHtml + '</th>';
             if ((!maxDate || maxDate.isAfter(calendar.lastDay)) && (!this.linkedCalendars || side == 'right' || this.singleDatePicker)) {
-<<<<<<< HEAD
-                html += '<th class="next available"><i class="fa fa-chevron-right glyphicon glyphicon-chevron-right"></i></th>';
-=======
                 html += '<th class="next available"><i class="fa fa-' + arrow.right + ' glyphicon glyphicon-' + arrow.right + '"></i></th>';
->>>>>>> DevFarmers
             } else {
                 html += '<th></th>';
             }
@@ -943,8 +814,6 @@
                     if (this.endDate != null && calendar[row][col] > this.startDate && calendar[row][col] < this.endDate)
                         classes.push('in-range');
 
-<<<<<<< HEAD
-=======
                     //apply custom classes for this date
                     var isCustom = this.isCustomDate(calendar[row][col]);
                     if (isCustom !== false) {
@@ -954,7 +823,6 @@
                             Array.prototype.push.apply(classes, isCustom);
                     }
 
->>>>>>> DevFarmers
                     var cname = '', disabled = false;
                     for (var i = 0; i < classes.length; i++) {
                         cname += classes[i] + ' ';
@@ -1010,11 +878,7 @@
                     if (selected.isBefore(this.startDate))
                         selected = this.startDate.clone();
 
-<<<<<<< HEAD
-                    if (selected.isAfter(maxDate))
-=======
                     if (maxDate && selected.isAfter(maxDate))
->>>>>>> DevFarmers
                         selected = maxDate.clone();
 
                 }
@@ -1313,11 +1177,7 @@
                 this.container.find('input[name=daterangepicker_start]').val(dates[0].format(this.locale.format));
                 this.container.find('input[name=daterangepicker_end]').val(dates[1].format(this.locale.format));
             }
-<<<<<<< HEAD
-            
-=======
 
->>>>>>> DevFarmers
         },
 
         clickRange: function(e) {
@@ -1403,11 +1263,7 @@
                     var cal = $(el).parents('.calendar');
                     var dt = cal.hasClass('left') ? leftCalendar.calendar[row][col] : rightCalendar.calendar[row][col];
 
-<<<<<<< HEAD
-                    if (dt.isAfter(startDate) && dt.isBefore(date)) {
-=======
                     if ((dt.isAfter(startDate) && dt.isBefore(date)) || dt.isSame(date, 'day')) {
->>>>>>> DevFarmers
                         $(el).addClass('in-range');
                     } else {
                         $(el).removeClass('in-range');
@@ -1453,11 +1309,7 @@
                 this.endDate = null;
                 this.setStartDate(date.clone());
             } else if (!this.endDate && date.isBefore(this.startDate)) {
-<<<<<<< HEAD
-                //special case: clicking the same date for start/end, 
-=======
                 //special case: clicking the same date for start/end,
->>>>>>> DevFarmers
                 //but the time of the end date is before the start date
                 this.setEndDate(this.startDate.clone());
             } else {
@@ -1669,11 +1521,8 @@
             if (!start.isValid() || !end.isValid()) return;
 
             this.setStartDate(start);
-<<<<<<< HEAD
-=======
             console.log(start);
             console.log(end);
->>>>>>> DevFarmers
             this.setEndDate(end);
             this.updateView();
         },
@@ -1712,13 +1561,6 @@
         });
         return this;
     };
-<<<<<<< HEAD
-    
-    return DateRangePicker;
-
-}));
-=======
 
     return DateRangePicker;
 }));
->>>>>>> DevFarmers
