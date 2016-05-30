@@ -550,6 +550,10 @@ func (c Api) SaveProblem(idcrop string,problem string,detail string) revel.Resul
     return  c.RenderJson(R)
   }
 }
+func (c Api) SaveProblemAnswer(idproblem string,answer string) revel.Result {
+  Adatas := models.UpdateProblemAnswer(idproblem,answer);
+  return  c.RenderJson(Adatas)
+}
 func (c Api) EditProblem(idproblem string,detail string) revel.Result {
   var R *ResProblems
   Adatas := models.UpdateProblem(idproblem,detail);

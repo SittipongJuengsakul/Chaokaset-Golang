@@ -14,7 +14,8 @@
           <div class="row">
           <div class="col-sm-12 container-box">
             <div class="col-sm-12 container-box-content" >
-              <form ng-submit="ProblemSubmit()">
+              <form ng-submit="SaveProblemSubmit()">
+                <input type="hidden" ng-model="AnswerIdProblem" name="answer">
                 <div class="info-plant-show">
                   <div class="form-grop col-md-12" style="padding: 0px;">
                     {{with $field := field "Problem.Details" .}}
@@ -55,14 +56,14 @@
       <tbody class="box-tbody-show">
         <tr ng-if="problemdatas" ng-repeat="problemdata in problemdatas | filter:searchText">
           <td ng-bind="problemdata.Updated_at | bdate"></td>
-          <td ng-bind="problemdata.Problem">ดิน</td>
-          <td ng-bind="problemdata.Detail">ดินแข็งไม่สามารถเพาะปลูกได้</td>
+          <td ng-bind="problemdata.Problem"></td>
+          <td ng-bind="problemdata.Detail"></td>
           <td class="color-green">
             <div class="dropdown">
               <a href="#" class="dropdown-toggle option-crops"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ดูเพิ่มเติม <span class="caret"></span></a>
               </button>
               <ul class="dropdown-menu dd-menu" aria-labelledby="dropdownMenu1">
-                <li><a ng-click="ProblemSubmit()">ตอบคำถาม</a></li>
+                <li><a ng-click="ProblemSubmit(problemdata.ProblemId)">ตอบคำถาม</a></li>
               </ul>
             </div>
           </td>
@@ -102,8 +103,25 @@
     .then(function(response) {
       $scope.problemdatas = response.data.ProblemDatas;
     });
-    $scope.ProblemSubmit = function() {//บันทึกบัญชี
+    $scope.ProblemSubmit = function(idproblem) {//บันทึกบัญชี
+      $scope.AnswerIdProblem = idproblem;
+      $scope.AnswerDetail = "";
       $('#myModal').modal('show');
+    }
+    $scope.SaveProblemSubmit = function() {//บันทึกบัญชี
+      $http({
+        method: 'POST',
+        url: site_url+"/apiv1_0/saveofficerproblem/"+$scope.AnswerIdProblem+"/"+$scope.AnswerDetail
+      }).then(function(response) {
+        //สำเร็จ
+        $http.get(site_url+"/apiv1_0/officerallproblems")
+        .then(function(response) {
+          $scope.problemdatas = response.data.ProblemDatas;
+        });
+      },function(response) {
+        //ผิดพลาด
+    });
+      $('#myModal').modal('hide');
     }
   });
   app.filter('bdate', function($filter)

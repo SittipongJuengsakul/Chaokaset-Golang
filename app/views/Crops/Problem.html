@@ -8,6 +8,49 @@
 </script>
 <!-- Modal -->
 <div ng-app="ChaokasetApp" ng-controller="ShowProblem">
+  <div class="modal fade" id="ShowProblemData" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h2 class="color-green">ดูคำตอบของปัญหาการเพาะปลูก</h2>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+          <div class="col-sm-12 container-box">
+            <div class="col-sm-12 container-box-content" >
+              <form ng-submit="">
+                <div class="info-plant-show">
+                  <div class="form-grop col-md-12" style="padding: 0px;">
+                    <div class="form-group col-md-12 padding-left-no padding-right-no">
+                      <label>ประเภทปัญหา</label>
+                      <p id="showproblemtype"></p>
+                  </div>
+                  <div class="form-grop col-md-12" style="padding: 0px;">
+                    <div class="form-group col-md-12 padding-left-no padding-right-no">
+                      <label>คำถาม</label>
+                      <p id="showproblemQ"></p>
+                    </div>
+                  </div>
+                  <div class="form-grop col-md-12" style="padding: 0px;">
+                    <div class="form-group col-md-12 padding-left-no padding-right-no">
+                      <label>คำตอบ</label>
+                      <p id="showproblemA"></p>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -118,8 +161,8 @@
         <tbody class="box-tbody-show">
           <tr ng-if="problemdatas" ng-repeat="problemdata in problemdatas | filter:searchText">
             <td ng-bind="problemdata.Updated_at | bdate"></td>
-            <td ng-bind="problemdata.Problem">ดิน</td>
-            <td ng-bind="problemdata.Detail">ดินแข็งไม่สามารถเพาะปลูกได้</td>
+            <td ng-bind="problemdata.Problem"></td>
+            <td ng-bind="problemdata.Detail"></td>
             <td class="color-red" ng-if="problemdata.StatusTopic==0">รอคำตอบ</td>
             <td class="color-green" ng-if="problemdata.StatusTopic==1">ได้รับคำตอบแล้ว</td>
             <td class="color-green">
@@ -127,6 +170,7 @@
                 <a href="#" class="dropdown-toggle option-crops"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ดูเพิ่มเติม <span class="caret"></span></a>
                 </button>
                 <ul class="dropdown-menu dd-menu" aria-labelledby="dropdownMenu1">
+                  <li><a ng-click="ShowProblemModal(problemdata.ProblemId)">ดูข้อมูล</a></li>
                   <li><a ng-click="EditProblemModal(problemdata.ProblemId)">แก้ไขรายการ</a></li>
                   <li role="separator" class="divider"></li>
                   <li><a ng-click="RemoveProblem(problemdata.ProblemId)" class="color-red">ลบรายการ</a></li>
@@ -189,7 +233,24 @@
       });
       $('#myModal').modal('hide');
       }
-
+      $scope.ShowProblemModal = function(idproblem) { //โชแก้ไข
+        $http.get(site_url+"/apiv1_0/getoneproblem/"+idcrop+"/"+idproblem)
+        .then(function(response) {
+          if(response.data.ProblemData.StatusTopic == 0){
+            $('#showproblemtype').text("ยังไม่ได้รับคำตอบ");
+          }else{
+            $('#showproblemtype').text("ได้รับคำตอบแล้ว");
+          }
+          $('#showproblemQ').text(response.data.ProblemData.Detail);
+          if(response.data.ProblemData.Answer==""){
+            $('#showproblemA').text("ยังไม่ได้รับคำตอบ");
+          }else{
+            $('#showproblemA').text(response.data.ProblemData.Answer);
+          }
+          console.log(response.data.ProblemData.Detail);
+          $('#ShowProblemData').modal('show');
+        });
+      }
       $scope.EditProblemModal = function(idproblem) { //โชแก้ไข
         $http.get(site_url+"/apiv1_0/getoneproblem/"+idcrop+"/"+idproblem)
         .then(function(response) {

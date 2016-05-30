@@ -119,7 +119,7 @@ GET     /apiv1_0/officerallproblems                                             
 GET     /apiv1_0/getoneproblem/:idcrop/:idproblem                                                            Api.OneProblem
 POST    /apiv1_0/saveproblem/:idcrop/:problem/:detail                                                               Api.SaveProblem
 POST     /apiv1_0/editproblem/:idproblem/:detail                                                                Api.EditProblem
-POST     /apiv1_0/removeproblem/:idproblem                                                          Api.RemoveProblem
+POST     /apiv1_0/saveofficerproblem/:idproblem/:answer                                                               Api.SaveProblemAnswer
 # WebSocket chat
 GET     /chat/roomearth                                                                             App.RoomEarth
 GET     /chat/roomwater                                                                             App.RoomWater
