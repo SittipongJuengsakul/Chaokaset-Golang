@@ -237,14 +237,18 @@
         $http.get(site_url+"/apiv1_0/getoneproblem/"+idcrop+"/"+idproblem)
         .then(function(response) {
           if(response.data.ProblemData.StatusTopic == 0){
+            $('#showproblemA').addClass('color-red')
             $('#showproblemtype').text("ยังไม่ได้รับคำตอบ");
           }else{
+            $('#showproblemA').removeClass('color-red')
             $('#showproblemtype').text("ได้รับคำตอบแล้ว");
           }
           $('#showproblemQ').text(response.data.ProblemData.Detail);
           if(response.data.ProblemData.Answer==""){
+            $('#showproblemA').addClass('color-red')
             $('#showproblemA').text("ยังไม่ได้รับคำตอบ");
           }else{
+            $('#showproblemA').removeClass('color-red')
             $('#showproblemA').text(response.data.ProblemData.Answer);
           }
           console.log(response.data.ProblemData.Detail);
