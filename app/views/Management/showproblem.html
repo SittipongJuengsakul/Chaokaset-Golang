@@ -3,24 +3,52 @@
 
 {{template "Templates/preloader.html" .}}
 <div ng-app="ChaokasetApp" ng-controller="searchShowPlan">
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h2 class="color-green">เพิ่มปัญหาการเพาะปลูก</h2>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+          <div class="col-sm-12 container-box">
+            <div class="col-sm-12 container-box-content" >
+              <form ng-submit="ProblemSubmit()">
+                <div class="info-plant-show">
+                  <div class="form-grop col-md-12" style="padding: 0px;">
+                    {{with $field := field "Problem.Details" .}}
+                    <div class="form-group col-md-12 padding-left-no padding-right-no">
+                      <label>คำตอบ</label>
+                      <textarea type="text" class="form-control" placeholder="กรอกคำตอบ" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="AnswerDetail"></textarea>
+                      <span class="error">{{$field.Error}}</span>
+                    </div>
+                    {{end}}
+                  </div>
+                </div>
+            </div>
+          </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">บันทึก</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 <div class="chaokaset-container-verticle" id="chaokaset-loader" style="display: none;">
   <div class="col-sm-12 varticle-header-box">
-    <h1>แสดงแผนการเพาะปลูก</h1>
+    <h1>ตอบปัญหาของเกษตรกร</h1>
   </div>
   <div class="col-sm-12 container-box"   style="margin-top: 20px;">
-    <div class="col-sm-2" style="padding: 0px;">
-      <button type="button" name="button" class="btn btn-success" style="width: 90%;" onclick="javascript:location.href='/plan/addcropplan'">เพิ่มข้อมูล</button>
-    </div>
-    <div class="col-sm-10" style="padding: 0px;">
-      <input type="text" name="SearchCrops" class="form-control" placeholder="ค้นหาแผนการเพาะปลูก" ng-model="searchPlanText" ng-change="setPlanFilter()">
-    </div>
     <table class="table">
       <thead class="box-thead-show">
         <tr>
-          <th width="15%">วันที่</th>
+          <th width="25%">วันที่</th>
           <th>ประเภท</th>
           <th width="35%">รายละเอียด</th>
-          <th>สถานะการตอบ</th>
           <th>ตัวเลือก</th>
         </tr>
       </thead>
@@ -29,16 +57,12 @@
           <td ng-bind="problemdata.Updated_at | bdate"></td>
           <td ng-bind="problemdata.Problem">ดิน</td>
           <td ng-bind="problemdata.Detail">ดินแข็งไม่สามารถเพาะปลูกได้</td>
-          <td class="color-red" ng-if="problemdata.StatusTopic==0">รอคำตอบ</td>
-          <td class="color-green" ng-if="problemdata.StatusTopic==1">ได้รับคำตอบแล้ว</td>
           <td class="color-green">
             <div class="dropdown">
               <a href="#" class="dropdown-toggle option-crops"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ดูเพิ่มเติม <span class="caret"></span></a>
               </button>
               <ul class="dropdown-menu dd-menu" aria-labelledby="dropdownMenu1">
-                <li><a ng-click="EditProblemModal(problemdata.ProblemId)">แก้ไขรายการ</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a ng-click="RemoveProblem(problemdata.ProblemId)" class="color-red">ลบรายการ</a></li>
+                <li><a ng-click="ProblemSubmit()">ตอบคำถาม</a></li>
               </ul>
             </div>
           </td>
@@ -74,40 +98,32 @@
 <script type="text/javascript">
   var app = angular.module('ChaokasetApp', ['ngSanitize']);
   app.controller('searchShowPlan', function($scope, $http) {
-      $http.get(site_url+"/apiv1_0/plans/0")
-      .then(function(response) {
-        $scope.plans = response.data;
-      });
-      $scope.RemovePlan = function(removeid,at) {
-        $scope.plans.splice(at, 1);
-        $http({
-          method: 'POST',
-          url: site_url+"/apiv1_0/plan/removeplan/"+removeid
-        }).then(function(response) {
-          $http.get(site_url+"/apiv1_0/plans/0")
-          .then(function(response) {
-            $scope.plans = response.data;
-          });
-        },function(response) {
-      });
-      }
-      $scope.EditActivity = function(idplan) {
-        location.href='/plan/addplanactivity/'+idplan
-      }
-  })
-  .filter('searchfilter', function() {
-        return function (input, query) {
-            if(query == ""){
-            return input;
-          }else{
-            return input.replace(RegExp('('+ query + ')', 'g'), '<span class="semetic-value">$1</span>');
-          }
-
-        }
+    $http.get(site_url+"/apiv1_0/officerallproblems")
+    .then(function(response) {
+      $scope.problemdatas = response.data.ProblemDatas;
+    });
+    $scope.ProblemSubmit = function() {//บันทึกบัญชี
+      $('#myModal').modal('show');
+    }
   });
+  app.filter('bdate', function($filter)
+    {
+     return function(input)
+       {
+          if(input == null){ return ""; }
+          var startday = moment(input, moment.ISO_8601);
+          var b = startday.format('D M YYYY');
+          var res = b.split(" ");
+          var c = parseInt(res[2])+543;
+          return res[0]+" "+thmonth[res[1]-1]+" "+c;
+       };
+    });
+    var thmonth = new Array ("มกราคม","กุมภาพันธ์","มีนาคม",
+    "เมษายน","พฤษภาคม","มิถุนายน", "กรกฎาคม","สิงหาคม","กันยายน",
+    "ตุลาคม","พฤศจิกายน","ธันวาคม");
   //Modal Script
   $('#myModal').on('shown.bs.modal', function () {
-    $('#myInput').focus()
+    $('#myModal').focus()
   })
 </script>
 {{template "Templates/footer.html" .}}

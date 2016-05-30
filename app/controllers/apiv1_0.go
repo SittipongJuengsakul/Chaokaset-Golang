@@ -197,41 +197,41 @@ func (c Api) SearchProduct(Name string, Lat float64, Long float64) revel.Result{
 }
 
 func (c Api) AddProduct(name string,category string, price int, unit string, detail string, expire string, ownerId string, lat float64, long float64,sellType int) revel.Result {
-  //2016-5-25 
+  //2016-5-25
   s := strings.Split(expire,"-")
   var MonthName string
   switch s[1] {
-      case "1": 
+      case "1":
         MonthName = "มกราคม"
-      case "2": 
+      case "2":
         MonthName = "กุมภาพันธ์"
-      case "3": 
+      case "3":
         MonthName = "มีนาคม"
-      case "4": 
+      case "4":
         MonthName = "เมษายน"
-      case "5": 
+      case "5":
         MonthName = "พฤษภาคม"
-      case "6": 
+      case "6":
         MonthName = "มิถุนายน"
-      case "7": 
+      case "7":
         MonthName = "กรกฎาคม"
-      case "8": 
+      case "8":
         MonthName = "สิงหาคม"
-      case "9": 
+      case "9":
         MonthName = "กันยายน"
-      case "10": 
+      case "10":
         MonthName = "ตุลาคม"
-      case "11": 
+      case "11":
         MonthName = "พฤษจิกายน"
-      case "12": 
-        MonthName = "ธันวาคม"       
+      case "12":
+        MonthName = "ธันวาคม"
     }
     year,_ := strconv.ParseInt(s[0], 10, 64)
     //year = year+543
     yearThai:= strconv.FormatInt(year+543, 10)
 
     expire = s[2] + " " + MonthName + " " + yearThai
-  
+
   err := models.AddSellData2(name,category,price,unit,detail,expire,ownerId,lat,long,sellType)
   /*if err {
       return  c.RenderJson(err)
@@ -516,6 +516,17 @@ func (c Api) AllProblem(idcrop string,skip int) revel.Result {
     return c.RenderJson(R)
   }
 }
+func (c Api) OfficerAllProblem() revel.Result {
+  var R *ResProblems
+  Result,err := models.OfficerGetAllProblems()
+  if err == true{
+    R = &ResProblems{Status: err,ProblemDatas: Result}
+    return  c.RenderJson(R)
+  }else{
+    R = &ResProblems{Status: err,ProblemDatas: Result}
+    return c.RenderJson(R)
+  }
+}
 //OneProblem (GET)
 func (c Api) OneProblem(idcrop string,idproblem string) revel.Result {
   var R *ResProblem
@@ -606,7 +617,7 @@ func (c Api) PostApi(IdSell string) revel.Result {
       fmt.Printf("%+v\n", file_name_db)
       models.UpdatePic(IdSell,file_name_db)
     }
-  } 
+  }
   return  c.RenderJson(result)
 }
 
@@ -632,7 +643,7 @@ func (c Api) ShowComment(idSell string) revel.Result{
   var R *ResCommentAll
   var U []models.Sells
   U = models.GetComment(idSell)
-  
+
   if U == nil{
     R = &ResCommentAll{Status: false,CommentData: nil}
     return  c.RenderJson(R)
@@ -640,7 +651,7 @@ func (c Api) ShowComment(idSell string) revel.Result{
     R = &ResCommentAll{Status: true,CommentData: U}
   return  c.RenderJson(R)
   }
-  
+
 }
 
 func (c Api) AddComment(idSell string, idUser string,data string) revel.Result {

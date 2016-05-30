@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)http://localhost:9000/management/showproblem -->
+<html lang="th"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>
+    <title>แสดงหน้าตอบปัญหาการเพาะปลูก</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="./แสดงหน้าตอบปัญหาการเพาะปลูก_files/css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="./แสดงหน้าตอบปัญหาการเพาะปลูก_files/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./แสดงหน้าตอบปัญหาการเพาะปลูก_files/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="./แสดงหน้าตอบปัญหาการเพาะปลูก_files/fullpage.css">
+    <link rel="stylesheet" type="text/css" href="./แสดงหน้าตอบปัญหาการเพาะปลูก_files/examples.css">
+    <link rel="shortcut icon" type="image/png" href="http://localhost:9000/public/img/favicon.png">
+    <link rel="stylesheet" type="text/css" href="./แสดงหน้าตอบปัญหาการเพาะปลูก_files/chaokaset.css">
+    <script src="./แสดงหน้าตอบปัญหาการเพาะปลูก_files/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="./แสดงหน้าตอบปัญหาการเพาะปลูก_files/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="./แสดงหน้าตอบปัญหาการเพาะปลูก_files/angular.min.js"></script>
+    <script src="./แสดงหน้าตอบปัญหาการเพาะปลูก_files/angular-locale_th-th.min.js"></script>
+    <script src="./แสดงหน้าตอบปัญหาการเพาะปลูก_files/underscore-min.js"></script>
+    <script src="./แสดงหน้าตอบปัญหาการเพาะปลูก_files/moment.js"></script>
+    <script src="./แสดงหน้าตอบปัญหาการเพาะปลูก_files/angular-sanitize.js"></script>
+    
+    
+  <script type="text/javascript">
+      var site_url = "http://"+window.location.host;
+  </script></head>
+  
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top chaokaset-nav">
+      <div class="container-fluid">
+        
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand nav-brand-chaokaset" href="http://localhost:9000/"><img alt="Brand" src="./แสดงหน้าตอบปัญหาการเพาะปลูก_files/chaokaset-logo.png"></a>
+        </div>
+
+        
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav nav-content">
+            <li><button class="chaokaset-btn-border btn-style-one" onclick="javascript:location.href=&#39;/sell/showproduct&#39;">ซื้อ-ขาย สินค้าทางการเกษตร</button></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right nav-content-right">
+            
+              
+            <li><button class="chaokaset-btn-border btn-style-two" onclick="javascript:location.href=&#39;/management&#39;">จัดการข้อมูลการเกษตร</button></li>
+            <li><a href="http://localhost:9000/social">สังคมชาวเกษตร</a></li>
+            
+            <li class="dropdown">
+              <a href="http://localhost:9000/management/showproblem#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog" aria-hidden="true" style="font-size: 20px;"></span></a>
+              <ul class="dropdown-menu">
+                
+                <li><a href="http://localhost:9000/setting/user">ตั้งค่า</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="http://localhost:9000/Auth/Logout">ออกจากระบบ</a></li>
+              </ul>
+            </li>
+              
+            
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+
+<div class="col-sm-12 col-xs-12" id="chaokaset-preloader" style="position: absolute; height: 100%; z-index: 1000; display: none; background-color: white;">
+  <img src="./แสดงหน้าตอบปัญหาการเพาะปลูก_files/chaokaset-logo.png" style="width: 200px;margin-top: 20%;background-color: white;" class="col-sm-offset-5 col-xs-offset-2">
+  <div class="progress" style="width: 30%;margin: 0px 35%;">
+    <div id="loading-progress" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+    <span>กำลังโหลดข้อมูล</span>
+    </div>
+  </div>
+</div>
+<script>
+$("#chaokaset-loader").css('display','none');
+$("#chaokaset-preloader").show();
+$( "#loading-progress" ).css('width','30%');
+$(window).load(function() {
+  $( "#loading-progress" ).css('width','100%');
+  setTimeout(function(){
+     $('#chaokaset-preloader').css('display','none');
+     $("#chaokaset-loader").fadeIn(200);
+  }, 500);
+});
+</script>
+
+<div ng-app="ChaokasetApp" ng-controller="searchShowPlan" class="ng-scope">
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+          <h2 class="color-green">เพิ่มปัญหาการเพาะปลูก</h2>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+          <div class="col-sm-12 container-box">
+            <div class="col-sm-12 container-box-content">
+              <form ng-submit="ProblemSubmit()" class="ng-pristine ng-valid">
+                <div class="info-plant-show">
+                  <div class="form-grop col-md-12" style="padding: 0px;">
+                    
+                    <div class="form-group col-md-12 padding-left-no padding-right-no">
+                      <label>คำตอบ</label>
+                      <textarea type="text" class="form-control ng-pristine ng-untouched ng-valid" placeholder="กรอกคำตอบ" name="Problem.Details" value="" ng-model="AnswerDetail"></textarea>
+                      <span class="error"></span>
+                    </div>
+                    
+                  </div>
+                </div>
+            </form></div>
+          </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">บันทึก</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+<div class="chaokaset-container-verticle" id="chaokaset-loader">
+  <div class="col-sm-12 varticle-header-box">
+    <h1>ตอบปัญหาของเกษตรกร</h1>
+  </div>
+  <div class="col-sm-12 container-box" style="margin-top: 20px;">
+    <table class="table">
+      <thead class="box-thead-show">
+        <tr>
+          <th width="25%">วันที่</th>
+          <th>ประเภท</th>
+          <th width="35%">รายละเอียด</th>
+          <th>ตัวเลือก</th>
+        </tr>
+      </thead>
+      <tbody class="box-tbody-show">
+        <!-- ngRepeat: problemdata in problemdatas | filter:searchText --><!-- ngIf: problemdatas --><tr ng-if="problemdatas" ng-repeat="problemdata in problemdatas | filter:searchText" class="ng-scope">
+          <td ng-bind="problemdata.Updated_at | bdate" class="ng-binding">30 พฤษภาคม 2559</td>
+          <td ng-bind="problemdata.Problem" class="ng-binding">ดิน</td>
+          <td ng-bind="problemdata.Detail" class="ng-binding">ดินแข็ง</td>
+          <td class="color-green">
+            <div class="dropdown">
+              <a href="http://localhost:9000/management/showproblem#" class="dropdown-toggle option-crops" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ดูเพิ่มเติม <span class="caret"></span></a>
+              
+              <ul class="dropdown-menu dd-menu" aria-labelledby="dropdownMenu1">
+                <li><a ng-click="ProblemSubmit()">ตอบคำถาม</a></li>
+              </ul>
+            </div>
+          </td>
+        </tr><!-- end ngIf: problemdatas --><!-- end ngRepeat: problemdata in problemdatas | filter:searchText -->
+        <!-- ngIf: !problemdatas -->
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="modal fade container-box" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog container-box-content" role="document">
+    <div class="modal-content">
+      <div class="modal-header name-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <h4 class="color-green" id="NameDetailLabel">แผนการเพาะปลูก</h4>
+      </div>
+      <div class="modal-body info-plant-show">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<script type="text/javascript">
+  var app = angular.module('ChaokasetApp', ['ngSanitize']);
+  app.controller('searchShowPlan', function($scope, $http) {
+    $http.get(site_url+"/apiv1_0/officerallproblems")
+    .then(function(response) {
+      $scope.problemdatas = response.data.ProblemDatas;
+    });
+    $scope.ProblemSubmit = function() {
+      $('#myModal').modal('show');
+    }
+  });
+  app.filter('bdate', function($filter)
+    {
+     return function(input)
+       {
+          if(input == null){ return ""; }
+          var startday = moment(input, moment.ISO_8601);
+          var b = startday.format('D M YYYY');
+          var res = b.split(" ");
+          var c = parseInt(res[2])+543;
+          return res[0]+" "+thmonth[res[1]-1]+" "+c;
+       };
+    });
+    var thmonth = new Array ("มกราคม","กุมภาพันธ์","มีนาคม",
+    "เมษายน","พฤษภาคม","มิถุนายน", "กรกฎาคม","สิงหาคม","กันยายน",
+    "ตุลาคม","พฤศจิกายน","ธันวาคม");
+  
+  $('#myModal').on('shown.bs.modal', function () {
+    $('#myModal').focus()
+  })
+</script>
+
+  
+    <style type="text/css">
+	#sidebar {
+		position: absolute;
+		right: 0px;
+		top:69px;
+		max-width: 75%;
+		z-index: 1000;
+		background-color: #fee;
+		border: thin solid grey;
+		padding: 10px;
+	}
+	#toggleSidebar {
+		position: absolute;
+		right: 0px;
+		top: 50px;
+		background-color: #fee;
+	}
+
+</style>
+<div id="sidebar" style="display:none;">
+	<h4>Available pipelines</h4>
+	<dl>
+	
+		<dt>DevMode</dt>
+		<dd>true</dd>
+	
+		<dt>RunMode</dt>
+		<dd>dev</dd>
+	
+		<dt>currentLocale</dt>
+		<dd>th-TH</dd>
+	
+		<dt>errors</dt>
+		<dd>map[]</dd>
+	
+		<dt>flash</dt>
+		<dd>map[]</dd>
+	
+		<dt>officer</dt>
+		<dd>เจ้าหน้าที่</dd>
+	
+		<dt>session</dt>
+		<dd>map[_TS:1467182204 username:officer]</dd>
+	
+		<dt>title</dt>
+		<dd>แสดงหน้าตอบปัญหาการเพาะปลูก</dd>
+	
+		<dt>user</dt>
+		<dd>{ObjectIdHex("571899e3e3890226904ecb92") officer   2 ชื่อเจ้าหน้าที่ นามสกุลเจ้าหน้าที่ นาง 0800000000 http://simpleicon.com/wp-content/uploads/multy-user.svg officer@nectec.com [] 0001-01-01 00:00:00 +0000 UTC ระยอง บ้านฉาง สำนักท้อน 112/47 21130}</dd>
+	
+	</dl>
+	<h4>Flash</h4>
+	<dl>
+	
+	</dl>
+
+	<h4>Errors</h4>
+	<dl>
+	
+	</dl>
+</div>
+<a id="toggleSidebar" href="http://localhost:9000/management/showproblem#" class="toggles"><i class="icon-chevron-left"></i></a>
+
+<script>
+	$sidebar = 0;
+	$('#toggleSidebar').click(function() {
+		if ($sidebar === 1) {
+			$('#sidebar').hide();
+			$('#toggleSidebar i').addClass('icon-chevron-left');
+			$('#toggleSidebar i').removeClass('icon-chevron-right');
+			$sidebar = 0;
+		}
+		else {
+			$('#sidebar').show();
+			$('#toggleSidebar i').addClass('icon-chevron-right');
+			$('#toggleSidebar i').removeClass('icon-chevron-left');
+			$sidebar = 1;
+		}
+
+    return false;
+	});
+</script>
+
+  
+ 
+  
+
+
+</body></html>

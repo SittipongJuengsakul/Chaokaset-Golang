@@ -285,6 +285,18 @@ func GetAllProblems(idcrop string,skip int) (results []Problem,error bool) {
 	qmgo.Find(bson.M{"status": 1,"cropid": idcrop}).Sort("-updated_at").Skip(skip).Limit(10).All(&results) //คิวรี่จาก status เป็น 1 หรือ แปลงที่ไช้งานอยู่
   return results,true
 }
+//GetAllProblems (GET)
+func OfficerGetAllProblems() (results []Problem,error bool) {
+  session, err := mgo.Dial(ip_mgo)
+  if err != nil {
+      panic(err)
+  }
+  defer session.Close()
+  session.SetMode(mgo.Monotonic, true)
+  qmgo := session.DB("chaokaset").C("problems")
+	qmgo.Find(bson.M{"statustopic": 0}).Sort("-updated_at").All(&results) //คิวรี่จาก status เป็น 1 หรือ แปลงที่ไช้งานอยู่
+  return results,true
+}
 
 //GetOneProblems (GET)
 func GetOneProblem(idcrop string,idproblem string) (results *Problem,error bool) {

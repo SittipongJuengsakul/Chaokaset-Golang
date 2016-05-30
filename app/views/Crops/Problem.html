@@ -37,7 +37,7 @@
                   {{with $field := field "Problem.Details" .}}
                   <div class="form-group col-md-12 padding-left-no padding-right-no">
                     <label>ชื่อรายการ</label>
-                    <input type="text" class="form-control" placeholder="กรอกชื่อพันธุ์พืช" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="ProblemDetail">
+                    <input type="text" class="form-control" placeholder="กรอกรายการ" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="ProblemDetail">
                     <span class="error">{{$field.Error}}</span>
                   </div>
                   {{end}}
