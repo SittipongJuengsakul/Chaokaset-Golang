@@ -84,7 +84,8 @@ func (c Sell) PostSell(sell models.PostSell) revel.Result {
 
   fmt.Printf("%+v\n", selling.SellId)
   
-  upload_dir := "/var/home/goserver/src/chaokaset-go/public/uploads/" 
+  upload_dir := "/var/home/goserver/src/Deploy/src/chaokaset-go/public/uploads/" 
+ 
   m := c.Request.MultipartForm
     //var msg string
   for fname, _ := range m.File {
@@ -159,7 +160,7 @@ func (c Sell) PostEditSell() revel.Result {
   models.EditProductSell(idSell,Name,Category,Prices,Detail,Expire,Unit,lat_values,lon_values)
   
   if status == "1" {
-      upload_dir := "/var/home/goserver/src/chaokaset-go/public/uploads/" 
+      upload_dir := "/var/home/goserver/src/Deploy/src/chaokaset-go/public/uploads/" 
       m := c.Request.MultipartForm
         //var msg string
       for fname, _ := range m.File {
@@ -277,7 +278,7 @@ func (c Sell) PostSellCrop() revel.Result {
 
   fmt.Printf("%+v\n", selling.SellId)
   
-  upload_dir := "/var/home/goserver/src/chaokaset-go/public/uploads/" 
+  upload_dir := "/var/home/goserver/src/Deploy/src/chaokaset-go/public/uploads/" 
   m := c.Request.MultipartForm
     //var msg string
   for fname, _ := range m.File {

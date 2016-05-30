@@ -572,7 +572,7 @@ func (c Api) EditProduct(idSell string, name string, category string, price int,
 }
 
 func (c Api) PostApi(IdSell string) revel.Result {
-  upload_dir := "/var/home/goserver/src/chaokaset-go/public/uploads/"
+  upload_dir := "/var/home/goserver/src/Deploy/src/chaokaset-go/public/uploads/"
   m := c.Request.MultipartForm
   result := true
   for fname, _ := range m.File {
