@@ -138,7 +138,7 @@ $('#myInput').focus()
         </thead>
         <tbody class="box-tbody-show">
           <tr ng-if="accountdatas" ng-repeat="acdata in accountdatas | filter:searchText">
-            <td ng-bind="acdata.Updated_at | date:'dd MMM yyyy': '+700'"></td>
+            <td ng-bind="acdata.Updated_at | bdate"></td>
             <td ng-bind="acdata.Detail"></td>
             <td ng-if="acdata.TypeAccount == 1">รายรับ</td>
             <td ng-if="acdata.TypeAccount == 2">รายจ่าย</td>
@@ -175,7 +175,11 @@ $('#myInput').focus()
   </div>
 </div>
 </div>
+<script src="/public/js/moment.js"></script>
 <script type="text/javascript">
+var thmonth = new Array ("มกราคม","กุมภาพันธ์","มีนาคม",
+"เมษายน","พฤษภาคม","มิถุนายน", "กรกฎาคม","สิงหาคม","กันยายน",
+"ตุลาคม","พฤศจิกายน","ธันวาคม");
   var skipper = 0;
   function PravNext(accountlength){
     if(skipper == 0){
@@ -287,5 +291,18 @@ $('#myInput').focus()
         }
       }
   });
+  app.filter('bdate', function($filter)
+    {
+     return function(input)
+       {
+         //alert(input)
+          if(input == null){ return ""; }
+          var startday = moment(input, moment.ISO_8601);
+          var b = startday.format('D M YYYY');
+          var res = b.split(" ");
+          var c = parseInt(res[2])+543;
+          return res[0]+" "+thmonth[res[1]-1]+" "+c;
+       };
+    });
 </script>
 {{template "Templates/footer.html" .}}

@@ -3,7 +3,7 @@
 {{template "Templates/preloader.html" .}}
 <!-- Include Date Range Picker -->
 <script src="/public/js/moment.js"></script>
-<script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+<script type="text/javascript" src="/public/js/daterangepicker.js"></script>
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
 <div class="chaokaset-container-verticle" id="chaokaset-loader" style="display: none;">
   <div class="col-sm-12 varticle-header-box">
@@ -76,30 +76,28 @@
             </div>
             {{end}}
             <script type="text/javascript">
+            var thmonth = new Array ("มกราคม","กุมภาพันธ์","มีนาคม",
+            "เมษายน","พฤษภาคม","มิถุนายน", "กรกฎาคม","สิงหาคม","กันยายน",
+            "ตุลาคม","พฤศจิกายน","ธันวาคม");
             function checkdate() {
               var a = $('input[name="crop.StartDate"]').val();
-              var enddateandduration = moment().add(enddurationday, 'days');
-              var enddurationday = $("#idModDuration").val();
-              //var enddurationday = document.getElementById('idModDuration').innerHTML;
-              console.log(enddurationday);
+              var startday = moment(a,'DD MMMM YYYY');
+              startday.add(120,'days');
+              var endDate = startday.format('D M YYYY');
+              //$('input[name="crop.EndDate"]').val(startday.day() +" "+ thmonth[startday.month()-1] +" "+ startday.year());
+              //var m = thmonth.indexOf(res[1]);
+              var res = endDate.split(" ");
+              $('input[name="crop.EndDateShow"]').val(res[0]+" "+thmonth[res[1]-1]+" "+res[2]);
+              $('input[name="crop.EndDate"]').val(res[0]+" "+thmonth[res[1]-1]+" "+res[2]);
             }
             $(function() {
               $('input[name="crop.StartDate"]').daterangepicker({
                    locale: {
-                        format: 'DD MMMM YYYY',
+                        format: 'D MMMM YYYY',
                     },
                    singleDatePicker: true,
                    showDropdowns: true
                });
-               $('input[name="crop.EndDate"]').daterangepicker({
-                 var enddurationday = $("#idModDuration").val(),
-                    startDate: moment().add(120, 'days'),
-                    locale: {
-                         format: 'DD MMMM YYYY',
-                     },
-                    singleDatePicker: true,
-                    showDropdowns: true
-                });
             });
             </script>
             {{with $field := field "crop.StartDate" .}}
@@ -111,7 +109,8 @@
             {{with $field := field "crop.EndDate" .}}
             <div class="form-group col-md-4 padding-right-no">
               <label>สิ้นสุดวันที่</label>
-              <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="modenddate" onchange="checkdate()">
+              <input type="text" class="form-control" name="crop.EndDateShow" value="{{$field.Flash}}">
+              <input type="hidden" class="form-control" name="{{$field.Name}}" value="{{$field.Flash}}" ng-model="modenddate" onchange="checkdate()">
             </div>
             {{end}}
           </div>
